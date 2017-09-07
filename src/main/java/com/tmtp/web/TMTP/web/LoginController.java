@@ -26,15 +26,15 @@ public class LoginController {
         this.userValidator = userValidator;
     }
 
-    @RequestMapping(value = "/authentication", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration(Model model) {
+        model.addAttribute("user", new User());
         model.addAttribute("userForm", new User());
-
         return "login";
     }
 
-    @RequestMapping(value = "/authentication", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("user") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -45,22 +45,20 @@ public class LoginController {
 
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
 
-        return "redirect:/index";
+        return "redirect:/home";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@ModelAttribute("userForm") User userForm, Model model){
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+        securityService.autologin(userForm.getUsername(), userForm.getPassword());
 
-        return "login";
+        return "redirect:/home";
     }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String home(Model model) {
-        return "index.html";
+        return "index";
     }
+
 }

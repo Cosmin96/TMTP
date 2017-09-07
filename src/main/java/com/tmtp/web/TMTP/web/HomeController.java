@@ -8,7 +8,7 @@ public class HomeController {
 
     @RequestMapping("/scores")
     public String scoresPage(){
-        return "livescores.html";
+        return "livescores";
     }
 
     @RequestMapping("/profilePage")
