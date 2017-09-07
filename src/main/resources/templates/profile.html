@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
   <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
     <title>TMTP</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
 
-    <!-- Custom fonts -->
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+      <!-- Custom fonts -->
+      <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+      <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
 
-    <!-- Custom styles -->
-    <link href="/css/freelancer.min.css" rel="stylesheet">
-    <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/cards.css" rel="stylesheet">
+      <!-- Custom styles -->
+      <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+      <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+
+      <link rel="stylesheet" href="../static/css/cards.css" th:href="@{/css/cards.css}" />
 
   </head>
 
-  <body class="index" id="page-top" background="/background.jpg" style="background-repeat: repeat-y;">
+  <body class="index" id="page-top" th:background="@{/img/background.jpg}" style="background-repeat: repeat-y;">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -61,7 +62,7 @@
             <div class="col-md-4 col-xs-12">
                 <div class="profileCard">
                     <center>
-                        <img src="/profile.png" width="60%" height="60%">
+                        <img th:src="@{/img/profile.png}" width="60%" height="60%" />
                         <h2 style="margin-top:3%">Parik Panchal</h2>
                         <h3>The Man!</h3>
                         
@@ -84,7 +85,7 @@
             </div>
             <div class="col-md-8 col-xs-12">
                 <center>
-                    <img src="/stadium.jpg" width="100%" height="auto">
+                    <img th:src="@{/img/stadium.jpg}" width="100%" height="auto" />
                 </center>
             </div>
             
@@ -145,19 +146,19 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/popper/popper.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="/js/jqBootstrapValidation.js"></script>
-    <script src="/js/contact_me.js"></script>
+    <script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+    <script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
 
     <!-- Custom scripts for this template -->
-    <script src="/js/freelancer.min.js"></script>
+    <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
 
   </body>
 

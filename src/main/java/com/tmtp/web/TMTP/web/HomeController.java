@@ -13,11 +13,11 @@ public class HomeController {
 
     @RequestMapping("/profilePage")
     public String profilePage(){
-        return "profile.html";
+        return "profile";
     }
 
     @RequestMapping("/shop")
     public String storePage(){
-        return "store.html";
+        return "store";
     }
 }

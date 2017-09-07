@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
   <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
     <title>TMTP</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
 
     <!-- Custom fonts -->
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
 
     <!-- Custom styles -->
-    <link href="/css/freelancer.min.css" rel="stylesheet">
-    <link href="/css/custom.css" rel="stylesheet">
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
 
   </head>
 
-  <body class="index" id="page-top" background="/background.jpg" style="background-repeat: repeat-y;">
+  <body class="index" id="page-top" th:background="@{/img/background.jpg}" style="background-repeat: repeat-y;">
 
-    <!-- Navigation -->
+  <!-- Navigation -->
  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <a class="navbar-brand" href="index.html">TMTP</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,7 @@
     <div class="container" style="margin-top: 3%;">
         <div class="row">
             <div class="col-lg-3 mobileNone">
-                <script src="http://www.btfscores.com/widgets/widget-side.min.js" async></script>
+                <script src="http://www.btfscores.com/widgets/widget-side.min.js" th:async="true"></script>
                 <div id="sidebar-soccer-goal" style="width:250px;"></div>
             </div>
 
@@ -88,7 +88,7 @@
                 
                 <div class="videocard">    
                     <div class="row" style="margin-left: 5%; margin-top:3%">
-                    <p align="left" style="color: black"><img src="/profile.png" width="50px" height="50px">  Parik Panchal</p>
+                    <p align="left" style="color: black"><img th:src="@{/img/profile.png}" width="50px" height="50px" />  Parik Panchal</p>
                     </div>
                     
                     <div class="row" style="margin-left: 5%;">
@@ -97,7 +97,7 @@
                     
                     <div class="row" style="margin-top:3%">
                         <div style="align-content:center;height:0;margin-bottom:73%">
-                                <iframe src="https://www.youtube.com/embed/D-UmfqFjpl0?ecver=2" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/D-UmfqFjpl0?ecver=2" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
                             </div>
                     </div>
                     
@@ -116,7 +116,7 @@
                 
                 <div class="videocard">    
                     <div class="row" style="margin-left: 5%; margin-top:4%">
-                    <p align="left" style="color: black"><img src="/profile.png" width="50px" height="50px">  Parik Panchal</p>
+                    <p align="left" style="color: black"><img th:src="@{/img/profile.png}" width="50px" height="50px" />  Parik Panchal</p>
                     </div>
                     
                     <div class="row" style="margin-left: 5%;">
@@ -125,7 +125,7 @@
                     
                     <div class="row" style="margin-top:3%">
                         <div style="align-content:center;height:0;margin-bottom:73%;">
-                            <iframe src="https://www.youtube.com/embed/0N_RO-jL-90?ecver=2" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/0N_RO-jL-90?ecver=2" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
                         </div>
                     </div>
                     
@@ -149,7 +149,7 @@
                     <iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
                 </div>
                 <div class="row">
-                    <iframe src="https://discordapp.com/widget?id=347112707809607680&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px"></iframe>
+                    <iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />
                 </div>
                 
             </div>
@@ -212,20 +212,21 @@
 
 
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/popper/popper.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
-    <!-- Contact Form JavaScript -->
-    <script src="/js/jqBootstrapValidation.js"></script>
-    <script src="/js/contact_me.js"></script>
+  <!-- Contact Form JavaScript -->
+  <script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+  <script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
 
-    <!-- Custom scripts for this template -->
-    <script src="/js/freelancer.min.js"></script>
+  <!-- Custom scripts for this template -->
+  <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+  <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
 
   </body>
 
