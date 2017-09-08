@@ -26,11 +26,6 @@ public class HomeController {
         return "livescores";
     }
 
-    @RequestMapping("/profilePage")
-    public String profilePage(){
-        return "profile";
-    }
-
     @RequestMapping("/shop")
     public String storePage(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
