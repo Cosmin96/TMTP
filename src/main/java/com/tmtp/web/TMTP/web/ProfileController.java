@@ -21,6 +21,9 @@ public class ProfileController {
         User loggedInUser = userDataFacade.retrieveUser(username);
         model.addAttribute("loggedfname", loggedInUser.getFirstName());
         model.addAttribute("user", user);
+        model.addAttribute("greenPoints", loggedInUser.getPoints().getGreen());
+        model.addAttribute("yellowPoints", loggedInUser.getPoints().getYellow());
+        model.addAttribute("redPoints", loggedInUser.getPoints().getRed());
         return "profile";
     }
 }

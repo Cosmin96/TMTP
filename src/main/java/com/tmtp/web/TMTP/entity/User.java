@@ -14,6 +14,7 @@ public class User {
     private String email;
     private String username;
     private String password;
+    private Points points;
     private Set<Role> roles;
 
     public String getId() {
@@ -64,6 +65,14 @@ public class User {
         this.password = password;
     }
 
+    public Points getPoints() {
+        return points;
+    }
+
+    public void setPoints(Points points) {
+        this.points = points;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -75,12 +84,13 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", points=" + points +
                 ", roles=" + roles +
                 '}';
     }

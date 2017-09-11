@@ -20,9 +20,13 @@ public class HomeController {
     public String scoresPage(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
+
         User user = userDataFacade.retrieveUser(username);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
         return "livescores";
     }
 
@@ -34,6 +38,9 @@ public class HomeController {
         User user = userDataFacade.retrieveUser(username);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
         return "store";
     }
 }

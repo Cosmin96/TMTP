@@ -67,6 +67,9 @@ public class LoginController {
         User user = userDataFacade.retrieveUser(username);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
         return "index";
     }
 
