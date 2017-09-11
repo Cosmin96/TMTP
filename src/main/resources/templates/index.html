@@ -82,63 +82,34 @@
             </div>
 
             <div class="col-lg-6 col-xs-12 scrollabelcolumn">
-                
-                <div class="videocard">    
+
+                <div class="videocard" th:each="post : ${posts}">
                     <div class="row" style="margin-left: 5%; margin-top:3%">
-                    <p align="left" style="color: black"><img th:src="@{/img/profile.png}" width="50px" height="50px" />  Parik Panchal</p>
+                        <p align="left" style="color: black"><img th:src="@{/img/profile.png}" width="50px" height="50px" />  <span th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></p>
                     </div>
-                    
+
                     <div class="row" style="margin-left: 5%;">
-                        <p align="left" style="color: black">Wow look at this video!</p>
+                        <p align="left" style="color: black" th:text="${post.getDescription()}"></p>
                     </div>
-                    
+
                     <div class="row" style="margin-top:3%">
                         <div style="align-content:center;height:0;margin-bottom:73%">
-                                <iframe src="https://www.youtube.com/embed/D-UmfqFjpl0?ecver=2" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
-                            </div>
+                            <iframe th:src="${post.getLink()}" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
+                        </div>
                     </div>
-                    
+
                     <div class="row buttonRow">
                         <div class="col-xs-3">
                             <button class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</button>
                         </div>
                         <div class="col-xs-1">
-                        &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
                         </div>
                         <div class="col-xs-3">
                             <button class="btn btn-danger"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Dislike</button>
                         </div>
-                    </div>  
+                    </div>
                 </div>
-                
-                <div class="videocard">    
-                    <div class="row" style="margin-left: 5%; margin-top:4%">
-                    <p align="left" style="color: black"><img th:src="@{/img/profile.png}" width="50px" height="50px" />  Parik Panchal</p>
-                    </div>
-                    
-                    <div class="row" style="margin-left: 5%;">
-                        <p align="left" style="color: black">Wow look at this video!</p>
-                    </div>
-                    
-                    <div class="row" style="margin-top:3%">
-                        <div style="align-content:center;height:0;margin-bottom:73%;">
-                            <iframe src="https://www.youtube.com/embed/0N_RO-jL-90?ecver=2" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
-                        </div>
-                    </div>
-                    
-                    <div class="row buttonRow">
-                        <div class="col-xs-3">
-                            <button class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</button>
-                        </div>
-                        <div class="col-xs-1">
-                        &nbsp;&nbsp;&nbsp;
-                        </div>
-                        <div class="col-xs-3">
-                            <button class="btn btn-danger"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Dislike</button>
-                        </div>
-                    </div>  
-                </div>
-                
             </div>
 
             <div class="col-lg-3 mobileNone">

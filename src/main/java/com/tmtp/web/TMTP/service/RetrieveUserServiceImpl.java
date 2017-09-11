@@ -5,11 +5,11 @@ import com.tmtp.web.TMTP.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RetreiveUserServiceImpl implements RetrieveUserService {
+public class RetrieveUserServiceImpl implements RetrieveUserService {
 
     private final UserRepository userRepository;
 
-    public RetreiveUserServiceImpl(final UserRepository userRepository) {
+    public RetrieveUserServiceImpl(final UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

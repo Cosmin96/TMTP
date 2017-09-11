@@ -1,6 +1,7 @@
 package com.tmtp.web.TMTP.web;
 
 import com.tmtp.web.TMTP.entity.User;
+import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.security.UserValidator;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Collections;
+import java.util.List;
+
 @Controller
 public class LoginController {
 
@@ -20,15 +24,18 @@ public class LoginController {
     private final SecurityService securityService;
     private final UserValidator userValidator;
     private final UserDataFacade userDataFacade;
+    private final VideoPostsFacade videoPostsFacade;
 
     public LoginController(final UserService userService,
                            final SecurityService securityService,
                            final UserValidator userValidator,
-                           final UserDataFacade userDataFacade) {
+                           final UserDataFacade userDataFacade,
+                           final VideoPostsFacade videoPostsFacade) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.userDataFacade = userDataFacade;
+        this.videoPostsFacade = videoPostsFacade;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -70,6 +77,11 @@ public class LoginController {
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
+
+        List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
+        Collections.shuffle(posts);
+        model.addAttribute("posts", posts);
+
         return "index";
     }
 
