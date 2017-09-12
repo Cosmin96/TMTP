@@ -5,8 +5,6 @@ import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.security.UserValidator;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,14 +67,14 @@ public class LoginController {
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String home(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        User user = userDataFacade.retrieveUser(username);
+        User user = userDataFacade.retrieveLoggedUser();
+
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("videoPostForm", new VideoPosts());
 
         List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
         Collections.shuffle(posts);

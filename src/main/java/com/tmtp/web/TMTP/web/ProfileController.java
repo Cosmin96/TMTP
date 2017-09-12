@@ -17,13 +17,14 @@ public class ProfileController {
 
     @RequestMapping("/profile/{username}")
     public String profilePage(@PathVariable("username") String username, Model model){
-        User user = userDataFacade.retrieveUser(username);
-        User loggedInUser = userDataFacade.retrieveUser(username);
+        User pageuser = userDataFacade.retrieveUser(username);
+        User loggedInUser = userDataFacade.retrieveLoggedUser();
+
         model.addAttribute("loggedfname", loggedInUser.getFirstName());
-        model.addAttribute("user", user);
-        model.addAttribute("greenPoints", loggedInUser.getPoints().getGreen());
-        model.addAttribute("yellowPoints", loggedInUser.getPoints().getYellow());
-        model.addAttribute("redPoints", loggedInUser.getPoints().getRed());
+        model.addAttribute("user", pageuser);
+        model.addAttribute("greenPoints", pageuser.getPoints().getGreen());
+        model.addAttribute("yellowPoints", pageuser.getPoints().getYellow());
+        model.addAttribute("redPoints", pageuser.getPoints().getRed());
         return "profile";
     }
 }

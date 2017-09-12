@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.service;
 
+import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.repository.VideoPostsRepository;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,17 @@ public class VideoPostsServiceImpl implements VideoPostsService {
         return videoPostsRepository.findByCreator(username);
     }
 
+    @Override
+    public VideoPosts retrieveVideoPostById(String id){
+        return videoPostsRepository.findById(id);
+    }
+
+    @Override
+    public void createVideoPost(VideoPosts videoPosts, User user){
+        String url = "https://www.youtube.com/embed/" + videoPosts.getLink().replace("https://www.youtube.com/watch?v=", "");
+        videoPosts.setCreator(user.getUsername());
+        videoPosts.setUser(user);
+        videoPosts.setLink(url);
+        videoPostsRepository.save(videoPosts);
+    }
 }

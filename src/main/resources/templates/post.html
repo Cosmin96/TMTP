@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>TMTP</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+
+</head>
+
+<body class="index" id="page-top" th:background="@{/img/background.jpg}" style="background-repeat: repeat-y;">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <a class="navbar-brand" th:href="@{/home}">TMTP</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/shop}">Store</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/scores}">Live Scores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://discord.gg/rbugQUr">Chat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><span th:text="'Hi, ' + ${fname} + '!'"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container statsmenu">
+    <div class="row">
+
+        <div class="col-lg-6">
+            <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
+        </div>
+
+    </div>
+</div>
+
+<div class="container" style="margin-top: 3%;">
+    <div class="row">
+        <div class="col-lg-3 mobileNone">
+            <script src="http://www.btfscores.com/widgets/widget-side.min.js" th:async="true"></script>
+            <div id="sidebar-soccer-goal" style="width:250px;"></div>
+        </div>
+
+        <div class="col-lg-6 col-xs-12 scrollabelcolumn">
+
+            <div class="videocard">
+                <div class="row" style="margin-left: 5%; margin-top:3%">
+                    <p align="left" style="color: black"><img th:src="@{/img/profile.png}" width="50px" height="50px" />  <span th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></p>
+                </div>
+
+                <div class="row" style="margin-left: 5%;">
+                    <p align="left" style="color: black;" th:text="${post.getDescription()}"></p>
+                </div>
+
+                <div class="row" style="margin-top:3%">
+                    <div style="align-content:center;height:0;margin-bottom:73%">
+                        <iframe th:src="${post.getLink()}" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
+                    </div>
+                </div>
+
+                <div class="row buttonRow">
+                    <div class="col-xs-3">
+                        <button class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</button>
+                    </div>
+                    <div class="col-xs-1">
+                        &nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-xs-3">
+                        <button class="btn btn-danger"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Dislike</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 mobileNone">
+            <div class="row">
+                <iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
+            </div>
+            <div class="row">
+                <iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+<footer class="text-center" style="margin-top: 10%;">
+    <div class="footer-above">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h3>Social Media</h3>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-google-plus"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    Copyright &copy; TMTP 2017
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top d-lg-none">
+    <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+<script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+<script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+
+</body>
+
+</html>

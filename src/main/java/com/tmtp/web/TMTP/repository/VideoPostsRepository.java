@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface VideoPostsRepository extends MongoRepository<VideoPosts, String>{
     List<VideoPosts> findByCreator(String username);
+    VideoPosts findById(String id);
 }

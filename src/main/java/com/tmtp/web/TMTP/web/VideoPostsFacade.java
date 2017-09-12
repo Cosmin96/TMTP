@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.web;
 
+import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.service.VideoPostsService;
 import org.springframework.stereotype.Component;
@@ -21,5 +22,13 @@ public class VideoPostsFacade {
 
     public List<VideoPosts> retrieveListOfVideoPostsByUsername(String username){
         return videoPostsService.retrieveListOfVideoPostsByUsername(username);
+    }
+
+    public VideoPosts retrievePostById(String id){
+        return videoPostsService.retrieveVideoPostById(id);
+    }
+
+    public void createVideoPost(VideoPosts videoPosts, User user){
+        videoPostsService.createVideoPost(videoPosts, user);
     }
 }

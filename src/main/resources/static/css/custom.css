@@ -25,6 +25,14 @@ p {
     margin-top: 3%;
 }
 
+.postcard {
+    background-color: #D8D8D8;
+    border: solid;
+    border-color: #2C3E50;
+    border-radius: 2px;
+    margin-top: 1%;
+}
+
 .navbarmargin{
     margin-top:30%;
 }
