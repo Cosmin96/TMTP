@@ -17,6 +17,7 @@ public class ProfileController {
 
     @RequestMapping("/profile/{username}")
     public String profilePage(@PathVariable("username") String username, Model model){
+
         User pageuser = userDataFacade.retrieveUser(username);
         User loggedInUser = userDataFacade.retrieveLoggedUser();
 

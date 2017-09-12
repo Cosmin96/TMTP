@@ -3,6 +3,8 @@ package com.tmtp.web.TMTP.entity;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 public class VideoPosts {
 
     @Id
@@ -11,6 +13,7 @@ public class VideoPosts {
     private String description;
     private String creator;
     private User user;
+    private List<Comment> comments;
 
     public String getId() {
         return id;
@@ -52,6 +55,14 @@ public class VideoPosts {
         this.user = user;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public String toString() {
         return "VideoPosts{" +
@@ -60,6 +71,7 @@ public class VideoPosts {
                 ", description='" + description + '\'' +
                 ", creator='" + creator + '\'' +
                 ", user=" + user +
+                ", comments=" + comments +
                 '}';
     }
 }

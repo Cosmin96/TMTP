@@ -23,6 +23,7 @@ public class HomeController {
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
+
         return "livescores";
     }
 
@@ -35,6 +36,7 @@ public class HomeController {
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
+
         return "store";
     }
 }

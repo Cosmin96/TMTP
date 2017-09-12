@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.web;
 
+import com.tmtp.web.TMTP.entity.Comment;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.service.VideoPostsService;
@@ -31,4 +32,9 @@ public class VideoPostsFacade {
     public void createVideoPost(VideoPosts videoPosts, User user){
         videoPostsService.createVideoPost(videoPosts, user);
     }
+
+    public void addNewComment(VideoPosts videoPosts, Comment comment, User user){
+        videoPostsService.addNewComment(videoPosts, comment, user);
+    }
+
 }

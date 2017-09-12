@@ -67,7 +67,10 @@ public class LoginController {
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String home(Model model) {
+
         User user = userDataFacade.retrieveLoggedUser();
+        List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
+        Collections.shuffle(posts);
 
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
@@ -75,9 +78,6 @@ public class LoginController {
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
         model.addAttribute("videoPostForm", new VideoPosts());
-
-        List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
-        Collections.shuffle(posts);
         model.addAttribute("posts", posts);
 
         return "index";

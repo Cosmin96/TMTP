@@ -104,7 +104,7 @@
 
                 <div class="videocard" th:each="post : ${posts}">
                     <div class="row" style="margin-left: 5%; margin-top:3%">
-                        <p align="left" style="color: black"><img th:src="@{/img/profile.png}" width="50px" height="50px" />  <span th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></p>
+                        <p align="left" style="color: black"><img th:src="@{/img/profile.png}" width="50px" height="50px" />  <a th:href="@{'/profile/' + ${post.getCreator()}}"><span th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></a></p>
                     </div>
 
                     <div class="row" style="margin-left: 5%;">
