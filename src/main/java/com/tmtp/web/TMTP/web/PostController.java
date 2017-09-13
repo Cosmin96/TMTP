@@ -37,7 +37,9 @@ public class PostController {
         model.addAttribute("post", videoPosts);
         model.addAttribute("id", id);
         model.addAttribute("commentForm", new Comment());
+        model.addAttribute("comments", videoPosts.getComments());
         model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());

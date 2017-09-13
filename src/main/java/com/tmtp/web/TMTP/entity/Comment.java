@@ -6,6 +6,7 @@ public class Comment {
 
     private String comment;
     private User user;
+    private String date;
     private LocalDateTime timestamp;
 
     public String getComment() {
@@ -24,6 +25,14 @@ public class Comment {
         this.user = user;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
@@ -37,6 +46,7 @@ public class Comment {
         return "Comment{" +
                 "comment='" + comment + '\'' +
                 ", user=" + user +
+                ", date='" + date + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
     }

@@ -6,7 +6,9 @@ import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.repository.VideoPostsRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,6 +52,7 @@ public class VideoPostsServiceImpl implements VideoPostsService {
     public void addNewComment(VideoPosts videoPosts, Comment comment, User user){
 
         comment.setTimestamp(LocalDateTime.now());
+        comment.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
         comment.setUser(user);
         videoPosts.getComments().add(comment);
 
