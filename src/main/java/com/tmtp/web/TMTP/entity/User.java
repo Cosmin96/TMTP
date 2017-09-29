@@ -13,6 +13,7 @@ public class User {
     private String lastName;
     private String email;
     private String username;
+    private String profile;
     private String password;
     private Points points;
     private Set<Role> roles;
@@ -57,6 +58,14 @@ public class User {
         this.username = username;
     }
 
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -89,6 +98,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
+                ", profile='" + profile + '\'' +
                 ", password='" + password + '\'' +
                 ", points=" + points +
                 ", roles=" + roles +

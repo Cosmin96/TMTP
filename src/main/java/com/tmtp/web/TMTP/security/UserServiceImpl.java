@@ -31,10 +31,16 @@ public class UserServiceImpl implements UserService{
         userToSave.setEmail(user.getEmail());
         userToSave.setFirstName(user.getFirstName());
         userToSave.setLastName(user.getLastName());
+        userToSave.setProfile("/profile.png");
         userToSave.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userToSave.setRoles(new HashSet<>(roleRepository.findAll()));
         userToSave.setPoints(createNewPointsObject());
         userRepository.save(userToSave);
+    }
+
+    @Override
+    public void updateUser(User user){
+        userRepository.save(user);
     }
 
     @Override

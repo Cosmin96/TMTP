@@ -21,6 +21,13 @@ public class ProfileController {
         User pageuser = userDataFacade.retrieveUser(username);
         User loggedInUser = userDataFacade.retrieveLoggedUser();
 
+        if(pageuser.getId().equals(loggedInUser.getId())){
+            model.addAttribute("settingsButton", true);
+        }
+        else{
+            model.addAttribute("settingsButton", false);
+        }
+
         model.addAttribute("loggedfname", loggedInUser.getFirstName());
         model.addAttribute("user", pageuser);
         model.addAttribute("greenPoints", pageuser.getPoints().getGreen());
@@ -28,4 +35,11 @@ public class ProfileController {
         model.addAttribute("redPoints", pageuser.getPoints().getRed());
         return "profile";
     }
+
+    private Boolean checkUsersAreSame(String username){
+        User pageUser = userDataFacade.retrieveUser(username);
+        User loggedInUser = userDataFacade.retrieveLoggedUser();
+        return pageUser.equals(loggedInUser);
+    }
+
 }
