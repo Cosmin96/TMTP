@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService{
         userToSave.setEmail(user.getEmail());
         userToSave.setFirstName(user.getFirstName());
         userToSave.setLastName(user.getLastName());
-        userToSave.setProfile("/profile.png");
+        userToSave.setProfile("/img/profile.png");
+        userToSave.setOverlay("");
         userToSave.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userToSave.setRoles(new HashSet<>(roleRepository.findAll()));
         userToSave.setPoints(createNewPointsObject());

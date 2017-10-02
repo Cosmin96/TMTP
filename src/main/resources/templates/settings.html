@@ -63,7 +63,7 @@
         <div class="col-md-4 col-xs-12">
             <div class="profileCard">
                 <center>
-                    <img th:src="@{'/getFiles/' + ${user.getUsername()} + '.jpg'}" width="60%" height="60%" />
+                    <img id="overlay" th:src="@{'/getFiles/' + ${user.getUsername()} + '.jpg'}" width="60%" height="60%" />
                     <h2 style="margin-top:3%" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Parik Panchal</h2>
                     <h3>The Man!</h3>
 
@@ -129,6 +129,22 @@
                         <label for="profile"><h6>Upload photo (max 5mb): </h6></label>
                         <input type="file" id="profile" name="file" />
                         <button class="btn btn-success" value="Upload">Upload</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Profile Overlay</h1>
+                <center>
+                    <form method="POST" th:object="${overlayForm}" th:action="@{'/settings/' + ${user.getUsername()} + '/updateOverlay'}">
+                        <div class="form-group" style="width: 80%">
+                            <label for="overlayselect">Available overlays:</label>
+                            <select th:field="*{overlayName}" class="form-control" id="overlayselect">
+                                <option th:value="Arsenal">Arsenal</option>
+                                <option th:value="FCBarcelona">Barcelona</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" value="Upload">Change</button>
                     </form>
                 </center>
             </div>
@@ -216,6 +232,19 @@
 <script type="text/javascript">
     var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg',  '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg',];
     $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
+</script>
+
+<!--Watermark library-->
+<script src="../static/js/jquery.watermark.min.js" th:src="@{/js/jquery.watermark.min.js}"></script>
+
+<script th:inline="javascript">
+    var url = '/img/overlays/'+ [[${user.getOverlay()}]] + '.png';
+    $(function() {
+        $('#overlay').watermark({
+            path: url,
+            gravity: 's'
+        });
+    });
 </script>
 
 </body>

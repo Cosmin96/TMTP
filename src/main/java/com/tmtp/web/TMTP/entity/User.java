@@ -14,6 +14,7 @@ public class User {
     private String email;
     private String username;
     private String profile;
+    private String overlay;
     private String password;
     private Points points;
     private Set<Role> roles;
@@ -64,6 +65,14 @@ public class User {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public String getOverlay() {
+        return overlay;
+    }
+
+    public void setOverlay(String overlay) {
+        this.overlay = overlay;
     }
 
     public String getPassword() {

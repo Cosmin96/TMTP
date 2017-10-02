@@ -3,6 +3,7 @@ package com.tmtp.web.TMTP.web;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.web.formobjects.NameForm;
+import com.tmtp.web.TMTP.web.formobjects.OverlayForm;
 import com.tmtp.web.TMTP.web.formobjects.PassForm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,8 @@ public class ProfileSettingsController {
             model.addAttribute("yellowPoints", pageUser.getPoints().getYellow());
             model.addAttribute("redPoints", pageUser.getPoints().getRed());
             model.addAttribute("nameForm", new NameForm());
-            model.addAttribute("passForm", new PassForm());;
+            model.addAttribute("passForm", new PassForm());
+            model.addAttribute("overlayForm", new OverlayForm());
             return "settings";
         }
         else{
@@ -78,6 +80,21 @@ public class ProfileSettingsController {
             pageUser.setPassword(bCryptPasswordEncoder.encode(passForm.getNewPass()));
             userService.updateUser(pageUser);
         }
+
+        return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
+    }
+
+    @RequestMapping(value = "/settings/{username}/updateOverlay", method = RequestMethod.POST)
+    public String updateOverlay(@PathVariable("username") String username, @ModelAttribute("overlayForm") OverlayForm overlayForm, Model model){
+        Boolean isUserRight = checkUsersAreSame(username);
+        User pageUser = userDataFacade.retrieveUser(username);
+        if(!isUserRight){
+            return "redirect:/home";
+        }
+
+        pageUser.setOverlay(overlayForm.getOverlayName());
+        userService.updateUser(pageUser);
+
 
         return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
     }
