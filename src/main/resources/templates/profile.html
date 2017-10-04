@@ -61,34 +61,66 @@
         <div class="row">    
             
             <div class="col-md-4 col-xs-12">
-                <div class="profileCard">
-                    <center>
-                        <img id="profileOverlay" th:src="@{'/getFiles/' + ${user.getUsername()} + '.jpg'}" width="60%" height="60%" />
-                        <h2 style="margin-top:3%" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Parik Panchal</h2>
-                        <h3>The Man!</h3>
-                        
-                        <div style="margin-top: 10%">
-                            <div class="col-lg-12">
-                                <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+
+                <div class="row">
+                    <div class="profileCard">
+                        <center>
+                            <img id="profileOverlay" th:src="@{'/getFiles/' + ${user.getUsername()} + '.jpg'}" width="60%" height="60%" />
+                            <h2 style="margin-top:3%" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Parik Panchal</h2>
+                            <h3>The Man!</h3>
+
+                            <div style="margin-top: 10%">
+                                <div class="col-lg-12">
+                                    <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
+                                </div>
                             </div>
 
-                            <div class="col-lg-12">
-                                <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+                            <div style="margin-top: 10%" th:if="${settingsButton}">
+                                <div class="col-lg-12">
+                                   <a class="btn btn-success" th:href="@{'/settings/' + ${user.getUsername()}}">My settings</a>
+                                </div>
                             </div>
 
-                            <div class="col-lg-12">
-                                <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 10%" th:if="${settingsButton}">
-                            <div class="col-lg-12">
-                               <a class="btn btn-success" th:href="@{'/settings/' + ${user.getUsername()}}">My settings</a>
-                            </div>
-                        </div>
-
-                    </center>
+                        </center>
+                    </div>
                 </div>
+
+                <div class="row">
+                    <div class="profileCard" style="padding-left: 2%;">
+                        <h1 style="color: black; margin-bottom: 8%; padding-left: 3%">My Player Kit</h1>
+                        <div class="row">
+                            <div class="col-sm-7" style="float:right">
+                                <img th:src="@{'/img/kits/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="90%" height="auto" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-7" style="float:right">
+                                <img th:src="@{'/img/kits/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}" width="90%" height="auto" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-7" style="float:right">
+                                <img th:src="@{'/img/kits/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}" width="90%" height="auto" />
+                            </div>
+                            <div class="col-sm-5" style="float:left">
+                                <br /><br /><br />
+                                <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}" width="120px" height="120px"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
             <div class="col-md-8 col-xs-12">
                 <div class="stadiumCard">

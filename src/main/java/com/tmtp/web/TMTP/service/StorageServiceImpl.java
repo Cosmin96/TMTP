@@ -76,8 +76,10 @@ public class StorageServiceImpl implements  StorageService{
                 return resource;
             }
             else {
-                throw new StorageFileNotFoundException(
-                        "Could not read file: " + filename);
+                file = load("profile.png");
+                return new UrlResource(file.toUri());
+//                throw new StorageFileNotFoundException(
+//                        "Could not read file: " + filename);
 
             }
         }

@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.security;
 
+import com.tmtp.web.TMTP.entity.PlayerKit;
 import com.tmtp.web.TMTP.entity.Points;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.repository.RoleRepository;
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService{
         userToSave.setLastName(user.getLastName());
         userToSave.setProfile("/img/profile.png");
         userToSave.setOverlay("");
+        userToSave.setPlayerKit(new PlayerKit("none", "none", "none", "none"));
         userToSave.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userToSave.setRoles(new HashSet<>(roleRepository.findAll()));
         userToSave.setPoints(createNewPointsObject());

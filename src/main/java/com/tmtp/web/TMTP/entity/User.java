@@ -16,6 +16,7 @@ public class User {
     private String profile;
     private String overlay;
     private String password;
+    private PlayerKit playerKit;
     private Points points;
     private Set<Role> roles;
 
@@ -57,6 +58,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public PlayerKit getPlayerKit() {
+        return playerKit;
+    }
+
+    public void setPlayerKit(PlayerKit playerKit) {
+        this.playerKit = playerKit;
     }
 
     public String getProfile() {
@@ -108,7 +117,9 @@ public class User {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", profile='" + profile + '\'' +
+                ", overlay='" + overlay + '\'' +
                 ", password='" + password + '\'' +
+                ", playerKit=" + playerKit +
                 ", points=" + points +
                 ", roles=" + roles +
                 '}';
