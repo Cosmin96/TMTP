@@ -17,4 +17,8 @@ public interface VideoPostsService {
     void createVideoPost(VideoPosts videoPosts, User user);
 
     void addNewComment(VideoPosts videoPosts, Comment comment, User user);
+
+    void deletePost(VideoPosts videoPosts);
+
+    void deletePostComment(VideoPosts videoPosts);
 }

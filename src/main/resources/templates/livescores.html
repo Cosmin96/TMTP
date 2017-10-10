@@ -37,6 +37,9 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
 
+          <li th:if="${user.getAdmin()}" class="nav-item">
+            <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/shop}">Store</a>
           </li>
@@ -60,9 +63,8 @@
             
             <center>
             <iframe src="http://livescores.website/widgetsoccerblue" frameborder="0" scrolling="no" style="width:660px;min-height:1080px;overflow-y: hidden"></iframe>
-
-
-            <iframe width="300" height="900" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
+              <iframe width="300" height="900" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
+              <iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />
             </center>
     </div>
     

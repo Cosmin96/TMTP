@@ -21,7 +21,7 @@
     <!-- Custom styles -->
     <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
     <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
 </head>
 
 <body class="index" id="page-top" style="background-repeat: repeat-y;">
@@ -36,6 +36,9 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
 
+            <li th:if="${user.getAdmin()}" class="nav-item">
+                <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/shop}">Store</a>
             </li>
@@ -95,6 +98,10 @@
                     <p align="left" style="color: black;" th:text="${post.getDescription()}"></p>
                 </div>
 
+                <div class="row" style="margin-left: 5%;">
+                    <p align="left" th:if="${user.getAdmin()}"><a th:href="@{'/post/' + ${post.getId()} + '/delete/'}"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></p>
+                </div>
+
                 <div class="row" style="margin-top:3%">
                     <div style="align-content:center;height:0;margin-bottom:73%">
                         <iframe th:src="${post.getLink()}" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
@@ -130,9 +137,12 @@
                         </div>
                         <div class="col-md-11">
                             <p align="left" style="margin-left: 3%; color: black"><a th:href="@{'/profile/' + ${comment.getUser().getUsername()}}"><span th:text="${comment.getUser().getFirstName()} + ' ' + ${comment.getUser().getLastName()}"></span></a><span th:text="' ' + ${comment.getComment()}"></span></p>
-                            <p align="left" style="margin-left: 3%; margin-top: -10px; color: black; font-size:15px;"><span th:text="${comment.getDate()}"></span></p>
+                            <p align="left" style="margin-left: 3%; margin-top: -10px; color: black; font-size:15px;"><span th:text="${comment.getDate()}"></span></p><br />
+                            <p align="left" style="margin-left: 3%; color: black; font-size:15px;" th:if="${user.getAdmin()}"><a th:href="@{'/post/' + ${post.getId()} + '/' + ${comment.getId()} + '/delete/'}"><i class="fa fa-times" aria-hidden="true"></i> Delete comment</a></p>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </div>

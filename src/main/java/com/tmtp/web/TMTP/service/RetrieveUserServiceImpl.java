@@ -4,6 +4,8 @@ import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RetrieveUserServiceImpl implements RetrieveUserService {
 
@@ -16,5 +18,15 @@ public class RetrieveUserServiceImpl implements RetrieveUserService {
     @Override
     public User retrieveUser(String username){
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<User> retrieveAllUsers(){
+        return userRepository.findAll();
+    }
+
+    @Override
+    public void deleteUser(User user){
+        userRepository.delete(user);
     }
 }

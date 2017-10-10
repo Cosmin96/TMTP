@@ -56,7 +56,7 @@ public class ProfileSettingsController {
     }
 
     @RequestMapping(value = "/settings/{username}/updateName", method = RequestMethod.POST)
-    public String updateName(@PathVariable("username") String username, @ModelAttribute("nameForm") NameForm nameForm, Model model){
+    public String updateFirstandLastNames(@PathVariable("username") String username, @ModelAttribute("nameForm") NameForm nameForm, Model model){
         Boolean isUserRight = checkUsersAreSame(username);
 
         if(!isUserRight){

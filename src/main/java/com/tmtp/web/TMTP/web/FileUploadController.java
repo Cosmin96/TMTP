@@ -45,6 +45,17 @@ public class FileUploadController {
         return "redirect:/settings/" + username;
     }
 
+    @RequestMapping(value = "/admin/edit/{username}/profileUpload", method = RequestMethod.POST)
+    public String handleFileUploadByAdmin(@PathVariable("username") String username, @RequestParam("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes) {
+
+        String photoName = storageService.store(file, username);
+        User user = userDataFacade.retrieveLoggedUser();
+        user.setProfile("/profilePictures/" + photoName);
+        userService.updateUser(user);
+        return "redirect:/admin/edit/" + username;
+    }
+
     @RequestMapping(value = "/getImage/{imageName}")
     @ResponseBody
     public byte[] getImage(@PathVariable("imageName") String imageName, HttpServletRequest request)  {

@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class UserDataFacade {
 
@@ -23,5 +25,13 @@ public class UserDataFacade {
 
     public User retrieveUser(String username){
         return retrieveUserService.retrieveUser(username);
+    }
+
+    public List<User> retrieveAllUsers(){
+        return retrieveUserService.retrieveAllUsers();
+    }
+
+    public void deleteUser(User user){
+        retrieveUserService.deleteUser(user);
     }
 }

@@ -21,6 +21,7 @@
     <!-- Custom styles -->
     <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
     <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
 
   </head>
 
@@ -36,6 +37,9 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
 
+            <li th:if="${user.getAdmin()}" class="nav-item">
+                <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+            </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/shop}">Store</a>
           </li>
@@ -116,6 +120,10 @@
 
                     <div class="row" style="margin-left: 5%;">
                         <p align="left"><a th:href="@{'/post/' + ${post.getId()}}">See full post</a></p>
+                    </div>
+
+                    <div class="row" style="margin-left: 5%;">
+                        <p align="left" th:if="${user.getAdmin()}"><a th:href="@{'/post/' + ${post.getId()} + '/delete/'}"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></p>
                     </div>
 
                     <div class="row" style="margin-top:3%">

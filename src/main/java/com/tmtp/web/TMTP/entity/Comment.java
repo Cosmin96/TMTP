@@ -1,13 +1,25 @@
 package com.tmtp.web.TMTP.entity;
 
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDateTime;
 
 public class Comment {
 
+    @Id
+    private String id;
     private String comment;
     private User user;
     private String date;
     private LocalDateTime timestamp;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getComment() {
         return comment;

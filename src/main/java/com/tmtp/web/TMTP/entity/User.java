@@ -16,6 +16,7 @@ public class User {
     private String profile;
     private String overlay;
     private String password;
+    private Boolean admin;
     private PlayerKit playerKit;
     private Points points;
     private Set<Role> roles;
@@ -90,6 +91,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     public Points getPoints() {

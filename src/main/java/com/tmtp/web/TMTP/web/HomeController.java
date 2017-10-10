@@ -18,6 +18,7 @@ public class HomeController {
     public String scoresPage(Model model){
         User user = userDataFacade.retrieveLoggedUser();
 
+        model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
@@ -31,6 +32,7 @@ public class HomeController {
     public String storePage(Model model){
         User user = userDataFacade.retrieveLoggedUser();
 
+        model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());

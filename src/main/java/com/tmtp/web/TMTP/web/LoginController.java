@@ -77,6 +77,7 @@ public class LoginController {
         List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
         Collections.shuffle(posts);
 
+        model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());

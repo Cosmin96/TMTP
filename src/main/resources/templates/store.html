@@ -38,6 +38,9 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
 
+              <li th:if="${user.getAdmin()}" class="nav-item">
+                  <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+              </li>
               <li class="nav-item">
                   <a class="nav-link" th:href="@{/shop}">Store</a>
               </li>

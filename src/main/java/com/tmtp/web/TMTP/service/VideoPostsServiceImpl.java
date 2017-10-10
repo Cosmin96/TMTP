@@ -4,6 +4,7 @@ import com.tmtp.web.TMTP.entity.Comment;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.repository.VideoPostsRepository;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -51,11 +52,22 @@ public class VideoPostsServiceImpl implements VideoPostsService {
     @Override
     public void addNewComment(VideoPosts videoPosts, Comment comment, User user){
 
+        comment.setId(new ObjectId().toString());
         comment.setTimestamp(LocalDateTime.now());
         comment.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
         comment.setUser(user);
         videoPosts.getComments().add(comment);
 
+        videoPostsRepository.save(videoPosts);
+    }
+
+    @Override
+    public void deletePost(VideoPosts videoPosts){
+        videoPostsRepository.delete(videoPosts);
+    }
+
+    @Override
+    public void deletePostComment(VideoPosts videoPosts){
         videoPostsRepository.save(videoPosts);
     }
 }

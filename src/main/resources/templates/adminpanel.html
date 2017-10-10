@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>TMTP</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+    <link href="../static/css/dataTables.css" th:href="@{/css/dataTables.css}" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/af-2.2.2/b-1.4.2/datatables.min.css" />-->
+    <!--<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/af-2.2.2/b-1.4.2/datatables.min.js"></script>-->
+</head>
+
+<body class="index" id="page-top" style="background-repeat: repeat-y;">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <a class="navbar-brand" th:href="@{/home}">TMTP</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+            <li th:if="${user.getAdmin()}" class="nav-item">
+                <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/shop}">Store</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/scores}">Live Scores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://discord.gg/rbugQUr">Chat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><span th:text="'Hi, ' + ${fname} + '!'"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container statsmenu">
+    <div class="row">
+
+        <div class="col-lg-6">
+            <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
+        </div>
+
+    </div>
+</div>
+
+<div class="container stadiumCard" style="margin-top: 3%;">
+    <!--<div class="stadiumCard">-->
+        <h6 style="color:black">User Database</h6>
+            <table class="table table-bordered" style="border-color: white;background-color: #2c3e50; color: white" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Green Points</th>
+                    <th>Yellow Points</th>
+                    <th>Red Points</th>
+                    <th>Admin</th>
+                    <th>Settings</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Green Points</th>
+                    <th>Yellow Points</th>
+                    <th>Red Points</th>
+                    <th>Admin</th>
+                    <th>Settings</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td>
+                            <span th:text="${user.getFirstName()}">
+                                Frank
+                            </span>
+                        </td>
+
+                        <td>
+                            <span th:text="${user.getLastName()}">
+                                Underwood
+                            </span>
+                        </td>
+
+                        <td>
+                            <span th:text="${user.getEmail()}">
+                                a@a.com
+                            </span>
+                        </td>
+
+                        <td>
+                            <span th:text="${user.getUsername()}">
+                                funderwood
+                            </span>
+                        </td>
+
+                        <td>
+                            <span th:text="${user.getPoints().getGreen()}">
+                                0
+                            </span>
+                        </td>
+
+                        <td>
+                            <span th:text="${user.getPoints().getYellow()}">
+                                0
+                            </span>
+                        </td>
+
+                        <td>
+                            <span th:text="${user.getPoints().getRed()}">
+                                0
+                            </span>
+                        </td>
+
+                        <td >
+                            <span th:if="${user.getAdmin()}">Yes</span>
+                            <span th:if="${user.getAdmin()} == false">No</span>
+                        </td>
+                        <td>
+                            <p align="center" ><a th:href="@{'/admin/edit/' + ${user.getUsername()}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></p><br />
+                            <p align="center" ><a th:href="@{'/admin/delete/' + ${user.getUsername()}}"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    <!--</div>-->
+</div>
+
+
+<!-- Footer -->
+<footer class="text-center" style="margin-top: 10%;">
+    <div class="footer-above">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h3>Social Media</h3>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-google-plus"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    Copyright &copy; TMTP 2017
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top d-lg-none">
+    <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+<script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+<script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+<script src="../static/js/dataTables.js" th:src="@{/js/dataTables.js}"></script>
+<script src="../static/js/jquery.dataTables.js" th:src="@{/js/jquery.dataTables.js}"></script>
+
+<script type="text/javascript">
+    var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg',  '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg',];
+    $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
+</script>
+<script>
+    $(document).ready(function(){$("#dataTable").DataTable()});
+</script>
+</body>
+</html>
