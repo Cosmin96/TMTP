@@ -34,7 +34,21 @@ p {
 }
 
 .navbarmargin{
-    margin-top:30%;
+    margin-top:15%;
+}
+
+.errorField{
+    background-color: #ff0033;
+    color: white;
+    width: 100%;
+    border: 3px;
+    font-size: 24px;
+    vertical-align: center;
+    border-radius: 10px;
+    border-color: white;
+    border-style: solid;
+    margin-bottom: 5%;
+    padding-top:2%;
 }
 
 .buttonRow{

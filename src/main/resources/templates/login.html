@@ -61,8 +61,16 @@
       <source th:src="@{/img/video.mp4}" type="video/mp4" />
     </video>
 
-     <div class="form navbarmargin" style="">
-      
+
+
+     <div class="form navbarmargin">
+
+         <div class="errorField" th:if="${error}">
+           <center>
+             <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+           </center>
+
+       </div>
       <ul class="tab-group">
         <li class="tab active"><a href="#signup">Sign Up</a></li>
         <li class="tab"><a href="#login">Log In</a></li>
