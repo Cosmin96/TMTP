@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService{
         userToSave.setLastName(user.getLastName());
         userToSave.setProfile("/img/profile.png");
         userToSave.setOverlay("");
+        userToSave.setStadiumLevel(1);
         userToSave.setAdmin(false);
         userToSave.setPlayerKit(new PlayerKit("none", "none", "none", "none"));
         userToSave.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

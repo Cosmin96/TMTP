@@ -16,6 +16,7 @@ public class User {
     private String profile;
     private String overlay;
     private String password;
+    private int stadiumLevel;
     private Boolean admin;
     private PlayerKit playerKit;
     private Points points;
@@ -93,6 +94,14 @@ public class User {
         this.password = password;
     }
 
+    public int getStadiumLevel() {
+        return stadiumLevel;
+    }
+
+    public void setStadiumLevel(int stadiumLevel) {
+        this.stadiumLevel = stadiumLevel;
+    }
+
     public Boolean getAdmin() {
         return admin;
     }
@@ -128,6 +137,8 @@ public class User {
                 ", profile='" + profile + '\'' +
                 ", overlay='" + overlay + '\'' +
                 ", password='" + password + '\'' +
+                ", stadiumLevel=" + stadiumLevel +
+                ", admin=" + admin +
                 ", playerKit=" + playerKit +
                 ", points=" + points +
                 ", roles=" + roles +
