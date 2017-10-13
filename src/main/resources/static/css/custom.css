@@ -51,6 +51,20 @@ p {
     padding-top:2%;
 }
 
+.errorField2{
+    background-color: #ff0033;
+    color: white;
+    width: 100%;
+    border: 3px;
+    font-size: 24px;
+    vertical-align: center;
+    border-radius: 10px;
+    border-color: white;
+    border-style: solid;
+    margin-bottom: 2%;
+    padding-top:2%;
+}
+
 .errorStadium{
     background-color: #ff0033;
     color: white;

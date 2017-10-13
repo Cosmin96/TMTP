@@ -78,6 +78,13 @@
         </div>
 
     </div>
+    <div class="row">
+            <div class="errorField2" th:if="${error}">
+                <center>
+                    <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+                </center>
+            </div>
+    </div>
 </div>
 
 <div class="container" style="margin-top: 3%;">
