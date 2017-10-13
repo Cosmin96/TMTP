@@ -72,7 +72,13 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute("userForm") User userForm, Model model){
+    public String login(@ModelAttribute("userForm") User userForm, Model model, RedirectAttributes redirectAttributes){
+        User user = userDataFacade.retrieveUser(userForm.getUsername());
+        if(user.getBanned()){
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorMessage", "You are currently banned for unsuitable behaviour! Please wait for an admin to remove your restrictions");
+            return "redirect:/register";
+        }
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
         return "redirect:/home";
     }

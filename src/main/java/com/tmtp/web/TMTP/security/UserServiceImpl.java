@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService{
         userToSave.setOverlay("");
         userToSave.setStadiumLevel(1);
         userToSave.setAdmin(false);
+        userToSave.setBanned(false);
         userToSave.setPlayerKit(new PlayerKit("none", "none", "none", "none"));
         userToSave.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userToSave.setRoles(new HashSet<>(roleRepository.findAll()));

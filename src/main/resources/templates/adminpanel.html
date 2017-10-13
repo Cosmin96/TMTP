@@ -96,6 +96,7 @@
                     <th>Yellow Points</th>
                     <th>Red Points</th>
                     <th>Admin</th>
+                    <th>Banned</th>
                     <th>Settings</th>
                 </tr>
                 </thead>
@@ -109,6 +110,7 @@
                     <th>Yellow Points</th>
                     <th>Red Points</th>
                     <th>Admin</th>
+                    <th>Banned</th>
                     <th>Settings</th>
                 </tr>
                 </tfoot>
@@ -159,6 +161,10 @@
                         <td >
                             <span th:if="${user.getAdmin()}">Yes</span>
                             <span th:if="${user.getAdmin()} == false">No</span>
+                        </td>
+                        <td >
+                            <span th:if="${user.getBanned()}">Yes</span>
+                            <span th:if="${user.getBanned()} == false">No</span>
                         </td>
                         <td>
                             <p align="center" ><a th:href="@{'/admin/edit/' + ${user.getUsername()}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></p><br />

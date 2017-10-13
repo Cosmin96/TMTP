@@ -119,6 +119,7 @@ public class AdminController {
         model.addAttribute("overlayForm", new OverlayForm());
         model.addAttribute("kitForm", new PlayerKitForm());
         model.addAttribute("pointsForm", new PointsForm());
+        model.addAttribute("bannedForm", new BannedForm());
         return "adminpaneledit";
     }
 
@@ -171,6 +172,18 @@ public class AdminController {
             default:
                 break;
         }
+        userService.updateUser(user);
+        return "redirect:/admin/edit/" + user.getUsername();
+    }
+
+    @RequestMapping(value = "/admin/edit/{username}/updateBan", method = RequestMethod.POST)
+    public String updatePointsByAdmin(@PathVariable("username") String username, @ModelAttribute("bannedForm") BannedForm bannedForm, Model model){
+        User loggedInUser = userDataFacade.retrieveLoggedUser();
+        if(!loggedInUser.getAdmin()){
+            return "redirect:/home";
+        }
+        User user = userDataFacade.retrieveUser(username);
+        user.setBanned(bannedForm.getBanned());
         userService.updateUser(user);
         return "redirect:/admin/edit/" + user.getUsername();
     }

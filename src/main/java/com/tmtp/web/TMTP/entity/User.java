@@ -18,6 +18,7 @@ public class User {
     private String password;
     private int stadiumLevel;
     private Boolean admin;
+    private Boolean banned;
     private PlayerKit playerKit;
     private Points points;
     private Set<Role> roles;
@@ -108,6 +109,14 @@ public class User {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public Boolean getBanned() {
+        return banned;
+    }
+
+    public void setBanned(Boolean banned) {
+        this.banned = banned;
     }
 
     public Points getPoints() {
