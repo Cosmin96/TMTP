@@ -5,6 +5,7 @@ import com.tmtp.web.TMTP.entity.Points;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.repository.RoleRepository;
 import com.tmtp.web.TMTP.repository.UserRepository;
+import org.joda.time.DateTime;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,7 @@ public class UserServiceImpl implements UserService{
         userToSave.setStadiumLevel(1);
         userToSave.setAdmin(false);
         userToSave.setBanned(false);
+        userToSave.setBanTime(DateTime.now());
         userToSave.setPlayerKit(new PlayerKit("none", "none", "none", "none"));
         userToSave.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userToSave.setRoles(new HashSet<>(roleRepository.findAll()));

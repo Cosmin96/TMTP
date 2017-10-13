@@ -4,6 +4,7 @@ import com.tmtp.web.TMTP.entity.Comment;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.security.UserService;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +38,7 @@ public class PostController {
                 user.getPoints().setYellow(0);
                 user.getPoints().setRed(user.getPoints().getRed() + 1);
                 user.setBanned(true);
+                user.setBanTime(DateTime.now());
             }
             userService.updateUser(user);
             redirectAttributes.addFlashAttribute("error", true);
@@ -77,6 +79,7 @@ public class PostController {
             if(user.getPoints().getYellow() == 2){
                 user.getPoints().setYellow(0);
                 user.getPoints().setRed(user.getPoints().getRed() + 1);
+                user.setBanTime(DateTime.now());
                 user.setBanned(true);
             }
             userService.updateUser(user);

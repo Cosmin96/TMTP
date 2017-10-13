@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.entity;
 
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
 import java.util.Set;
@@ -19,6 +20,7 @@ public class User {
     private int stadiumLevel;
     private Boolean admin;
     private Boolean banned;
+    private DateTime banTime;
     private PlayerKit playerKit;
     private Points points;
     private Set<Role> roles;
@@ -111,6 +113,14 @@ public class User {
         this.admin = admin;
     }
 
+    public DateTime getBanTime() {
+        return banTime;
+    }
+
+    public void setBanTime(DateTime banTime) {
+        this.banTime = banTime;
+    }
+
     public Boolean getBanned() {
         return banned;
     }
@@ -148,6 +158,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", stadiumLevel=" + stadiumLevel +
                 ", admin=" + admin +
+                ", banned=" + banned +
+                ", banTime=" + banTime +
                 ", playerKit=" + playerKit +
                 ", points=" + points +
                 ", roles=" + roles +
