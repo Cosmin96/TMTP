@@ -6,4 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface JobRepository extends MongoRepository<Job, String> {
 
     public Job findById(String id);
+
+    public Job findByDescription(String description);
 }

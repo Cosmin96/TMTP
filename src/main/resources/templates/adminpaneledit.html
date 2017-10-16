@@ -38,12 +38,16 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
 
-            <li th:if="${loggeduser.getAdmin()}" class="nav-item">
+            <li th:if="${user.getAdmin()}" class="nav-item">
                 <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/shop}">Store</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/jobs}">Jobs</a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/scores}">Live Scores</a>
             </li>
@@ -51,7 +55,7 @@
                 <a class="nav-link" href="https://discord.gg/rbugQUr">Chat</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{'/profile/' + ${loggeduser.getUsername()}}"><span th:text="'Hi, ' + ${loggeduser.getFirstName()} + '!'"></span></a>
+                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><span th:text="'Hi, ' + ${loggeduser.getUsername()} + '!'"></span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/logout}">Logout</a>

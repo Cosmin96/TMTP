@@ -38,7 +38,7 @@ public class ProfileSettingsController {
 
         if(pageUser.getId().equals(loggedInUser.getId())){
 
-            model.addAttribute("loggedfname", loggedInUser.getFirstName());
+            model.addAttribute("fname", loggedInUser.getFirstName());
             model.addAttribute("user", pageUser);
             model.addAttribute("greenPoints", pageUser.getPoints().getGreen());
             model.addAttribute("yellowPoints", pageUser.getPoints().getYellow());

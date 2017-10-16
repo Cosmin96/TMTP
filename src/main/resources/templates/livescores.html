@@ -44,6 +44,10 @@
             <a class="nav-link" th:href="@{/shop}">Store</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" th:href="@{/jobs}">Jobs</a>
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link" th:href="@{/scores}">Live Scores</a>
           </li>
           <li class="nav-item">
@@ -59,13 +63,50 @@
       </div>
     </nav>
 
-    <div class="container" style="align-content: center">
-            
-            <center>
-            <iframe src="http://livescores.website/widgetsoccerblue" frameborder="0" scrolling="no" style="width:660px;min-height:1080px;overflow-y: hidden"></iframe>
-              <iframe width="300" height="900" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
-              <iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />
-            </center>
+    <div class="container statsmenu">
+      <div class="row">
+
+        <div class="col-lg-6">
+          <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
+        </div>
+
+        <div class="col-lg-2">
+          <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+        </div>
+
+        <div class="col-lg-2">
+          <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+        </div>
+
+        <div class="col-lg-2">
+          <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container" style="margin-top: 3%;">
+      <div class="row">
+        <!--<div class="col-lg-3 mobileNone">-->
+          <!--<script src="http://www.btfscores.com/widgets/widget-side.min.js" th:async="true"></script>-->
+          <!--<div id="sidebar-soccer-goal" style="width:250px;"></div>-->
+        <!--</div>-->
+
+        <div class="col-lg-9 col-xs-12 scrollabelcolumn">
+          <iframe src="http://livescores.website/widgetsoccerblue" frameborder="0" scrolling="no" style="width:660px;min-height:1080px;overflow-y: hidden"></iframe>
+        </div>
+
+        <div class="col-lg-3 mobileNone">
+          <div class="row">
+            <iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
+          </div>
+          <div class="row">
+            <iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />
+          </div>
+
+        </div>
+      </div>
+
     </div>
     
 

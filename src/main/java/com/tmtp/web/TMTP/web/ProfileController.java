@@ -33,7 +33,7 @@ public class ProfileController {
             model.addAttribute("settingsButton", false);
         }
         getStadium(model, pageuser);
-        model.addAttribute("loggedfname", loggedInUser.getFirstName());
+        model.addAttribute("fname", loggedInUser.getFirstName());
         model.addAttribute("user", pageuser);
         model.addAttribute("greenPoints", pageuser.getPoints().getGreen());
         model.addAttribute("yellowPoints", pageuser.getPoints().getYellow());

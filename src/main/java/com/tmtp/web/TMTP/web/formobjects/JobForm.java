@@ -1,20 +1,15 @@
 package com.tmtp.web.TMTP.web.formobjects;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class JobForm {
 
-    private int id;
     private String title;
+    private String contact;
+    private String date;
     private String description;
     private String location;
-    private String imagePath;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private MultipartFile imagePath;
 
     public String getTitle() {
         return title;
@@ -22,6 +17,22 @@ public class JobForm {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getDescription() {
@@ -40,11 +51,11 @@ public class JobForm {
         this.location = location;
     }
 
-    public String getImagePath() {
+    public MultipartFile getImagePath() {
         return imagePath;
     }
 
-    public void setImagePath(String imagePath) {
+    public void setImagePath(MultipartFile imagePath) {
         this.imagePath = imagePath;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 public class Job {
 
     @Id
-    private int id;
+    private String id;
     private String title;
     private String contact;
     private String date;
@@ -13,19 +13,11 @@ public class Job {
     private String location;
     private String imagePath;
 
-    public Job(int id, String title, String description, String location, String imagePath) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.location = location;
-        this.imagePath = imagePath;
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -35,6 +27,22 @@ public class Job {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getDescription() {
