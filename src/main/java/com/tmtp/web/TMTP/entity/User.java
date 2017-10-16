@@ -15,6 +15,7 @@ public class User {
     private String email;
     private String username;
     private String profile;
+    private String title;
     private String overlay;
     private String password;
     private int stadiumLevel;
@@ -71,6 +72,14 @@ public class User {
 
     public void setPlayerKit(PlayerKit playerKit) {
         this.playerKit = playerKit;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getProfile() {
