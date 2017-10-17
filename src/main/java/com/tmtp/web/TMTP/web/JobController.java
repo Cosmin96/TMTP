@@ -44,10 +44,12 @@ public class JobController {
     public String submitNewJob(@ModelAttribute("jobForm") JobForm jobForm, Model model){
 
         jobsDataFacade.createNewJob(jobForm);
-        Job job = jobsDataFacade.retrieveJobByDescription(jobForm.getDescription());
-        jobPhotoUpload(jobForm.getImagePath(), job.getId());
-        job.setImagePath(job.getId());
-        jobsDataFacade.updateJob(job);
+        if(!jobForm.getImagePath().isEmpty()) {
+            Job job = jobsDataFacade.retrieveJobByDescription(jobForm.getDescription());
+            jobPhotoUpload(jobForm.getImagePath(), job.getId());
+            job.setImagePath(job.getId());
+            jobsDataFacade.updateJob(job);
+        }
         return "redirect:/jobs";
     }
 

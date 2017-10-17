@@ -109,6 +109,15 @@
                     <input th:field="*{description}" class="form-control" style="width:100%;" type="text"  id="desc" />
                 </div>
                 <div class="form-group">
+                    <label for="country">Job Description</label>
+                    <select th:field="*{country}" class="form-control" style="width:100%;" type="text"  id="country">
+                        <option th:value="UK">UK</option>
+                        <option th:value="USA">USA</option>
+                        <option th:value="France">France</option>
+                        <option th:value="Spain">Spain</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="location">Job Location</label>
                     <input th:field="*{location}" class="form-control" style="width:100%;" type="text"  id="location" />
                 </div>
@@ -131,15 +140,59 @@
 
     <div class="row stadiumCard">
         <!--<h3 style="margin-left: 5%">Available Jobs:</h3><br />-->
+
+        <h2 style="margin-left: 5%"><u>United Kingdom</u></h2>
         <div style="width: 100%" th:each="job : ${jobs}">
-            <h3 style="margin-left:5%; color: black" th:text="${job.getTitle()}"></h3>
-            <p style="margin-left:5%; color: black" th:text="'Location: ' + ${job.getLocation()}"></p>
-            <p style="margin-left:5%; color: black" th:text="'Start Date: ' + ${job.getDate()}"></p>
-            <p style="margin-left:5%; color: black" th:text="'Contact Details: ' + ${job.getContact()}"></p>
-            <p style="margin-left:5%; color: black" th:text="'Job Description: ' + ${job.getDescription()}"></p>
-            <img style="margin-left: 3%" th:src="@{'/getFiles/' + ${job.getId()} + '.jpg'}" />
-            <hr align="center" width="80%" style="background-color: #2C3E50;" />
+            <div th:if="${job.getCountry()} == 'UK'">
+                <h3 style="margin-left:5%; color: black" th:text="${job.getTitle()}"></h3>
+                <p style="margin-left:5%; color: black" th:text="'Location: ' + ${job.getLocation()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Start Date: ' + ${job.getDate()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Contact Details: ' + ${job.getContact()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Job Description: ' + ${job.getDescription()}"></p>
+                <img style="margin-left: 3%" th:src="@{'/getFiles/' + ${job.getId()} + '.jpg'}" />
+                <hr align="center" width="80%" style="background-color: #2C3E50;" />
+            </div>
         </div>
+
+        <h2 style="margin-left: 5%"><u>United States of America</u></h2>
+        <div style="width: 100%" th:each="job : ${jobs}">
+            <div th:if="${job.getCountry()} == 'USA'">
+                <h3 style="margin-left:5%; color: black" th:text="${job.getTitle()}"></h3>
+                <p style="margin-left:5%; color: black" th:text="'Location: ' + ${job.getLocation()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Start Date: ' + ${job.getDate()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Contact Details: ' + ${job.getContact()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Job Description: ' + ${job.getDescription()}"></p>
+                <img style="margin-left: 3%" th:src="@{'/getFiles/' + ${job.getId()} + '.jpg'}" />
+                <hr align="center" width="80%" style="background-color: #2C3E50;" />
+            </div>
+        </div>
+
+        <h2 style="margin-left: 5%"><u>France</u></h2>
+        <div style="width: 100%" th:each="job : ${jobs}">
+            <div th:if="${job.getCountry()} == 'France'">
+                <h3 style="margin-left:5%; color: black" th:text="${job.getTitle()}"></h3>
+                <p style="margin-left:5%; color: black" th:text="'Location: ' + ${job.getLocation()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Start Date: ' + ${job.getDate()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Contact Details: ' + ${job.getContact()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Job Description: ' + ${job.getDescription()}"></p>
+                <img style="margin-left: 3%" th:src="@{'/getFiles/' + ${job.getId()} + '.jpg'}" />
+                <hr align="center" width="80%" style="background-color: #2C3E50;" />
+            </div>
+        </div>
+
+        <h2 style="margin-left: 5%"><u>Spain</u></h2>
+        <div style="width: 100%" th:each="job : ${jobs}">
+            <div th:if="${job.getCountry()} == 'Spain'">
+                <h3 style="margin-left:5%; color: black" th:text="${job.getTitle()}"></h3>
+                <p style="margin-left:5%; color: black" th:text="'Location: ' + ${job.getLocation()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Start Date: ' + ${job.getDate()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Contact Details: ' + ${job.getContact()}"></p>
+                <p style="margin-left:5%; color: black" th:text="'Job Description: ' + ${job.getDescription()}"></p>
+                <img style="margin-left: 3%" th:src="@{'/getFiles/' + ${job.getId()} + '.jpg'}" />
+                <hr align="center" width="80%" style="background-color: #2C3E50;" />
+            </div>
+        </div>
+
     </div>
 </div>
 

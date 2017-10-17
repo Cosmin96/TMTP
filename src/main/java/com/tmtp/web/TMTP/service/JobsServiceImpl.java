@@ -20,6 +20,7 @@ public class JobsServiceImpl implements JobsService {
     public void createNewJob(JobForm jobForm){
         Job job = new Job();
         job.setTitle(jobForm.getTitle());
+        job.setCountry(jobForm.getCountry());
         job.setContact(jobForm.getContact());
         job.setDate(jobForm.getDate());
         job.setDescription(jobForm.getDescription());
