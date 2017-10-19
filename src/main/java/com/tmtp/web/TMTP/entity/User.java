@@ -24,6 +24,7 @@ public class User {
     private DateTime banTime;
     private PlayerKit playerKit;
     private Points points;
+    private Inventory inventory;
     private Set<Role> roles;
 
     public String getId() {
@@ -144,6 +145,14 @@ public class User {
 
     public void setPoints(Points points) {
         this.points = points;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     public Set<Role> getRoles() {
