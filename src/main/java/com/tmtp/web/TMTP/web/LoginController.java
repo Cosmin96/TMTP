@@ -2,9 +2,11 @@ package com.tmtp.web.TMTP.web;
 
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
+import com.tmtp.web.TMTP.repository.ShopItemRepository;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.security.UserValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +33,8 @@ public class LoginController {
     private final UserDataFacade userDataFacade;
     private final VideoPostsFacade videoPostsFacade;
     private final MessageSource messageSource;
+    @Autowired
+    private ShopItemRepository shopItemRepository;
 
     public LoginController(final UserService userService,
                            final SecurityService securityService,
@@ -50,6 +54,14 @@ public class LoginController {
     public String registration(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("userForm", new User());
+
+//        ShopItem shopItem = new ShopItem();
+//        shopItem.setName("Blue Shirt");
+//        shopItem.setPointPrice("10");
+//        shopItem.setGbpPrice("£0.79");
+//        shopItem.setImgPath("/img/kits/jackets/1.png");
+//        shopItemRepository.save(shopItem);
+
         return "login";
     }
 

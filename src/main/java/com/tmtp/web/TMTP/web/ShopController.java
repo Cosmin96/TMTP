@@ -1,17 +1,24 @@
 package com.tmtp.web.TMTP.web;
 
+import com.tmtp.web.TMTP.entity.ShopItem;
 import com.tmtp.web.TMTP.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
-public class HomeController {
+public class ShopController {
 
     private final UserDataFacade userDataFacade;
+    private final ShopItemFacade shopItemFacade;
 
-    public HomeController(final UserDataFacade userDataFacade) {
+    public ShopController(final UserDataFacade userDataFacade,
+                          final ShopItemFacade shopItemFacade) {
         this.userDataFacade = userDataFacade;
+        this.shopItemFacade = shopItemFacade;
     }
 
     @RequestMapping("/scores")
@@ -31,14 +38,24 @@ public class HomeController {
     @RequestMapping("/shop")
     public String storePage(Model model){
         User user = userDataFacade.retrieveLoggedUser();
-
+        List<ShopItem> items = shopItemFacade.retrieveAllItems();
         model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("items", items);
 
         return "store";
+    }
+
+    @RequestMapping("/buy/{id}")
+    public String buyWithPoints(@PathVariable("id") String id, Model model){
+        ShopItem shopItem = shopItemFacade.retrieveItemById(id);
+        User user = userDataFacade.retrieveLoggedUser();
+        user.getPoints().setGreen(user.getPoints().getGreen() - Integer.parseInt(shopItem.getPointPrice()));
+        userDataFacade.updateUser(user);
+        return "redirect:/shop";
     }
 }

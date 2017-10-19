@@ -1,6 +1,7 @@
 package com.tmtp.web.TMTP.web;
 
 import com.tmtp.web.TMTP.entity.User;
+import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.service.RetrieveUserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,9 +13,12 @@ import java.util.List;
 public class UserDataFacade {
 
     private final RetrieveUserService retrieveUserService;
+    private final UserService userService;
 
-    public UserDataFacade(final RetrieveUserService retrieveUserService) {
+    public UserDataFacade(final RetrieveUserService retrieveUserService,
+                          final UserService userService) {
         this.retrieveUserService = retrieveUserService;
+        this.userService = userService;
     }
 
     public User retrieveLoggedUser(){
@@ -33,5 +37,9 @@ public class UserDataFacade {
 
     public void deleteUser(User user){
         retrieveUserService.deleteUser(user);
+    }
+
+    public void updateUser(User user){
+        userService.updateUser(user);
     }
 }
