@@ -8,8 +8,9 @@ public class ShopItem {
     private String id;
     private String name;
     private String imgPath;
-    private String pointPrice;
-    private String gbpPrice;
+    private int pointPrice;
+    private int gbpPrice;
+    private String gbpPriceFormatted;
 
     public String getId() {
         return id;
@@ -35,19 +36,27 @@ public class ShopItem {
         this.imgPath = imgPath;
     }
 
-    public String getPointPrice() {
+    public int getPointPrice() {
         return pointPrice;
     }
 
-    public void setPointPrice(String pointPrice) {
+    public void setPointPrice(int pointPrice) {
         this.pointPrice = pointPrice;
     }
 
-    public String getGbpPrice() {
+    public int getGbpPrice() {
         return gbpPrice;
     }
 
-    public void setGbpPrice(String gbpPrice) {
+    public void setGbpPrice(int gbpPrice) {
         this.gbpPrice = gbpPrice;
+    }
+
+    public String getGbpPriceFormatted() {
+        return gbpPriceFormatted;
+    }
+
+    public void setGbpPriceFormatted(String gbpPriceFormatted) {
+        this.gbpPriceFormatted = gbpPriceFormatted;
     }
 }
