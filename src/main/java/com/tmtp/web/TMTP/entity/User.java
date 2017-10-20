@@ -3,6 +3,7 @@ package com.tmtp.web.TMTP.entity;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Set;
 
 public class User {
@@ -24,7 +25,7 @@ public class User {
     private DateTime banTime;
     private PlayerKit playerKit;
     private Points points;
-    private Inventory inventory;
+    private List<ShopItem> shopItems;
     private Set<Role> roles;
 
     public String getId() {
@@ -147,12 +148,12 @@ public class User {
         this.points = points;
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public List<ShopItem> getShopItems() {
+        return shopItems;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public void setShopItems(List<ShopItem> shopItems) {
+        this.shopItems = shopItems;
     }
 
     public Set<Role> getRoles() {

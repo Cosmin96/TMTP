@@ -7,6 +7,7 @@ public class ShopItem {
     @Id
     private String id;
     private String name;
+    private String type;
     private String imgPath;
     private int pointPrice;
     private int gbpPrice;
@@ -26,6 +27,14 @@ public class ShopItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getImgPath() {

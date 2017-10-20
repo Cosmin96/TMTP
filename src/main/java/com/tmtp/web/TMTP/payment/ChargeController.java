@@ -2,7 +2,9 @@ package com.tmtp.web.TMTP.payment;
 
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
+import com.tmtp.web.TMTP.entity.ShopItem;
 import com.tmtp.web.TMTP.entity.User;
+import com.tmtp.web.TMTP.web.ShopItemFacade;
 import com.tmtp.web.TMTP.web.UserDataFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ public class ChargeController {
     private StripeService paymentsService;
     @Autowired
     private UserDataFacade userDataFacade;
+    @Autowired
+    private ShopItemFacade shopItemFacade;
 
     @PostMapping("/charge/{id}")
     public String charge(@PathVariable("id") String id, ChargeRequest chargeRequest, Model model) throws StripeException {
@@ -26,7 +30,8 @@ public class ChargeController {
         Charge charge = paymentsService.charge(chargeRequest);
 
         User user = userDataFacade.retrieveLoggedUser();
-        updateInventory(user, id);
+        ShopItem shopItem = shopItemFacade.retrieveItemById(id);
+        user.getShopItems().add(shopItem);
         userDataFacade.updateUser(user);
 
         return "redirect:/shop";
@@ -38,13 +43,5 @@ public class ChargeController {
         return "result";
     }
 
-    private void updateInventory(User user, String id){
-        switch(id){
-            case "s":
-                break;
-            default:
-                break;
-        }
-    }
 
 }

@@ -18,7 +18,7 @@ public class LikeCronJob {
     @Autowired
     private UserDataFacade userDataFacade;
 
-    @Scheduled(fixedRate = 3600000)
+    @Scheduled(fixedRate = 3600000) 
     public void grantPoints(){
         List<VideoPosts> videoPosts = videoPostsFacade.retrieveListOfVideoPosts();
         for(VideoPosts post : videoPosts){

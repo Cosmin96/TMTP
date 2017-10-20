@@ -54,14 +54,6 @@ public class LoginController {
     public String registration(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("userForm", new User());
-
-//        ShopItem shopItem = new ShopItem();
-//        shopItem.setName("Blue Shirt");
-//        shopItem.setPointPrice("10");
-//        shopItem.setGbpPrice("£0.79");
-//        shopItem.setImgPath("/img/kits/jackets/1.png");
-//        shopItemRepository.save(shopItem);
-
         return "login";
     }
 
