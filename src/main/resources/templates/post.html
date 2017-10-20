@@ -121,13 +121,22 @@
 
                 <div class="row buttonRow">
                     <div class="col-xs-3">
-                        <button class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</button>
+                        <a class="btn btn-success" th:href="'javascript:likeButton(\'' + ${post.getId()} + '\')'" th:id="${'like' + post.getId()}">
+                            <!--th:href="@{'/like/' + ${post.getId()}}"-->
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                            <span th:if="${!post.getLikeUsers().contains(user.getUsername())}" th:text="${'Like - ' + post.getLikes() + ' likes'}"></span>
+                            <span th:if="${post.getLikeUsers().contains(user.getUsername())}" th:text="${'Liked - ' + post.getLikes() + ' likes'}"></span>
+                        </a>
                     </div>
                     <div class="col-xs-1">
                         &nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="col-xs-3">
-                        <button class="btn btn-danger"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Dislike</button>
+                        <a style="text-decoration:none !important" class="btn btn-danger" th:href="'javascript:dislikeButton(\'' + ${post.getId()} + '\')'" th:id="${'dislike' + post.getId()}">
+                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                            <span th:if="${!post.getDislikeUsers().contains(user.getUsername())}" th:text="${'Dislike - ' + post.getDislikes() + ' dislikes'}"></span>
+                            <span th:if="${post.getDislikeUsers().contains(user.getUsername())}" th:text="${'Disliked - ' + post.getDislikes() + ' dislikes'}"></span>
+                        </a>
                     </div>
                 </div>
 
@@ -245,6 +254,41 @@
 <script type="text/javascript">
     var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg',  '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg',];
     $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
+</script>
+
+<script th:inline="javascript">
+    function likeButton(id){
+        $.ajax({
+            url: '/like/' + id,
+            success: function(data){
+                var str = $("#like" + id + " > span").text();
+                if(str.charAt(4) == 'd'){
+                    $("#like" + id + " > span").text("Like - " + data[0] + " likes");
+                }
+                else{
+                    $("#like" + id + " > span").text("Liked - " + data[0] + " likes");
+                    $("#dislike" + id + " > span").text("Dislike - " + data[1] + " dislikes");
+                }
+            }
+        })
+    }
+
+    function dislikeButton(id){
+        $.ajax({
+            url: '/dislike/' + id,
+            success: function(data){
+                var str = $("#dislike" + id + " > span").text();
+                if(str.charAt(7) == 'd'){
+                    $("#dislike" + id + " > span").text("Dislike - " + data[1] + " dislikes");
+                }
+                else{
+                    $("#dislike" + id + " > span").text("Disliked - " + data[1] + " dislikes");
+                    $("#like" + id + " > span").text("Like - " + data[0] + " likes");
+                }
+            }
+        })
+    }
+
 </script>
 
 </body>

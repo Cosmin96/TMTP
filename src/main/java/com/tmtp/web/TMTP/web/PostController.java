@@ -7,11 +7,11 @@ import com.tmtp.web.TMTP.security.UserService;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -91,4 +91,52 @@ public class PostController {
 
         return "redirect:/post/" + id;
     }
+
+    @RequestMapping(value = "/like/{id}", method= RequestMethod.GET)
+    @ResponseBody
+    public List<Integer> likeButton(@PathVariable("id") String id){
+        User user = userDataFacade.retrieveLoggedUser();
+        String username = user.getUsername();
+        VideoPosts videoPosts = videoPostsFacade.retrievePostById(id);
+        if(videoPosts.getLikeUsers().contains(user.getUsername())){
+            videoPosts.getLikeUsers().remove(username);
+            videoPosts.setLikes(videoPosts.getLikes() - 1);
+        }
+        else{
+            videoPosts.setLikes(videoPosts.getLikes() + 1);
+            videoPosts.getLikeUsers().add(username);
+        }
+        if(videoPosts.getDislikeUsers().contains(user.getUsername())){
+            videoPosts.setDislikes(videoPosts.getDislikes() - 1);
+            videoPosts.getDislikeUsers().remove(username);
+        }
+        videoPostsFacade.updateVideoPost(videoPosts);
+        List<Integer> buttonValues = Arrays.asList(videoPosts.getLikes(), videoPosts.getDislikes());
+        return buttonValues;
+    }
+
+    @RequestMapping(value = "/dislike/{id}", method= RequestMethod.GET)
+    @ResponseBody
+    public List<Integer> dislikeButton(@PathVariable("id") String id){
+        User user = userDataFacade.retrieveLoggedUser();
+        String username = user.getUsername();
+        VideoPosts videoPosts = videoPostsFacade.retrievePostById(id);
+        if(videoPosts.getDislikeUsers().contains(user.getUsername())){
+            videoPosts.getDislikeUsers().remove(username);
+            videoPosts.setDislikes(videoPosts.getDislikes() - 1);
+        }
+        else{
+            videoPosts.setDislikes(videoPosts.getDislikes() + 1);
+            videoPosts.getDislikeUsers().add(username);
+        }
+        if(videoPosts.getLikeUsers().contains(user.getUsername())){
+            videoPosts.setLikes(videoPosts.getLikes() - 1);
+            videoPosts.getLikeUsers().remove(username);
+        }
+        videoPostsFacade.updateVideoPost(videoPosts);
+
+        List<Integer> buttonValues = Arrays.asList(videoPosts.getLikes(), videoPosts.getDislikes());
+        return buttonValues;
+    }
+
 }

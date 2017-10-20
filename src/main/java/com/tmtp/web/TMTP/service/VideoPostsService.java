@@ -18,6 +18,8 @@ public interface VideoPostsService {
 
     void addNewComment(VideoPosts videoPosts, Comment comment, User user);
 
+    void updatePost(VideoPosts videoPosts);
+
     void deletePost(VideoPosts videoPosts);
 
     void deletePostComment(VideoPosts videoPosts);

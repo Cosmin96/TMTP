@@ -45,7 +45,11 @@ public class VideoPostsServiceImpl implements VideoPostsService {
         videoPosts.setCreator(user.getUsername());
         videoPosts.setUser(user);
         videoPosts.setLink(url);
-
+        videoPosts.setDislikes(0);
+        videoPosts.setLikes(0);
+        videoPosts.setGrantPoint(false);
+        videoPosts.setDislikeUsers(Collections.emptyList());
+        videoPosts.setLikeUsers(Collections.emptyList());
         videoPostsRepository.save(videoPosts);
     }
 
@@ -58,6 +62,11 @@ public class VideoPostsServiceImpl implements VideoPostsService {
         comment.setUser(user);
         videoPosts.getComments().add(comment);
 
+        videoPostsRepository.save(videoPosts);
+    }
+
+    @Override
+    public void updatePost(VideoPosts videoPosts){
         videoPostsRepository.save(videoPosts);
     }
 

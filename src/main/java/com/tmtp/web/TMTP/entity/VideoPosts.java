@@ -13,6 +13,11 @@ public class VideoPosts {
     private String description;
     private String creator;
     private User user;
+    private List<String> likeUsers;
+    private List<String> dislikeUsers;
+    private int likes;
+    private int dislikes;
+    private boolean grantPoint;
     private List<Comment> comments;
 
     public String getId() {
@@ -53,6 +58,46 @@ public class VideoPosts {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<String> getLikeUsers() {
+        return likeUsers;
+    }
+
+    public void setLikeUsers(List<String> likeUsers) {
+        this.likeUsers = likeUsers;
+    }
+
+    public List<String> getDislikeUsers() {
+        return dislikeUsers;
+    }
+
+    public void setDislikeUsers(List<String> dislikeUsers) {
+        this.dislikeUsers = dislikeUsers;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
+    }
+
+    public boolean getGrantPoint() {
+        return grantPoint;
+    }
+
+    public void setGrantPoint(boolean grantPoint) {
+        this.grantPoint = grantPoint;
     }
 
     public List<Comment> getComments() {

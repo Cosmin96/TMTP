@@ -37,6 +37,10 @@ public class VideoPostsFacade {
         videoPostsService.createVideoPost(videoPosts, user);
     }
 
+    public void updateVideoPost(VideoPosts videoPosts){
+        videoPostsService.updatePost(videoPosts);
+    }
+
     public void addNewComment(VideoPosts videoPosts, Comment comment, User user){
         videoPostsService.addNewComment(videoPosts, comment, user);
     }
