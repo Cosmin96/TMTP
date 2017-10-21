@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -53,17 +54,109 @@ public class ShopController {
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
-        model.addAttribute("items", items);
         model.addAttribute("stripePublicKey", stripePublicKey);
         model.addAttribute("currency", ChargeRequest.Currency.GBP);
+        model.addAttribute("inventory", items);
+        model.addAttribute("category", "jacket");
+        return "store";
+    }
 
+    @RequestMapping("/shop/shorts")
+    public String storePageShorts(Model model){
+        User user = userDataFacade.retrieveLoggedUser();
+        List<ShopItem> items = shopItemFacade.retrieveAllItems();
+        model.addAttribute("user", user);
+        model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.GBP);
+        model.addAttribute("inventory", items);
+        model.addAttribute("category", "shorts");
+        return "store";
+    }
+
+    @RequestMapping("/shop/socks")
+    public String storePageSocks(Model model){
+        User user = userDataFacade.retrieveLoggedUser();
+        List<ShopItem> items = shopItemFacade.retrieveAllItems();
+        model.addAttribute("user", user);
+        model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.GBP);
+        model.addAttribute("inventory", items);
+        model.addAttribute("category", "socks");
+        return "store";
+    }
+
+    @RequestMapping("/shop/footballs")
+    public String storePageFootballs(Model model){
+        User user = userDataFacade.retrieveLoggedUser();
+        List<ShopItem> items = shopItemFacade.retrieveAllItems();
+        model.addAttribute("user", user);
+        model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.GBP);
+        model.addAttribute("inventory", items);
+        model.addAttribute("category", "football");
+        return "store";
+    }
+
+    @RequestMapping("/shop/overlays")
+    public String storePageOverlays(Model model){
+        User user = userDataFacade.retrieveLoggedUser();
+        List<ShopItem> items = shopItemFacade.retrieveAllItems();
+        model.addAttribute("user", user);
+        model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.GBP);
+        model.addAttribute("inventory", items);
+        model.addAttribute("category", "overlay");
+        return "store";
+    }
+
+    @RequestMapping("/shop/titles")
+    public String storePageTitles(Model model){
+        User user = userDataFacade.retrieveLoggedUser();
+        List<ShopItem> items = shopItemFacade.retrieveAllItems();
+        model.addAttribute("user", user);
+        model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.GBP);
+        model.addAttribute("inventory",  items);
+        model.addAttribute("category", "title");
         return "store";
     }
 
     @RequestMapping("/buy/{id}")
-    public String buyWithPoints(@PathVariable("id") String id, Model model){
+    public String buyWithPoints(@PathVariable("id") String id, Model model, RedirectAttributes redirectAttributes){
         ShopItem shopItem = shopItemFacade.retrieveItemById(id);
         User user = userDataFacade.retrieveLoggedUser();
+        for(ShopItem item : user.getShopItems()) {
+            if (item.getName().equals(shopItem.getName())) {
+                redirectAttributes.addFlashAttribute("error", true);
+                redirectAttributes.addFlashAttribute("message", "You already own this item!");
+                return "redirect:/shop";
+            }
+        }
         user.getPoints().setGreen(user.getPoints().getGreen() - shopItem.getPointPrice());
         user.getShopItems().add(shopItem);
         userDataFacade.updateUser(user);

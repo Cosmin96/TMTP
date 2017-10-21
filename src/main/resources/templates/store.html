@@ -23,7 +23,6 @@
     <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
 
     <link rel="stylesheet" href="../static/css/cards.css" th:href="@{/css/cards.css}" />
-
 </head>
 
   <body class="index" id="page-top" style="background-repeat: repeat-y;">
@@ -84,11 +83,59 @@
             </div>
             
         </div>
-    </div>  
+        <div class="row">
+            <div class="errorField2" th:if="${error}">
+                <center>
+                    <p th:text="${message}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <div class="container statsmenu" style="margin-top: 2% !important; padding-bottom: 1% !important;">
+        <div class="row">
+            <div class="col-lg-2">
+                <center>
+                <a class="btn btn-success"  th:href="@{'/shop/'}" style="font-size: 20px;">Jackets</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2">
+                <center>
+                <a class="btn btn-success"  th:href="@{'/shop/shorts'}" style="font-size: 20px;">Shorts</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/socks'}" style="font-size: 20px;">Socks</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/footballs'}" style="font-size: 20px;">Footballs</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/overlays'}" style="font-size: 20px;">Overlays</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/titles'}" style="font-size: 20px;">Titles</a>
+                </center>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
-        <div class="row">    
-            <div th:each="item : ${items}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
+
+        <div class="row">
+            <div th:each="item : ${inventory}" th:if="${item.getType().equals(category)}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
                 <div class="cards">
                     <img th:src="@{${item.getImgPath()}}" alt="Avatar" style="width:100%" />
                     <div class="cards-container">
@@ -127,42 +174,8 @@
                     </div>
                 </div>
             </div>
-
-                <!--<div class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">-->
-                    <!--<div class="cards">-->
-                        <!--<img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%" />-->
-                    <!--<div class="cards-container">-->
-                        <!--<div class="row" style="margin-top: 2%; margin-bottom: 4%">-->
-                            <!--<div class="col-md-8">-->
-                                <!--<h2>John Doe</h2> -->
-                            <!--</div>-->
-                            <!--<div class="col-md-4">-->
-                                <!--<button class="btn btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy</button>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">-->
-                    <!--<div class="cards">-->
-                        <!--<img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%" />-->
-                    <!--<div class="cards-container">-->
-                        <!--<div class="row" style="margin-top: 2%; margin-bottom: 4%">-->
-                            <!--<div class="col-md-8">-->
-                                <!--<h2>John Doe</h2> -->
-                            <!--</div>-->
-                            <!--<div class="col-md-4">-->
-                                <!--<button class="btn btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy</button>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            
-            </div>
+        </div>
     </div>
-
 
     <!-- Footer -->
     <footer class="text-center" style="margin-top: 10%;">
@@ -235,7 +248,6 @@
         var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg',  '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg',];
         $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
     </script>
-
   </body>
 
 </html>

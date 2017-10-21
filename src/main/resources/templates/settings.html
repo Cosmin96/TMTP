@@ -178,9 +178,28 @@
                         <div class="form-group" style="width: 80%">
                             <label for="overlayselect">Available overlays:</label>
                             <select th:field="*{overlayName}" class="form-control" id="overlayselect">
-                                <option th:value="Arsenal">Arsenal</option>
-                                <option th:value="FCBarcelona">Barcelona</option>
-                                <option th:value="Senegal">Senegal</option>
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'overlay'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" value="Upload">Change</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Title</h1>
+                <center>
+                    <form method="POST" th:object="${titleForm}" th:action="@{'/settings/' + ${user.getUsername()} + '/updateTitle'}">
+                        <div class="form-group" style="width: 80%">
+                            <label for="overlayselect">Available titles:</label>
+                            <select th:field="*{titleName}" class="form-control" id="overlayselect">
+                                <option value="Stay in your lane!">Stay in your lane!</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'title'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
                             </select>
                         </div>
                         <button class="btn btn-success" value="Upload">Change</button>
@@ -196,36 +215,40 @@
                         <div class="form-group" style="width: 80%">
                             <label for="jacketselect">Available jackets:</label>
                             <select th:field="*{jacket}" class="form-control" id="jacketselect">
-                                <option th:value="None">None</option>
-                                <option th:value="1">Arsenal</option>
-                                <option th:value="2">Barcelona</option>
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'jacket'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
                             </select>
                         </div>
 
                         <div class="form-group" style="width: 80%">
                             <label for="shortselect">Available shorts:</label>
                             <select th:field="*{shorts}" class="form-control" id="shortselect">
-                                <option th:value="None">None</option>
-                                <option th:value="1">Arsenal</option>
-                                <option th:value="2">Barcelona</option>
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'shorts'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
                             </select>
                         </div>
 
                         <div class="form-group" style="width: 80%">
                             <label for="sockselect">Available socks:</label>
                             <select th:field="*{socks}" class="form-control" id="sockselect">
-                                <option th:value="None">None</option>
-                                <option th:value="1">Arsenal</option>
-                                <option th:value="2">Barcelona</option>
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'socks'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
                             </select>
                         </div>
 
                         <div class="form-group" style="width: 80%">
                             <label for="footballselect">Available footballs:</label>
                             <select th:field="*{football}" class="form-control" id="footballselect">
-                                <option th:value="None">None</option>
-                                <option th:value="1">Arsenal</option>
-                                <option th:value="2">Barcelona</option>
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'football'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
                             </select>
                         </div>
 

@@ -114,12 +114,14 @@ public class AdminController {
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("inventory", user.getShopItems());
         model.addAttribute("nameForm", new NameForm());
         model.addAttribute("passForm", new PassForm());
         model.addAttribute("overlayForm", new OverlayForm());
         model.addAttribute("kitForm", new PlayerKitForm());
         model.addAttribute("pointsForm", new PointsForm());
         model.addAttribute("bannedForm", new BannedForm());
+        model.addAttribute("titleForm", new TitleForm());
         return "adminpaneledit";
     }
 
@@ -150,6 +152,19 @@ public class AdminController {
         }
 
         return "redirect:/admin/edit/" + user.getUsername();
+    }
+
+    @RequestMapping(value = "/admin/edit/{username}/updateTitle", method = RequestMethod.POST)
+    public String updateTitleAdmin(@PathVariable("username") String username, @ModelAttribute("titleForm") TitleForm titleForm, Model model){
+        User loggedInUser = userDataFacade.retrieveLoggedUser();
+        if(!loggedInUser.getAdmin()){
+            return "redirect:/home";
+        }
+        User pageUser = userDataFacade.retrieveUser(username);
+        pageUser.setTitle(titleForm.getTitleName());
+        userService.updateUser(pageUser);
+
+        return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
     }
 
     @RequestMapping(value = "/admin/edit/{username}/updatePoints", method = RequestMethod.POST)

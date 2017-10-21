@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ChargeController {
@@ -24,13 +25,22 @@ public class ChargeController {
     private ShopItemFacade shopItemFacade;
 
     @PostMapping("/charge/{id}")
-    public String charge(@PathVariable("id") String id, ChargeRequest chargeRequest, Model model) throws StripeException {
+    public String charge(@PathVariable("id") String id, ChargeRequest chargeRequest, Model model, RedirectAttributes redirectAttributes) throws StripeException {
+        User user = userDataFacade.retrieveLoggedUser();
+        ShopItem shopItem = shopItemFacade.retrieveItemById(id);
+        for(ShopItem item : user.getShopItems()) {
+            if (item.getName().equals(shopItem.getName())) {
+                redirectAttributes.addFlashAttribute("error", true);
+                redirectAttributes.addFlashAttribute("message", "You already own this item!");
+                return "redirect:/shop";
+            }
+        }
+
         chargeRequest.setDescription("Payment");
         chargeRequest.setCurrency(ChargeRequest.Currency.GBP);
         Charge charge = paymentsService.charge(chargeRequest);
 
-        User user = userDataFacade.retrieveLoggedUser();
-        ShopItem shopItem = shopItemFacade.retrieveItemById(id);
+
         user.getShopItems().add(shopItem);
         userDataFacade.updateUser(user);
 

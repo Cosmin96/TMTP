@@ -3,10 +3,7 @@ package com.tmtp.web.TMTP.web;
 import com.tmtp.web.TMTP.entity.PlayerKit;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.security.UserService;
-import com.tmtp.web.TMTP.web.formobjects.NameForm;
-import com.tmtp.web.TMTP.web.formobjects.OverlayForm;
-import com.tmtp.web.TMTP.web.formobjects.PassForm;
-import com.tmtp.web.TMTP.web.formobjects.PlayerKitForm;
+import com.tmtp.web.TMTP.web.formobjects.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +37,7 @@ public class ProfileSettingsController {
 
             model.addAttribute("fname", loggedInUser.getFirstName());
             model.addAttribute("user", pageUser);
+            model.addAttribute("inventory", loggedInUser.getShopItems());
             model.addAttribute("greenPoints", pageUser.getPoints().getGreen());
             model.addAttribute("yellowPoints", pageUser.getPoints().getYellow());
             model.addAttribute("redPoints", pageUser.getPoints().getRed());
@@ -47,6 +45,7 @@ public class ProfileSettingsController {
             model.addAttribute("passForm", new PassForm());
             model.addAttribute("overlayForm", new OverlayForm());
             model.addAttribute("kitForm", new PlayerKitForm());
+            model.addAttribute("titleForm", new TitleForm());
 
             return "settings";
         }
@@ -99,6 +98,20 @@ public class ProfileSettingsController {
         pageUser.setOverlay(overlayForm.getOverlayName());
         userService.updateUser(pageUser);
 
+
+        return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
+    }
+
+    @RequestMapping(value = "/settings/{username}/updateTitle", method = RequestMethod.POST)
+    public String updateTitle(@PathVariable("username") String username, @ModelAttribute("titleForm") TitleForm titleForm, Model model){
+        Boolean isUserRight = checkUsersAreSame(username);
+        User pageUser = userDataFacade.retrieveUser(username);
+        if(!isUserRight){
+            return "redirect:/home";
+        }
+
+        pageUser.setTitle(titleForm.getTitleName());
+        userService.updateUser(pageUser);
 
         return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
     }
