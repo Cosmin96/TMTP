@@ -133,7 +133,20 @@
                     <label for="file">Additional Photos</label>
                     <input th:field="*{imagePath}" class="form-control" style="width:100%;" type="file"  id="file" />
                 </div>
-                <button style="margin-top: 3%; margin-bottom: 5%" class="btn btn-success">Submit</button>
+                <!--<button style="margin-top: 3%; margin-bottom: 5%" id="stripeButton" class="btn btn-success">Submit</button>-->
+                <input type='hidden' th:value='2500' name='amount' />
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            th:attr='data-key=${stripePublicKey}'
+                            data-amount="2500"
+                            data-description="Fee for job advertisment form"
+                            data-label="Submit"
+                            data-name="TMTP"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto"
+                            data-zip-code="true"
+                            data-currency="gbp">
+                    </script>
             </form>
         </div>
     </div>
@@ -278,6 +291,35 @@
        $("#jobSubmitForm").slideDown();
     });
 </script>
+
+<!--<script src="https://checkout.stripe.com/checkout.js"></script>-->
+<!--<script>-->
+    <!--var handler = StripeCheckout.configure({-->
+        <!--key: 'pk_test_fhYCXyNal9IaUuFS8tUGYjVg',-->
+        <!--image: 'https://stripe.com/img/documentation/checkout/marketplace.png',-->
+        <!--locale: 'auto',-->
+        <!--token: function(token) {-->
+            <!--// You can access the token ID with `token.id`.-->
+            <!--// Get the token ID to your server-side code for use.-->
+        <!--}-->
+    <!--});-->
+
+    <!--$("#stripeButton").on('click', function(e) {-->
+        <!--// Open Checkout with further options:-->
+        <!--handler.open({-->
+            <!--name: 'Job Advertisment',-->
+            <!--description: 'Post a job advertisment',-->
+            <!--zipCode: true,-->
+            <!--amount: 2500-->
+        <!--});-->
+        <!--e.preventDefault();-->
+    <!--});-->
+
+    <!--// Close Checkout on page navigation:-->
+    <!--window.addEventListener('popstate', function() {-->
+        <!--handler.close();-->
+    <!--});-->
+<!--</script>-->
 
 </body>
 
