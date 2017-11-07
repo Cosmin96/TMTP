@@ -73,7 +73,7 @@ public class PostController {
     public String postComment(@ModelAttribute("commentForm") Comment comment,
                               @PathVariable("id") String id, Model model, RedirectAttributes redirectAttributes){
         VideoPosts videoPosts = videoPostsFacade.retrievePostById(id);
-        if(videoPostsFacade.filterComment(comment.getComment())){
+        /*if(videoPostsFacade.filterComment(comment.getComment())){
             User user = userDataFacade.retrieveLoggedUser();
             user.getPoints().setYellow(user.getPoints().getYellow() + 1);
             if(user.getPoints().getYellow() == 2){
@@ -86,7 +86,7 @@ public class PostController {
             redirectAttributes.addFlashAttribute("error", true);
             redirectAttributes.addFlashAttribute("errorMessage", "You have used abusive language and we have penalized you as appropriate");
             return "redirect:/post/" + id;
-        }
+        }*/
         videoPostsFacade.addNewComment(videoPosts, comment, userDataFacade.retrieveLoggedUser());
 
         return "redirect:/post/" + id;

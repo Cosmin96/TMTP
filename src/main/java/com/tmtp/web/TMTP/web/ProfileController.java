@@ -51,25 +51,37 @@ public class ProfileController {
 
         switch(user.getStadiumLevel()){
             case 1:
-                if(user.getPoints().getGreen() < 10){
+                if(user.getPoints().getGreen() < 100){
                     redirectAttributes.addFlashAttribute("error", true);
                     redirectAttributes.addFlashAttribute("errorMessage", "You do not have enough points to upgrade");
                     return "redirect:/profile/" + username;
                 }
-                user.getPoints().setGreen(user.getPoints().getGreen() - 10);
+                user.getPoints().setGreen(user.getPoints().getGreen() - 100);
                 break;
             case 2:
-                if(user.getPoints().getGreen() < 50){
+                if(user.getPoints().getGreen() < 150){
                     redirectAttributes.addFlashAttribute("error", true);
                     redirectAttributes.addFlashAttribute("errorMessage", "You do not have enough points to upgrade");
                     return "redirect:/profile/" + username;
                 }
-                user.getPoints().setGreen(user.getPoints().getGreen() - 50);
+                user.getPoints().setGreen(user.getPoints().getGreen() - 150);
                 break;
             case 3:
-                redirectAttributes.addFlashAttribute("error", true);
-                redirectAttributes.addFlashAttribute("errorMessage", "You have reached the final stadium tier");
-                return "redirect:/profile/" + username;
+                if(user.getPoints().getGreen() < 200){
+                    redirectAttributes.addFlashAttribute("error", true);
+                    redirectAttributes.addFlashAttribute("errorMessage", "You do not have enough points to upgrade");
+                    return "redirect:/profile/" + username;
+                }
+                user.getPoints().setGreen(user.getPoints().getGreen() - 200);
+                break;
+            case 4:
+                if(user.getPoints().getGreen() < 250){
+                    redirectAttributes.addFlashAttribute("error", true);
+                    redirectAttributes.addFlashAttribute("errorMessage", "You do not have enough points to upgrade");
+                    return "redirect:/profile/" + username;
+                }
+                user.getPoints().setGreen(user.getPoints().getGreen() - 250);
+                break;
         }
         user.setStadiumLevel(user.getStadiumLevel() + 1);
         userService.updateUser(user);
@@ -91,7 +103,7 @@ public class ProfileController {
                     model.addAttribute("enoughPoints", false);
                 }
                 else model.addAttribute("enoughPoints", true);
-                model.addAttribute("buttonMessage", "Upgrade - 10 points");
+                model.addAttribute("buttonMessage", "Upgrade - 100 points");
                 break;
             case 2:
                 model.addAttribute("upgradeButton", true);
@@ -99,15 +111,31 @@ public class ProfileController {
                     model.addAttribute("enoughPoints", false);
                 }
                 else model.addAttribute("enoughPoints", true);
-                model.addAttribute("buttonMessage", "Upgrade - 50 points");
+                model.addAttribute("buttonMessage", "Upgrade - 150 points");
                 break;
             case 3:
-                model.addAttribute("upgradeButton", false);
+                model.addAttribute("upgradeButton", true);
                 if(user.getPoints().getGreen() < 100){
                     model.addAttribute("enoughPoints", false);
                 }
                 else model.addAttribute("enoughPoints", true);
-                model.addAttribute("buttonMessage", "Upgrade - 100 points");
+                model.addAttribute("buttonMessage", "Upgrade - 200 points");
+                break;
+            case 4:
+                model.addAttribute("upgradeButton", true);
+                if(user.getPoints().getGreen() < 250){
+                    model.addAttribute("enoughPoints", false);
+                }
+                else model.addAttribute("enoughPoints", true);
+                model.addAttribute("buttonMessage", "Upgrade - 250 points");
+                break;
+            case 5:
+                model.addAttribute("upgradeButton", false);
+                if(user.getPoints().getGreen() < 300){
+                    model.addAttribute("enoughPoints", false);
+                }
+                else model.addAttribute("enoughPoints", true);
+                model.addAttribute("buttonMessage", "Upgrade - 300 points");
                 break;
         }
     }
