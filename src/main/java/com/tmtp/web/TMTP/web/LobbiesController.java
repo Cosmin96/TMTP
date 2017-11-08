@@ -1,7 +1,6 @@
 package com.tmtp.web.TMTP.web;
 
 import com.tmtp.web.TMTP.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LobbiesController {
 
-    @Autowired
-    private static UserDataFacade userDataFacade;
+    private final UserDataFacade userDataFacade;
+
+    public LobbiesController(final UserDataFacade userDataFacade) {
+        this.userDataFacade = userDataFacade;
+    }
 
     @RequestMapping("/lobbies")
     public String scoresPage(Model model){
