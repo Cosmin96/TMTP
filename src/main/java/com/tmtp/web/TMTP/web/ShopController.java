@@ -30,20 +30,6 @@ public class ShopController {
         this.shopItemFacade = shopItemFacade;
     }
 
-    @RequestMapping("/scores")
-    public String scoresPage(Model model){
-        User user = userDataFacade.retrieveLoggedUser();
-
-        model.addAttribute("user", user);
-        model.addAttribute("fname", user.getFirstName());
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("greenPoints", user.getPoints().getGreen());
-        model.addAttribute("yellowPoints", user.getPoints().getYellow());
-        model.addAttribute("redPoints", user.getPoints().getRed());
-
-        return "livescores";
-    }
-
     @RequestMapping("/shop")
     public String storePage(Model model){
         User user = userDataFacade.retrieveLoggedUser();
