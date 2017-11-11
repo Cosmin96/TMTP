@@ -92,14 +92,7 @@
           <!--<div id="sidebar-soccer-goal" style="width:250px;"></div>-->
         <!--</div>-->
 
-        <div class="col-lg-9 col-xs-12 scrollabelcolumn">
-          <iframe src="http://livescores.website/widgetsoccerblue" frameborder="0" scrolling="no" style="width:660px;min-height:1080px;overflow-y: hidden"></iframe>
-        </div>
-
-        <div class="col-lg-3 mobileNone">
-          <div class="row">
-            <iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
-          </div>
+        <div class="col-md-9 col-xs-12 scrollabelcolumn">
           <div th:if="${league == 1}" class="row">
             <!--<iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />-->
             <!-- FAPremierLeague @ NandOX Chat / Start -->
@@ -266,7 +259,23 @@
             <div id="free-chat-nandox"></div>
             <script type="text/javascript" src="https://www.nandox.com/js/free-chat-loader.js" async="async"></script>
             <!-- FAPremierLeague @ NandOX Chat / end -->
+          </div>
 
+          <div class="row" style="margin-top: 3%; margin-left: 3%;">
+            <iframe th:if="${league == 1}" frameborder="0"  scrolling="no" width="520" height="700" src="https://www.fctables.com/england/premier-league/iframe/?type=table&amp;lang_id=2&amp;country=5&amp;template=10&amp;team=&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div><a th:if="${league == 1}" href="https://www.fctables.com/england/premier-league/" rel="nofollow">FcTables.com</a>
+            <iframe th:if="${league == 2}" frameborder="0"  scrolling="no" width="520" height="700" src="https://www.fctables.com/england/league-1/iframe/?type=table&amp;lang_id=2&amp;country=5&amp;template=44&amp;team=&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div><a th:if="${league == 2}" href="https://www.fctables.com/england/league-1/" rel="nofollow">FcTables.com</a>
+            <iframe th:if="${league == 3}" frameborder="0"  scrolling="no" width="520" height="700" src="https://www.fctables.com/germany/1-bundesliga/iframe/?type=table&amp;lang_id=2&amp;country=83&amp;template=16&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div><a th:if="${league == 3}" href="https://www.fctables.com/germany/1-bundesliga/" rel="nofollow">FcTables.com</a>
+            <iframe th:if="${league == 4}" frameborder="0"  scrolling="no" width="520" height="700" src="https://www.fctables.com/italy/serie-a/iframe/?type=table&amp;lang_id=2&amp;country=108&amp;template=17&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div><a th:if="${league == 4}" href="https://www.fctables.com/italy/serie-a/" rel="nofollow">FcTables.com</a>
+            <iframe th:if="${league == 5}" frameborder="0"  scrolling="no" width="520" height="700" src="https://www.fctables.com/spain/liga-bbva/iframe/?type=table&amp;lang_id=2&amp;country=201&amp;template=43&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div><a th:if="${league == 5}" href="https://www.fctables.com/spain/liga-bbva/" rel="nofollow">FcTables.com</a>
+            <iframe th:if="${league == 6}" frameborder="0"  scrolling="no" width="520" height="700" src="https://www.fctables.com/portugal/liga-zon-sagres/iframe/?type=table&amp;lang_id=2&amp;country=175&amp;template=23&amp;team=&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div><a th:if="${league == 6}" href="https://www.fctables.com/portugal/liga-zon-sagres/" rel="nofollow">FcTables.com</a>
+            <iframe th:if="${league == 7}" frameborder="0"  scrolling="no" width="520" height="700" src="https://www.fctables.com/netherlands/eredivisie/iframe/?type=table&amp;lang_id=2&amp;country=155&amp;template=19&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div><a th:if="${league == 7}"  href="https://www.fctables.com/netherlands/eredivisie/" rel="nofollow">FcTables.com</a>
+          </div>
+
+        </div>
+
+        <div class="col-md-3">
+          <div class="row">
+            <iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
           </div>
 
         </div>
