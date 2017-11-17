@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
         userToSave.setFirstName(user.getFirstName());
         userToSave.setLastName(user.getLastName());
         userToSave.setTitle("Stay in your lane!");
-        userToSave.setProfile("/img/profile.png");
+        userToSave.setProfile("/img/profile/profile.png");
         userToSave.setOverlay("");
         userToSave.setStadiumLevel(1);
         userToSave.setAdmin(false);

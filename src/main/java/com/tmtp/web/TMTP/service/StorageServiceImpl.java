@@ -20,10 +20,12 @@ import java.util.stream.Stream;
 public class StorageServiceImpl implements  StorageService{
 
     private final Path rootLocation;
+    private final Path jacketsLocation;
 
     @Autowired
     public StorageServiceImpl(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
+        this.jacketsLocation = Paths.get(properties.getJacketsLocation());
     }
 
     @Override
@@ -86,20 +88,46 @@ public class StorageServiceImpl implements  StorageService{
     }
 
     @Override
-    public Path load(String filename) {
-        return rootLocation.resolve(filename);
+    public Path load(String filename, Path path) {
+        return path.resolve(filename);
+    }
+
+    @Override
+    public Path loadJackets(String filename) {
+        return jacketsLocation.resolve(filename);
     }
 
     @Override
     public Resource loadAsResource(String filename) {
         try {
-            Path file = load(filename);
+            Path file = load(filename, rootLocation);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             }
             else {
-                file = load("profile.png");
+                file = load("profile.png", rootLocation);
+                return new UrlResource(file.toUri());
+//                throw new StorageFileNotFoundException(
+//                        "Could not read file: " + filename);
+
+            }
+        }
+        catch (MalformedURLException e) {
+            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
+        }
+    }
+
+    @Override
+    public Resource loadJacketAsResource(String filename) {
+        try {
+            Path file = load(filename, jacketsLocation);
+            Resource resource = new UrlResource(file.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            }
+            else {
+                file = load("1.png", jacketsLocation);
                 return new UrlResource(file.toUri());
 //                throw new StorageFileNotFoundException(
 //                        "Could not read file: " + filename);

@@ -10,6 +10,8 @@ public class StorageProperties {
      */
     private String location = "src/main/resources/static/img/profile";
 
+    private String jacketsLocation = "src/main/resources/static/img/kits/jackets";
+
     public String getLocation() {
         return location;
     }
@@ -18,4 +20,11 @@ public class StorageProperties {
         this.location = location;
     }
 
+    public String getJacketsLocation() {
+        return jacketsLocation;
+    }
+
+    public void setJacketsLocation(String jacketsLocation) {
+        this.jacketsLocation = jacketsLocation;
+    }
 }

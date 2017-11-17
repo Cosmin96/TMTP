@@ -16,9 +16,13 @@ public interface StorageService {
 
     Stream<Path> loadAll();
 
-    Path load(String filename);
+    Path load(String filename, Path path);
+
+    Path loadJackets(String filename);
 
     Resource loadAsResource(String filename);
+
+    Resource loadJacketAsResource(String filename);
 
     void deleteAll();
 
