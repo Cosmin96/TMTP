@@ -5,12 +5,18 @@ import com.tmtp.web.TMTP.entity.Points;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.repository.RoleRepository;
 import com.tmtp.web.TMTP.repository.UserRepository;
+import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 import java.util.Collections;
 import java.util.HashSet;
+
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -28,8 +34,19 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void save(User user) {
+    public void save(User user){
         User userToSave = new User();
+
+        File source=new File("src/main/resources/static/img/profile/profile.png");
+        File destination=new File("src/main/resources/static/img/profile/" + user.getUsername() + ".jpg");
+        try{
+            FileUtils.copyFile(source, destination);
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
+//        copyFile(source,destination);
+
         userToSave.setUsername(user.getUsername());
         userToSave.setEmail(user.getEmail());
         userToSave.setFirstName(user.getFirstName());
@@ -70,6 +87,32 @@ public class UserServiceImpl implements UserService{
         points.setYellow(0);
         points.setRed(0);
         return points;
+    }
+
+    static void copyFile(File sourceFile, File destFile) throws IOException {
+        if(!destFile.exists()) {
+            destFile.createNewFile();
+        }
+
+        FileChannel source = null;
+        FileChannel destination = null;
+        try {
+            source = new RandomAccessFile(sourceFile,"rw").getChannel();
+            destination = new RandomAccessFile(destFile,"rw").getChannel();
+
+            long position = 0;
+            long count    = source.size();
+
+            source.transferTo(position, count, destination);
+        }
+        finally {
+            if(source != null) {
+                source.close();
+            }
+            if(destination != null) {
+                destination.close();
+            }
+        }
     }
 
 }

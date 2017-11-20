@@ -69,8 +69,8 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("errorMessage", messageSource.getMessage(bindingResult.getFieldError(), null));
             return "redirect:/register";
         }
-        userService.save(userForm);
 
+        userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
         return "redirect:/home";
     }
