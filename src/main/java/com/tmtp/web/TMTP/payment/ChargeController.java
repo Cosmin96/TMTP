@@ -43,7 +43,8 @@ public class ChargeController {
 
         user.getShopItems().add(shopItem);
         userDataFacade.updateUser(user);
-
+        redirectAttributes.addFlashAttribute("confirmation", true);
+        redirectAttributes.addFlashAttribute("boughtItem", shopItem.getName());
         return "redirect:/shop";
     }
 

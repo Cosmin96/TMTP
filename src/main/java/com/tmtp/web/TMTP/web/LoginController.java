@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("errorMessage", messageSource.getMessage(bindingResult.getFieldError(), null));
             return "redirect:/register";
         }
-
+        userForm.setUsername(userForm.getUsername().replaceAll(" ",""));
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
         return "redirect:/home";
@@ -93,7 +94,11 @@ public class LoginController {
         User user = userDataFacade.retrieveLoggedUser();
         List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
         Collections.shuffle(posts);
-
+        List<String> allUsers = new ArrayList<String>();
+        for(User oneuser : userDataFacade.retrieveAllUsers()){
+            allUsers.add(oneuser.getUsername());
+        }
+        model.addAttribute("allUsers", allUsers);
         model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());

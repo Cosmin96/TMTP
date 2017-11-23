@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService{
             System.out.println(e);
         }
 //        copyFile(source,destination);
-
         userToSave.setUsername(user.getUsername());
         userToSave.setEmail(user.getEmail());
         userToSave.setFirstName(user.getFirstName());

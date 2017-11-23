@@ -12,6 +12,7 @@ public class VideoPosts {
     private String link;
     private String description;
     private String creator;
+    private boolean hasVideo;
     private User user;
     private List<String> likeUsers;
     private List<String> dislikeUsers;
@@ -50,6 +51,18 @@ public class VideoPosts {
 
     public void setCreator(String creator) {
         this.creator = creator;
+    }
+
+    public boolean getVideo() {
+        return hasVideo;
+    }
+
+    public void setVideo(boolean hasVideo) {
+        this.hasVideo = hasVideo;
+    }
+
+    public boolean isGrantPoint() {
+        return grantPoint;
     }
 
     public User getUser() {

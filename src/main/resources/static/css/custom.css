@@ -11,6 +11,11 @@ p {
     color: white ;
 }
 
+.sizeInput{
+    width:400px;
+    height: 30px
+}
+
 .pointBox {
     background-color: #009cde;
     border-radius: 4px;
@@ -196,4 +201,8 @@ a:focus{
         display: none;
     }
 
+    .sizeInput{
+        width:200px;
+        height: 30px
+    }
 }

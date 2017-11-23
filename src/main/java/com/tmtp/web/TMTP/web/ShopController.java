@@ -146,6 +146,8 @@ public class ShopController {
         user.getPoints().setGreen(user.getPoints().getGreen() - shopItem.getPointPrice());
         user.getShopItems().add(shopItem);
         userDataFacade.updateUser(user);
+        redirectAttributes.addFlashAttribute("confirmation", true);
+        redirectAttributes.addFlashAttribute("boughtItem", shopItem.getName());
         return "redirect:/shop";
     }
 }

@@ -29,7 +29,7 @@
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <a class="navbar-brand" th:href="@{/home}">TMTP</a>
+      <a class="navbar-brand" th:href="@{/home}">Top Bantz</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fa fa-bars"></i>
@@ -41,20 +41,20 @@
             <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/shop}">Store</a>
+            <a class="nav-link" th:href="@{/shop}">Market</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/jobs}">Jobs</a>
+            <a class="nav-link" th:href="@{/jobs}">Adverts</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/lobbies}">Lobbies</a>
+            <a class="nav-link" th:href="@{/lobbies}">Master Page</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://discord.gg/rbugQUr">Chat</a>
+            <a class="nav-link" th:href="@{'/profile/' + ${username}}"><span th:text="'Hi, ' + ${username} + '!'"></span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{'/profile/' + ${username}}"><span th:text="'Hi, ' + ${fname} + '!'"></span></a>
+            <a class="nav-link" data-toggle="modal" data-target="#myModal">Rules</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/logout}">Logout</a>
@@ -71,15 +71,15 @@
         </div>
 
         <div class="col-lg-2">
-          <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+          <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
         </div>
 
         <div class="col-lg-2">
-          <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+          <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
         </div>
 
         <div class="col-lg-2">
-          <p align="center" class="pointBox"><i class="fa fa-circle" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
+          <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
         </div>
 
       </div>
@@ -94,171 +94,68 @@
 
         <div class="col-md-9 col-xs-12 scrollabelcolumn">
           <div th:if="${league == 1}" class="row">
-            <!--<iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />-->
-            <!-- FAPremierLeague @ NandOX Chat / Start -->
-            <script language="javascript">
-                var nandconf = {};
-
-                nandconf['website']           = 'www.tmtp.com';
-                nandconf['room']              = 'FAPremierLeague';
-                nandconf['lang']              = 'en';
-                nandconf['fullscreen']        = '0';
-                nandconf['width']             = '750';
-                nandconf['height']            = '440';
-                nandconf['skin']              = 'darkorange';
-                nandconf['ulisticons']        = 'nandox';
-                nandconf['eroschan']          = '0';
-                nandconf['showServerWindow']  = '0';
-                nandconf['disableFlash']      = '0';
-
-            </script>
-            <div id="free-chat-nandox"></div>
-            <script type="text/javascript" src="https://www.nandox.com/js/free-chat-loader.js" async="async"></script>
-            <!-- FAPremierLeague @ NandOX Chat / end -->
-
+            <iframe
+                    frameBorder="0"
+                    width="500"
+                    height="500"
+                    src="http://www.e-chat.co/widget/room/248065?id=248065&amp;lang=en&amp;borderc=rgb(177,193,213)&amp;headerh=30&amp;headerc=rgb(220,220,220)&amp;headertc=rgb(80,80,80)&amp;type=c">
+            </iframe>
           </div>
 
           <div th:if="${league == 2}" class="row">
-            <!-- FAPremierLeague @ NandOX Chat / Start -->
-            <script language="javascript">
-                var nandconf = {};
-
-                nandconf['website']           = 'www.tmtp.com';
-                nandconf['room']              = 'League1';
-                nandconf['lang']              = 'en';
-                nandconf['fullscreen']        = '0';
-                nandconf['width']             = '750';
-                nandconf['height']            = '440';
-                nandconf['skin']              = 'darkorange';
-                nandconf['ulisticons']        = 'nandox';
-                nandconf['eroschan']          = '0';
-                nandconf['showServerWindow']  = '0';
-                nandconf['disableFlash']      = '0';
-
-            </script>
-            <div id="free-chat-nandox"></div>
-            <script type="text/javascript" src="https://www.nandox.com/js/free-chat-loader.js" async="async"></script>
-            <!-- FAPremierLeague @ NandOX Chat / end -->
-
+            <iframe
+                    frameBorder="0"
+                    width="500"
+                    height="500"
+                    src="http://www.e-chat.co/widget/room/248066?id=248066&amp;lang=en&amp;borderc=rgb(177,193,213)&amp;headerh=30&amp;headerc=rgb(220,220,220)&amp;headertc=rgb(80,80,80)&amp;type=c">
+            </iframe>
           </div>
 
           <div th:if="${league == 3}" class="row">
-            <!-- FAPremierLeague @ NandOX Chat / Start -->
-            <script language="javascript">
-                var nandconf = {};
-
-                nandconf['website']           = 'www.tmtp.com';
-                nandconf['room']              = 'Bundesliga';
-                nandconf['lang']              = 'en';
-                nandconf['fullscreen']        = '0';
-                nandconf['width']             = '750';
-                nandconf['height']            = '440';
-                nandconf['skin']              = 'darkorange';
-                nandconf['ulisticons']        = 'nandox';
-                nandconf['eroschan']          = '0';
-                nandconf['showServerWindow']  = '0';
-                nandconf['disableFlash']      = '0';
-
-            </script>
-            <div id="free-chat-nandox"></div>
-            <script type="text/javascript" src="https://www.nandox.com/js/free-chat-loader.js" async="async"></script>
-            <!-- FAPremierLeague @ NandOX Chat / end -->
+            <iframe
+                    frameBorder="0"
+                    width="500"
+                    height="500"
+                    src="http://www.e-chat.co/widget/room/248067?id=248067&amp;lang=en&amp;borderc=rgb(177,193,213)&amp;headerh=30&amp;headerc=rgb(220,220,220)&amp;headertc=rgb(80,80,80)&amp;type=c">
+            </iframe>
 
           </div>
 
           <div th:if="${league == 4}" class="row">
-            <!-- FAPremierLeague @ NandOX Chat / Start -->
-            <script language="javascript">
-                var nandconf = {};
-
-                nandconf['website']           = 'www.tmtp.com';
-                nandconf['room']              = 'SerieA';
-                nandconf['lang']              = 'en';
-                nandconf['fullscreen']        = '0';
-                nandconf['width']             = '750';
-                nandconf['height']            = '440';
-                nandconf['skin']              = 'darkorange';
-                nandconf['ulisticons']        = 'nandox';
-                nandconf['eroschan']          = '0';
-                nandconf['showServerWindow']  = '0';
-                nandconf['disableFlash']      = '0';
-
-            </script>
-            <div id="free-chat-nandox"></div>
-            <script type="text/javascript" src="https://www.nandox.com/js/free-chat-loader.js" async="async"></script>
-            <!-- FAPremierLeague @ NandOX Chat / end -->
-
+            <iframe
+                    frameBorder="0"
+                    width="500"
+                    height="500"
+                    src="http://www.e-chat.co/widget/room/248068?id=248068&amp;lang=en&amp;borderc=rgb(177,193,213)&amp;headerh=30&amp;headerc=rgb(220,220,220)&amp;headertc=rgb(80,80,80)&amp;type=c">
+            </iframe>
           </div>
 
           <div th:if="${league == 5}" class="row">
-            <!-- FAPremierLeague @ NandOX Chat / Start -->
-            <script language="javascript">
-                var nandconf = {};
-
-                nandconf['website']           = 'www.tmtp.com';
-                nandconf['room']              = 'LaLiga';
-                nandconf['lang']              = 'en';
-                nandconf['fullscreen']        = '0';
-                nandconf['width']             = '750';
-                nandconf['height']            = '440';
-                nandconf['skin']              = 'darkorange';
-                nandconf['ulisticons']        = 'nandox';
-                nandconf['eroschan']          = '0';
-                nandconf['showServerWindow']  = '0';
-                nandconf['disableFlash']      = '0';
-
-            </script>
-            <div id="free-chat-nandox"></div>
-            <script type="text/javascript" src="https://www.nandox.com/js/free-chat-loader.js" async="async"></script>
-            <!-- FAPremierLeague @ NandOX Chat / end -->
+            <iframe
+                    frameBorder="0"
+                    width="500"
+                    height="500"
+                    src="http://www.e-chat.co/widget/room/248069?id=248069&amp;lang=en&amp;borderc=rgb(177,193,213)&amp;headerh=30&amp;headerc=rgb(220,220,220)&amp;headertc=rgb(80,80,80)&amp;type=c">
+            </iframe>
 
           </div>
 
           <div th:if="${league == 6}" class="row">
-            <!-- FAPremierLeague @ NandOX Chat / Start -->
-            <script language="javascript">
-                var nandconf = {};
-
-                nandconf['website']           = 'www.tmtp.com';
-                nandconf['room']              = 'PrimeiraLiga';
-                nandconf['lang']              = 'en';
-                nandconf['fullscreen']        = '0';
-                nandconf['width']             = '750';
-                nandconf['height']            = '440';
-                nandconf['skin']              = 'darkorange';
-                nandconf['ulisticons']        = 'nandox';
-                nandconf['eroschan']          = '0';
-                nandconf['showServerWindow']  = '0';
-                nandconf['disableFlash']      = '0';
-
-            </script>
-            <div id="free-chat-nandox"></div>
-            <script type="text/javascript" src="https://www.nandox.com/js/free-chat-loader.js" async="async"></script>
-            <!-- FAPremierLeague @ NandOX Chat / end -->
-
+            <iframe
+                    frameBorder="0"
+                    width="500"
+                    height="500"
+                    src="http://www.e-chat.co/widget/room/248070?id=248070&amp;lang=en&amp;borderc=rgb(177,193,213)&amp;headerh=30&amp;headerc=rgb(220,220,220)&amp;headertc=rgb(80,80,80)&amp;type=c">
+            </iframe>
           </div>
 
           <div th:if="${league == 7}" class="row">
-            <!-- FAPremierLeague @ NandOX Chat / Start -->
-            <script language="javascript">
-                var nandconf = {};
-
-                nandconf['website']           = 'www.tmtp.com';
-                nandconf['room']              = 'DutchEredivisie';
-                nandconf['lang']              = 'en';
-                nandconf['fullscreen']        = '0';
-                nandconf['width']             = '750';
-                nandconf['height']            = '440';
-                nandconf['skin']              = 'darkorange';
-                nandconf['ulisticons']        = 'nandox';
-                nandconf['eroschan']          = '0';
-                nandconf['showServerWindow']  = '0';
-                nandconf['disableFlash']      = '0';
-
-            </script>
-            <div id="free-chat-nandox"></div>
-            <script type="text/javascript" src="https://www.nandox.com/js/free-chat-loader.js" async="async"></script>
-            <!-- FAPremierLeague @ NandOX Chat / end -->
+            <iframe
+                    frameBorder="0"
+                    width="500"
+                    height="500"
+                    src="http://www.e-chat.co/widget/room/248071?id=248071&amp;lang=en&amp;borderc=rgb(177,193,213)&amp;headerh=30&amp;headerc=rgb(220,220,220)&amp;headertc=rgb(80,80,80)&amp;type=c">
+            </iframe>
           </div>
 
           <div class="row">
@@ -353,7 +250,67 @@
       </a>
     </div>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">TMTP Rules &amp; Regulations</h4>
+          </div>
+          <div class="modal-body">
+            <p style="color: black"><b>Disciplinary Actions</b><br />
+              -If an offence is committed a Yellow or Red Card will be issued.  The Rules are displayed below:<br />
+              <b>Yellow Card Offences</b><br />
+              A Yellow Card is held for a maximum of 7 days.<br />
+              - If however a second yellow card is issued for an offence within the 7 days, then an instant 1 match day ban will occur.  Examples of offences which could incur a yellow card are:
+              - The bigger it gets the harder it gets to keep up with the other pundits VN so we would like with the utmost respect if you could keep your voice notes to the maximum of 1min
+              <br />
+              <b>Red Card Offences</b><br />
+              1.  All TMTP’s members are treated as equals. If any pundit sends disrespectful banter (using the ‘N’ word, re*** and p*** etc. or any racial comment to other pundits) this is classed as a Red Card offence.
+              <br />
+              - If you write a negative message like racism even with different spellings and you are reported to the boardroom, you will get an instant red card explaining what you have done and showing evidence.<br />
+              - We do not tolerate any sort of racism because we have different races, religions and cultures on the TMTP'S.
+              <br />
+              2. We do not tolerate the following:
+              <br />
+              a) Sexual content<br />
+              b) Images of killing<br />
+              c) Pornography or nudity.<br />
+
+              TMTP'S is a sports pundits group we don't want to promote any forms of violence, we like to keep sports related banter and positive messages, as the aim is to keep our pundits happy at all times.<br />
+              3. If a pundit becomes abusive to a fellow pundit(s) &amp; this argument targets family member or personal life will result in a lifetime ban from the TMTP’s group.<br />
+              - We do not mind pundits having a good old banter with a next pundit but we do not tolerate pundits being disrespectful about another pundit’s family member. This is one of TMTP important rules respect the other TMTP’s at all times.  Failure to adhere to the rules will also result in a lifetime ban.<br />
+
+              If any cards are to be issued from the boardroom it could be a yellow or a red card.  The decision is based on a majority vote.<br />
+              When someone has broken a rule, the Boardroom has 5 working days to respond to the person who has caused the offence or broken the rule.<br />
+              The pundit who causes the offence or broke the rule has the right to appeal against the decision.  The appeal must be 3 days from when the card has been issued.  Evidence must be provided to support the appeal<br />
+              The Board will not accept any grey areas within the Rules &amp; Regulations. If something happens that is not part of the Rules and Regulations i.e. a grey area, the boardroom has all rights to analyse the evidence and get back to the pundits within 24 hours to give their verdict.  Our aim is to make sure we respect all pundits at all times so TMTP's can be enjoyable for everyone<br />
+              <b>£10 Fines</b><br />
+              If the Board have organised an event and a fellow pundit(s) does not wear their team shirt, an instant £10 fine will be charged.<br />
+              This can be given to any Board Member. The fine should be paid within 2 weeks or at the next road trip, as agreed by the Board Members (if however you have not got a team shirt, you must inform a member of the Board Member a week in advance.  Advice &amp; guidance will be provided).<br />
+              Failure to do so can result in your absence from attending the road trips.<br />
+              <b>Confidentiality</b><br />
+              If a pundit(s) not happy with a situation and would like to talk privately. Please feel free to contact a Member of the Board by email. Your name will remain anonymous about the topic of what you have heard or seen and the Board will address the pundit(s) in regards to the matter.  Your right to remain anonymous will be upheld.<br />
+
+              <b>Appeals</b><br />
+              If you wish to appeal against a decision you have 4 days from the day you have received your punishment to do so.<br />
+              The Board Members may consider your appeal.  Once you have made make your appeal, we will get back to you within 2 days. If your appeal is unsuccessful and the Board thinks that you do not have a good enough reason then you may be liable for an extra day on a 3 day match ban.<br />
+              I would like to take this time to thank all our members for their support and we the Board hope you have an enjoyable experience and thanks for helping us move forward.<br />
+
+              <b>Thank you</b>
+
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>

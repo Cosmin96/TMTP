@@ -39,8 +39,15 @@ public class VideoPostsServiceImpl implements VideoPostsService {
 
     @Override
     public void createVideoPost(VideoPosts videoPosts, User user){
+        String url = "";
 
-        String url = "https://www.youtube.com/embed/" + videoPosts.getLink().replace("https://www.youtube.com/watch?v=", "");
+        if(videoPosts.getLink().contains("https://www.youtube.com/watch?v=")) {
+            url = "https://www.youtube.com/embed/" + videoPosts.getLink().replace("https://www.youtube.com/watch?v=", "");
+            videoPosts.setVideo(true);
+        }
+        else{
+            videoPosts.setVideo(false);
+        }
         videoPosts.setComments(Collections.emptyList());
         videoPosts.setCreator(user.getUsername());
         videoPosts.setUser(user);
