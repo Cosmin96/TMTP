@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService{
         userToSave.setStadiumLevel(1);
         userToSave.setAdmin(false);
         userToSave.setBanned(false);
+        userToSave.setPrivateLobby(false);
         userToSave.setBanTime(DateTime.now());
         userToSave.setShopItems(Collections.emptyList());
         userToSave.setPlayerKit(new PlayerKit("none", "none", "none", "none"));

@@ -99,6 +99,46 @@
         </div>
     </div>
 
+    <div class="container" th:if="${not user.getPrivateLobby()}">
+
+        <div class="row">
+            <div class="col-xs-12" style="margin-top: 5%; margin-left: auto; margin-right: auto">
+                <center>
+                <div class="cards">
+                    <div class="cards-container">
+                        <div class="row">
+                            <h3 style="margin-left: 2%">Private Lobby</h3>
+                        </div>
+                        <div class="row" style="margin-bottom:2%">
+                            <div class="col-xs-12">
+                                <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                    <form th:action="@{'/lobby/create'}" method="POST" style="margin-left: 120%; margin-right: auto">
+                                        <input type='hidden' value="499" name='amount' style="margin-left: auto; margin-right: auto" />
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                th:attr='data-key=${stripePublicKey},
+                                                    data-currency=${currency}'
+                                                data-amount="499"
+                                                data-label="£4.99"
+                                                data-description="Private lobby"
+                                                data-name="TMTP"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-zip-code="true"
+                                                data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </center>
+            </div>
+        </div>
+    </div>
+
     <div class="container statsmenu" style="margin-top: 2% !important; padding-bottom: 1% !important;">
         <div class="row">
             <div class="col-lg-2">

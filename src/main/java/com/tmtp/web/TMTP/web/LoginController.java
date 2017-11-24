@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.web;
 
+import com.tmtp.web.TMTP.entity.PrivateLobby;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.repository.ShopItemRepository;
@@ -34,6 +35,7 @@ public class LoginController {
     private final UserDataFacade userDataFacade;
     private final VideoPostsFacade videoPostsFacade;
     private final MessageSource messageSource;
+    private final PrivateLobbyFacade privateLobbyFacade;
     @Autowired
     private ShopItemRepository shopItemRepository;
 
@@ -42,13 +44,15 @@ public class LoginController {
                            final UserValidator userValidator,
                            final UserDataFacade userDataFacade,
                            final VideoPostsFacade videoPostsFacade,
-                           final MessageSource messageSource) {
+                           final MessageSource messageSource,
+                           final PrivateLobbyFacade privateLobbyFacade) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.userDataFacade = userDataFacade;
         this.videoPostsFacade = videoPostsFacade;
         this.messageSource = messageSource;
+        this.privateLobbyFacade = privateLobbyFacade;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -70,7 +74,7 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("errorMessage", messageSource.getMessage(bindingResult.getFieldError(), null));
             return "redirect:/register";
         }
-        userForm.setUsername(userForm.getUsername().replaceAll(" ",""));
+        userForm.setUsername(userForm   .getUsername().replaceAll(" ",""));
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
         return "redirect:/home";
@@ -97,6 +101,33 @@ public class LoginController {
         List<String> allUsers = new ArrayList<String>();
         for(User oneuser : userDataFacade.retrieveAllUsers()){
             allUsers.add(oneuser.getUsername());
+        }
+
+        List<PrivateLobby> joinedLobbies = new ArrayList<PrivateLobby>();
+        if(!privateLobbyFacade.retrieveAll().isEmpty()){
+            for(PrivateLobby lobby : privateLobbyFacade.retrieveAll()){
+                if(lobby.getJoinedUsers().contains(user.getUsername())){
+                    joinedLobbies.add(lobby);
+                }
+            }
+        }
+        if(!joinedLobbies.isEmpty()) {
+            model.addAttribute("joinedLobbies", joinedLobbies);
+            model.addAttribute("myLobbies", true);
+        }
+        else{
+            model.addAttribute("myLobbies", false);
+        }
+
+        if(user.getPrivateLobby()) {
+            PrivateLobby userLobby = privateLobbyFacade.findByCreator(user.getUsername());
+            model.addAttribute("myLobby", userLobby);
+            model.addAttribute("hasLobbies", true);
+            model.addAttribute("hasOwnLobby", true);
+        }
+        else{
+            model.addAttribute("hasOwnLobby", false);
+            model.addAttribute("hasLobbies", false);
         }
         model.addAttribute("allUsers", allUsers);
         model.addAttribute("user", user);

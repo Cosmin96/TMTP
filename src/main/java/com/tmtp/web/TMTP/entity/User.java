@@ -22,6 +22,7 @@ public class User {
     private int stadiumLevel;
     private Boolean admin;
     private Boolean banned;
+    private Boolean privateLobby;
     private DateTime banTime;
     private PlayerKit playerKit;
     private Points points;
@@ -122,6 +123,14 @@ public class User {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public Boolean getPrivateLobby() {
+        return privateLobby;
+    }
+
+    public void setPrivateLobby(Boolean privateLobby) {
+        this.privateLobby = privateLobby;
     }
 
     public DateTime getBanTime() {
