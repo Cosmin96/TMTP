@@ -41,23 +41,22 @@
                 <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/shop}">Market</a>
+                <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Merchandise</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/jobs}">Adverts</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/lobbies}">Master Page</a>
+                <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><span th:text="'Hi, ' + ${username} + '!'"></span></a>
+                <a class="nav-link" th:href="@{/lobbies}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Master Leagues</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#myModal">Rules</a>
+                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Logout</a>
+                <a class="nav-link" data-toggle="modal" data-target="#myModal"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Rules</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out" style="color: white" aria-hidden="true"></i> Logout</a>
             </li>
         </ul>
     </div>
@@ -87,7 +86,25 @@
 
 <div th:if="${not showLobby}" class="container" style="margin-top: 3%;">
     <div class="row">
-        <a th:href="@{'/privateLobby/join/' + ${lobby.getId()}}" class="btn btn-success" style="margin-left: auto; margin-right: auto">Join Lobby</a>
+        <center>
+            <form th:action="@{'/privateLobby/join/' + ${lobby.getId()}}" method="POST" style="margin-left: 120%; margin-right: auto">
+                <input type='hidden' value="499" name='amount' style="margin-left: auto; margin-right: auto" />
+                <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        th:attr='data-key=${stripePublicKey},
+                                                    data-currency=${currency}'
+                        data-amount="299"
+                        data-label="Join Lobby for £2.99"
+                        data-description="Join Private lobby"
+                        data-name="TMTP"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-locale="auto"
+                        data-zip-code="true"
+                        data-currency="gbp">
+                </script>
+            </form>
+        </center>
+        <!--<a th:href="@{'/privateLobby/join/' + ${lobby.getId()}}" class="btn btn-success" style="margin-left: auto; margin-right: auto">Join Lobby</a>-->
     </div>
 </div>
 
@@ -100,7 +117,7 @@
 
         <div class="col-md-9 col-xs-12 scrollabelcolumn">
             <div class="row">
-                <div id="tlkio" th:attr="data-channel=${lobby.getId()}, data-nickname=${user.getUsername()}" style="width:600px;height:700px; background-color: lightgray"></div>
+                <div id="tlkio" th:attr="data-channel=${lobby.getId()}, data-nickname=${user.getUsername()}" style="width:600px;height:700px; /*background-color: lightgray"></div>
                 <script th:async="true" src="http://tlk.io/embed.js" type="text/javascript"></script>
             </div>
 

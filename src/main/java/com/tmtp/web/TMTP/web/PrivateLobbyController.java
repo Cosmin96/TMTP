@@ -59,7 +59,11 @@ public class PrivateLobbyController {
     }
 
     @RequestMapping("/privateLobby/join/{id}")
-    public String joinLobby(@PathVariable("id") String id){
+    public String joinLobby(@PathVariable("id") String id, ChargeRequest chargeRequest) throws StripeException{
+        chargeRequest.setDescription("Payment");
+        chargeRequest.setCurrency(ChargeRequest.Currency.GBP);
+        Charge charge = paymentService.charge(chargeRequest);
+
         PrivateLobby privateLobby = privateLobbyFacade.findById(id);
         User user = userDataFacade.retrieveLoggedUser();
         List<String> joinedUsers = privateLobby.getJoinedUsers();

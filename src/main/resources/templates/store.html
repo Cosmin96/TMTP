@@ -41,23 +41,22 @@
                     <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/shop}">Market</a>
+                    <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Merchandise</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/jobs}">Adverts</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/lobbies}">Master Page</a>
+                    <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/profile/' + ${username}}"><span th:text="'Hi, ' + ${username} + '!'"></span></a>
+                    <a class="nav-link" th:href="@{/lobbies}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Master Leagues</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#myModal">Rules</a>
+                    <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#myModal"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Rules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out" style="color: white" aria-hidden="true"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -119,8 +118,8 @@
                                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                                 th:attr='data-key=${stripePublicKey},
                                                     data-currency=${currency}'
-                                                data-amount="499"
-                                                data-label="£4.99"
+                                                data-amount="299"
+                                                data-label="£2.99"
                                                 data-description="Private lobby"
                                                 data-name="TMTP"
                                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
@@ -220,6 +219,92 @@
                             </div>
                     </div>
                 </div>
+            </div>
+
+
+            <h1 style="color: white"><b><u>Country Overlays</u></b></h1>
+            <div class="row" th:if="${category.equals('overlay')}">
+            <div th:each="item : ${countryOverlays}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
+                <div class="cards">
+                    <img th:if="${not item.getType().equals('title')}" th:src="@{${item.getImgPath()}}" alt="Avatar" style="width:100%" />
+                    <div class="cards-container">
+                        <div class="row">
+                            <h3 style="margin-left: 2%" th:text="${item.getName()}">John Doe</h3>
+                        </div>
+                        <div class="row" style="margin-bottom:2%">
+                            <div class="col-md-6 col-xs-6">
+                                <center>
+                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
+                                </center>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                    <form th:action="@{'/charge/' + ${item.getId()}}" method="POST">
+                                        <input type='hidden' th:value='${item.getGbpPrice()}' name='amount' />
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                th:attr='data-key=${stripePublicKey},
+                                                    data-amount=${item.getGbpPrice()},
+                                                    data-currency=${currency},
+                                                    data-description=${item.getName()},
+                                                    data-label=${item.getGbpPriceFormatted()}'
+                                                data-name="TMTP"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-zip-code="true"
+                                                data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <h1 style="color: white"><b><u>Club Overlays</u></b></h1>
+            <div class="row" th:if="${category.equals('overlay')}">
+            <div th:each="item : ${clubOverlays}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
+                <div class="cards">
+                    <img th:if="${not item.getType().equals('title')}" th:src="@{${item.getImgPath()}}" alt="Avatar" style="width:100%" />
+                    <div class="cards-container">
+                        <div class="row">
+                            <h3 style="margin-left: 2%" th:text="${item.getName()}">John Doe</h3>
+                        </div>
+                        <div class="row" style="margin-bottom:2%">
+                            <div class="col-md-6 col-xs-6">
+                                <center>
+                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
+                                </center>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                    <form th:action="@{'/charge/' + ${item.getId()}}" method="POST">
+                                        <input type='hidden' th:value='${item.getGbpPrice()}' name='amount' />
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                th:attr='data-key=${stripePublicKey},
+                                                    data-amount=${item.getGbpPrice()},
+                                                    data-currency=${currency},
+                                                    data-description=${item.getName()},
+                                                    data-label=${item.getGbpPriceFormatted()}'
+                                                data-name="TMTP"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-zip-code="true"
+                                                data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

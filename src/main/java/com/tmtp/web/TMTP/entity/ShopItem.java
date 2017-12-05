@@ -2,7 +2,7 @@ package com.tmtp.web.TMTP.entity;
 
 import org.springframework.data.annotation.Id;
 
-public class ShopItem {
+public class ShopItem{
 
     @Id
     private String id;
@@ -68,4 +68,5 @@ public class ShopItem {
     public void setGbpPriceFormatted(String gbpPriceFormatted) {
         this.gbpPriceFormatted = gbpPriceFormatted;
     }
+
 }

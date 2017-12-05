@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -102,6 +105,22 @@ public class ShopController {
     public String storePageOverlays(Model model){
         User user = userDataFacade.retrieveLoggedUser();
         List<ShopItem> items = shopItemFacade.retrieveAllItems();
+
+        List<ShopItem> countryOverlays = new ArrayList<ShopItem>();
+        List<ShopItem> clubOverlays = new ArrayList<ShopItem>();
+
+        for(ShopItem item : items){
+            if(item.getType().equals("overlay")){
+                countryOverlays.add(item);
+            }
+            else if(item.getType().equals("clubOverlay")){
+                clubOverlays.add(item);
+            }
+        }
+        items = Collections.emptyList();
+        Collections.shuffle(countryOverlays);
+        Collections.shuffle(clubOverlays);
+
         model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
@@ -111,6 +130,8 @@ public class ShopController {
         model.addAttribute("stripePublicKey", stripePublicKey);
         model.addAttribute("currency", ChargeRequest.Currency.GBP);
         model.addAttribute("inventory", items);
+        model.addAttribute("countryOverlays", countryOverlays);
+        model.addAttribute("clubOverlays", clubOverlays);
         model.addAttribute("category", "overlay");
         return "store";
     }
