@@ -39,6 +39,7 @@ public class PostController {
                 user.getPoints().setRed(user.getPoints().getRed() + 1);
                 user.setBanned(true);
                 user.setBanTime(DateTime.now());
+                return "redirect:/logout";
             }
             userService.updateUser(user);
             redirectAttributes.addFlashAttribute("error", true);

@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="../static/css/cards.css" th:href="@{/css/cards.css}" />
 </head>
 
-  <body class="index" id="page-top" style="background-repeat: repeat-y;">
+  <body class="index" id="page-top" style="background-color: #CEFBFF">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -81,6 +81,25 @@
                 <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
             </div>
             
+        </div>
+        <div class="row">
+
+            <div class="col-lg-6">
+                <p align="left" style="color: #00DEB6; font-size: 26px;">of points</p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center"><span style="color: #00ff00">Green Points</span></p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center"><span style="color: yellow">Yellow Cards</span></p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center"><span style="color: red">Red Cards</span></p>
+            </div>
+
         </div>
         <div class="row">
             <div class="errorField2" th:if="${error}">
@@ -438,9 +457,9 @@
     <!-- Custom scripts for this template -->
     <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
 
-    <script type="text/javascript">
-        var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
-    </script>
+    <!--<script type="text/javascript">-->
+        <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+    <!--</script>-->
 
   </body>
 

@@ -26,7 +26,7 @@
 
   </head>
 
-  <body class="index" id="page-top" style="background-repeat: repeat-y;">
+  <body class="index" id="page-top" style="background-color: #CEFBFF">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -167,25 +167,23 @@
                             </p>
                         </div>
 
-                        <div th:if="${user.getStadiumLevel() == 4}" class="sketchfab-embed-wrapper"><iframe width="640" height="480" src="https://sketchfab.com/models/3defe1a0a7b04da19517f4adf103d2d0/embed" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
-
+                        <div th:if="${user.getStadiumLevel() == 4}" class="sketchfab-embed-wrapper">
+                            <iframe width="640" height="480" src="https://sketchfab.com/models/8e16f25ee59e475bb947fbdf4d76fe74/embed" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
                             <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
-                                <a href="https://sketchfab.com/models/3defe1a0a7b04da19517f4adf103d2d0?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Svangaskar Football Stadium</a>
-                                by <a href="https://sketchfab.com/dronedirector?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">DroneDirector</a>
+                                <a href="https://sketchfab.com/models/8e16f25ee59e475bb947fbdf4d76fe74?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Estádio Olímpico João Havelange</a>
+                                by <a href="https://sketchfab.com/FilipMichalowski?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">FilipMichalowski</a>
                                 on <a href="https://sketchfab.com?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
                             </p>
                         </div>
 
                         <div th:if="${user.getStadiumLevel() == 5}" class="sketchfab-embed-wrapper">
-                            <iframe width="640" height="480" src="https://sketchfab.com/models/9f2e540321bf47d893fed9a8ae78b29f/embed?preload=1" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
+                            <iframe width="640" height="480" src="https://sketchfab.com/models/wJb81DIR82HrLuencN0qIXCUqRb/embed" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
                             <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
-                                <a href="https://sketchfab.com/models/9f2e540321bf47d893fed9a8ae78b29f?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Football Pitch</a>
-                                by <a href="https://sketchfab.com/leonlabyk?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">dafunk</a>
+                                <a href="https://sketchfab.com/models/wJb81DIR82HrLuencN0qIXCUqRb?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Stadium</a>
+                                by <a href="https://sketchfab.com/JoseMiguelLopezVera?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">joselopezmv</a>
                                 on <a href="https://sketchfab.com?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
                             </p>
                         </div>
-
-
 
                         <div th:if="${upgradeButton} and ${settingsButton}" style="margin-top: 4%">
                             <div th:if="${enoughPoints}">
@@ -331,9 +329,9 @@
     <!-- Custom scripts for this template -->
     <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
 
-    <script type="text/javascript">
-        var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
-    </script>
+    <!--<script type="text/javascript">-->
+        <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+    <!--</script>-->
 
     <!--Watermark library-->
     <script src="../static/js/jquery.watermark.min.js" th:src="@{/js/jquery.watermark.min.js}"></script>

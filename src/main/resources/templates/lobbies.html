@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
 
@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="index" id="page-top" style="background-repeat: repeat-y;">
+<body class="index" id="page-top" style="background-color: #CEFBFF">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -82,36 +82,197 @@
         </div>
 
     </div>
+    <div class="row">
+
+        <div class="col-lg-6">
+            <p align="left" style="color: #00DEB6; font-size: 26px;">of points</p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center"><span style="color: #00ff00">Green Points</span></p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center"><span style="color: yellow">Yellow Cards</span></p>
+        </div>
+
+        <div class="col-lg-2">
+            <p align="center"><span style="color: red">Red Cards</span></p>
+        </div>
+
+    </div>
 </div>
 
 <div class="container" style="margin-top: 3%;">
+    <div class="row stadiumCard">
+        <center>
+        <h1>To access live and voice chat lobbies, click the following button:</h1>
+        <a class="btn btn-success" href="https://discord.gg/rbugQUr">Join chat</a>
+        </center>
+    </div>
+    <h2><u>League Lobbies</u></h2>
     <div class="row">
-        <div class="col-md-6">
-            <div class="row stadiumCard" style="margin-right:2%">
-                <a th:href="@{/lobby/fapremier}"><img style="margin-left:4%" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/1200px-Premier_League_Logo.svg.png" width="90%"/></a>
-            </div>
-            <div class="row stadiumCard" style="margin-right:2%">
-                <a th:href="@{/lobby/bundesliga}"><img style="margin-left:4%" src="https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Bundesliga_logo_%282017%29.svg/1200px-Bundesliga_logo_%282017%29.svg.png" width="90%"/></a>
-            </div>
-            <div class="row stadiumCard" style="margin-right:2%">
-                <a th:href="@{/lobby/laliga}"><img style="margin-left:4%" src="https://www.bettinggods.com/wp-content/uploads/2017/04/La-Liga-Football-Tips.png" width="90%"/></a>
-            </div>
-            <div class="row stadiumCard" style="margin-right:2%">
-                <a th:href="@{/lobby/dutcheredivisie}"><img style="margin-left:4%" src="http://www.football-oranje.com/wp-content/uploads/2015/08/ered.png" width="90%"/></a>
-            </div>
+        <div class="col-md-4">
+            <center>
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/fapremier}"><img style="margin-left:4%" th:src="@{/img/lobbies/PremierLeague.png}" /></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/brasil}"><img style="margin-left:4%" th:src="@{/img/lobbies/Brasil.png}" /></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/serieA}"><img style="margin-left:4%" th:src="@{/img/lobbies/ItalianSerieA.jpg}" /></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/dutcheredivisie}"><img style="margin-left:4%" th:src="@{/img/lobbies/DutchEredevise.jpg}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/swiss}"><img style="margin-left:4%" th:src="@{/img/lobbies/SwissSuperleague.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/turkish}"><img style="margin-left:4%" th:src="@{/img/lobbies/TurkishSuperLig.png}" width="95%"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/scotland}"><img style="margin-left:4%" th:src="@{/img/lobbies/ScottishPremLeague.png}" width="90%"/></a>
+                </div>
+
+            </center>
         </div>
-        <div class="col-md-6">
-            <div class="row stadiumCard">
-                <a th:href="@{/lobby/league1}"><img style="margin-left:4%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Ligue1.svg/1200px-Ligue1.svg.png" width="90%"/></a>
-            </div>
-            <div class="row stadiumCard">
-                <a th:href="@{/lobby/serieA}"><img style="margin-left:4%" src="http://www.juvefc.com/wp-content/uploads/2017/07/01.png" width="90%"/></a>
-            </div>
-            <div class="row stadiumCard" >
-                <a th:href="@{/lobby/primeiraliga}"><img style="margin-left:4%" src="https://www.netflu.com.br/wp-content/uploads/2017/09/primeira-liga.jpg" width="90%"/></a>
-            </div>
+        <div class="col-md-4">
+            <center>
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/league1}"><img style="margin-left:4%" th:src="@{/img/lobbies/Ligue1.png}" /></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/bundesliga}"><img style="margin-left:4%" th:src="@{/img/lobbies/Bundesliga.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/usamls}"><img style="margin-left:4%" th:src="@{/img/lobbies/USAMLS.gif}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/mexican}"><img style="margin-left:4%" th:src="@{/img/lobbies/MexicanLigaMX.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/russian}"><img style="margin-left:4%" th:src="@{/img/lobbies/RussianPremLeague.jpg}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/japan}"><img style="margin-left:4%" th:src="@{/img/lobbies/JapanJ1.jpg}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/polish}"><img style="margin-left:4%" th:src="@{/img/lobbies/Polish.jpg}"/></a>
+                </div>
+
+        </center>
+        </div>
+        <div class="col-md-4">
+            <center>
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/laliga}"><img style="margin-left:4%" th:src="@{/img/lobbies/LaLiga.png}" width="80%" /></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/primeiraliga}"><img style="margin-left:4%" th:src="@{/img/lobbies/PortugalLeague.jpg}" /></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/chinese}"><img style="margin-left:4%" th:src="@{/img/lobbies/China.png}" width="95%" /></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/belgium}"><img style="margin-left:4%" th:src="@{/img/lobbies/Belgian.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/ukranian}"><img style="margin-left:4%" th:src="@{/img/lobbies/UkranianPremLeague.jpg}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/argentina}"><img style="margin-left:4%" th:src="@{/img/lobbies/Argentinia.png}" width="90%" /></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/women}"><img style="margin-left:4%" th:src="@{/img/lobbies/WomenSuperLeague.png}"/></a>
+                </div>
+
+            </center>
         </div>
     </div>
+
+    <h2><u>Club Lobbies</u></h2>
+    <div class="row">
+        <div class="col-md-4">
+            <center>
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/barcelona}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/FCB.png}" width="90%"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/chelsea}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/Chelsea.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/liverpool}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/Liverpool.jpg}" width="80%"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/acmilan}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/ACMilan.png}" /></a>
+                </div>
+            </center>
+        </div>
+
+        <div class="col-md-4">
+            <center>
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/realmadrid}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/Barcelona.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/arsenal}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/Arsenal.jpg}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/psg}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/PSG.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/mancity}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/ManCity.jpg}"/></a>
+                </div>
+            </center>
+        </div>
+
+        <div class="col-md-4">
+            <center>
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/manu}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/ManU.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/bayern}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/BayernMunich.png}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/juventus}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/Juventus.jpg}"/></a>
+                </div>
+
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
+                    <a th:href="@{/lobby/tottenham}"><img style="margin-left:4%" th:src="@{/img/lobbies/clubs/Tottenham.jpg}"/></a>
+                </div>
+            </center>
+        </div>
+    </div>
+
 
 </div>
 
@@ -245,9 +406,9 @@
 <!-- Custom scripts for this template -->
 <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
 
-<script type="text/javascript">
-    var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];    $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
-</script>
+<!--<script type="text/javascript">-->
+    <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];    $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+<!--</script>-->
 
 </body>
 
