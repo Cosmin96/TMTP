@@ -241,7 +241,7 @@
             </div>
 
 
-            <h1 style="color: white"><b><u>Country Overlays</u></b></h1>
+            <h1 th:if="${category.equals('overlay')}" style="color: white"><b><u>Country Overlays</u></b></h1>
             <div class="row" th:if="${category.equals('overlay')}">
             <div th:each="item : ${countryOverlays}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
                 <div class="cards">
@@ -283,7 +283,7 @@
                 </div>
             </div>
             </div>
-            <h1 style="color: white"><b><u>Club Overlays</u></b></h1>
+            <h1 th:if="${category.equals('overlay')}" style="color: white"><b><u>Club Overlays</u></b></h1>
             <div class="row" th:if="${category.equals('overlay')}">
             <div th:each="item : ${clubOverlays}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
                 <div class="cards">
