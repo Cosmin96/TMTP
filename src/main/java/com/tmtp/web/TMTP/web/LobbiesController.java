@@ -15,8 +15,8 @@ public class LobbiesController {
         this.userDataFacade = userDataFacade;
     }
 
-    @RequestMapping("/lobbies")
-    public String scoresPage(Model model){
+    @RequestMapping("/lobbies/{type}")
+    public String scorePage(@PathVariable ("type") String type, Model model){
         User user = userDataFacade.retrieveLoggedUser();
 
         model.addAttribute("user", user);
@@ -25,7 +25,7 @@ public class LobbiesController {
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
-
+        model.addAttribute("lobbyType", type);
         return "lobbies";
     }
 

@@ -25,9 +25,18 @@
 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css" />
       <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
+
+      <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-3993803388816871",
+              enable_page_level_ads: true
+          });
+      </script>
+
   </head>
 
-  <body class="index" id="page-top" style="background-color: #CEFBFF">
+  <body class="index" id="page-top"  th:background="@{/img/background/grass.jpg}" style="background-repeat: repeat">
 
   <!-- Navigation -->
  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -49,8 +58,11 @@
             <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" th:href="@{/lobbies}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Master Leagues</a>
+              <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Master Leagues</a>
           </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/lobbies/club}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Club Lobbies</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
             </li>
@@ -87,7 +99,7 @@
         <div class="row">
 
             <div class="col-lg-6">
-                <p align="left" style="color: #00DEB6; font-size: 26px;">of points</p>
+                <p align="left" style="color: #00DEB6; font-size: 26px;">of points and cards</p>
             </div>
 
             <div class="col-lg-2">
@@ -117,8 +129,8 @@
             <div class="col-lg-3 mobileNone">
                 <div style="margin-bottom: 3%; width: 100%" class="row" th:if="${myLobbies or hasLobbies}">
                     <div class="postcard">
-                        <div class="row" style="margin-left: 5%; margin-top:3%">
-                            <h3><u>Private Lobbies</u></h3>
+                        <div class="row" style="margin-left: 5%; margin-top:3%; margin-right: 5%">
+                            <h3><u>My VIP Lobbies</u></h3>
                         </div>
                         <div th:if="${hasOwnLobby}" class="row" style="margin-left: 5%; margin-top:1%">
                             <h3 style="margin-top: 5%">Copy link to personal lobby:</h3>
@@ -331,10 +343,7 @@
                   When someone has broken a rule, the Boardroom has 5 working days to respond to the person who has caused the offence or broken the rule.<br />
                   The pundit who causes the offence or broke the rule has the right to appeal against the decision.  The appeal must be 3 days from when the card has been issued.  Evidence must be provided to support the appeal<br />
                   The Board will not accept any grey areas within the Rules &amp; Regulations. If something happens that is not part of the Rules and Regulations i.e. a grey area, the boardroom has all rights to analyse the evidence and get back to the pundits within 24 hours to give their verdict.  Our aim is to make sure we respect all pundits at all times so TMTP's can be enjoyable for everyone<br />
-                      <b>£10 Fines</b><br />
-                      If the Board have organised an event and a fellow pundit(s) does not wear their team shirt, an instant £10 fine will be charged.<br />
-                      This can be given to any Board Member. The fine should be paid within 2 weeks or at the next road trip, as agreed by the Board Members (if however you have not got a team shirt, you must inform a member of the Board Member a week in advance.  Advice &amp; guidance will be provided).<br />
-                      Failure to do so can result in your absence from attending the road trips.<br />
+
                       <b>Confidentiality</b><br />
                       If a pundit(s) not happy with a situation and would like to talk privately. Please feel free to contact a Member of the Board by email. Your name will remain anonymous about the topic of what you have heard or seen and the Board will address the pundit(s) in regards to the matter.  Your right to remain anonymous will be upheld.<br />
 
