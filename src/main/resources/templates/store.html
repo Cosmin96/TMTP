@@ -132,7 +132,7 @@
     <div class="container" th:if="${not user.getPrivateLobby()}">
         <div class="row" style="margin-top: 5%">
             <center>
-            <h4>Banter live using voice and video when you purchase a VIP Lobby:</h4>
+            <h4 style="color:white">Banter live using voice and video when you purchase a VIP Lobby:</h4>
             </center>
         </div>
         <div class="row">
@@ -215,7 +215,7 @@
 
     <div class="container">
         <div class="row" th:if="${category.equals('title')}">
-            <h2>Use these titles to express your mood. These titles will be displayed on your Profile Page</h2>
+            <h2 style="color:white">Use these titles to express your mood. These titles will be displayed on your Profile Page</h2>
         </div>
         <div class="row">
             <div th:each="item : ${inventory}" th:if="${item.getType().equals(category)}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
