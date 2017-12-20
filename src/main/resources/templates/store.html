@@ -177,7 +177,7 @@
         <div class="row">
             <div class="col-lg-2">
                 <center>
-                <a class="btn btn-success"  th:href="@{'/shop/'}" style="font-size: 20px;">Jackets</a>
+                <a class="btn btn-success"  th:href="@{'/shop/'}" style="font-size: 20px;">T-Shirts</a>
                 </center>
             </div>
 
@@ -214,8 +214,8 @@
     </div>
 
     <div class="container">
-        <div class="row" th:if="${category.equals('title')}">
-            <h2 style="color:white">Use these titles to express your mood. These titles will be displayed on your Profile Page</h2>
+        <div class="row stadiumCard" th:if="${category.equals('title')}">
+            <h2>Use these titles to express your mood. These titles will be displayed on your Profile Page</h2>
         </div>
         <div class="row">
             <div th:each="item : ${inventory}" th:if="${item.getType().equals(category)}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
