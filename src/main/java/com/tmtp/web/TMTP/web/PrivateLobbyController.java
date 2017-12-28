@@ -41,6 +41,7 @@ public class PrivateLobbyController {
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("lobbyCreator", privateLobby.getCreator());
         if(!privateLobby.getJoinedUsers().isEmpty()){
             if(privateLobby.getJoinedUsers().contains(user.getUsername())){
                joined = true;
