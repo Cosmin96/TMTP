@@ -133,6 +133,34 @@ public class LobbiesController {
             case "tottenham":
                 n = 33;
                 break;
+            case "atletico":
+                n = 34;
+                break;
+            case "lyonnais":
+                n = 35;
+                break;
+            case "palmeiras":
+                n = 36;
+                break;
+            case "santos":
+                n = 37;
+                break;
+            case "ajax":
+                n = 38;
+                break;
+            case "celtic":
+                n = 39;
+                break;
+            case "innermilan":
+                n = 40;
+                break;
+            case "asroma":
+                n = 41;
+                break;
+            case "dortmund":
+                n = 42;
+                break;
+
         }
         model.addAttribute("league", n);
         model.addAttribute("user", user);

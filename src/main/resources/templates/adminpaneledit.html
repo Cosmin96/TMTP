@@ -45,9 +45,6 @@
                 <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Merchandise</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Master Leagues</a>
             </li>
             <li class="nav-item">
@@ -57,7 +54,16 @@
                 <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="https://www.gofundme.com/topbantz">Donate</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#myModal"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Rules</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#myModal2"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> FAQ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out" style="color: white" aria-hidden="true"></i> Logout</a>
@@ -351,6 +357,96 @@
                     <b>Thank you</b>
 
                 </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">TMTP FAQ</h4>
+            </div>
+            <div class="modal-body">
+
+                <h3>APP</h3>
+
+                <p>“I cannot create a new account”</p>
+                <p>&bull; Fill out all the necessary fields in the text boxes</p>
+                <p>&bull; Ensure that username is between 6 to 32 characters long</p>
+                <p>&bull; Email follows general @email.com format</p>
+                <p>&bull; User remembers their username is case sensitive</p>
+                <br /><br />
+                <p>“I cannot Login”</p>
+                <p>&bull; Check if you have inputted your username correctly (upper case letters haven’t been used where lower-case letters were inputted)</p>
+                <p>&bull; Ask an admin If you been banned or not</p>
+                <br /><br />
+                <p>“I cannot see my stadium, kits or any other objects”</p>
+                <p>&bull; Enable browser cookies from browser settings</p>
+                <p>&bull; Enable flash from browser settings</p>
+                <br /><br />
+                <p>“People cannot hear me when I go onto the Lobbies”</p>
+                <p>&bull; Check if you are using a microphone and it is plugged in and connected</p>
+                <p>&bull; “enable” webapp to record voice</p>/
+                <p>&bull; “enable webapp to record video</p>
+                <p>&bull; Open Discord and make sure you haven’t set their microphone to mute</p>
+                <p>&bull; Make sure you are actually in a lobby, if you are; your name will appear in the lobby</p>
+                <br /><br />
+                <p>“I cannot upload any photos onto the Lobbies”</p>
+                <p>&bull; Make sure you “Allow” for Discord to access the user’s gallery</p>
+                <p>&bull; Make sure you haven’t already posted the same image</p>
+                <p>&bull; Make sure you have a stable internet connection</p>
+                <br /><br />
+                <p>“I posted a video but it doesn’t appear”</p>
+                <p>&bull; Make sure the video came from YouTube</p>
+                <p>&bull; Make sure it follows the link type: www.youtube.com/[video ID]</p>
+                <br /><br />
+                <p>“Where do I find my VIP lobby”</p>
+                <p>&bull; Go to your home page and access the VIP lobby from the box to the left-hand side.</p>
+                <br /><br />
+                <p>“How do I see my stadium better?”</p>
+                <p>&bull; Use your mouse and up, down, left, right keys on their keypad to navigate around the stadium</p>
+                <br /><br />
+                <h3>Discord</h3>
+                <p>Personal message a user from the General Banter 1 / 2 or 3 lobbies</p>
+                <p>&bull; Left Click on user’s profile photo or name until an information box comes up</p>
+                <p>&bull; Write personal message in the box</p>
+                <p>&bull; Press Enter to send</p>
+                <br /><br />
+                <p>See what users are online on the lobby at the time</p>
+                <p>&bull; Check right hand side column to see all users who are either online or offline</p>
+                <br /><br />
+                <p>How to switch between voice banter lobbies</p>
+                <p>&bull; Know which lobby you are in by observing your name under the lobby’s name</p>
+                <p>&bull; Click on whichever lobby you want to go on by selecting it with your mouse</p>
+                <br /><br />
+                <p>How to create a new private channel</p>
+                <p>&bull; Press the + icon on the let hand side of the screen on the navbar</p>
+                <p>&bull; Adjust the settings and the server is created</p>
+                <br /><br />
+                <p>How to start a video call with people (9 people max)</p>
+                <p>&bull; Press the “Friends” Icon on the top left-hand corner of the screen</p>
+                <p>&bull; Click “All” to see all friends</p>
+                <p>&bull; Hover over a friend’s name until it turns grey</p>
+                <p>&bull; Press the video call option</p>
+                <p>&bull; To add up to 8 more friends onto the call, press this button and add friends by their username</p>
+                <br /><br />
+                <p>Invite friends who are not on Discord</p>
+                <p>&bull; Click on the bottom pointing arrow to bring up the lobby settings</p>
+                <p>&bull; Click on “Invite People”, copy the link and send to friends</p>
+                <br /><br />
+                <p>How to access your User settings</p>
+                <p>&bull; Click on this gear icon on the bottom left hand side of the screen</p>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
