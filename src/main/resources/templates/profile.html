@@ -213,6 +213,14 @@
                         </div>
                     </center>
                 </div>
+
+                <div class="stadiumCard">
+                    <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">My Trophy</h1>
+                    <center>
+                        <img th:src="@{'/img/kits/trophies/' + ${user.getTrophy()} + '.png'}" />
+                    </center>
+                </div>
+
             </div>
             
         </div>
@@ -227,28 +235,23 @@
 
             <div class="col-md-12">
               <h3>Social Media</h3>
-              <ul class="list-inline">
-                <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="#">
-                    <i class="fa fa-fw fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="#">
-                    <i class="fa fa-fw fa-google-plus"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="#">
-                    <i class="fa fa-fw fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="#">
-                    <i class="fa fa-fw fa-linkedin"></i>
-                  </a>
-                </li>
-              </ul>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a class="btn-social btn-outline" href="https://plus.google.com/u/0/105657970600756533313">
+                            <i class="fa fa-fw fa-google-plus"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-social btn-outline" href="https://twitter.com/TopMenTP">
+                            <i class="fa fa-fw fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-social btn-outline" href="https://www.linkedin.com/company/top-bantz/">
+                            <i class="fa fa-fw fa-linkedin"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
           </div>
         </div>

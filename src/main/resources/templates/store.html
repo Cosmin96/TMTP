@@ -217,6 +217,13 @@
                 </center>
             </div>
         </div>
+        <div class="row" style="margin-top: 1%">
+            <div class="col-lg-2">
+                <center>
+                    <a class="btn btn-success" th:href="@{'/shop/trophies'}" style="font-size: 20px;">Trophies</a>
+                </center>
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -234,8 +241,8 @@
                             <div class="row" style="margin-bottom:2%">
                                 <div class="col-md-6 col-xs-6">
                                     <center>
-                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
-                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
                                     </center>
                                 </div>
                                 <div class="col-md-6 col-xs-6">
@@ -277,8 +284,8 @@
                         <div class="row" style="margin-bottom:2%">
                             <div class="col-md-6 col-xs-6">
                                 <center>
-                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
-                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
                                 </center>
                             </div>
                             <div class="col-md-6 col-xs-6">
@@ -319,8 +326,8 @@
                         <div class="row" style="margin-bottom:2%">
                             <div class="col-md-6 col-xs-6">
                                 <center>
-                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
-                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + P">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
                                 </center>
                             </div>
                             <div class="col-md-6 col-xs-6">
@@ -509,28 +516,23 @@
 
             <div class="col-md-12">
               <h3>Social Media</h3>
-              <ul class="list-inline">
-                <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="#">
-                    <i class="fa fa-fw fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="#">
-                    <i class="fa fa-fw fa-google-plus"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="#">
-                    <i class="fa fa-fw fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="#">
-                    <i class="fa fa-fw fa-linkedin"></i>
-                  </a>
-                </li>
-              </ul>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a class="btn-social btn-outline" href="https://plus.google.com/u/0/105657970600756533313">
+                            <i class="fa fa-fw fa-google-plus"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-social btn-outline" href="https://twitter.com/TopMenTP">
+                            <i class="fa fa-fw fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-social btn-outline" href="https://www.linkedin.com/company/top-bantz/">
+                            <i class="fa fa-fw fa-linkedin"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
           </div>
         </div>

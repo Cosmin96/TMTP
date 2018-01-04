@@ -216,6 +216,24 @@
             </div>
 
             <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Trophy</h1>
+                <center>
+                    <form method="POST" th:object="${trophyForm}" th:action="@{'/settings/' + ${user.getUsername()} + '/updateTrophy'}">
+                        <div class="form-group" style="width: 80%">
+                            <label for="overlayselect">Available trophies:</label>
+                            <select th:field="*{name}" class="form-control" id="overlayselect">
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'trophies'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" value="Upload">Change</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Player Kit</h1>
                 <center>
                     <form method="POST" th:object="${kitForm}" th:action="@{'/settings/' + ${user.getUsername()} + '/updateKit'}">

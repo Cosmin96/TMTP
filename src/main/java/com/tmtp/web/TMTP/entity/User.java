@@ -20,6 +20,7 @@ public class User {
     private String overlay;
     private String password;
     private int stadiumLevel;
+    private String trophy;
     private Boolean admin;
     private Boolean banned;
     private Boolean privateLobby;
@@ -115,6 +116,14 @@ public class User {
 
     public void setStadiumLevel(int stadiumLevel) {
         this.stadiumLevel = stadiumLevel;
+    }
+
+    public String getTrophy() {
+        return trophy;
+    }
+
+    public void setTrophy(String trophy) {
+        this.trophy = trophy;
     }
 
     public Boolean getAdmin() {

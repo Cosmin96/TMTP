@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService{
         userToSave.setProfile("/img/profile/profile.png");
         userToSave.setOverlay("");
         userToSave.setStadiumLevel(1);
+        userToSave.setTrophy("none");
         userToSave.setAdmin(false);
         userToSave.setBanned(false);
         userToSave.setPrivateLobby(false);

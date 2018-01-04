@@ -101,6 +101,23 @@ public class ShopController {
         return "store";
     }
 
+    @RequestMapping("/shop/trophies")
+    public String storePageTrophies(Model model){
+        User user = userDataFacade.retrieveLoggedUser();
+        List<ShopItem> items = shopItemFacade.retrieveAllItems();
+        model.addAttribute("user", user);
+        model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.GBP);
+        model.addAttribute("inventory", items);
+        model.addAttribute("category", "trophies");
+        return "store";
+    }
+
     @RequestMapping("/shop/overlays")
     public String storePageOverlays(Model model){
         User user = userDataFacade.retrieveLoggedUser();

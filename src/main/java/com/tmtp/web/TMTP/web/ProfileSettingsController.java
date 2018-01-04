@@ -46,6 +46,7 @@ public class ProfileSettingsController {
             model.addAttribute("overlayForm", new OverlayForm());
             model.addAttribute("kitForm", new PlayerKitForm());
             model.addAttribute("titleForm", new TitleForm());
+            model.addAttribute("trophyForm", new TrophyForm());
 
             return "settings";
         }
@@ -111,6 +112,20 @@ public class ProfileSettingsController {
         }
 
         pageUser.setTitle(titleForm.getTitleName());
+        userService.updateUser(pageUser);
+
+        return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
+    }
+
+    @RequestMapping(value = "/settings/{username}/updateTrophy", method = RequestMethod.POST)
+    public String updateTrophy(@PathVariable("username") String username, @ModelAttribute("trophyForm") TrophyForm trophyForm, Model model){
+        Boolean isUserRight = checkUsersAreSame(username);
+        User pageUser = userDataFacade.retrieveUser(username);
+        if(!isUserRight){
+            return "redirect:/home";
+        }
+
+        pageUser.setTrophy(trophyForm.getName());
         userService.updateUser(pageUser);
 
         return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
