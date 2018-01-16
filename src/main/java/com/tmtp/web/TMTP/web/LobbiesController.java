@@ -160,7 +160,9 @@ public class LobbiesController {
             case "dortmund":
                 n = 42;
                 break;
-
+            case "gay":
+                n = 43;
+                break;
         }
         model.addAttribute("league", n);
         model.addAttribute("user", user);

@@ -1,8 +1,11 @@
 package com.tmtp.web.TMTP.web;
 
+import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
 import com.tmtp.web.TMTP.entity.ShopItem;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.payment.ChargeRequest;
+import com.tmtp.web.TMTP.payment.StripeService;
 import com.tmtp.web.TMTP.repository.ShopItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class ShopController {
     private String stripePublicKey;
     @Autowired
     private ShopItemRepository shopItemRepository;
+    @Autowired
+    private StripeService paymentsService;
 
     public ShopController(final UserDataFacade userDataFacade,
                           final ShopItemFacade shopItemFacade) {
@@ -186,6 +190,32 @@ public class ShopController {
         userDataFacade.updateUser(user);
         redirectAttributes.addFlashAttribute("confirmation", true);
         redirectAttributes.addFlashAttribute("boughtItem", shopItem.getName());
+        return "redirect:/shop";
+    }
+
+    @RequestMapping("/buy/chest/{type}")
+    public String buyChest(@PathVariable("type") String type, ChargeRequest chargeRequest,
+                           Model model, RedirectAttributes redirectAttributes) throws StripeException{
+        User user = userDataFacade.retrieveLoggedUser();
+
+        chargeRequest.setDescription("Payment");
+        chargeRequest.setCurrency(ChargeRequest.Currency.GBP);
+        Charge charge = paymentsService.charge(chargeRequest);
+
+        switch(type){
+            case "small":
+                user.getPoints().setGreen(user.getPoints().getGreen() + 50);
+                break;
+            case "medium":
+                user.getPoints().setGreen(user.getPoints().getGreen() + 100);
+                break;
+            case "large":
+                user.getPoints().setGreen(user.getPoints().getGreen() + 150);
+                break;
+        }
+        userDataFacade.updateUser(user);
+        redirectAttributes.addFlashAttribute("confirmation", true);
+        redirectAttributes.addFlashAttribute("boughtItem", type.toUpperCase() + " Chest");
         return "redirect:/shop";
     }
 }
