@@ -75,13 +75,18 @@ public class PrivateLobbyController {
         return "redirect:/privateLobby/" + privateLobby.getId();
     }
 
-    @RequestMapping("/lobby/create")
-    public String createLobby(ChargeRequest chargeRequest) throws StripeException{
-        chargeRequest.setDescription("Payment");
-        chargeRequest.setCurrency(ChargeRequest.Currency.GBP);
-        Charge charge = paymentService.charge(chargeRequest);
-
+    @RequestMapping("/lobby/create/{paymentType}")
+    public String createLobby(@PathVariable("paymentType") String paymentType, ChargeRequest chargeRequest) throws StripeException{
         User user = userDataFacade.retrieveLoggedUser();
+        if(paymentType.equals("card")){
+            chargeRequest.setDescription("Payment");
+            chargeRequest.setCurrency(ChargeRequest.Currency.GBP);
+            Charge charge = paymentService.charge(chargeRequest);
+        }
+        else{
+            user.getPoints().setGreen(user.getPoints().getGreen() - 50);
+        }
+
         user.setPrivateLobby(true);
         userDataFacade.updateUser(user);
 

@@ -169,7 +169,7 @@
             </div>
 
             <div class="stadiumCard">
-                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Profile Overlay</h1>
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change Points/Cards</h1>
                 <center>
                     <form method="POST" th:object="${pointsForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updatePoints'}">
                         <div class="form-group">
@@ -504,6 +504,11 @@
                         <li class="list-inline-item">
                             <a class="btn-social btn-outline" href="https://twitter.com/TopMenTP">
                                 <i class="fa fa-fw fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="https://www.facebook.com/TMTPSS">
+                                <i class="fa fa-fw fa-facebook"></i>
                             </a>
                         </li>
                         <li class="list-inline-item">

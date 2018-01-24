@@ -41,8 +41,8 @@ public class VideoPostsServiceImpl implements VideoPostsService {
     public void createVideoPost(VideoPosts videoPosts, User user){
         String url = "";
 
-        if(videoPosts.getLink().contains("https://www.youtube.com/watch?v=")) {
-            url = "https://www.youtube.com/embed/" + videoPosts.getLink().replace("https://www.youtube.com/watch?v=", "");
+        if(videoPosts.getLink().contains("https://youtu.be/")) {
+            url = "https://www.youtube.com/embed/" + videoPosts.getLink().replace("https://youtu.be/", "");
             videoPosts.setVideo(true);
         }
         else{
