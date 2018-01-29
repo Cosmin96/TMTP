@@ -148,6 +148,9 @@
                 <div class="stadiumCard">
                     <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">My Stadium - Tier <span th:text="${user.getStadiumLevel()}"></span></h1>
                     <h2 style="color: black; margin-bottom: 5%; padding-left: 3%">This is your stadium, upgrade with green points to build bigger and better stadiums</h2>
+                    <h2 th:if="${finalStadium}" style="color: black; margin-bottom: 5%; padding-left: 3%">
+                        Congratulations for fully upgrading your stadium! You have won 50 free green points for a VIP room!
+                    </h2>
                     <center>
                         <div class="errorStadium" th:if="${error}">
                             <center>

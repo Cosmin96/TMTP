@@ -137,19 +137,25 @@
         <!-- Full-width images with number and caption text -->
         <div class="mySlides">
             <center>
-            <img th:src="@{/img/product1.png}" width="80%" />
+            <a href="https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true">
+                <img th:src="@{/img/product1.png}" width="80%" />
+            </a>
             </center>
         </div>
 
         <div class="mySlides">
             <center>
-            <img th:src="@{/img/product2.png}" width="80%" />
+                <a href="https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true">
+                    <img th:src="@{/img/product2.png}" width="80%" />
+                </a>
             </center>
         </div>
 
         <div class="mySlides ">
             <center>
-            <img th:src="@{/img/product3.jpeg}" width="80%" />
+                <a href="https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true">
+                    <img th:src="@{/img/product3.png}" width="80%" />
+                </a>
             </center>
         </div>
 
@@ -224,8 +230,9 @@
                                 <textarea th:field="*{description}" class="form-control" id="description" style="width:100%; height: 100px;" placeholder="Description"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="url">Youtube URL (copy in Youtube link for video)</label>
-                                <input th:field="*{link}" class="form-control" style="width:100%;" type="text" placeholder="Youtube URL" id="url" />
+                                <label for="url">YouTube share link (press share and copy link)</label>
+                                <label for="url">The best posts will be featured on our <a href="https://www.youtube.com/user/topmentruepundits">Youtube Channel</a></label>
+                                <input th:field="*{link}" class="form-control" style="width:100%;" type="text" placeholder="Youtube Share Link (https://youtu.be/[id])" id="url" />
                             </div>
                             <button style="margin-top: 3%; margin-bottom: 5%" class="btn btn-success">Submit</button>
                         </form>

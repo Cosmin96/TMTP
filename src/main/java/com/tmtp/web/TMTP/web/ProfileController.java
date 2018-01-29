@@ -80,7 +80,8 @@ public class ProfileController {
                     redirectAttributes.addFlashAttribute("errorMessage", "You do not have enough points to upgrade");
                     return "redirect:/profile/" + username;
                 }
-                user.getPoints().setGreen(user.getPoints().getGreen() - 250);
+                user.getPoints().setGreen(user.getPoints().getGreen() - 200);
+                redirectAttributes.addFlashAttribute("finalStadium", true);
                 break;
         }
         user.setStadiumLevel(user.getStadiumLevel() + 1);
