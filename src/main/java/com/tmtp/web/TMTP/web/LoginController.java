@@ -142,6 +142,21 @@ public class LoginController {
         return "index";
     }
 
+    @RequestMapping(value = "/scores")
+    public String getScoresPage(Model model) {
+
+        User user = userDataFacade.retrieveLoggedUser();
+
+        model.addAttribute("user", user);
+        model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
+
+        return "scores";
+    }
+
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

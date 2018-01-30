@@ -67,6 +67,9 @@
                 <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" th:href="@{'/scores'}"><i class="fa fa-gamepad" style="color: white" aria-hidden="true"></i> Scores</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#myModal" style="cursor: pointer"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Rules</a>            </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal2"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> FAQ</a>
@@ -245,8 +248,8 @@
                         <p align="left" style="color: black"><img th:src="@{'/getFiles/' + ${post.getUser().getUsername()} + '.jpg'}" width="50px" height="50px" />  <a th:href="@{'/profile/' + ${post.getCreator()}}"><span th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></a></p>
                     </div>
 
-                    <div class="row" style="margin-left: 5%;">
-                        <p align="left" style="color: black" th:text="${post.getDescription()}"></p>
+                    <div class="row" style="margin-left: 5%; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word">
+                        <p align="left" style="color: black; width: 95%" th:text="${post.getDescription()}"></p>
                     </div>
 
                     <div class="row" style="margin-left: 5%;">

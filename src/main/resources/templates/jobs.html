@@ -31,6 +31,7 @@
         });
     </script>
 
+
 </head>
 
 <body class="index" id="page-top" th:background="@{/img/background/grass.jpg}" style="background-repeat: repeat">
@@ -62,6 +63,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{'/scores'}"><i class="fa fa-gamepad" style="color: white" aria-hidden="true"></i> Scores</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#myModal" style="cursor: pointer"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Rules</a>            </li>
@@ -216,7 +220,7 @@
                 <p style="margin-left:5%; color: black" th:text="'Start Date: ' + ${job.getDate()}"></p>
                 <p style="margin-left:5%; color: black" th:text="'Contact Details: ' + ${job.getContact()}"></p>
                 <p style="margin-left:5%; color: black" th:text="'Job Description: ' + ${job.getDescription()}"></p>
-                <img style="margin-left: 3%" th:src="@{'/getFiles/' + ${job.getId()} + '.jpg'}" />
+                <img style="margin-left: 3%" th:if="${!job.getId().equals(null)}" th:src="@{'/getFiles/' + ${job.getId()} + '.jpg'}" />
                 <hr align="center" width="80%" style="background-color: #2C3E50;" />
             </div>
         </div>
