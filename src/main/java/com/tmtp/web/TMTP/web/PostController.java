@@ -30,6 +30,11 @@ public class PostController {
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
     public String createNewPost(@ModelAttribute("videoPostForm") VideoPosts videoPosts, Model model, RedirectAttributes redirectAttributes){
+        if(videoPosts.getDescription().isEmpty()){
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorMessage", "Your post does not contain any text or description");
+            return "redirect:/home";
+        }
 
         if(videoPostsFacade.filterComment(videoPosts.getDescription())){
             User user = userDataFacade.retrieveLoggedUser();

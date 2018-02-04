@@ -27,18 +27,20 @@ p {
 }
 
 .videocard {
-    background-color: #D8D8D8; 
+    /*background-color: #D8D8D8;*/
     border: solid;
     border-color: #2C3E50;
     border-radius: 2px;
+    background-color: #fff;
     margin-top: 3%;
 }
 
 .postcard {
-    background-color: #D8D8D8;
+    /*background-color: #D8D8D8;*/
     border: solid;
     border-color: #2C3E50;
     border-radius: 2px;
+    background-color: #fff;
     margin-top: 1%;
 }
 
@@ -99,10 +101,11 @@ p {
 }
 
 .profileCard{
-    background-color: #D8D8D8; 
+    /*background-color: #D8D8D8;*/
     border: solid;
     border-color: #2C3E50;
     border-radius: 2px;
+    background-color: #fff;
     margin-top: 5%;
     align-content: center;
     padding-top: 10%;
@@ -114,10 +117,11 @@ a:focus{
 }
 
 .stadiumCard{
-    background-color: #D8D8D8;
+    /*background-color: #D8D8D8;*/
     border: solid;
     border-color: #2C3E50;
     border-radius: 2px;
+    background-color: #fff;
     margin-top: 3%;
     align-content: center;
     padding-top: 3%;

@@ -146,6 +146,11 @@ public class AdminController {
             return "redirect:/home";
         }
         User user = userDataFacade.retrieveUser(username);
+
+        if(passForm.getOldPass().isEmpty() || passForm.getNewPass().isEmpty()){
+            return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
+        }
+
         if(passForm.getOldPass().equals(passForm.getNewPass())){
             user.setPassword(bCryptPasswordEncoder.encode(passForm.getNewPass()));
             userService.updateUser(user);

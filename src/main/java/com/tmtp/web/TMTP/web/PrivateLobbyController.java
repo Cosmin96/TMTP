@@ -3,6 +3,7 @@ package com.tmtp.web.TMTP.web;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.tmtp.web.TMTP.entity.PrivateLobby;
+import com.tmtp.web.TMTP.entity.ShopItem;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.payment.ChargeRequest;
 import com.tmtp.web.TMTP.payment.StripeService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +44,9 @@ public class PrivateLobbyController {
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
         model.addAttribute("lobbyCreator", privateLobby.getCreator());
+        model.addAttribute("trophyMessageCheck", false);
+        model.addAttribute("trophyMessage", "Congratulations for creating your own VIP room. You have won a free golden trophy");
+
         if(!privateLobby.getJoinedUsers().isEmpty()){
             if(privateLobby.getJoinedUsers().contains(user.getUsername())){
                joined = true;
@@ -76,7 +81,7 @@ public class PrivateLobbyController {
     }
 
     @RequestMapping("/lobby/create/{paymentType}")
-    public String createLobby(@PathVariable("paymentType") String paymentType, ChargeRequest chargeRequest) throws StripeException{
+    public String createLobby(@PathVariable("paymentType") String paymentType, ChargeRequest chargeRequest, RedirectAttributes redirectAttributes) throws StripeException{
         User user = userDataFacade.retrieveLoggedUser();
         if(paymentType.equals("card")){
             chargeRequest.setDescription("Payment");
@@ -87,7 +92,18 @@ public class PrivateLobbyController {
             user.getPoints().setGreen(user.getPoints().getGreen() - 50);
         }
 
+        ShopItem goldenTrophy = new ShopItem();
+        goldenTrophy.setName("Golden Trophy 5");
+        goldenTrophy.setType("trophies");
+        goldenTrophy.setGbpPrice(69);
+        goldenTrophy.setGbpPriceFormatted("£0.69");
+        goldenTrophy.setImgPath("/img/kits/trophies/6.png");
+        goldenTrophy.setId("59ea4154081e8648c47614f6");
+        goldenTrophy.setPointPrice(50);
+
         user.setPrivateLobby(true);
+        user.getShopItems().add(goldenTrophy);
+        user.setTrophy("Golden Trophy 5");
         userDataFacade.updateUser(user);
 
         PrivateLobby privateLobby = new PrivateLobby();
@@ -95,6 +111,11 @@ public class PrivateLobbyController {
         privateLobby.setJoinedUsers(Collections.emptyList());
         privateLobbyFacade.createLobby(privateLobby);
         privateLobby = privateLobbyFacade.findByCreator(user.getUsername());
+
+        redirectAttributes.addFlashAttribute("showLobby", true);
+        redirectAttributes.addFlashAttribute("owner", true);
+        redirectAttributes.addFlashAttribute("trophyMessageCheck", true);
+        redirectAttributes.addFlashAttribute("trophyMessage", "Congratulations for creating your own VIP room. You have won a free golden trophy");
 
         return "redirect:/privateLobby/" + privateLobby.getId();
     }

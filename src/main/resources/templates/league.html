@@ -26,13 +26,13 @@
   <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <script>
       (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-3993803388816871",
+          google_ad_client: "ca-pub-9674699695564602",
           enable_page_level_ads: true
       });
   </script>
   </head>
 
-  <body class="index" id="page-top" th:background="@{/img/background/grass.jpg}" style="background-repeat: repeat">
+  <body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -45,34 +45,37 @@
         <ul class="navbar-nav ml-auto">
 
           <li th:if="${user.getAdmin()}" class="nav-item">
-            <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+            <a class="nav-link" th:href="@{/admin}">Admin</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Merchandise</a>
+            <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Store</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Master Leagues</a>
+            <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Top Leagues</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/lobbies/club}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Club Lobbies</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
+            <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
+            <a class="nav-link" href="https://www.youtube.com/user/topmentruepundits"><i class="fa fa-bullhorn" style="color: white" aria-hidden="true"></i> Bantz</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{'/scores'}"><i class="fa fa-gamepad" style="color: white" aria-hidden="true"></i> Scores</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#myModal"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Rules</a>
+            <a class="nav-link" th:href="@{'/news'}" style="cursor: pointer"><i class="fa fa-newspaper" style="color: white" aria-hidden="true"></i> News</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal2"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> FAQ</a>
+            <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> Info</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out" style="color: white" aria-hidden="true"></i> Logout</a>
@@ -226,18 +229,25 @@
             <iframe th:if="${league == 42}" frameborder="0"  scrolling="no" width="520" height="200" src="https://www.fctables.com/teams/borussia-dortmund-181557/iframe/?type=team-last-match&amp;lang_id=2&amp;country=83&amp;template=16&amp;team=181557&amp;timezone=Europe/London&amp;time=24&amp;width=520&amp;height=200&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;scfs=22&amp;scfc=333333&amp;scb=1&amp;sclg=1&amp;teamls=80&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
             <iframe th:if="${league == 42}" frameborder="0"  scrolling="no" width="520" height="200" src="https://www.fctables.com/teams/borussia-dortmund-181557/iframe/?type=team-next-match&amp;lang_id=2&amp;country=83&amp;template=16&amp;team=181557&amp;timezone=Europe/London&amp;time=24&amp;width=520&amp;height=200&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;scfs=22&amp;scfc=333333&amp;scb=1&amp;sclg=1&amp;teamls=80&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
 
+            <h2 th:if="${league == 43}" style="color:white !important">To view Gay league table and scores click <a href="http://www.torontogayfootball.com/standings/">here</a></h2>
+
           </div>
+
 
           <!--<div class="row" style="margin-top: 3%; margin-left: 3%;">-->
             <!--<script type='text/javascript'>id='skyfb'; id_width=620; id_height=490;</script><script type='text/javascript' src='http://cdn15.crichd.pk/channel.js'></script>-->
             <!--<h3 style="color:white !important">Free Streaming sourced from CricHD</h3>-->
           <!--</div>-->
+          <div class="row stadiumCard" style="margin-top: 3%">
+            <iframe id="iframe-livescore-box" src="https://www.fctables.com/livescore_feed/66353b5d04a4146a915e1293d/" width="100%" height="500" scrolling="yes" frameborder="0" onload="resizeIframe(this)"></iframe><script>window.addEventListener("DOMContentLoaded",function(){(function(){var a=window.addEventListener?"addEventListener":"attachEvent",b=window[a],c="attachEvent"==a?"onmessage":"message",d=document.getElementById("iframe-livescore-box");b(c,function(a){var b=JSON.parse(a.data);d.style.height=b.height+"px",console.log(b)},!1)})()},!1);</script>
+          </div>
 
         </div>
 
         <div class="col-md-3">
           <div class="row">
-            <iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>
+            <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
+            <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
           </div>
 
         </div>
@@ -309,6 +319,7 @@
             <h4 class="modal-title">Top Bantz Rules &amp; Regulations</h4>
           </div>
           <div class="modal-body">
+            <h2>Rules</h2>
             <p>About Us<br />
               On behalf of TopBantz, we would like to welcome and thank you for choosing<br />
               our app. We would like to keep this app as sports related with positive banter<br />
@@ -354,25 +365,9 @@
 
             <p>Topbantz would like to take this time to thank all our users for their support,<br />
               the Board want you to have an enjoyable experience.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
 
-      </div>
-    </div>
 
-    <div id="myModal2" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Top Bantz FAQ</h4>
-          </div>
-          <div class="modal-body" style="color: black">
+            <h2>FAQ</h2>
 
             <p>TOP BANTZ APP</p>
 
@@ -467,7 +462,6 @@
 
             <p>7. Accessing User Settings<br />
               &bull; Click on the gear icon on the bottom left hand side of the screen</p>
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

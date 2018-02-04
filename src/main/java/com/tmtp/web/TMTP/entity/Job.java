@@ -13,6 +13,7 @@ public class Job {
     private String country;
     private String location;
     private String imagePath;
+    private boolean photoCheck;
 
     public String getId() {
         return id;
@@ -76,5 +77,13 @@ public class Job {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public boolean getPhotoCheck() {
+        return photoCheck;
+    }
+
+    public void setPhotoCheck(boolean photoCheck) {
+        this.photoCheck = photoCheck;
     }
 }

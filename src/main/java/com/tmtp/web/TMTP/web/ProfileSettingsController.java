@@ -80,6 +80,10 @@ public class ProfileSettingsController {
             return "redirect:/home";
         }
 
+        if(passForm.getOldPass().isEmpty() || passForm.getNewPass().isEmpty()){
+            return "redirect:/settings/" + userDataFacade.retrieveLoggedUser().getUsername();
+        }
+
         if(passForm.getOldPass().equals(passForm.getNewPass())){
             pageUser.setPassword(bCryptPasswordEncoder.encode(passForm.getNewPass()));
             userService.updateUser(pageUser);

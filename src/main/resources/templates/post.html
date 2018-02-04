@@ -26,14 +26,14 @@
     <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-3993803388816871",
+            google_ad_client: "ca-pub-9674699695564602",
             enable_page_level_ads: true
         });
     </script>
 
 </head>
 
-<body class="index" id="page-top" th:background="@{/img/background/grass.jpg}" style="background-repeat: repeat">
+<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -46,33 +46,37 @@
         <ul class="navbar-nav ml-auto">
 
             <li th:if="${user.getAdmin()}" class="nav-item">
-                <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+                <a class="nav-link" th:href="@{/admin}">Admin</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Merchandise</a>
+                <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Master Leagues</a>
+                <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Top Leagues</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/lobbies/club}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Club Lobbies</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
+                <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
+                <a class="nav-link" href="https://www.youtube.com/user/topmentruepundits"><i class="fa fa-bullhorn" style="color: white" aria-hidden="true"></i> Bantz</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{'/scores'}"><i class="fa fa-gamepad" style="color: white" aria-hidden="true"></i> Scores</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#myModal" style="cursor: pointer"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Rules</a>            </li>
+                <a class="nav-link" th:href="@{'/news'}" style="cursor: pointer"><i class="fa fa-newspaper" style="color: white" aria-hidden="true"></i> News</a>
+            </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal2"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> FAQ</a>
+                <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> Info</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out" style="color: white" aria-hidden="true"></i> Logout</a>
@@ -277,67 +281,58 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">TMTP Rules &amp; Regulations</h4>
+                <h4 class="modal-title">Top Bantz Rules &amp; Regulations</h4>
             </div>
             <div class="modal-body">
-                <p style="color: black"><b>Disciplinary Actions</b><br />
-                    -If an offence is committed a Yellow or Red Card will be issued.  The Rules are displayed below:<br />
-                    <b>Yellow Card Offences</b><br />
-                    A Yellow Card is held for a maximum of 7 days.<br />
-                    - If however a second yellow card is issued for an offence within the 7 days, then an instant 1 match day ban will occur.  Examples of offences which could incur a yellow card are:
-                    - The bigger it gets the harder it gets to keep up with the other pundits VN so we would like with the utmost respect if you could keep your voice notes to the maximum of 1min
-                    <br />
-                    <b>Red Card Offences</b><br />
-                    1.  All TMTP’s members are treated as equals. If any pundit sends disrespectful banter (using the ‘N’ word, re*** and p*** etc. or any racial comment to other pundits) this is classed as a Red Card offence.
-                    <br />
-                    - If you write a negative message like racism even with different spellings and you are reported to the boardroom, you will get an instant red card explaining what you have done and showing evidence.<br />
-                    - We do not tolerate any sort of racism because we have different races, religions and cultures on the TMTP'S.
-                    <br />
-                    2. We do not tolerate the following:
-                    <br />
-                    a) Sexual content<br />
-                    b) Images of killing<br />
-                    c) Pornography or nudity.<br />
+                <h2>Rules</h2>
+                <p>About Us<br />
+                    On behalf of TopBantz, we would like to welcome and thank you for choosing<br />
+                    our app. We would like to keep this app as sports related with positive banter<br />
+                    and messages. Our aim is to treat all members equal, happy and entertained at<br />
+                    all times.<br />
+                    We appreciate your interest in being a part of one of the worlds newest and<br />
+                    exciting Sports App available to download.</p>
 
-                    TMTP'S is a sports pundits group we don't want to promote any forms of violence, we like to keep sports related banter and positive messages, as the aim is to keep our pundits happy at all times.<br />
-                    3. If a pundit becomes abusive to a fellow pundit(s) &amp; this argument targets family member or personal life will result in a lifetime ban from the TMTP’s group.<br />
-                    - We do not mind pundits having a good old banter with a next pundit but we do not tolerate pundits being disrespectful about another pundit’s family member. This is one of TMTP important rules respect the other TMTP’s at all times.  Failure to adhere to the rules will also result in a lifetime ban.<br />
+                <p>Disciplinary Actions<br />
+                    Yellow Card Offences:<br />
+                    This will be issued if a member within the forum has been disrespectful and used<br />
+                    offensive language including behaviour. All yellow cards are upheld for 7 days<br />
+                    which are treated as warnings, if another yellow is accumulated, it then will<br />
+                    become an automatic red.</p>
 
-                    If any cards are to be issued from the boardroom it could be a yellow or a red card.  The decision is based on a majority vote.<br />
-                    When someone has broken a rule, the Boardroom has 5 working days to respond to the person who has caused the offence or broken the rule.<br />
-                    The pundit who causes the offence or broke the rule has the right to appeal against the decision.  The appeal must be 3 days from when the card has been issued.  Evidence must be provided to support the appeal<br />
-                    The Board will not accept any grey areas within the Rules &amp; Regulations. If something happens that is not part of the Rules and Regulations i.e. a grey area, the boardroom has all rights to analyse the evidence and get back to the pundits within 24 hours to give their verdict.  Our aim is to make sure we respect all pundits at all times so TMTP's can be enjoyable for everyone<br />
+                <p>Red Card Offences:<br />
+                    We do not promote any form of discrimination, prejudice or bullying, this<br />
+                    includes racial,violent and religious hatred. We will not tolerate the use of<br />
+                    nudity and sexual content, images of killing and targeted personal abusive<br />
+                    behaviour.</p>
 
-                    <b>Confidentiality</b><br />
-                    If a pundit(s) not happy with a situation and would like to talk privately. Please feel free to contact a Member of the Board by email. Your name will remain anonymous about the topic of what you have heard or seen and the Board will address the pundit(s) in regards to the matter.  Your right to remain anonymous will be upheld.<br />
+                <p>A Red Card will be issued if any of the above offences is committed, this will<br />
+                    block a user from using all services on the app for a period of time at the<br />
+                    discretion of the boardroom. Grey areas will not be accepted, failure to adhere<br />
+                    to the rules and regulations will result in removal from the app permanently.<br />
+                    If however, a user is unhappy regarding a decision made from the boardroom;<br />
+                    please see Terms and Conditions section Confidentiality and Appeals.</p>
 
-                    <b>Appeals</b><br />
-                    If you wish to appeal against a decision you have 4 days from the day you have received your punishment to do so.<br />
-                    The Board Members may consider your appeal.  Once you have made make your appeal, we will get back to you within 2 days. If your appeal is unsuccessful and the Board thinks that you do not have a good enough reason then you may be liable for an extra day on a 3 day match ban.<br />
-                    I would like to take this time to thank all our members for their support and we the Board hope you have an enjoyable experience and thanks for helping us move forward.<br />
+                <p>Terms and Conditions<br />
+                    Confidentiality<br />
+                    If a user is not happy with a situation and would like to talk privately. Please<br />
+                    feel free to contact a Member of the Board by email. Your name will remain<br />
+                    anonymous about the topic of what you have heard or seen and the Board will<br />
+                    address the matter. Your right to remain anonymous will be upheld.</p>
 
-                    <b>Thank you</b>
+                <p>Appeals<br />
+                    If you wish to appeal against a decision you have 5 working days from the<br />
+                    day you have received a card.<br />
+                    Board Members may consider your appeal when lodged, we will get back<br />
+                    to you within 3 days. If your appeal is unsuccessful and the Board thinks that<br />
+                    you do not have a good enough reason, then you may be liable for extra days<br />
+                    on your ban.</p>
 
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
+                <p>Topbantz would like to take this time to thank all our users for their support,<br />
+                    the Board want you to have an enjoyable experience.</p>
 
-    </div>
-</div>
 
-<div id="myModal2" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Top Bantz FAQ</h4>
-            </div>
-            <div class="modal-body" style="color: black">
+                <h2>FAQ</h2>
 
                 <p>TOP BANTZ APP</p>
 
@@ -432,7 +427,6 @@
 
                 <p>7. Accessing User Settings<br />
                     &bull; Click on the gear icon on the bottom left hand side of the screen</p>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

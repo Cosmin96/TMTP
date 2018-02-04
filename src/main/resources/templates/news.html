@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+
     <title>Top Bantz</title>
 
     <!-- Bootstrap core CSS -->
@@ -20,10 +21,10 @@
     <!-- Custom styles -->
     <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
     <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
-    <link href="../static/css/dataTables.css" th:href="@{/css/dataTables.css}" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
-    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/af-2.2.2/b-1.4.2/datatables.min.css" />-->
-    <!--<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/af-2.2.2/b-1.4.2/datatables.min.js"></script>-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
 
     <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
@@ -35,7 +36,7 @@
 
 </head>
 
-<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+<body class="index" id="page-top"  th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -126,100 +127,19 @@
         </div>
 
     </div>
+    <div class="row">
+        <div class="errorField2" th:if="${error}">
+            <center>
+                <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+            </center>
+        </div>
+    </div>
 </div>
 
-<div class="container stadiumCard" style="margin-top: 3%;">
-    <!--<div class="stadiumCard">-->
-        <h6 style="color:black">User Database</h6>
-            <table class="table table-bordered" style="border-color: white;background-color: #2c3e50; color: white" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Username</th>
-                    <th>Green Points</th>
-                    <th>Yellow Points</th>
-                    <th>Red Points</th>
-                    <th>Admin</th>
-                    <th>Banned</th>
-                    <th>Settings</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Username</th>
-                    <th>Green Points</th>
-                    <th>Yellow Points</th>
-                    <th>Red Points</th>
-                    <th>Admin</th>
-                    <th>Banned</th>
-                    <th>Settings</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                    <tr th:each="user : ${users}">
-                        <td>
-                            <span th:text="${user.getFirstName()}">
-                                Frank
-                            </span>
-                        </td>
-
-                        <td>
-                            <span th:text="${user.getLastName()}">
-                                Underwood
-                            </span>
-                        </td>
-
-                        <td>
-                            <span th:text="${user.getEmail()}">
-                                a@a.com
-                            </span>
-                        </td>
-
-                        <td>
-                            <span th:text="${user.getUsername()}">
-                                funderwood
-                            </span>
-                        </td>
-
-                        <td>
-                            <span th:text="${user.getPoints().getGreen()}">
-                                0
-                            </span>
-                        </td>
-
-                        <td>
-                            <span th:text="${user.getPoints().getYellow()}">
-                                0
-                            </span>
-                        </td>
-
-                        <td>
-                            <span th:text="${user.getPoints().getRed()}">
-                                0
-                            </span>
-                        </td>
-
-                        <td >
-                            <span th:if="${user.getAdmin()}">Yes</span>
-                            <span th:if="${user.getAdmin()} == false">No</span>
-                        </td>
-                        <td >
-                            <span th:if="${user.getBanned()}">Yes</span>
-                            <span th:if="${user.getBanned()} == false">No</span>
-                        </td>
-                        <td>
-                            <p align="center" ><a th:href="@{'/admin/edit/' + ${user.getUsername()}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></p><br />
-                            <p align="center" ><a th:href="@{'/admin/delete/' + ${user.getUsername()}}"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-    <!--</div>-->
+<div class="container stadiumCard" style="margin-top: 3%">
+    <center>
+        <iframe height="400" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
+    </center>
 </div>
 
 
@@ -232,7 +152,6 @@
                 <div class="col-md-12">
                     <h3>Social Media</h3>
                     <ul class="list-inline">
-
                         <li class="list-inline-item">
                             <a class="btn-social btn-outline" href="https://plus.google.com/u/0/105657970600756533313">
                                 <i class="fa fa-fw fa-google-plus"></i>
@@ -275,6 +194,7 @@
         <i class="fa fa-chevron-up"></i>
     </a>
 </div>
+
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -439,7 +359,6 @@
     </div>
 </div>
 
-
 <!-- Bootstrap core JavaScript -->
 <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
@@ -455,15 +374,18 @@
 <!-- Custom scripts for this template -->
 <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
 <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
-<script src="../static/js/dataTables.js" th:src="@{/js/dataTables.js}"></script>
-<script src="../static/js/jquery.dataTables.js" th:src="@{/js/jquery.dataTables.js}"></script>
 
-<!--<script type="text/javascript">-->
-    <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];-->
-    <!--$('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
-<!--</script>-->
 <script>
-    $(document).ready(function(){$("#dataTable").DataTable()});
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    }
 </script>
+<!--<script type="text/javascript">-->
+<!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];-->
+<!--$('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+<!--</script>-->
+
+
 </body>
+
 </html>

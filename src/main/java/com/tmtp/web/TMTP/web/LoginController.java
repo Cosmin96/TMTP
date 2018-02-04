@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -97,7 +98,18 @@ public class LoginController {
 
         User user = userDataFacade.retrieveLoggedUser();
         List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
-        Collections.shuffle(posts);
+
+        //"algorithmic news feed"
+        //Collections.shuffle(posts);
+
+        Collections.sort(posts, new Comparator<VideoPosts>() {
+            @Override
+            public int compare(VideoPosts videoPosts, VideoPosts t1) {
+                return videoPosts.getId().compareTo(t1.getId());
+            }
+        });
+        Collections.reverse(posts);
+
         List<String> allUsers = new ArrayList<String>();
         for(User oneuser : userDataFacade.retrieveAllUsers()){
             allUsers.add(oneuser.getUsername());
@@ -155,6 +167,21 @@ public class LoginController {
         model.addAttribute("redPoints", user.getPoints().getRed());
 
         return "scores";
+    }
+
+    @RequestMapping(value = "/news")
+    public String getNewsPage(Model model) {
+
+        User user = userDataFacade.retrieveLoggedUser();
+
+        model.addAttribute("user", user);
+        model.addAttribute("fname", user.getFirstName());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("greenPoints", user.getPoints().getGreen());
+        model.addAttribute("yellowPoints", user.getPoints().getYellow());
+        model.addAttribute("redPoints", user.getPoints().getRed());
+
+        return "news";
     }
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)

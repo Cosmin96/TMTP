@@ -27,14 +27,14 @@
     <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-3993803388816871",
+            google_ad_client: "ca-pub-9674699695564602",
             enable_page_level_ads: true
         });
     </script>
 
 </head>
 
-<body class="index" id="page-top" th:background="@{/img/background/grass.jpg}" style="background-repeat: repeat">
+<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -47,34 +47,37 @@
         <ul class="navbar-nav ml-auto">
 
             <li th:if="${user.getAdmin()}" class="nav-item">
-                <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+                <a class="nav-link" th:href="@{/admin}">Admin</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Merchandise</a>
+                <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Master Leagues</a>
+                <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Top Leagues</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/lobbies/club}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Club Lobbies</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
+                <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
+                <a class="nav-link" href="https://www.youtube.com/user/topmentruepundits"><i class="fa fa-bullhorn" style="color: white" aria-hidden="true"></i> Bantz</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{'/scores'}"><i class="fa fa-gamepad" style="color: white" aria-hidden="true"></i> Scores</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#myModal" style="cursor: pointer"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Rules</a>
+                <a class="nav-link" th:href="@{'/news'}" style="cursor: pointer"><i class="fa fa-newspaper" style="color: white" aria-hidden="true"></i> News</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal2"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> FAQ</a>
+                <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> Info</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out" style="color: white" aria-hidden="true"></i> Logout</a>
@@ -253,9 +256,10 @@
                         <div class="form-group" style="width: 80%">
                             <label for="overlayselect">Available overlays:</label>
                             <select th:field="*{overlayName}" class="form-control" id="overlayselect">
-                                <option th:value="Arsenal">Arsenal</option>
-                                <option th:value="FCBarcelona">Barcelona</option>
-                                <option th:value="Senegal">Senegal</option>
+                                <option value="none">None</option>
+                                <option th:each="item : ${user.getShopItems()}" th:if="${item.getType().equals('overlay') || item.getType().equals('clubOverlay')}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
                             </select>
                         </div>
                         <button class="btn btn-success" value="Upload">Change</button>
@@ -329,6 +333,7 @@
                 <h4 class="modal-title">Top Bantz Rules &amp; Regulations</h4>
             </div>
             <div class="modal-body">
+                <h2>Rules</h2>
                 <p>About Us<br />
                     On behalf of TopBantz, we would like to welcome and thank you for choosing<br />
                     our app. We would like to keep this app as sports related with positive banter<br />
@@ -374,25 +379,9 @@
 
                 <p>Topbantz would like to take this time to thank all our users for their support,<br />
                     the Board want you to have an enjoyable experience.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
 
-    </div>
-</div>
 
-<div id="myModal2" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Top Bantz FAQ</h4>
-            </div>
-            <div class="modal-body" style="color: black">
+                <h2>FAQ</h2>
 
                 <p>TOP BANTZ APP</p>
 
@@ -487,7 +476,6 @@
 
                 <p>7. Accessing User Settings<br />
                     &bull; Click on the gear icon on the bottom left hand side of the screen</p>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
