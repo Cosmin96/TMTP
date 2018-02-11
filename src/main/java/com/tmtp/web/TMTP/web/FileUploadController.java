@@ -36,7 +36,8 @@ public class FileUploadController {
     }
 
     @RequestMapping(value = "/settings/{username}/profileUpload", method = RequestMethod.POST)
-    public String handleFileUpload(@PathVariable("username") String username, @RequestParam("file") MultipartFile file,
+    public String handleFileUpload(@PathVariable("username") String username,
+                                   @RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
         String photoName = storageService.store(file, username);

@@ -87,23 +87,23 @@
 
     <div class="container statsmenu">
         <div class="row">
-            
+
             <div class="col-lg-6">
                 <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
             </div>
-            
+
             <div class="col-lg-2">
                 <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
             </div>
-            
+
             <div class="col-lg-2">
                 <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
             </div>
-            
+
             <div class="col-lg-2">
                 <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
             </div>
-            
+
         </div>
         <div class="row">
 
@@ -178,7 +178,8 @@
 
         <div class="row">
             <div class="col-lg-3 col-xs-12">
-                <div style="margin-bottom: 3%; width: 100%" class="row" th:if="${myLobbies or hasLobbies}">
+                <div style="margin-bottom: 3%; width: 100%; margin-left: 1%" class="row" th:if="${myLobbies or hasLobbies}">
+
                     <div class="postcard">
                         <div class="row" style="margin-left: 5%; margin-top:3%; margin-right: 5%">
                             <h3><u>My VIP Lobbies</u></h3>
@@ -196,6 +197,7 @@
                             <a th:href="@{'/privateLobby/' + ${lobby.getId()}}"><h3 style="font-size: 20px;" th:text="${lobby.getCreator() + '''s Lobby'}"></h3></a>
                         </div>
                     </div>
+
                 </div>
 
                 <!--<div class="row">-->
@@ -254,10 +256,6 @@
                     </div>
 
                     <div class="row" style="margin-left: 5%;">
-                        <p align="left"><a th:href="@{'/post/' + ${post.getId()}}">See full post</a></p>
-                    </div>
-
-                    <div class="row" style="margin-left: 5%;">
                         <p align="left" th:if="${user.getAdmin()}"><a th:href="@{'/post/' + ${post.getId()} + '/delete/'}"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></p>
                     </div>
 
@@ -265,6 +263,10 @@
                         <div style="align-content:center;height:0;margin-bottom:73%">
                             <iframe th:src="${post.getLink()}" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
                         </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 5%;">
+                        <p align="left"><a th:href="@{'/post/' + ${post.getId()}}">See comments</a></p>
                     </div>
 
                     <div class="row buttonRow">
@@ -298,10 +300,10 @@
                 <!--<div class="row">-->
                     <!--<iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />-->
                 <!--</div>-->
-                
+
             </div>
         </div>
-        
+
     </div>
 
 
@@ -332,6 +334,11 @@
                 <li class="list-inline-item">
                   <a class="btn-social btn-outline" href="https://www.linkedin.com/company/top-bantz/">
                     <i class="fa fa-fw fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="mailto:topbantzcontact@gmail.com" target="_top">
+                    <i class="fa fa-fw fa-envelope"></i>
                   </a>
                 </li>
               </ul>

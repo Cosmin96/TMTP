@@ -93,7 +93,7 @@
         <div id="signup">   
           <h1>Sign Up for Free</h1>
           
-          <form th:object="${user}" th:action="@{/registerUser}" method="POST">
+          <form th:object="${user}" th:action="@{/registerUser}" enctype="multipart/form-data" method="POST">
           
           <div class="top-row">
             <div class="field-wrap">
@@ -131,6 +131,11 @@
             </label>
             <input th:field="*{password}" type="password" th:required="true" autocomplete="off"/>
           </div>
+            <h4 style="color:white">Upload profile photo (max 5mb):</h4>
+            <div class="field-wrap">
+              <!--<label for="profile"><h6>Upload photo (max 5mb): </h6></label>-->
+              <input type="file" id="profile" name="file" />
+            </div>
 
             <div class="field-wrap">
               <h5 style="color:white">By signing up, you agree with the terms and conditions set by Top Bantz</h5>
@@ -201,6 +206,11 @@
                 <li class="list-inline-item">
                   <a class="btn-social btn-outline" href="https://www.linkedin.com/company/top-bantz/">
                     <i class="fa fa-fw fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="mailto:topbantzcontact@gmail.com" target="_top">
+                    <i class="fa fa-fw fa-envelope"></i>
                   </a>
                 </li>
               </ul>

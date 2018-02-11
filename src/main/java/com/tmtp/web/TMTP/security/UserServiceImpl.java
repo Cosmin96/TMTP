@@ -37,21 +37,21 @@ public class UserServiceImpl implements UserService{
     public void save(User user){
         User userToSave = new User();
 
-        File source=new File("src/main/resources/static/img/profile/profile.png");
-        File destination=new File("src/main/resources/static/img/profile/" + user.getUsername() + ".jpg");
-        try{
-            FileUtils.copyFile(source, destination);
+        if(user.getProfile().equals("no")) {
+            File source = new File("src/main/resources/static/img/profile/profile.png");
+            File destination = new File("src/main/resources/static/img/profile/" + user.getUsername() + ".jpg");
+            try {
+                FileUtils.copyFile(source, destination);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
         }
-        catch(IOException e){
-            System.out.println(e);
-        }
-//        copyFile(source,destination);
         userToSave.setUsername(user.getUsername());
         userToSave.setEmail(user.getEmail());
         userToSave.setFirstName(user.getFirstName());
         userToSave.setLastName(user.getLastName());
         userToSave.setTitle("Stay in your lane!");
-        userToSave.setProfile("/img/profile/profile.png");
+        userToSave.setProfile(user.getProfile());
         userToSave.setOverlay("");
         userToSave.setStadiumLevel(1);
         userToSave.setTrophy("none");
