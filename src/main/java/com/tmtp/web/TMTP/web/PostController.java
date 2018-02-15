@@ -48,7 +48,7 @@ public class PostController {
             }
             userService.updateUser(user);
             redirectAttributes.addFlashAttribute("error", true);
-            redirectAttributes.addFlashAttribute("errorMessage", "You have used abusive language and we have penalized you as appropriate");
+            redirectAttributes.addFlashAttribute("errorMessage", "You have been penalised for using racist language, a red card and a 72 hour ban will be issued if you persist");
             return "redirect:/home";
         }
         videoPostsFacade.createVideoPost(videoPosts, userDataFacade.retrieveLoggedUser());
