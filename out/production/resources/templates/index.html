@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Top Bantz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
+
+      <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-9674699695564602",
+              enable_page_level_ads: true
+          });
+      </script>
+
+  </head>
+
+  <body class="index" id="page-top"  th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+
+  <!-- Navigation -->
+ <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <a class="navbar-brand" th:href="@{/home}">Top Bantz</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+            <li th:if="${user.getAdmin()}" class="nav-item">
+                <a class="nav-link" th:href="@{/admin}">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Store</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Top Leagues</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/lobbies/club}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Club Lobbies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.youtube.com/user/topmentruepundits"><i class="fa fa-bullhorn" style="color: white" aria-hidden="true"></i> Bantz</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{'/scores'}"><i class="fa fa-gamepad" style="color: white" aria-hidden="true"></i> News/Scores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> Info</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{'/profile/' + ${username}}"><i class="fa fa-user" style="color: white" aria-hidden="true"></i> <span th:text="'Hi, ' + ${username} + '!'"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}"><i class="fa fa-sign-out" style="color: white" aria-hidden="true"></i> Logout</a>
+            </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container statsmenu">
+        <div class="row">
+
+            <div class="col-lg-6">
+                <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-lg-6">
+                <p align="left" style="color: #00DEB6; font-size: 26px;">of points and cards</p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center"><span style="color: #00ff00">Green Points</span></p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center"><span style="color: yellow">Yellow Cards</span></p>
+            </div>
+
+            <div class="col-lg-2">
+                <p align="center"><span style="color: red">Red Cards</span></p>
+            </div>
+
+        </div>
+        <div class="row">
+                <div class="errorField2" th:if="${error}">
+                    <center>
+                        <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+                    </center>
+                </div>
+        </div>
+    </div>
+
+<!--<div class="container" style="margin-top: 3%">-->
+
+    <!--&lt;!&ndash; Slideshow container &ndash;&gt;-->
+    <!--<div class="slideshow-container">-->
+
+        <!--&lt;!&ndash; Full-width images with number and caption text &ndash;&gt;-->
+        <!--<div class="mySlides">-->
+            <!--<center>-->
+            <!--<a href="https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true">-->
+                <!--<img th:src="@{/img/product1.png}" width="80%" />-->
+            <!--</a>-->
+            <!--</center>-->
+        <!--</div>-->
+
+        <!--<div class="mySlides">-->
+            <!--<center>-->
+                <!--<a href="https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true">-->
+                    <!--<img th:src="@{/img/product2.png}" width="80%" />-->
+                <!--</a>-->
+            <!--</center>-->
+        <!--</div>-->
+
+        <!--<div class="mySlides ">-->
+            <!--<center>-->
+                <!--<a href="https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true">-->
+                    <!--<img th:src="@{/img/product3.png}" width="80%" />-->
+                <!--</a>-->
+            <!--</center>-->
+        <!--</div>-->
+
+    <!--</div>-->
+    <!--<br />-->
+
+    <!--&lt;!&ndash; The dots/circles &ndash;&gt;-->
+    <!--<div style="text-align:center">-->
+        <!--<span class="dot" onclick="currentSlide(1)"></span>-->
+        <!--<span class="dot" onclick="currentSlide(2)"></span>-->
+        <!--<span class="dot" onclick="currentSlide(3)"></span>-->
+    <!--</div>-->
+<!--</div>-->
+
+    <div class="container" style="margin-top: 3%;">
+
+        <div class="row">
+            <div class="col-lg-3 col-xs-12">
+                <div style="margin-bottom: 3%; width: 100%; margin-left: 1%" class="row" th:if="${myLobbies or hasLobbies}">
+
+                    <div class="postcard">
+                        <div class="row" style="margin-left: 5%; margin-top:3%; margin-right: 5%">
+                            <h3><u>My VIP Lobbies</u></h3>
+                        </div>
+                        <div th:if="${hasOwnLobby}" class="row" style="margin-left: 5%; margin-top:1%">
+                            <h3 style="margin-top: 5%">Copy link to personal lobby:</h3>
+                            <input id="lobbyLink" style="width: 80%" type="text" th:value="${'www.topbantz.com/privateLobby/' + myLobby.getId()}" />
+                            <button class="btn btn-success" style="margin-left: 3%; margin-top: 3%" onclick="copyToClipboard('#lobbyLink')">Copy Link</button>
+
+                            <div class="row" style="margin-left: 5%; margin-top: 5%">
+                                <a th:href="@{'/privateLobby/' + ${myLobby.getId()}}"><h3 style="font-size: 20px;">My Lobby</h3></a>
+                            </div>
+                        </div>
+                        <div th:each="lobby : ${joinedLobbies}" class="row" style="margin-left: 5%; margin-top:5%">
+                            <a th:href="@{'/privateLobby/' + ${lobby.getId()}}"><h3 style="font-size: 20px;" th:text="${lobby.getCreator() + '''s Lobby'}"></h3></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--<div class="row">-->
+                    <!--<script src="http://www.btfscores.com/widgets/widget-side.min.js" th:async="true"></script>-->
+                    <!--<div id="sidebar-soccer-goal" style="width:250px;"></div>-->
+                <!--</div>-->
+            </div>
+
+            <div class="col-lg-6 col-xs-12 scrollabelcolumn">
+
+                <div class="postcard">
+                    <div class="row" style="margin-left: 5%; margin-top:3%">
+                        <h3>Search for users</h3>
+                    </div>
+                    <div class="row" style="margin-left: 5%; margin-top:3%; margin-bottom: 5%">
+                        <div class="col-xs-10">
+                            <input class="awesomplete sizeInput" id="userSearchInput" data-minchars="1" list="mylist" />
+                            <datalist id="mylist">
+                                <option th:each="oneUser : ${allUsers}"><span th:text="${oneUser}"></span></option>
+                            </datalist>
+                        </div>
+                        <div class="col-xs-2" style="margin-left: 2%">
+                            <button onclick="searchForUser()" id="userSearchButton" class="btn btn-success">Search</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="postcard">
+                    <div class="row" style="margin-left: 5%; margin-top:3%">
+                        <h3>Create new post</h3>
+                    </div>
+                    <div class="row" style="margin-left: 5%; margin-top:1%">
+                        <form style="width:90%" th:object="${videoPostForm}" th:action="@{/newPost}" method="POST">
+                            <div class="form-group">
+                                <label for="description">Post Description</label>
+                                <textarea th:field="*{description}" class="form-control" id="description" style="width:100%; height: 100px;" placeholder="Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="url">YouTube share link (press share and copy link)</label>
+                                <label for="url">The best posts will be featured on our <a href="https://www.youtube.com/user/topmentruepundits">Youtube Channel</a></label>
+                                <input th:field="*{link}" class="form-control" style="width:100%;" type="text" placeholder="Youtube Share Link (https://youtu.be/[id])" id="url" />
+                            </div>
+                            <button style="margin-top: 3%; margin-bottom: 5%" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="videocard" th:each="post : ${posts}">
+                    <div class="row" style="margin-left: 5%; margin-top:3%">
+                        <p align="left" style="color: black"><img th:src="@{'/getFiles/' + ${post.getUser().getUsername()} + '.jpg'}" width="50px" height="50px" />  <a th:href="@{'/profile/' + ${post.getCreator()}}"><span th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></a></p>
+                    </div>
+
+                    <div class="row" style="margin-left: 5%; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word">
+                        <p align="left" style="color: black; width: 95%" th:text="${post.getDescription()}"></p>
+                    </div>
+
+                    <div class="row" style="margin-left: 5%;">
+                        <p align="left" th:if="${user.getAdmin()}"><a th:href="@{'/post/' + ${post.getId()} + '/delete/'}"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></p>
+                    </div>
+
+                    <div class="row" th:if="${post.getVideo()}" style="margin-top:3%">
+                        <div style="align-content:center;height:0;margin-bottom:73%">
+                            <iframe th:src="${post.getLink()}" width="480" height="360" frameborder="0" style="position:absolute;width:80%;left:10%"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 5%;">
+                        <p align="left"><a th:href="@{'/post/' + ${post.getId()}}">See comments</a></p>
+                    </div>
+
+                    <div class="row buttonRow">
+                        <div class="col-xs-3">
+                            <a class="btn btn-success" th:href="'javascript:likeButton(\'' + ${post.getId()} + '\')'" th:id="${'like' + post.getId()}">
+                                <!--th:href="@{'/like/' + ${post.getId()}}"-->
+                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                <span th:if="${!post.getLikeUsers().contains(user.getUsername())}" th:text="${'Like - ' + post.getLikes() + ' likes'}"></span>
+                                <span th:if="${post.getLikeUsers().contains(user.getUsername())}" th:text="${'Liked - ' + post.getLikes() + ' likes'}"></span>
+                            </a>
+                        </div>
+                        <div class="col-xs-1">
+                            &nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="col-xs-3">
+                            <a style="" class="btn btn-danger" th:href="'javascript:dislikeButton(\'' + ${post.getId()} + '\')'" th:id="${'dislike' + post.getId()}">
+                                <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                <span th:if="${!post.getDislikeUsers().contains(user.getUsername())}" th:text="${'Dislike - ' + post.getDislikes() + ' dislikes'}"></span>
+                                <span th:if="${post.getDislikeUsers().contains(user.getUsername())}" th:text="${'Disliked - ' + post.getDislikes() + ' dislikes'}"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 mobileNone">
+                <div class="row">
+                    <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
+                    <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
+                </div>
+                <!--<div class="row">-->
+                    <!--<iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />-->
+                <!--</div>-->
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="text-center" style="margin-top: 10%;">
+      <div class="footer-above">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-md-12">
+              <h3>Social Media</h3>
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="https://plus.google.com/u/0/105657970600756533313">
+                    <i class="fa fa-fw fa-google-plus"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="https://twitter.com/TopMenTP">
+                    <i class="fa fa-fw fa-twitter"></i>
+                  </a>
+                </li>
+                  <li class="list-inline-item">
+                      <a class="btn-social btn-outline" href="https://www.facebook.com/TMTPSS">
+                          <i class="fa fa-fw fa-facebook"></i>
+                      </a>
+                  </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="https://www.linkedin.com/company/top-bantz/">
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="mailto:topbantzcontact@gmail.com" target="_top">
+                    <i class="fa fa-fw fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-below">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              Copyright &copy; Top Bantz 2017
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top d-lg-none">
+      <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+
+
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Top Bantz Rules &amp; Regulations</h4>
+              </div>
+              <div class="modal-body">
+                  <h2>Rules</h2>
+                  <p>About Us<br />
+                      On behalf of TopBantz, we would like to welcome and thank you for choosing<br />
+                      our app. We would like to keep this app as sports related with positive banter<br />
+                      and messages. Our aim is to treat all members equal, happy and entertained at<br />
+                      all times.<br />
+                      We appreciate your interest in being a part of one of the worlds newest and<br />
+                      exciting Sports App available to download.</p>
+
+                  <p>Disciplinary Actions<br />
+                      Yellow Card Offences:<br />
+                      This will be issued if a member within the forum has been disrespectful and used<br />
+                      offensive language including behaviour. All yellow cards are upheld for 7 days<br />
+                      which are treated as warnings, if another yellow is accumulated, it then will<br />
+                      become an automatic red.</p>
+
+                  <p>Red Card Offences:<br />
+                      We do not promote any form of discrimination, prejudice or bullying, this<br />
+                      includes racial,violent and religious hatred. We will not tolerate the use of<br />
+                      nudity and sexual content, images of killing and targeted personal abusive<br />
+                      behaviour.</p>
+
+                  <p>A Red Card will be issued if any of the above offences is committed, this will<br />
+                      block a user from using all services on the app for a period of time at the<br />
+                      discretion of the boardroom. Grey areas will not be accepted, failure to adhere<br />
+                      to the rules and regulations will result in removal from the app permanently.<br />
+                      If however, a user is unhappy regarding a decision made from the boardroom;<br />
+                      please see Terms and Conditions section Confidentiality and Appeals.</p>
+
+                  <p>Terms and Conditions<br />
+                      Confidentiality<br />
+                      If a user is not happy with a situation and would like to talk privately. Please<br />
+                      feel free to contact a Member of the Board by email. Your name will remain<br />
+                      anonymous about the topic of what you have heard or seen and the Board will<br />
+                      address the matter. Your right to remain anonymous will be upheld.</p>
+
+                  <p>Appeals<br />
+                      If you wish to appeal against a decision you have 5 working days from the<br />
+                      day you have received a card.<br />
+                      Board Members may consider your appeal when lodged, we will get back<br />
+                      to you within 3 days. If your appeal is unsuccessful and the Board thinks that<br />
+                      you do not have a good enough reason, then you may be liable for extra days<br />
+                      on your ban.</p>
+
+                  <p>Topbantz would like to take this time to thank all our users for their support,<br />
+                      the Board want you to have an enjoyable experience.</p>
+
+
+                  <h2>FAQ</h2>
+
+                  <p>TOP BANTZ APP</p>
+
+                  <p>1. Creating A New Account<br />
+                      &bull; Fill out all the necessary fields in the text boxes<br />
+                      &bull; Ensure that username is between 6 to 32 characters long<br />
+                      &bull; Email follows general @email.com format<br />
+                      &bull; User remembers their username is case sensitive<br />
+                      2. Logging-In<br />
+                      &bull; Check if you have inputted your username correctly (upper case letters haven&rsquo;t been used<br />
+                      where lower-case letters were inputted)<br />
+                      &bull; Ask an admin If you been banned or not<br />
+                      3. Uploading a New Video<br />
+                      &bull; Manually upload your video onto YouTube using the &lsquo;Upload Feature&rsquo;<br />
+                      &bull; Copy the video&rsquo;s web address (URL). Eg: https://www.youtube.com/watch?v=z_rH<br />
+                      &bull; Paste into the YouTube URL box on the Create New Post option<br />
+                      &bull; Add a description and Upload<br />
+                      4. Problems Uploading a New Video<br />
+                      &bull; Ensure URL has been correctly copied including the https://<br />
+                      &bull; Ensure video is actually from YouTube<br />
+                      &bull; Ensure you scroll down to see your video<br />
+                      5. Stadiums, Kits and Images<br />
+                      &bull; Check if you have an internet connection<br />
+                      &bull; Enable browser cookies from browser settings<br />
+                      &bull; Enable flash from browser settings<br />
+                      &bull; Try to refresh the page</p>
+
+                  <p>6. Earning and Spending Green Points<br />
+                      &bull; Points are earned for positive posts on the app<br />
+                      &bull; Every 100 likes on a post gives you 1 Green-Point automatically<br />
+                      &bull; Can be spent on items in the merchandise store<br />
+                      &bull; Green points can also be purchased via deals on the merchandise page</p>
+
+                  <p>7. Yellow Card / Red Card<br />
+                      &bull; Cards are given for negative behavior on the app including but not limited to offensive<br />
+                      language and content<br />
+                      &bull; A yellow card is given for a minor offence</p>
+
+                  <p>&bull; 2 yellow cards automatically convert into a red card and you are banned from the app for 3<br />
+                      days<br />
+                      &bull; After the match ban is over, you will be able to login to the app as normal</p>
+
+                  <p>8. Microphone Problems on Discord<br />
+                      &bull; Check if you are using a microphone and it is plugged in and connected<br />
+                      &bull; &ldquo;Allow&rdquo; app to record voice<br />
+                      &bull; &ldquo;Allow&rdquo; app to record video<br />
+                      &bull; Open Discord and make sure you haven&rsquo;t set their microphone to mute<br />
+                      &bull; Make sure you are actually in a lobby, if you are; your name will appear in the lobby<br />
+                      participants list.</p>
+
+                  <p>9. Uploading Media onto Discord<br />
+                      &bull; Make sure you &ldquo;Allow&rdquo; for Discord to access the user&rsquo;s gallery<br />
+                      &bull; Make sure you haven&rsquo;t already posted the same image<br />
+                      &bull; Make sure you have a stable internet connection</p>
+
+                  <p>10. Uploading Medio onto Top Bantz App<br />
+                      &bull; Make sure the video came from YouTube<br />
+                      &bull; Make sure it follows the link type: www.youtube.com/videolink<br />
+                      11. Locating Your VIP Lobby<br />
+                      &bull; Go to your home page and access the VIP lobby from the box to the left-hand side.</p>
+
+                  <p>12. 3-D Stadium Navigation<br />
+                      &bull; Use your mouse and up, down, left, right keys on their keypad to navigate around the<br />
+                      stadium</p>
+
+                  <p>Discord<br />
+                      1. Personal Message Another User<br />
+                      &bull; Left Click on user&rsquo;s profile photo or name until an information box comes up<br />
+                      &bull; Write personal message in the box<br />
+                      &bull; Press Enter to send<br />
+                      2. See Who Else Is Online<br />
+                      &bull; Check right hand side column to see all users who are either online or offline</p>
+
+                  <p>3. Switching Between Voice Banter Lobbies<br />
+                      &bull; Know which lobby you are in by observing your name under the lobby&rsquo;s name<br />
+                      &bull; Click on whichever lobby you want to go on by selecting it with your mouse<br />
+                      4. Create A New Private Channel<br />
+                      &bull; Press the + icon on the let hand side of the screen on the navbar<br />
+                      &bull; Adjust the settings and the server is created</p>
+
+                  <p>5. How to Start a Video Call with People (9 People Max)<br />
+                      &bull; Press the &ldquo;Friends&rdquo; Icon on the top left-hand corner of the screen<br />
+                      &bull; Click &ldquo;All&rdquo; to see all friends<br />
+                      &bull; Hover over a friend&rsquo;s name until it turns grey<br />
+                      &bull; Press the video call option<br />
+                      &bull; To add up to 8 more friends onto the call, press this button and add friends by their<br />
+                      username</p>
+
+                  <p>6. Invite Friends Who Are Not on Discord<br />
+                      &bull; Click on the bottom pointing arrow to bring up the lobby settings<br />
+                      &bull; Click on &ldquo;Invite People&rdquo;, copy the link and send to friends</p>
+
+                  <p>7. Accessing User Settings<br />
+                      &bull; Click on the gear icon on the bottom left hand side of the screen</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <!-- Contact Form JavaScript -->
+  <script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+  <script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+  <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+
+<script>
+    function copyToClipboard(element) {
+        var $temp = $("<input />");
+        $("body").append($temp);
+        $temp.val($(element).val()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+</script>
+
+  <!--<script type="text/javascript">-->
+      <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];-->
+      <!--$('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+  <!--</script>-->
+
+  <script>
+     function searchForUser() {
+          var userValue = $('#userSearchInput').val();
+          var endpoint = '/profile/' + userValue;
+          console.log("entered");
+          $.ajax({
+              url: endpoint,
+              crossDomain: true,
+              success: function(data){
+                console.log("Successful redirection");
+                window.location.href = endpoint;
+              }
+          })
+      }
+  </script>
+
+  <script th:inline="javascript">
+        function likeButton(id){
+            $.ajax({
+                url: '/like/' + id,
+                success: function(data){
+                    var str = $("#like" + id + " > span").text();
+                    if(str.charAt(4) == 'd'){
+                        $("#like" + id + " > span").text("Like - " + data[0] + " likes");
+                    }
+                    else{
+                        $("#like" + id + " > span").text("Liked - " + data[0] + " likes");
+                        $("#dislike" + id + " > span").text("Dislike - " + data[1] + " dislikes");
+                    }
+                }
+            })
+        }
+
+        function dislikeButton(id){
+            $.ajax({
+                url: '/dislike/' + id,
+                success: function(data){
+                    var str = $("#dislike" + id + " > span").text();
+                    if(str.charAt(7) == 'd'){
+                        $("#dislike" + id + " > span").text("Dislike - " + data[1] + " dislikes");
+                    }
+                    else{
+                        $("#dislike" + id + " > span").text("Disliked - " + data[1] + " dislikes");
+                        $("#like" + id + " > span").text("Like - " + data[0] + " likes");
+                    }
+                }
+            })
+        }
+
+  </script>
+
+  </body>
+
+</html>
