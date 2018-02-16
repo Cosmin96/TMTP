@@ -1,3 +1,11 @@
+.btn-orange {
+    background-color: #FF4314 !important;
+}
+
+.text-orange {
+    color: #FF4314 !important;
+}
+
 .statsmenu{
     background-color: #444444; 
     border: solid;

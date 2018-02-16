@@ -92,6 +92,10 @@ public class LoginController {
 
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
+
+        // Set flag to display Amazon popup after registration
+        redirectAttributes.addFlashAttribute("popup", "amazon");
+
         return "redirect:/home";
     }
 
@@ -104,6 +108,10 @@ public class LoginController {
             return "redirect:/register";
         }
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
+
+        // Set flag to display Amazon popup after each login
+        redirectAttributes.addFlashAttribute("popup", "amazon");
+
         return "redirect:/home";
     }
 
