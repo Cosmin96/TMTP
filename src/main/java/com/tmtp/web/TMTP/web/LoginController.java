@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.web;
 
+import com.google.gson.JsonObject;
 import com.tmtp.web.TMTP.entity.PrivateLobby;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
@@ -8,10 +9,12 @@ import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.security.UserValidator;
 import com.tmtp.web.TMTP.service.StorageService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +26,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import static org.springframework.http.HttpHeaders.USER_AGENT;
 
 @Controller
 public class LoginController {
@@ -41,6 +53,7 @@ public class LoginController {
     private final MessageSource messageSource;
     private final PrivateLobbyFacade privateLobbyFacade;
     private final StorageService storageService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private ShopItemRepository shopItemRepository;
 
@@ -51,7 +64,8 @@ public class LoginController {
                            final VideoPostsFacade videoPostsFacade,
                            final MessageSource messageSource,
                            final PrivateLobbyFacade privateLobbyFacade,
-                           final StorageService storageService) {
+                           final StorageService storageService,
+                           final BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
@@ -60,6 +74,7 @@ public class LoginController {
         this.messageSource = messageSource;
         this.privateLobbyFacade = privateLobbyFacade;
         this.storageService = storageService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -212,6 +227,95 @@ public class LoginController {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+        return "redirect:/register";
+    }
+
+    @RequestMapping(value="/reset-password", method = RequestMethod.POST)
+    public String resetPassword (@ModelAttribute("userForm") User userForm, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        User user = userDataFacade.retrieveUser(userForm.getUsername());
+
+        String captcha = request.getParameter("g-recaptcha-response");
+
+        try {
+            String url = "https://www.google.com/recaptcha/api/siteverify";
+            URL obj = new URL(url);
+            HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+
+            con.setRequestMethod("POST");
+            con.setRequestProperty("User-Agent", USER_AGENT);
+            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+            String urlParameters = "secret=6LfG9kYUAAAAAILtfGNQv5x_5DHC5bTI4KryZEFU&response=" + captcha;
+
+            // Send post request
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(urlParameters); wr.flush(); wr.close();
+
+            int responseCode = con.getResponseCode();
+
+            if(responseCode != 200) {
+                redirectAttributes.addFlashAttribute("error", true);
+                redirectAttributes.addFlashAttribute("errorMessage", "Captcha validation failed!");
+                return "redirect:/register";
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            JSONObject jsonObject = new JSONObject(response.toString());
+            String answer = jsonObject.get("success").toString();
+            if(!answer.equals("true")) {
+                redirectAttributes.addFlashAttribute("error", true);
+                redirectAttributes.addFlashAttribute("errorMessage", "Captcha validation failed!");
+                return "redirect:/register";
+            }
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorMessage", "Captcha validation failed!");
+            return "redirect:/register";
+        }
+
+        // wrong username
+        if(user == null) {
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorMessage", "The details provided are wrong!");
+            return "redirect:/register";
+        }
+
+        // wrong email
+        if(!user.getEmail().equals(userForm.getEmail())) {
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorMessage", "The details provided are wrong!");
+            return "redirect:/register";
+        }
+
+        if(userForm.getPassword().length() < 6) {
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorMessage", "The password should be of at least 6 characters!");
+            return "redirect:/register";
+        }
+
+        if(user.getBanned()){
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorMessage", "You are currently banned for unsuitable behaviour! Please wait for an admin to remove your restrictions");
+            return "redirect:/register";
+        }
+
+        user.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+        userDataFacade.updateUser(user);
+
+        redirectAttributes.addFlashAttribute("successReset", true);
+        redirectAttributes.addFlashAttribute("successResetMessage", "Password successfully reset! You can now use it to login!");
+
         return "redirect:/register";
     }
 }

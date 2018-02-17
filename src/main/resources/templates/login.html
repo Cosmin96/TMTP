@@ -18,7 +18,10 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
-      
+
+    <!-- Tingle plugin css -->
+    <link rel="stylesheet" href="../static/css/tingle.min.css" th:href="@{/css/tingle.min.css}"/>
+
     <!-- Custom styles -->
     <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
     <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
@@ -33,12 +36,14 @@
         });
     </script>
 
+    <script src='https://www.google.com/recaptcha/api.js?onload=recaptchaOnload&amp;render=explicit' async="true" defer="true"></script>
+
   </head>
 
   <body class="index" id="page-top">
 
     <!-- Navigation -->
- <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+ <nav style="z-index: 100 !important;" class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <a class="navbar-brand" href="index.html">Top Bantz</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
@@ -84,6 +89,11 @@
              <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
            </center>
          </div>
+       <div class="successField" th:if="${successReset}">
+         <center>
+           <p th:text="${successResetMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+         </center>
+       </div>
       <ul class="tab-group">
         <li class="tab active"><a href="#signup">Sign Up</a></li>
         <li class="tab"><a href="#login">Log In</a></li>
@@ -166,7 +176,7 @@
             <input type="password" th:field="*{password}" th:required="true" autocomplete="off"/>
           </div>
           
-          <!--<p class="forgot"><a href="#">Forgot Password?</a></p>-->
+          <p class="forgot"><a id="aResetPass" href="#">Forgot Password?</a></p>
           
           <button type="submit" class="button button-block">Log In</button>
           
@@ -911,6 +921,9 @@
     <script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
     <script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
 
+    <!-- Tingle script import -->
+    <script src="../static/js/tingle.min.js" th:src="@{/js/tingle.min.js}"></script>
+
     <!-- Custom scripts for this template -->
     <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
     <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
@@ -921,6 +934,82 @@
             enable_page_level_ads: true
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+            var _captchaTries = 0;
+            function recaptchaOnload() {
+                _captchaTries++;
+                if (_captchaTries > 9)
+                    return;
+                if ($('.g-recaptcha').length > 0) {
+                    grecaptcha.render("recaptcha", {
+                        sitekey: '6LfG9kYUAAAAANUmfD3aBhlnQqbXgU1JjzEZIIV7',
+                        callback: function() {
+                            console.log('recaptcha callback');
+                        }
+                    });
+                    return;
+                }
+                window.setTimeout(recaptchaOnload, 1000);
+            }
+
+
+            $('#aResetPass').click( function(e) {
+                e.preventDefault();
+
+                recaptchaOnload();
+
+                // instanciate new modal
+                var modal = new tingle.modal({
+                    footer: true,
+                    stickyFooter: false,
+                    closeMethods: ['overlay', 'button', 'escape'],
+                    closeLabel: "Close",
+                    onOpen: function () {
+                        console.log('modal open');
+                    },
+                    onClose: function () {
+                        console.log('modal closed');
+                    },
+                    beforeClose: function () {
+                        return true; // close the modal
+                    }
+                });
+
+                $('.tingle-modal-box__content').css('paddingBottom', '0px');
+                $('.tingle-modal-box__footer').addClass('text-center');
+
+                // set content
+                modal.setContent('<form id="resetPassForm" th:object="${userForm}" th:action="@{/reset-password}" method="POST">' +
+                    '               <div class="field-wrap">' +
+                    '               <input style="color:#000000 !important;" placeholder="Email" type="text" th:field="*{email}" th:required="true" autocomplete="off"/>' +
+                    '               </div>' +
+                    '               <div class="field-wrap">' +
+                    '               <input style="color:#000000 !important;" placeholder="Username" type="text" th:field="*{username}" th:required="true" autocomplete="off"/>' +
+                    '               </div>' +
+                    '               <div class="field-wrap">' +
+                    '               <input style="color:#000000 !important;" placeholder="New Password" type="password" th:field="*{password}" th:required="true" autocomplete="off"/>' +
+                    '               </div>' +
+                    '               <div class="field-wrap">' +
+                    '               <center><div id="recaptcha" class="g-recaptcha" data-sitekey="6LfG9kYUAAAAANUmfD3aBhlnQqbXgU1JjzEZIIV7"></div></center>' +
+                    '               </div>' +
+                    '             </form>');
+
+                // add a button to Amazon page
+                modal.addFooterBtn('Reset Password!', 'tingle-btn tingle-btn--primary btn-success', function () {
+                    $('#resetPassForm').submit();
+                });
+
+                // open modal
+                modal.open();
+
+                return false;
+            });
+
+        });
+    </script>
+
   </body>
 
 </html>
