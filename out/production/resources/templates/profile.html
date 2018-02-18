@@ -129,8 +129,17 @@
             </div>
             <div class="col-md-8 col-xs-12">
                 <div class="stadiumCard">
-                    <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span th:if="${fname.equals(user.getUsername())}">My</span><span th:if="${not fname.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span> Stadium - Tier <span th:text="${user.getStadiumLevel()}"></span></h1>
-                    <h2 style="color: black; margin-bottom: 5%; padding-left: 3%">This is your stadium, upgrade with green points to build bigger and better stadiums</h2>
+                    <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span th:if="${fname.equals(user.getUsername())}">My</span><span th:if="${not fname.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span> Stadiums - Tier <span th:text="${user.getStadiumLevel()}"></span></h1>
+                    <h2 style="color: black; margin-bottom: 4%; padding-left: 3%">These are your stadiums, upgrade with green points to build bigger and better stadiums</h2>
+                    <center>
+                        <div style="margin-bottom: 4% !important; display: inline-block; padding: 5px;">
+                            <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 1}" id="stadiumBtn1" class="btn btn-fab btn-dark" onclick="showStadium(1);">Stadium 1</button>
+                            <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 2}" id="stadiumBtn2" class="btn btn-fab btn-dark" onclick="showStadium(2);">Stadium 2</button>
+                            <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 3}" id="stadiumBtn3" class="btn btn-fab btn-dark" onclick="showStadium(3);">Stadium 3</button>
+                            <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 4}" id="stadiumBtn4" class="btn btn-fab btn-dark" onclick="showStadium(4);">Stadium 4</button>
+                            <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 5}" id="stadiumBtn5" class="btn btn-fab btn-dark" onclick="showStadium(5);">Stadium 5</button>
+                        </div>
+                    </center>
                     <h2 th:if="${finalStadium}" style="color: black; margin-bottom: 5%; padding-left: 3%">
                         Congratulations for fully upgrading your stadium! You have won 50 free green points for a VIP room!
                     </h2>
@@ -143,7 +152,7 @@
 
                         <!--<img th:src="@{'/img/stadiums/' + ${user.getStadiumLevel()} + '.jpg'}" width="80%" height="auto" />-->
 
-                        <div th:if="${user.getStadiumLevel() == 1}" class="sketchfab-embed-wrapper">
+                        <div style="display: none;" id="stadiumDiv1" th:if="${user.getStadiumLevel() >= 1}" class="sketchfab-embed-wrapper">
                             <iframe width="100%" height="480" src="https://sketchfab.com/models/9f2e540321bf47d893fed9a8ae78b29f/embed?preload=1" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
                             <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
                                 <a href="https://sketchfab.com/models/9f2e540321bf47d893fed9a8ae78b29f?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Football Pitch</a>
@@ -152,7 +161,7 @@
                             </p>
                         </div>
 
-                        <div th:if="${user.getStadiumLevel() == 2}" class="sketchfab-embed-wrapper">
+                        <div style="display: none;" id="stadiumDiv2" th:if="${user.getStadiumLevel() >= 2}" class="sketchfab-embed-wrapper">
                             <iframe width="100%" height="480" src="https://sketchfab.com/models/9c4f91943a19414d956932ceefe9b0b7/embed?preload=1" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
                             <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
                                 <a href="https://sketchfab.com/models/9c4f91943a19414d956932ceefe9b0b7?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Football Stadium</a>
@@ -161,7 +170,7 @@
                             </p>
                         </div>
 
-                        <div th:if="${user.getStadiumLevel() == 3}" class="sketchfab-embed-wrapper">
+                        <div style="display: none;" id="stadiumDiv3" th:if="${user.getStadiumLevel() >= 3}" class="sketchfab-embed-wrapper">
                             <iframe width="100%" height="480" src="https://sketchfab.com/models/f220069f47534232becbae2dc3a5123e/embed?preload=1" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
                             <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
                                 <a href="https://sketchfab.com/models/f220069f47534232becbae2dc3a5123e?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Stadium</a>
@@ -170,7 +179,7 @@
                             </p>
                         </div>
 
-                        <div th:if="${user.getStadiumLevel() == 4}" class="sketchfab-embed-wrapper">
+                        <div style="display: none;" id="stadiumDiv4" th:if="${user.getStadiumLevel() >= 4}" class="sketchfab-embed-wrapper">
                             <iframe width="100%" height="480" src="https://sketchfab.com/models/8e16f25ee59e475bb947fbdf4d76fe74/embed" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
                             <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
                                 <a href="https://sketchfab.com/models/8e16f25ee59e475bb947fbdf4d76fe74?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Estádio Olímpico João Havelange</a>
@@ -179,7 +188,7 @@
                             </p>
                         </div>
 
-                        <div th:if="${user.getStadiumLevel() == 5}" class="sketchfab-embed-wrapper">
+                        <div style="display: none;" id="stadiumDiv5" th:if="${user.getStadiumLevel() >= 5}" class="sketchfab-embed-wrapper">
                             <iframe width="100%" height="480" src="https://sketchfab.com/models/596e05891be942deac7f679ef8d6ba5d/embed" frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
                                 <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
                                     <a href="https://sketchfab.com/models/596e05891be942deac7f679ef8d6ba5d?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">Stadium - Parik Panchal</a>
@@ -483,6 +492,32 @@
                 gravity: 's'
             });
         });
+    </script>
+
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var stadiumLevel = '' + [[${user.getStadiumLevel()}]];
+            var number = parseInt(stadiumLevel, 10);
+
+            // Show final stadium achieved
+            $('#stadiumDiv' + number).show();
+
+            // change btn style - active
+            $('#stadiumBtn' + number).removeClass('btn-dark');
+            $('#stadiumBtn' + number).addClass('btn-success');
+        });
+
+        function showStadium(number) {
+            // hide all the other fabs
+            $('.sketchfab-embed-wrapper').hide();
+            $('.btn-fab').removeClass('btn-success');
+            $('.btn-fab').addClass('btn-dark');
+
+            // show the selected fab
+            $('#stadiumDiv' + number).show();
+            $('#stadiumBtn' + number).removeClass('btn-dark');
+            $('#stadiumBtn' + number).addClass('btn-success');
+        }
     </script>
 
   </body>
