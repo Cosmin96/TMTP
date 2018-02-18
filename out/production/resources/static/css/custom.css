@@ -1,3 +1,9 @@
+@media only screen and (min-width: 800px) {
+    .make-modal-smaller {
+        width: 35% !important;
+    }
+}
+
 .btn-orange {
     background-color: #FF4314 !important;
 }
