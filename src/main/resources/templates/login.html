@@ -938,68 +938,77 @@
     <script>
         $(document).ready(function () {
             var _captchaTries = 0;
+            var isFirstCall = 0;
+            var modal;
             function recaptchaOnload() {
-                _captchaTries++;
-                if (_captchaTries > 9)
-                    return;
-                if ($('.g-recaptcha').length > 0) {
-                    grecaptcha.render("recaptcha", {
-                        sitekey: '6LfG9kYUAAAAANUmfD3aBhlnQqbXgU1JjzEZIIV7',
-                        callback: function() {
-                            console.log('recaptcha callback');
-                        }
-                    });
-                    return;
+                if(isFirstCall == 0) {
+                    _captchaTries++;
+                    if (_captchaTries > 9)
+                        return;
+                    if ($('.g-recaptcha').length > 0) {
+                        grecaptcha.render("recaptcha", {
+                            sitekey: '6LfG9kYUAAAAANUmfD3aBhlnQqbXgU1JjzEZIIV7',
+                            callback: function () {
+                                console.log('recaptcha callback');
+                            }
+                        });
+                        isFirstCall = 1;
+                        return;
+                    }
+                    window.setTimeout(recaptchaOnload, 1000);
                 }
-                window.setTimeout(recaptchaOnload, 1000);
             }
 
 
             $('#aResetPass').click( function(e) {
                 e.preventDefault();
 
+                console.log(isFirstCall);
+
                 recaptchaOnload();
 
-                // instanciate new modal
-                var modal = new tingle.modal({
-                    footer: true,
-                    stickyFooter: false,
-                    closeMethods: ['overlay', 'button', 'escape'],
-                    closeLabel: "Close",
-                    onOpen: function () {
-                        console.log('modal open');
-                    },
-                    onClose: function () {
-                        console.log('modal closed');
-                    },
-                    beforeClose: function () {
-                        return true; // close the modal
-                    }
-                });
+                if(isFirstCall == 0) {
+                    // instanciate new modal
+                    modal = new tingle.modal({
+                        footer: true,
+                        stickyFooter: false,
+                        closeMethods: ['overlay', 'button', 'escape'],
+                        closeLabel: "Close",
+                        onOpen: function () {
+                            console.log('modal open');
+                        },
+                        onClose: function () {
+                            console.log('modal closed');
+                        },
+                        beforeClose: function () {
+                            return true; // close the modal
+                        }
+                    });
 
-                $('.tingle-modal-box__content').css('paddingBottom', '0px');
-                $('.tingle-modal-box__footer').addClass('text-center');
+                    $('.tingle-modal-box__content').css('paddingBottom', '0px');
+                    $('.tingle-modal-box__footer').addClass('text-center');
 
-                // set content
-                modal.setContent('<form id="resetPassForm" th:object="${userForm}" th:action="@{/reset-password}" method="POST">' +
-                    '               <div class="field-wrap">' +
-                    '               <input style="color:#000000 !important;" placeholder="Email" type="text" th:field="*{email}" th:required="true" autocomplete="off"/>' +
-                    '               </div>' +
-                    '               <div class="field-wrap">' +
-                    '               <input style="color:#000000 !important;" placeholder="Username" type="text" th:field="*{username}" th:required="true" autocomplete="off"/>' +
-                    '               </div>' +
-                    '               <div class="field-wrap">' +
-                    '               <input style="color:#000000 !important;" placeholder="New Password" type="password" th:field="*{password}" th:required="true" autocomplete="off"/>' +
-                    '               </div>' +
-                    '               <div class="field-wrap">' +
-                    '               <center><div id="recaptcha" class="g-recaptcha" data-sitekey="6LfG9kYUAAAAANUmfD3aBhlnQqbXgU1JjzEZIIV7"></div></center>' +
-                    '               </div>' +
-                    '             </form>');
+                    // set content
+                    modal.setContent('<form id="resetPassForm" th:object="${userForm}" th:action="@{/reset-password}" method="POST">' +
+                        '               <div class="field-wrap">' +
+                        '               <input style="color:#000000 !important;" placeholder="Email" type="text" th:field="*{email}" th:required="true" autocomplete="off"/>' +
+                        '               </div>' +
+                        '               <div class="field-wrap">' +
+                        '               <input style="color:#000000 !important;" placeholder="Username" type="text" th:field="*{username}" th:required="true" autocomplete="off"/>' +
+                        '               </div>' +
+                        '               <div class="field-wrap">' +
+                        '               <input style="color:#000000 !important;" placeholder="New Password" type="password" th:field="*{password}" th:required="true" autocomplete="off"/>' +
+                        '               </div>' +
+                        '               <div class="field-wrap">' +
+                        '               <center><div id="recaptcha" class="g-recaptcha" data-sitekey="6LfG9kYUAAAAANUmfD3aBhlnQqbXgU1JjzEZIIV7"></div></center>' +
+                        '               </div>' +
+                        '             </form>');
 
-                // add a button to Amazon page
-                modal.addFooterBtn('Reset Password!', 'tingle-btn tingle-btn--primary btn-success', function () {
-                    $('#resetPassForm').submit();
-                });
+                    // add a button to Amazon page
+                    modal.addFooterBtn('Reset Password!', 'tingle-btn tingle-btn--primary btn-success', function () {
+                        $('#resetPassForm').submit();
+                    });
+                }
 
                 // open modal
                 modal.open();
