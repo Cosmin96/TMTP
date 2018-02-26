@@ -19,6 +19,7 @@ public class VideoPosts {
     private int likes;
     private int dislikes;
     private boolean grantPoint;
+    private boolean flagged;
     private List<Comment> comments;
 
     public String getId() {
@@ -111,6 +112,22 @@ public class VideoPosts {
 
     public void setGrantPoint(boolean grantPoint) {
         this.grantPoint = grantPoint;
+    }
+
+    public boolean isHasVideo() {
+        return hasVideo;
+    }
+
+    public void setHasVideo(boolean hasVideo) {
+        this.hasVideo = hasVideo;
+    }
+
+    public boolean isFlagged() {
+        return flagged;
+    }
+
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
     }
 
     public List<Comment> getComments() {

@@ -49,6 +49,18 @@ p {
     margin-top: 3%;
 }
 
+.nothing{
+
+}
+
+.videocardflag {
+    background-color: #cc3b3e !important;
+    border: solid;
+    border-color: #2C3E50;
+    border-radius: 2px;
+    margin-top: 3%;
+}
+
 .postcard {
     /*background-color: #D8D8D8;*/
     border: solid;
@@ -336,5 +348,11 @@ a:focus{
         height: 30px
     }
 
+    .sizedLeague{
+        overflow-x: scroll;
+    }
 
+    .sizedMatch{
+        overflow-x: scroll;
+    }
 }

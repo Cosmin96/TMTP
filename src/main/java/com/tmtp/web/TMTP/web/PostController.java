@@ -30,6 +30,10 @@ public class PostController {
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
     public String createNewPost(@ModelAttribute("videoPostForm") VideoPosts videoPosts, Model model, RedirectAttributes redirectAttributes){
+        User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
         if(videoPosts.getDescription().isEmpty()){
             redirectAttributes.addFlashAttribute("error", true);
             redirectAttributes.addFlashAttribute("errorMessage", "Your post does not contain any text or description");
@@ -37,14 +41,14 @@ public class PostController {
         }
 
         if(videoPostsFacade.filterComment(videoPosts.getDescription())){
-            User user = userDataFacade.retrieveLoggedUser();
             user.getPoints().setYellow(user.getPoints().getYellow() + 1);
             if(user.getPoints().getYellow() == 2){
                 user.getPoints().setYellow(0);
                 user.getPoints().setRed(user.getPoints().getRed() + 1);
                 user.setBanned(true);
                 user.setBanTime(DateTime.now());
-                return "redirect:/logout";
+                userService.updateUser(user);
+                return "redirect:/scores";
             }
             userService.updateUser(user);
             redirectAttributes.addFlashAttribute("error", true);
@@ -59,6 +63,9 @@ public class PostController {
     public String postPage(@PathVariable("id") String id, Model model){
 
         User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
         VideoPosts videoPosts = videoPostsFacade.retrievePostById(id);
 
         model.addAttribute("post", videoPosts);
@@ -73,6 +80,36 @@ public class PostController {
         model.addAttribute("redPoints", user.getPoints().getRed());
 
         return "post";
+    }
+
+    @RequestMapping("/post/{id}/flag")
+    public String flagPost(@PathVariable("id") String id, Model model){
+
+        User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
+        VideoPosts videoPosts = videoPostsFacade.retrievePostById(id);
+
+        videoPosts.setFlagged(true);
+        videoPostsFacade.updateVideoPost(videoPosts);
+
+        return "redirect:/home";
+    }
+
+    @RequestMapping("/post/{id}/unflag")
+    public String unflagPost(@PathVariable("id") String id, Model model){
+
+        User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
+        VideoPosts videoPosts = videoPostsFacade.retrievePostById(id);
+
+        videoPosts.setFlagged(false);
+        videoPostsFacade.updateVideoPost(videoPosts);
+
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/newComment/{id}", method = RequestMethod.POST)

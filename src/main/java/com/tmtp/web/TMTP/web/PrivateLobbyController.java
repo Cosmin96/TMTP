@@ -35,6 +35,9 @@ public class PrivateLobbyController {
     public String openLobby(@PathVariable("id") String id, Model model){
         PrivateLobby privateLobby = privateLobbyFacade.findById(id);
         User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
         boolean owner = false;
         boolean joined = false;
         model.addAttribute("lobby", privateLobby);
@@ -72,6 +75,9 @@ public class PrivateLobbyController {
 
         PrivateLobby privateLobby = privateLobbyFacade.findById(id);
         User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
         List<String> joinedUsers = privateLobby.getJoinedUsers();
         joinedUsers.add(user.getUsername());
         privateLobby.setJoinedUsers(joinedUsers);

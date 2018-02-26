@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,6 +39,10 @@ public class JobController {
     @RequestMapping("/jobs")
     public String getJobsPage(Model model){
         User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
+
         model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
@@ -54,7 +57,10 @@ public class JobController {
 
     @RequestMapping("/jobs/submit")
     public String submitNewJob(@ModelAttribute("jobForm") JobForm jobForm, ChargeRequest chargeRequest, Model model) throws StripeException{
-
+        User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
         jobsDataFacade.createNewJob(jobForm);
         if(!jobForm.getImagePath().isEmpty()) {
             Job job = jobsDataFacade.retrieveJobByDescription(jobForm.getDescription());

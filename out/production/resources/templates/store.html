@@ -49,13 +49,13 @@
                 <li th:if="${user.getAdmin()}" class="nav-item">
                     <a class="nav-link" th:href="@{/admin}">Admin</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${not user.getBanned()}">
                     <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Store</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${not user.getBanned()}">
                     <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Top Leagues</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${not user.getBanned()}">
                     <a class="nav-link" th:href="@{/lobbies/club}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Club Lobbies</a>
                 </li>
                 <li class="nav-item">
@@ -70,7 +70,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> Info</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${not user.getBanned()}">
                     <a class="nav-link" th:href="@{/jobs}"><i class="fa fa-address-card" style="color: white" aria-hidden="true"></i> Ads/Jobs</a>
                 </li>
                 <li class="nav-item">
@@ -710,6 +710,11 @@
               Copyright &copy; Top Bantz 2017
             </div>
           </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    Top Bantz Does Not Tolerate Any Form of Racism or Discrimination
+                </div>
+            </div>
         </div>
       </div>
     </footer>

@@ -14,7 +14,17 @@ public class CommentFilteringServiceImpl implements CommentFilteringService {
                                                         "paki",
                                                         "chinky",
                                                         "chinaman",
-                                                        "chink");
+                                                        "chink",
+                                                        "faggot",
+                                                        "fag",
+                                                        "faggit",
+                                                        "slut",
+                                                        "sloot",
+                                                        "negro",
+                                                        "negros",
+                                                        "niggas",
+                                                        "niggaz",
+                                                        "pikie");
 // "felch",
 //                                                        "cunt",
 //                                                        "skullfuck",

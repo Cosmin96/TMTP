@@ -1,6 +1,5 @@
 package com.tmtp.web.TMTP.web;
 
-import com.google.gson.JsonObject;
 import com.tmtp.web.TMTP.entity.PrivateLobby;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
@@ -32,9 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -117,11 +114,11 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("userForm") User userForm, Model model, RedirectAttributes redirectAttributes){
         User user = userDataFacade.retrieveUser(userForm.getUsername());
-        if(user.getBanned()){
-            redirectAttributes.addFlashAttribute("error", true);
-            redirectAttributes.addFlashAttribute("errorMessage", "You are currently banned for unsuitable behaviour! Please wait for an admin to remove your restrictions");
-            return "redirect:/register";
-        }
+//        if(user.getBanned()){
+//            //redirectAttributes.addFlashAttribute("error", true);
+//            //redirectAttributes.addFlashAttribute("errorMessage", "You are currently banned for unsuitable behaviour! Please wait for an admin to remove your restrictions");
+//            return "redirect:/scores";
+//        }
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
 
         // Set flag to display Amazon popup after each login
@@ -134,6 +131,10 @@ public class LoginController {
     public String home(Model model) {
 
         User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
+
         List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
 
         //"algorithmic news feed"
@@ -195,7 +196,10 @@ public class LoginController {
     public String getScoresPage(Model model) {
 
         User user = userDataFacade.retrieveLoggedUser();
-
+        if(user.getBanned()){
+            model.addAttribute("error", true);
+            model.addAttribute("errorMessage", "You have been banned. Your ban will revoke in 3 days or if an admin changtes it");
+        }
         model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
@@ -204,21 +208,6 @@ public class LoginController {
         model.addAttribute("redPoints", user.getPoints().getRed());
 
         return "scores";
-    }
-
-    @RequestMapping(value = "/news")
-    public String getNewsPage(Model model) {
-
-        User user = userDataFacade.retrieveLoggedUser();
-
-        model.addAttribute("user", user);
-        model.addAttribute("fname", user.getFirstName());
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("greenPoints", user.getPoints().getGreen());
-        model.addAttribute("yellowPoints", user.getPoints().getYellow());
-        model.addAttribute("redPoints", user.getPoints().getRed());
-
-        return "news";
     }
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)

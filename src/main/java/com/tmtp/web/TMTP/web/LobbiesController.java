@@ -18,7 +18,9 @@ public class LobbiesController {
     @RequestMapping("/lobbies/{type}")
     public String scorePage(@PathVariable ("type") String type, Model model){
         User user = userDataFacade.retrieveLoggedUser();
-
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
         model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
@@ -33,6 +35,9 @@ public class LobbiesController {
     public String lobbyPage(@PathVariable("league") String league, Model model){
         int n = 0;
         User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            return "redirect:/scores";
+        }
         switch(league){
             case "fapremier":
                 n = 1;
