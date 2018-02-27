@@ -168,6 +168,51 @@ public class LobbiesController {
             case "gay":
                 n = 43;
                 break;
+            case "everton":
+                n = 44;
+                break;
+            case "leicester":
+                n = 45;
+                break;
+            case "marseille":
+                n = 46;
+                break;
+            case "monaco":
+                n = 47;
+                break;
+            case "valencia":
+                n = 48;
+                break;
+            case "sevilla":
+                n = 49;
+                break;
+            case "napoli":
+                n = 50;
+                break;
+            case "lazio":
+                n = 51;
+                break;
+            case "einhoven":
+                n = 52;
+                break;
+            case "feyenoord":
+                n = 53;
+                break;
+            case "rangers":
+                n = 54;
+                break;
+            case "aberdeen":
+                n = 55;
+                break;
+            case "corinthians":
+                n = 56;
+                break;
+            case "leverkusen":
+                n = 57;
+                break;
+            case "schalke":
+                n = 58;
+                break;
         }
         model.addAttribute("league", n);
         model.addAttribute("user", user);
