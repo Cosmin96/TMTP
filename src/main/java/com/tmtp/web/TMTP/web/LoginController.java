@@ -198,7 +198,7 @@ public class LoginController {
         User user = userDataFacade.retrieveLoggedUser();
         if(user.getBanned()){
             model.addAttribute("error", true);
-            model.addAttribute("errorMessage", "You have been banned. Your ban will revoke in 3 days or if an admin changtes it");
+            model.addAttribute("errorMessage", "You have been banned. Your ban will revoke in 3 days or if an admin changes it");
         }
         model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());

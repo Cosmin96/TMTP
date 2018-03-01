@@ -149,36 +149,40 @@
           </div>
           </center>
 
+  <center>
           <div class="row">
-            <div id="tlkio" th:attr="data-channel=${'tmtplobby' + league}, data-nickname=${user.getUsername()}" style="width:600px;height:700px; background-color: white"></div>
-            <script th:async="true" src="https://tlk.io/embed.js" type="text/javascript"></script>
+            <div class="col-xs-12 text-center mobileNone">
+              <div id="tlkio" th:attr="data-channel=${'tmtplobby' + league}, data-nickname=${user.getUsername()}" style="width:600px;height:700px; background-color: white"></div>
+              <script th:async="true" src="https://tlk.io/embed.js" type="text/javascript"></script>
+            </div>
           </div>
+  </center>
 
-          <center>
-          <div class="row">
-            <!--<iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=9c487911-6e59-4856-8b72-94548de2e43c&amp;room=DEFAULT_ROOM&amp;iframe=true" width="800px" height="700px" allow="microphone" ></iframe>-->
-            <center>
-              <div id="otEmbedContainer" style="width:600px; height:700px"></div>
-              <script th:src="@{'https://tokbox.com/embed/embed/ot-embed.js?embedId=9c487911-6e59-4856-8b72-94548de2e43c&amp;room=' + ${league}}">
+          <!--<center>-->
+          <!--<div class="row">-->
+            <!--&lt;!&ndash;<iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=9c487911-6e59-4856-8b72-94548de2e43c&amp;room=DEFAULT_ROOM&amp;iframe=true" width="800px" height="700px" allow="microphone" ></iframe>&ndash;&gt;-->
+            <!--<center>-->
+              <!--<div id="otEmbedContainer" style="width:600px; height:700px"></div>-->
+              <!--<script th:src="@{'https://tokbox.com/embed/embed/ot-embed.js?embedId=9c487911-6e59-4856-8b72-94548de2e43c&amp;room=' + ${league}}">-->
 
-              </script>
+              <!--</script>-->
 
-              <script type="text/javascript">
-                  var pubOptions = {
-                      publishAudio:true,
-                      publishVideo:false,
-                      subscribeToAudio:true,
-                      subscribeToVideo:false,
-                      videoSource: null,
-                  };
-                  var publisher;
-                  publisher = OT.initPublisher('otEmbedContainer', pubOptions);
-                  publisher.publishVideo(false);
+              <!--<script type="text/javascript">-->
+                  <!--var pubOptions = {-->
+                      <!--publishAudio:true,-->
+                      <!--publishVideo:false,-->
+                      <!--subscribeToAudio:true,-->
+                      <!--subscribeToVideo:false,-->
+                      <!--videoSource: null,-->
+                  <!--};-->
+                  <!--var publisher;-->
+                  <!--publisher = OT.initPublisher('otEmbedContainer', pubOptions);-->
+                  <!--publisher.publishVideo(false);-->
 
-              </script>
-            </center>
-          </div>
-          </center>
+              <!--</script>-->
+            <!--</center>-->
+          <!--</div>-->
+          <!--</center>-->
 
           <div class="row" style="margin-top: 3%; margin-left: 3%;">
             <iframe th:if="${league == 1}" frameborder="0"  scrolling="yes" width="520" height="700" src="https://www.fctables.com/england/premier-league/iframe/?type=table&amp;lang_id=2&amp;country=5&amp;template=10&amp;team=&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
@@ -375,6 +379,9 @@
           <div class="row">
             <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
             <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
+          </div>
+          <div class="row">
+            <iframe src="https://discordapp.com/widget?id=347112707809607680&amp;theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
           </div>
 
         </div>

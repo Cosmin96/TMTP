@@ -192,7 +192,7 @@ public class LobbiesController {
             case "lazio":
                 n = 51;
                 break;
-            case "einhoven":
+            case "eindhoven":
                 n = 52;
                 break;
             case "feyenoord":
