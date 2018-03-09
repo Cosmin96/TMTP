@@ -96,6 +96,8 @@ public class LoginController {
             return "redirect:/register";
         }
         userForm.setUsername(userForm.getUsername().replaceAll(" ",""));
+        userForm.setUsername(userForm.getUsername().replaceAll("[^\\w\\s]+",""));
+        userForm.setUsername(userForm.getUsername().toLowerCase());
         if(!file.isEmpty()) {
             String photoName = storageService.store(file, userForm.getUsername());
             userForm.setProfile("yes");

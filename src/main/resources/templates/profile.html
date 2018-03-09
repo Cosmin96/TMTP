@@ -415,28 +415,28 @@
 
 
             <div class="profileCard"
-                 style="background-color: #DEE2E5 !important;padding-left: 2%; padding-top: 0 !important; padding-bottom: 1% !important">
+                 style="padding-left: 2%; padding-top: 0 !important; padding-bottom: 1% !important">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
                         th:if="${fname.equals(user.getUsername())}">My</span><span
                         th:if="${not fname.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
                     Player Kit</h1>
                 <div class="row">
                     <div class="col-sm-8" style="float:right">
-                        <img th:src="@{'/img/kits/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="80%"
+                        <img th:src="@{'/img/kits/profile/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="80%"
                              height="auto"/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-8" style="float:right">
-                        <img th:src="@{'/img/kits/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}" width="80%"
+                        <img th:src="@{'/img/kits/profile/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}" width="80%"
                              height="auto"/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-8" style="float:right">
-                        <img th:src="@{'/img/kits/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}" width="80%"
+                        <img th:src="@{'/img/kits/profile/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}" width="80%"
                              height="auto"/>
                     </div>
                     <div class="col-sm-4" style="float:left">

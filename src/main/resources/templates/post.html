@@ -183,50 +183,35 @@
 </div>
 
 <div style="margin-top: 2% !important;" class="container statsmenu">
-    <div class="row">
 
-        <div class="col-lg-6">
+    <div class="row">
+        <div class="col-lg-3">
             <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
         </div>
 
-        <div class="col-lg-2">
-            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i>
+                <span th:text="${greenPoints + ' Green Points'}"></span></p>
         </div>
 
-        <div class="col-lg-2">
-            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i>
+                <span th:text="${yellowPoints + ' Yellow Cards'}"></span></p>
         </div>
 
-        <div class="col-lg-2">
-            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i>
+                <span th:text="${redPoints + ' Red Cards'}"></span></p>
         </div>
-
     </div>
+
     <div class="row">
-
-        <div class="col-lg-6">
-            <p align="left" style="color: #00DEB6; font-size: 26px;">of points and cards</p>
+        <div class="errorField2" th:if="${error}">
+            <center>
+                <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on
+                    multiple lines to see if design is screwed!</p>
+            </center>
         </div>
-
-        <div class="col-lg-2">
-            <p align="center"><span style="color: #00ff00">Green Points</span></p>
-        </div>
-
-        <div class="col-lg-2">
-            <p align="center"><span style="color: yellow">Yellow Cards</span></p>
-        </div>
-
-        <div class="col-lg-2">
-            <p align="center"><span style="color: red">Red Cards</span></p>
-        </div>
-
-    </div>
-    <div class="row">
-            <div class="errorField2" th:if="${error}">
-                <center>
-                    <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
-                </center>
-            </div>
     </div>
 </div>
 

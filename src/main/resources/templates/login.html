@@ -40,7 +40,7 @@
 
   </head>
 
-  <body class="index" id="page-top">
+  <body class="index" id="page-top" th:background="@{/img/background/grass.png}">
 
     <!-- Navigation -->
  <nav style="z-index: 100 !important;" class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -76,7 +76,7 @@
       </div>
     </nav>
 
-    <video th:autoplay="true" th:loop="true" id="video-background">
+    <video class="mobileNone" th:autoplay="true" th:loop="true" id="video-background">
       <source th:src="@{/img/video.mp4}" type="video/mp4" />
     </video>
 
@@ -149,7 +149,7 @@
 
             <div class="field-wrap">
               <h5 style="color:white">By signing up, you agree with the terms and conditions set by Top Bantz</h5>
-              <h5 style="color:white">By signing up, you confirm that you are above 18 years old</h5>
+              <h5 style="color:white">By signing up, you confirm that you are above 16 years old</h5>
             </div>
           
           <button type="submit" class="button button-block">Sign up now</button>
