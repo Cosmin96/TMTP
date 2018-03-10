@@ -1,6 +1,7 @@
 package com.tmtp.web.TMTP.web;
 
 import com.tmtp.web.TMTP.entity.PrivateLobby;
+import com.tmtp.web.TMTP.entity.Team;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.repository.ShopItemRepository;
@@ -32,10 +33,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.http.HttpHeaders.USER_AGENT;
 
@@ -78,6 +76,8 @@ public class LoginController {
     public String registration(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("userForm", new User());
+        model.addAttribute("teams", EnumSet.allOf(Team.class));
+
         return "login";
     }
 

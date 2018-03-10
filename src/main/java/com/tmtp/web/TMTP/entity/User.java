@@ -29,6 +29,7 @@ public class User {
     private Points points;
     private List<ShopItem> shopItems;
     private Set<Role> roles;
+    private Team team;
 
     public String getId() {
         return id;
@@ -182,6 +183,14 @@ public class User {
         this.roles = roles;
     }
 
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -200,6 +209,7 @@ public class User {
                 ", playerKit=" + playerKit +
                 ", points=" + points +
                 ", roles=" + roles +
+                ", team=" + team.teamName +
                 '}';
     }
 }

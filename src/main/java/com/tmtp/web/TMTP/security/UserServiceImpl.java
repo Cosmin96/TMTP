@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService{
         userToSave.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userToSave.setRoles(new HashSet<>(roleRepository.findAll()));
         userToSave.setPoints(createNewPointsObject());
+        userToSave.setTeam(user.getTeam());
         userRepository.save(userToSave);
     }
 
