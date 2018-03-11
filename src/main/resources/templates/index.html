@@ -272,6 +272,22 @@
 
             </div>
 
+            <div style="margin-bottom: 3%; width: 100%; margin-left: 1%" class="row">
+                <div class="postcard">
+                    <div class="row" style="margin-left: 5%; margin-top:3%; margin-right: 5%">
+                        <h3><u>My Invite Code</u></h3>
+                    </div>
+                    <div class="row" style="margin-left: 5%; margin-top:1%; margin-bottom: 1%;">
+                        <h3 style="margin-top: 5%">Get 3 green points for each friend you invite!</h3>
+                        <input id="inviteCodeLink" style="width: 80%" type="text"
+                               th:value="${user.getId()}"/>
+                        <button class="btn btn-success" style="margin-left: 3%; margin-top: 3%"
+                                onclick="copyToClipboard('#inviteCodeLink')">Copy Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!--<div class="row">-->
             <!--<script src="http://www.btfscores.com/widgets/widget-side.min.js" th:async="true"></script>-->
             <!--<div id="sidebar-soccer-goal" style="width:250px;"></div>-->

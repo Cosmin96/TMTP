@@ -16,6 +16,7 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Random;
 
 
 @Service
@@ -66,6 +67,11 @@ public class UserServiceImpl implements UserService{
         userToSave.setPoints(createNewPointsObject());
         userToSave.setTeam(user.getTeam());
         userRepository.save(userToSave);
+    }
+
+    @Override
+    public User findById(String id) {
+        return userRepository.findById(id);
     }
 
     @Override

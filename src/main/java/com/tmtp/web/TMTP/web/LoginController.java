@@ -86,7 +86,8 @@ public class LoginController {
                                BindingResult bindingResult,
                                Model model,
                                RedirectAttributes redirectAttributes,
-                               @RequestParam("file") MultipartFile file) {
+                               @RequestParam("file") MultipartFile file,
+                               @RequestParam("inviteCode") String inviteCode) {
 
         userValidator.validate(userForm, bindingResult);
 
@@ -103,6 +104,16 @@ public class LoginController {
             userForm.setProfile("yes");
         }
         else userForm.setProfile("no");
+
+        // If invite code provided
+        if(inviteCode != null) {
+            // Check if code belongs to any user
+            User referredUser = userService.findById(inviteCode);
+            if(referredUser != null) {
+                referredUser.getPoints().setGreen(referredUser.getPoints().getGreen() + 3);
+                userService.updateUser(referredUser);
+            }
+        }
 
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
