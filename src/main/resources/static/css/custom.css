@@ -4,6 +4,13 @@
     }
 }
 
+/* Fix sm to work for mobile too (used in lobbies) */
+.mobile-sm-4 {
+    -webkit-box-flex: 0;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
 .inputLikeSelect {
     font-size: 22px;
     display: block;
