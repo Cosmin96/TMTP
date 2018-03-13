@@ -29,7 +29,9 @@ public class Application extends WebMvcConfigurerAdapter{
 		registry.addResourceHandler("/img/kits/shorts/**").addResourceLocations("classpath:/static/img/kits/shorts/");
 		registry.addResourceHandler("/img/kits/socks/**").addResourceLocations("classpath:/static/img/kits/socks/");
 		registry.addResourceHandler("/img/overlays/**").addResourceLocations("classpath:/static/img/overlays/");
-		registry.addResourceHandler("img/profile/**").addResourceLocations("classpath:/static/img/profile");
+		registry.addResourceHandler("/img/profile/**").addResourceLocations("classpath:/static/img/profile");
+		registry.addResourceHandler("/img/ads/desktop/**").addResourceLocations("classpath:/static/img/ads/desktop");
+		registry.addResourceHandler("/img/ads/mobile/**").addResourceLocations("classpath:/static/img/ads/mobile");
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
 		registry.addResourceHandler("/vendor/**").addResourceLocations("classpath:/static/vendor/");
 	}

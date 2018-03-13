@@ -213,6 +213,9 @@ public class LobbiesController {
             case "schalke":
                 n = 58;
                 break;
+            case "african":
+                n = 59;
+                break;
         }
         model.addAttribute("league", n);
         model.addAttribute("user", user);
