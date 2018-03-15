@@ -92,7 +92,7 @@ public class LoginController {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorLogin", true);
             redirectAttributes.addFlashAttribute("errorMessage", messageSource.getMessage(bindingResult.getFieldError(), null));
             return "redirect:/register";
         }
@@ -126,14 +126,20 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("userForm") User userForm, Model model, RedirectAttributes redirectAttributes){
+        userForm.setUsername(userForm.getUsername().toLowerCase());
         User user = userDataFacade.retrieveUser(userForm.getUsername());
+
+        if(user == null || !bCryptPasswordEncoder.matches(userForm.getPassword(), user.getPassword())){
+            redirectAttributes.addFlashAttribute("errorLogin",true);
+            redirectAttributes.addFlashAttribute("errorMessage","Username or password were incorrect");
+            return "redirect:/register";
+        }
 //        if(user.getBanned()){
 //            //redirectAttributes.addFlashAttribute("error", true);
 //            //redirectAttributes.addFlashAttribute("errorMessage", "You are currently banned for unsuitable behaviour! Please wait for an admin to remove your restrictions");
 //            return "redirect:/scores";
 //        }
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
-
         // Set flag to display Amazon popup after each login
         redirectAttributes.addFlashAttribute("popup", "amazon");
 
@@ -275,39 +281,39 @@ public class LoginController {
             JSONObject jsonObject = new JSONObject(response.toString());
             String answer = jsonObject.get("success").toString();
             if(!answer.equals("true")) {
-                redirectAttributes.addFlashAttribute("error", true);
+                redirectAttributes.addFlashAttribute("errorLogin", true);
                 redirectAttributes.addFlashAttribute("errorMessage", "Captcha validation failed!");
                 return "redirect:/register";
             }
 
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorLogin", true);
             redirectAttributes.addFlashAttribute("errorMessage", "Captcha validation failed!");
             return "redirect:/register";
         }
 
         // wrong username
         if(user == null) {
-            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorLogin", true);
             redirectAttributes.addFlashAttribute("errorMessage", "The details provided are wrong!");
             return "redirect:/register";
         }
 
         // wrong email
         if(!user.getEmail().equals(userForm.getEmail())) {
-            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorLogin", true);
             redirectAttributes.addFlashAttribute("errorMessage", "The details provided are wrong!");
             return "redirect:/register";
         }
 
         if(userForm.getPassword().length() < 6) {
-            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorLogin", true);
             redirectAttributes.addFlashAttribute("errorMessage", "The password should be of at least 6 characters!");
             return "redirect:/register";
         }
 
         if(user.getBanned()){
-            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("errorLogin", true);
             redirectAttributes.addFlashAttribute("errorMessage", "You are currently banned for unsuitable behaviour! Please wait for an admin to remove your restrictions");
             return "redirect:/register";
         }

@@ -330,6 +330,10 @@ a:focus{
     background-color: #717171;
 }
 
+.displayNone{
+    display: none;
+}
+
 /* Fading animation */
 .fade {
     -webkit-animation-name: fade;
