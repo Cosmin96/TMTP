@@ -24,12 +24,14 @@ public class Application extends WebMvcConfigurerAdapter{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
 		registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
+		registry.addResourceHandler("/carousel/**").addResourceLocations("classpath:/static/carousel/");
 		registry.addResourceHandler("/img/kits/footballs/**").addResourceLocations("classpath:/static/img/kits/footballs/");
 		registry.addResourceHandler("/img/kits/jackets/**").addResourceLocations("classpath:/static/img/kits/jackets/");
 		registry.addResourceHandler("/img/kits/shorts/**").addResourceLocations("classpath:/static/img/kits/shorts/");
 		registry.addResourceHandler("/img/kits/socks/**").addResourceLocations("classpath:/static/img/kits/socks/");
 		registry.addResourceHandler("/img/overlays/**").addResourceLocations("classpath:/static/img/overlays/");
 		registry.addResourceHandler("/img/profile/**").addResourceLocations("classpath:/static/img/profile");
+		registry.addResourceHandler("/img/carousel/**").addResourceLocations("classpath:/static/img/carousel");
 		registry.addResourceHandler("/img/ads/desktop/**").addResourceLocations("classpath:/static/img/ads/desktop");
 		registry.addResourceHandler("/img/ads/mobile/**").addResourceLocations("classpath:/static/img/ads/mobile");
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
