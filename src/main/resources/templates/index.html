@@ -128,7 +128,7 @@
             <img th:src="@{/img/d8.jpg}" /></a>
     </div>
 
-    <div class="desktopNone mobileNone">
+    <div class="desktopNone">
         <a class="adBanner displayNone" id="mobileAdBanner1" href="https://www.amazon.co.uk/gp/dmusic/promotions/AmazonMusicUnlimited?tag=topbantz2018-21&amp;linkCode=ur1">
             <img th:src="@{/img/m1.jpg}" />
         </a>
@@ -171,16 +171,6 @@
         <a class="adBanner displayNone" id="mobileAdBanner14" href="https://www.amazon.co.uk/b?tag=topbantz2018-21&amp;linkCode=ur1&amp;node=229816">
             <img th:src="@{/img/m14.jpg}" />
         </a>
-    </div>
-
-    <div class="desktopNone">
-        <SCRIPT id="amazonSlider2" charset="utf-8" type="text/javascript"
-                src="//ws-eu.amazon-adsystem.com/widgets/q?rt=tf_ssw&amp;ServiceVersion=20070822&amp;MarketPlace=GB&amp;ID=V20070822%2FGB%2Ftopbantz2018-21%2F8003%2F1de482a4-fce0-4f76-bd8d-07126d9f1736&amp;Operation=GetScriptTemplate"></SCRIPT>
-        <NOSCRIPT>
-            <A rel="nofollow"
-               HREF="//ws-eu.amazon-adsystem.com/widgets/q?rt=tf_ssw&amp;ServiceVersion=20070822&amp;MarketPlace=GB&amp;ID=V20070822%2FGB%2Ftopbantz2018-21%2F8003%2F1de482a4-fce0-4f76-bd8d-07126d9f1736&amp;Operation=NoScript">Amazon.co.uk
-                Widgets</A>
-        </NOSCRIPT>
     </div>
 
     </center>
@@ -234,7 +224,7 @@
                         <h4 style="margin-top: 5%">Send link to invite friends:</h4>
                         <input id="lobbyLink" style="width: 80%" type="text"
                                th:value="${'www.topbantz.com/privateLobby/' + myLobby.getId()}"/>
-                        <button class="btn btn-success" style="margin-left: 3%; margin-top: 3%"
+                        <button class="btn btn-success" style="margin-left: 3%; margin-top: 3%; margin-bottom: 1%"
                                 onclick="copyToClipboard('#lobbyLink')">Copy Link
                         </button>
 
@@ -258,7 +248,7 @@
                         <h3><u>My Invite Code</u></h3>
                     </div>
                     <div class="row" style="margin-left: 5%; margin-top:1%; margin-bottom: 1%;">
-                        <h4 style="margin-top: 5%">Get 3 green points for each friend you invite!</h4>
+                        <h4 style="margin-top: 5%; width: 80%">Get 3 green points for each friend you invite!</h4>
                         <input id="inviteCodeLink" style="width: 80%" type="text"
                                th:value="${user.getId()}"/>
                         <button class="btn btn-success" style="margin-left: 3%; margin-top: 3%"
@@ -412,15 +402,7 @@
                         height="500" allowtransparency="true" frameborder="0"></iframe>
             </div>
             <br/>
-            <div class="row mobileNone">
-                <SCRIPT id="amazonSlider" charset="utf-8" type="text/javascript"
-                        src="//ws-eu.amazon-adsystem.com/widgets/q?rt=tf_ssw&amp;ServiceVersion=20070822&amp;MarketPlace=GB&amp;ID=V20070822%2FGB%2Ftopbantz2018-21%2F8003%2F1de482a4-fce0-4f76-bd8d-07126d9f1736&amp;Operation=GetScriptTemplate"></SCRIPT>
-                <NOSCRIPT>
-                    <A rel="nofollow"
-                       HREF="//ws-eu.amazon-adsystem.com/widgets/q?rt=tf_ssw&amp;ServiceVersion=20070822&amp;MarketPlace=GB&amp;ID=V20070822%2FGB%2Ftopbantz2018-21%2F8003%2F1de482a4-fce0-4f76-bd8d-07126d9f1736&amp;Operation=NoScript">Amazon.co.uk
-                        Widgets</A>
-                </NOSCRIPT>
-            </div>
+
 
             <!--<div class="row">-->
             <!--<iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />-->
