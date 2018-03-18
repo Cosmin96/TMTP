@@ -11,6 +11,10 @@
     max-width: 33.333333%;
 }
 
+.tingle-modal {
+    z-index: 2000 !important;
+}
+
 .inputLikeSelect {
     font-size: 22px;
     display: block;
