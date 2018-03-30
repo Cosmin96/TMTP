@@ -6,6 +6,7 @@
 
 .linkwrap { position:relative; display:inline-block; }
 .blocker { position:absolute; height:100%; width:100%; z-index:1; background:rgba(255,255,255,0);  }
+.blockerfct { position:absolute; height:100%; width:30%; z-index:1; background:rgba(255,255,255,0);  }
 .linkwrap iframe { z-index: 2; }
 
 /* Fix sm to work for mobile too (used in lobbies) */
