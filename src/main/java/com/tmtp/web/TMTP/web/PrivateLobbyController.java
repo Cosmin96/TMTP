@@ -2,11 +2,13 @@ package com.tmtp.web.TMTP.web;
 
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
+import com.tmtp.web.TMTP.entity.ChatMessage;
 import com.tmtp.web.TMTP.entity.PrivateLobby;
 import com.tmtp.web.TMTP.entity.ShopItem;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.payment.ChargeRequest;
 import com.tmtp.web.TMTP.payment.StripeService;
+import com.tmtp.web.TMTP.repository.ChatMessageRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +24,16 @@ public class PrivateLobbyController {
     private final PrivateLobbyFacade privateLobbyFacade;
     private final UserDataFacade userDataFacade;
     private final StripeService paymentService;
+    private final ChatMessageRepository chatMessageRepository;
 
     public PrivateLobbyController(final PrivateLobbyFacade privateLobbyFacade,
                                   final UserDataFacade userDataFacade,
-                                  final StripeService paymentService) {
+                                  final StripeService paymentService,
+                                  final ChatMessageRepository chatMessageRepository) {
         this.privateLobbyFacade = privateLobbyFacade;
         this.userDataFacade = userDataFacade;
         this.paymentService = paymentService;
+        this.chatMessageRepository = chatMessageRepository;
     }
 
     @RequestMapping("/privateLobby/{id}")
@@ -38,10 +43,14 @@ public class PrivateLobbyController {
         if(user.getBanned()){
             return "redirect:/scores";
         }
+
+        List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + privateLobby.getId());
+
         boolean owner = false;
         boolean joined = false;
         model.addAttribute("lobby", privateLobby);
         model.addAttribute("user", user);
+        model.addAttribute("messages", chatMessages);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());

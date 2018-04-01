@@ -110,14 +110,42 @@
         </div>
       </center>
 
-      <center>
         <div class="row">
-          <!--<div class="col-xs-12 text-center">-->
-          <div id="tlkio" th:attr="data-channel=${'tblobby' + league}, data-nickname=${user.getUsername()}" style="width:600px;height:700px; background-color: white"></div>
-          <script th:async="true" src="https://tlk.io/embed.js" type="text/javascript"></script>
-          <!--</div>-->
+          <div class="chat-bar margin-top">
+            <div class="paddinger-20-nobottom">
+              <h4 class="bold" style="color: #fff!important;">Chat</h4>
+            </div>
+
+            <div class="paddinger-0-20">
+
+              <div th:id="'chat-' + ${league}" class="chat-conversation">
+
+                  <th:block th:each="message : ${messages}">
+                <div class="chat-message">
+                  <h7>
+                    <font class="bold chat-message-author">
+                      <img class="chat-message-author-pic" th:src="@{'/getFiles/' + ${message.getUsername()} + '.jpg'}" width="15px" height="15px"/>
+                      <a th:text="'&nbsp;' + ${message.getUsername()} + '&nbsp;'" class="chat-message-author-a" style="color:inherit;" th:href="'/profile/' + ${message.getUsername()}"></a>
+                    </font>
+                    <font th:text="${message.getText()}" class="chat-message-content">Some message here</font>
+                  </h7>
+                </div>
+                  </th:block>
+
+              </div>
+
+            </div>
+
+            <div class="paddinger-20">
+
+              <input id="message-text" type="text" class="input-message chat-field chat-field-large" placeholder="Write a message..."/>
+              <input id="send-message-id" style="margin-left:10px;" type="button" class="send-message btn btn-success" value="Send"/>
+
+            </div>
+
+          </div>
+
         </div>
-      </center>
 
       <!--<center>-->
       <!--<div class="row">-->
@@ -583,6 +611,78 @@
 <!--<script type="text/javascript">-->
 <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
 <!--</script>-->
+
+<!-- Pusher for chat -->
+<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var league = /*[[${league}]]*/ '0';
+    /*]]>*/
+
+    function appendMessage(text, username) {
+        $('#chat-' + league).append('<div class="chat-message">' +
+            '                  <h7>' +
+            '                    <font class="bold chat-message-author">' +
+            '                      <img class="chat-message-author-pic" src="/getFiles/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+            '                    </font>' +
+            '                    <font class="chat-message-content">' + text + '</font>' +
+            '                  </h7>' +
+            '                </div>');
+    }
+
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('6cf8829fd3f2bc2ca22f', {
+        cluster: 'eu',
+        encrypted: true
+    });
+
+    var channel = pusher.subscribe('chat-' + league);
+    channel.bind('new-message', function(data) {
+        message = data.message;
+        username = data.username;
+
+        appendMessage(message, username);
+    });
+</script>
+
+<script th:inline="javascript">
+  $('#send-message-id').click(function () {
+      var textToSend = $('#message-text').val();
+
+      /*<![CDATA[*/
+      var league = /*[[${league}]]*/ '0';
+      /*]]>*/
+
+      sendMessage(textToSend);
+  });
+
+  $("#message-text").keyup(function(event) {
+      if (event.keyCode === 13) {
+          $("#send-message-id").click();
+      }
+  });
+
+  function sendMessage(textToSend) {
+      if(textToSend.length > 0) {
+          if(textToSend.length > 1000) {
+              window.alert("The text can be maximum 1000 characters long!");
+              return;
+          }
+          $('#message-text').val('');
+          $.ajax({
+              url: '/new-chat-message/' + btoa(textToSend) + '/' + ('chat-' + league),
+              success: function (data) {
+                  console.log(data);
+              },
+              error: function () {
+                  console.log("Error!");
+              }
+          });
+      }
+  }
+</script>
 
 <script>
     //$('.adBanner').hide();

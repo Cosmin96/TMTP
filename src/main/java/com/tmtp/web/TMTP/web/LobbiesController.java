@@ -1,18 +1,24 @@
 package com.tmtp.web.TMTP.web;
 
+import com.tmtp.web.TMTP.entity.ChatMessage;
 import com.tmtp.web.TMTP.entity.User;
+import com.tmtp.web.TMTP.repository.ChatMessageRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 public class LobbiesController {
 
     private final UserDataFacade userDataFacade;
+    private final ChatMessageRepository chatMessageRepository;
 
-    public LobbiesController(final UserDataFacade userDataFacade) {
+    public LobbiesController(final UserDataFacade userDataFacade, final  ChatMessageRepository chatMessageRepository) {
         this.userDataFacade = userDataFacade;
+        this.chatMessageRepository = chatMessageRepository;
     }
 
     @RequestMapping("/lobbies/{type}")
@@ -217,8 +223,12 @@ public class LobbiesController {
                 n = 59;
                 break;
         }
+
+        List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + n);
+
         model.addAttribute("league", n);
         model.addAttribute("user", user);
+        model.addAttribute("messages", chatMessages);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
