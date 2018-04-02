@@ -44,13 +44,20 @@ public class PrivateLobbyController {
             return "redirect:/scores";
         }
 
+        int lastNMessages = 30;
         List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + privateLobby.getId());
+        int total = chatMessages.size();
+
+        if(total > 30) {
+            chatMessages = chatMessages.subList(total - lastNMessages, total);
+        }
 
         boolean owner = false;
         boolean joined = false;
         model.addAttribute("lobby", privateLobby);
         model.addAttribute("user", user);
         model.addAttribute("messages", chatMessages);
+        model.addAttribute("totalMessages", total);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());

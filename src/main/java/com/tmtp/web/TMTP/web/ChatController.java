@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -92,5 +93,26 @@ public class ChatController {
         chatMessageRepository.save(chatMessage);
 
         return "Sent";
+    }
+
+
+    @RequestMapping(value = "/get-next-messages/{room}/{start}/{end}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ChatMessage> getNextBatch(@PathVariable String room, @PathVariable int start, @PathVariable int end)
+    {
+        //Check / create chat room
+        if(isRoomOk(room) == false) {
+            return null;
+        }
+
+        int requireNMessages = 30;
+        List<ChatMessage> chatMessages = chatMessageRepository.findByName(room);
+        int total = chatMessages.size();
+
+        if(start > end) { return null; }
+        if(start < 0 || start > total) { return null; }
+        if(end < 0 || end > total) { return null; }
+
+        return chatMessages.subList(start, end);
     }
 }

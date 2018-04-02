@@ -112,13 +112,14 @@
 
         <div class="row">
           <div class="chat-bar margin-top">
-            <div class="paddinger-20-nobottom">
-              <h4 class="bold" style="color: #fff!important;">Chat</h4>
+            <div style="border-bottom: 1px solid rgba(0,0,0,0.1)" class="paddinger-20-nobottom">
+              <h4 class="bold" style="color: #000!important;">Chat</h4>
             </div>
 
             <div class="paddinger-0-20">
 
               <div th:id="'chat-' + ${league}" class="chat-conversation">
+                  <center id="center-load-more"><a id="load-more" style="display: none;" href="javascript:loadMore();">Load more</a></center>
 
                   <th:block th:each="message : ${messages}">
                 <div class="chat-message">
@@ -136,7 +137,7 @@
 
             </div>
 
-            <div class="paddinger-20">
+            <div style="border-top: 1px solid rgba(0,0,0,0.1)" class="paddinger-20">
 
               <input id="message-text" type="text" class="input-message chat-field chat-field-large" placeholder="Write a message..."/>
               <input id="send-message-id" style="margin-left:10px;" type="button" class="send-message btn btn-success" value="Send"/>
@@ -615,9 +616,41 @@
 <!-- Pusher for chat -->
 <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 <script th:inline="javascript">
+    $(document).ready(function() {
+        $('.chat-conversation').animate({scrollTop: $('.chat-conversation').prop("scrollHeight")}, 500);
+    });
+
     /*<![CDATA[*/
     var league = /*[[${league}]]*/ '0';
     /*]]>*/
+
+    /*<![CDATA[*/
+    var totalMessagesAtLoad = /*[[${totalMessages}]]*/ '0';
+    /*]]>*/
+
+    var startMaxMessages = 30;
+    totalMessagesAtLoad = parseInt(totalMessagesAtLoad, 10);
+
+    var start;
+    start = totalMessagesAtLoad - startMaxMessages;
+
+    if(startMaxMessages > totalMessagesAtLoad - 1) {
+        start = 0;
+    } else {
+        $('#load-more').show();
+    }
+
+    function prependMessage(text, username) {
+        $('#chat-' + league).prepend('<div class="chat-message">' +
+            '                  <h7>' +
+            '                    <font class="bold chat-message-author">' +
+            '                      <img class="chat-message-author-pic" src="/getFiles/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+            '                    </font>' +
+            '                    <font class="chat-message-content">' + text + '</font>' +
+            '                  </h7>' +
+            '                </div>');
+    }
 
     function appendMessage(text, username) {
         $('#chat-' + league).append('<div class="chat-message">' +
@@ -631,7 +664,34 @@
             '                </div>');
     }
 
-    Pusher.logToConsole = true;
+    function loadMore() {
+        if(!(start > 0)) { return; }
+
+        var startToSend = Math.max(0, start - 30);
+        var endToSend = start;
+
+        $.ajax({
+            url: '/get-next-messages/' + ('chat-' + league) + '/' + startToSend + '/' + endToSend,
+            success: function (data) {
+                start = startToSend;
+                $('#load-more').remove();
+                $('#center-load-more').remove();
+
+                for(var i = data.length - 1; i > -1; i--) {
+                    prependMessage(data[i].text, data[i].username);
+                }
+
+                if(start > 0) {
+                    // create new load-more
+                    $('#chat-' + league).prepend('<center id="center-load-more"><a id="load-more" style="display: none;" href="javascript:loadMore();">Load more</a></center>');
+                    $('#load-more').show();
+                }
+            },
+            error: function () {
+                console.log("Error!");
+            }
+        });
+    }
 
     var pusher = new Pusher('6cf8829fd3f2bc2ca22f', {
         cluster: 'eu',
@@ -675,6 +735,7 @@
               url: '/new-chat-message/' + btoa(textToSend) + '/' + ('chat-' + league),
               success: function (data) {
                   console.log(data);
+                  $('.chat-conversation').animate({scrollTop: $('.chat-conversation').prop("scrollHeight")}, 500);
               },
               error: function () {
                   console.log("Error!");

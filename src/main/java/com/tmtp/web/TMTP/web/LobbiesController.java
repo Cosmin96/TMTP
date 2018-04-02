@@ -224,11 +224,18 @@ public class LobbiesController {
                 break;
         }
 
+        int lastNMessages = 30;
         List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + n);
+        int total = chatMessages.size();
+
+        if(total > 30) {
+            chatMessages = chatMessages.subList(total - lastNMessages, total);
+        }
 
         model.addAttribute("league", n);
         model.addAttribute("user", user);
         model.addAttribute("messages", chatMessages);
+        model.addAttribute("totalMessages", total);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
