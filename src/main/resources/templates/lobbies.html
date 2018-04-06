@@ -80,8 +80,8 @@
         <a class="btn btn-success" href="https://discord.gg/pHnEN2s">Join chat</a>
         </center>
     </div>
-    <h2 th:if="${lobbyType.equals('league')}" style="color:white !important;"><u>League Lobbies</u></h2>
-    <h3 th:if="${lobbyType.equals('league')}" style="color:white !important;"><u>Banter with people across the world in your favorite football league</u></h3>
+    <center><h2 th:if="${lobbyType.equals('league')}" style="color:white !important;">League Lobbies</h2>
+    <h3 th:if="${lobbyType.equals('league')}" style="color:white !important;">Banter with people across the world in your favorite football league</h3></center>
     <div th:if="${lobbyType.equals('league')}" class="row">
         <div class="col-md-4 mobile-sm-4">
             <center>
@@ -189,8 +189,8 @@
         </div>
     </div>
 
-    <h2 th:if="${lobbyType.equals('club')}" style="color:white !important"><u>Club Lobbies</u></h2>
-    <h3 th:if="${lobbyType.equals('club')}" style="color:white !important;"><u>Banter with other people from your team. We have chosen the top performing football clubs from across the world</u></h3>
+    <center><h2 th:if="${lobbyType.equals('club')}" style="color:white !important">Club Lobbies</h2>
+    <h3 th:if="${lobbyType.equals('club')}" style="color:white !important;">Banter with other people from your team. We have chosen the top performing football clubs from across the world</h3></center>
     <div th:if="${lobbyType.equals('club')}" class="row">
         <div class="col-md-4 mobile-sm-4">
             <center>
@@ -447,7 +447,7 @@
 
     setInterval(function() {
         $('#slideshow > div:first')
-            .fadeOut(1000)
+            .fadeOut(0)
             .next()
             .fadeIn(1000)
             .end()
@@ -456,7 +456,7 @@
 
     setInterval(function() {
         $('#slideshow2 > div:first')
-            .fadeOut(1000)
+            .fadeOut(0)
             .next()
             .fadeIn(1000)
             .end()

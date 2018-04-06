@@ -1,10 +1,15 @@
 /* Changing font sizes */
-h1 { font-size: 1.3em !important; }
-h2 { font-size: 1.2em !important; }
-h3 { font-size: 1.17em !important; }
-h4 { font-size: 1.12em !important; }
-h5 { font-size: .83em !important; }
-h6 { font-size: .75em !important; }
+h1 { font-family: 'Slabo 27px', serif !important; font-size: 1.3em !important; }
+h2 { font-family: 'Slabo 27px', serif !important; font-size: 1.2em !important; }
+h3 { font-family: 'Slabo 27px', serif !important; font-size: 1.17em !important; }
+h4 { font-family: 'Slabo 27px', serif !important; font-size: 1.12em !important; }
+h5 { font-family: 'Slabo 27px', serif !important; font-size: .83em !important; }
+h6 { font-family: 'Slabo 27px', serif !important; font-size: .75em !important; }
+h7 { font-family: 'Slabo 27px', serif !important; }
+h8 { font-family: 'Slabo 27px', serif !important; }
+a { font-family: 'Slabo 27px', serif !important; }
+p { font-family: 'Slabo 27px', serif !important; }
+
 
 .chat-bar-large{
     height: 300px !important;
