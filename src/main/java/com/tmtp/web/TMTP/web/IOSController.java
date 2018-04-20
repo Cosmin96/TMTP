@@ -7,6 +7,8 @@ import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.security.UserValidator;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +40,7 @@ public class IOSController {
     }
 
     @PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
-    public UserInfo registerUserFromApp(@RequestBody UserInfo userInfo){
+    public ResponseEntity<UserInfo> registerUserFromApp(@RequestBody UserInfo userInfo){
 
         userInfo.setUsername(userInfo.getUsername().replaceAll(" ",""));
         userInfo.setUsername(userInfo.getUsername().replaceAll("[^\\w\\s]+",""));
@@ -59,15 +61,15 @@ public class IOSController {
         userInfo.setPassword("");
         userInfo.setSessionID(RequestContextHolder.currentRequestAttributes().getSessionId());
 
-        return userInfo;
+        return new ResponseEntity<UserInfo>(userInfo, HttpStatus.OK);
     }
 
     @PostMapping(value = "/loginUser", produces = "application/json", consumes = "application/json")
-    public UserInfo loginUserFromApp(@RequestBody UserInfo userInfo ){
+    public ResponseEntity<UserInfo> loginUserFromApp(@RequestBody UserInfo userInfo ){
         User user = userDataFacade.retrieveUser(userInfo.getUsername());
 
         if(user == null || !bCryptPasswordEncoder.matches(userInfo.getPassword(), user.getPassword())){
-            return null;
+            return new ResponseEntity<UserInfo>(HttpStatus.NO_CONTENT);
         }
 
         securityService.autologin(userInfo.getUsername(), userInfo.getPassword());
@@ -78,6 +80,6 @@ public class IOSController {
         userInfo.setPassword("");
         userInfo.setSessionID(RequestContextHolder.currentRequestAttributes().getSessionId());
 
-        return userInfo;
+        return new ResponseEntity<UserInfo>(userInfo, HttpStatus.OK);
     }
 }
