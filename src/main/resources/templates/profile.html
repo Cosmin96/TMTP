@@ -92,8 +92,8 @@
 
             <div class="row stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
-                        th:if="${fname.equals(user.getUsername())}">My</span><span
-                        th:if="${not fname.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
+                        th:if="${username.equals(user.getUsername())}">My</span><span
+                        th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
                     Trophy</h1>
                 <center>
                     <img th:src="@{'/img/kits/trophies/' + ${user.getTrophy()} + '.png'}" width="80%"/>
@@ -111,8 +111,8 @@
         <div class="col-md-8 col-xs-12">
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
-                        th:if="${fname.equals(user.getUsername())}">My</span><span
-                        th:if="${not fname.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
+                        th:if="${username.equals(user.getUsername())}">My</span><span
+                        th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
                     Stadiums - Tier <span th:text="${user.getStadiumLevel()}"></span></h1>
                 <h2 style="color: black; margin-bottom: 4%; padding-left: 3%">These are your stadiums, upgrade with
                     green points to build bigger and better stadiums</h2>
@@ -257,8 +257,8 @@
             <div class="profileCard"
                  style="padding-left: 2%; padding-top: 0 !important; padding-bottom: 1% !important">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
-                        th:if="${fname.equals(user.getUsername())}">My</span><span
-                        th:if="${not fname.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
+                        th:if="${username.equals(user.getUsername())}">My</span><span
+                        th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
                     Player Kit</h1>
                 <div class="row">
                     <div class="col-sm-8" style="float:right">
