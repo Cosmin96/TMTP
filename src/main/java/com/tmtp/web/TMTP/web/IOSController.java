@@ -10,12 +10,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 
-@RestController
+@Controller
 public class IOSController {
 
     private final UserService userService;
@@ -40,6 +41,7 @@ public class IOSController {
     }
 
     @PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
+    @ResponseBody
     public ResponseEntity<UserInfo> registerUserFromApp(@RequestBody UserInfo userInfo){
 
         userInfo.setUsername(userInfo.getUsername().replaceAll(" ",""));
@@ -65,6 +67,7 @@ public class IOSController {
     }
 
     @PostMapping(value = "/loginUser", produces = "application/json", consumes = "application/json")
+    @ResponseBody
     public ResponseEntity<UserInfo> loginUserFromApp(@RequestBody UserInfo userInfo ){
         User user = userDataFacade.retrieveUser(userInfo.getUsername());
 

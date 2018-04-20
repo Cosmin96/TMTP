@@ -32,6 +32,7 @@ dependencies {
 	compile 'org.apache.commons:commons-io:1.3.2'
 	compile 'org.json:json:20180130'
 	compile 'com.pusher:pusher-http-java:1.0.0'
+	compile 'org.code-house:jackson:2.8.7'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
 	testCompile('junit:junit')
