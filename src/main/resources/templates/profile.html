@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Top Bantz</title>
+
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+          rel="stylesheet"/>
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css"
+          th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"/>
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet"/>
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="../static/css/cards.css" th:href="@{/css/cards.css}"/>
+
+    <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9674699695564602",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+
+<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+
+<!-- Navigation -->
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div th:replace="fragments/ads :: adstop"></div>
+
+<div style="margin-top: 2% !important;" class="container">
+
+    <div class="row">
+
+        <div class="col-md-4 col-xs-12">
+
+            <div class="row">
+                <div class="profileCard" style="width:100% !important">
+                    <center>
+                        <img id="profileOverlay" th:src="@{'/getFiles/' + ${user.getUsername()} + '.jpg'}" width="60%"
+                             height="60%"/>
+                        <h2 style="margin-top:3%" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Parik
+                            Panchal</h2>
+                        <h3 th:text="${user.getTitle()}">The Man!</h3>
+                        <h4 th:text="${user.getTeam().teamName} + ' Supporter'">Arsenal Supporter</h4>
+
+                        <div style="margin-top: 10%">
+                            <div class="col-lg-12">
+                                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00"
+                                                                      aria-hidden="true"></i> <span
+                                        th:text="${greenPoints} + ' Green Points'"></span></p>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00"
+                                                                      aria-hidden="true"></i> <span
+                                        th:text="${yellowPoints} + ' Yellow Cards'"></span></p>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000"
+                                                                      aria-hidden="true"></i> <span
+                                        th:text="${redPoints} + ' Red Cards'"></span></p>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 10%" th:if="${settingsButton}">
+                            <div class="col-lg-12">
+                                <a class="btn btn-success"
+                                   th:href="@{'/settings/' + ${user.getUsername()}}">Personalize</a>
+                            </div>
+                        </div>
+
+                    </center>
+                </div>
+            </div>
+
+            <div class="row stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
+                        th:if="${username.equals(user.getUsername())}">My</span><span
+                        th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
+                    Trophy</h1>
+                <center>
+                    <img th:src="@{'/img/kits/trophies/' + ${user.getTrophy()} + '.png'}" width="80%"/>
+                </center>
+            </div>
+
+            <br/>
+
+            <div class="row mobileNone">
+                <a href="https://www.amazon.co.uk/?tag=topbantz2018-21&amp;linkCode=ur1">
+                    <div th:replace="fragments/slideshow :: slideshow2"></div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-12">
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
+                        th:if="${username.equals(user.getUsername())}">My</span><span
+                        th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
+                    Stadiums - Tier <span th:text="${user.getStadiumLevel()}"></span></h1>
+                <h2 style="color: black; margin-bottom: 4%; padding-left: 3%">These are your stadiums, upgrade with
+                    green points to build bigger and better stadiums</h2>
+                <center>
+                    <div style="margin-bottom: 4% !important; display: inline-block; padding: 5px;">
+                        <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 1}"
+                                id="stadiumBtn1" class="btn btn-fab btn-dark" onclick="showStadium(1);">Stadium 1
+                        </button>
+                        <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 2}"
+                                id="stadiumBtn2" class="btn btn-fab btn-dark" onclick="showStadium(2);">Stadium 2
+                        </button>
+                        <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 3}"
+                                id="stadiumBtn3" class="btn btn-fab btn-dark" onclick="showStadium(3);">Stadium 3
+                        </button>
+                        <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 4}"
+                                id="stadiumBtn4" class="btn btn-fab btn-dark" onclick="showStadium(4);">Stadium 4
+                        </button>
+                        <button style="margin-right:10px; cursor: pointer" th:if="${user.getStadiumLevel() >= 5}"
+                                id="stadiumBtn5" class="btn btn-fab btn-dark" onclick="showStadium(5);">Stadium 5
+                        </button>
+                    </div>
+                </center>
+                <h2 th:if="${finalStadium}" style="color: black; margin-bottom: 5%; padding-left: 3%">
+                    Congratulations for fully upgrading your stadium! You have won 50 free green points for a VIP room!
+                </h2>
+                <center>
+                    <div class="errorStadium" th:if="${error}">
+                        <center>
+                            <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that
+                                spans on multiple lines to see if design is screwed!</p>
+                        </center>
+                    </div>
+
+                    <!--<img th:src="@{'/img/stadiums/' + ${user.getStadiumLevel()} + '.jpg'}" width="80%" height="auto" />-->
+
+                    <div style="display: none;" id="stadiumDiv1" th:if="${user.getStadiumLevel() >= 1}"
+                         class="sketchfab-embed-wrapper">
+                        <iframe width="100%" height="480"
+                                src="https://sketchfab.com/models/9f2e540321bf47d893fed9a8ae78b29f/embed?preload=1"
+                                frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true"
+                                webkitallowfullscreen="true" onmousewheel=""></iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/models/9f2e540321bf47d893fed9a8ae78b29f?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                               target="_blank" style="font-weight: bold; color: #1CAAD9;">Football Pitch</a>
+                            by <a
+                                href="https://sketchfab.com/leonlabyk?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">dafunk</a>
+                            on <a
+                                href="https://sketchfab.com?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                        </p>
+                    </div>
+
+                    <div style="display: none;" id="stadiumDiv2" th:if="${user.getStadiumLevel() >= 2}"
+                         class="sketchfab-embed-wrapper">
+                        <iframe width="100%" height="480"
+                                src="https://sketchfab.com/models/9c4f91943a19414d956932ceefe9b0b7/embed?preload=1"
+                                frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true"
+                                webkitallowfullscreen="true" onmousewheel=""></iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/models/9c4f91943a19414d956932ceefe9b0b7?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                               target="_blank" style="font-weight: bold; color: #1CAAD9;">Football Stadium</a>
+                            by <a
+                                href="https://sketchfab.com/leonlabyk?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">dafunk</a>
+                            on <a
+                                href="https://sketchfab.com?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                        </p>
+                    </div>
+
+                    <div style="display: none;" id="stadiumDiv3" th:if="${user.getStadiumLevel() >= 3}"
+                         class="sketchfab-embed-wrapper">
+                        <iframe width="100%" height="480"
+                                src="https://sketchfab.com/models/f220069f47534232becbae2dc3a5123e/embed?preload=1"
+                                frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true"
+                                webkitallowfullscreen="true" onmousewheel=""></iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/models/f220069f47534232becbae2dc3a5123e?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                               target="_blank" style="font-weight: bold; color: #1CAAD9;">Stadium</a>
+                            by <a
+                                href="https://sketchfab.com/leonlabyk?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">dafunk</a>
+                            on <a
+                                href="https://sketchfab.com?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                        </p>
+                    </div>
+
+                    <div style="display: none;" id="stadiumDiv4" th:if="${user.getStadiumLevel() >= 4}"
+                         class="sketchfab-embed-wrapper">
+                        <iframe width="100%" height="480"
+                                src="https://sketchfab.com/models/8e16f25ee59e475bb947fbdf4d76fe74/embed"
+                                frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true"
+                                webkitallowfullscreen="true" onmousewheel=""></iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/models/8e16f25ee59e475bb947fbdf4d76fe74?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                               target="_blank" style="font-weight: bold; color: #1CAAD9;">Estádio Olímpico João
+                                Havelange</a>
+                            by <a
+                                href="https://sketchfab.com/FilipMichalowski?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">FilipMichalowski</a>
+                            on <a
+                                href="https://sketchfab.com?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                        </p>
+                    </div>
+
+                    <div style="display: none;" id="stadiumDiv5" th:if="${user.getStadiumLevel() >= 5}"
+                         class="sketchfab-embed-wrapper">
+                        <iframe width="100%" height="480"
+                                src="https://sketchfab.com/models/596e05891be942deac7f679ef8d6ba5d/embed"
+                                frameborder="0" allowvr="true" allowfullscreen="true" mozallowfullscreen="true"
+                                webkitallowfullscreen="true" onmousewheel=""></iframe>
+                        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                            <a href="https://sketchfab.com/models/596e05891be942deac7f679ef8d6ba5d?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                               target="_blank" style="font-weight: bold; color: #1CAAD9;">Stadium - Parik Panchal</a>
+                            by <a
+                                href="https://sketchfab.com/parikpanchal?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">parikpanchal</a>
+                            on <a
+                                href="https://sketchfab.com?utm_medium=embed&amp;utm_source=website&amp;utm_campain=share-popup"
+                                target="_blank" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                        </p>
+                    </div>
+
+                    <div th:if="${upgradeButton} and ${settingsButton}" style="margin-top: 4%">
+                        <div th:if="${enoughPoints}">
+                            <a th:href="@{'/profile/' + ${user.getUsername()} + '/stadiumUpgrade'}"
+                               class="btn btn-success"><span style="color:white" th:text="${buttonMessage}"></span></a>
+                        </div>
+                        <div th:if="${!enoughPoints}">
+                            <a th:href="@{'/profile/' + ${user.getUsername()} + '/stadiumUpgrade'}"
+                               class="btn btn-success" style="background-color:#333 !important;"><span
+                                    style="color:white" th:text="${buttonMessage}"></span></a>
+                        </div>
+                    </div>
+                </center>
+            </div>
+
+
+            <div class="profileCard"
+                 style="padding-left: 2%; padding-top: 0 !important; padding-bottom: 1% !important">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
+                        th:if="${username.equals(user.getUsername())}">My</span><span
+                        th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
+                    Player Kit</h1>
+                <div class="row">
+                    <div class="col-sm-8" style="float:right">
+                        <img th:src="@{'/img/kits/profile/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="80%"
+                             height="auto"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8" style="float:right">
+                        <img th:src="@{'/img/kits/profile/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}" width="80%"
+                             height="auto"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8" style="float:right">
+                        <img th:src="@{'/img/kits/profile/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}" width="80%"
+                             height="auto"/>
+                    </div>
+                    <div class="col-sm-4" style="float:left">
+                        <br/><br/><br/>
+                        <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}"
+                             width="150px" height="150px"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<br/><br/>
+<div th:replace="fragments/ads :: adsbottom"></div>
+
+<!-- Footer -->
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top d-lg-none">
+    <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+
+<!-- Modal -->
+<div th:replace="fragments/infomodal :: infomodal"></div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"
+        th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+<script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+
+<!--<script type="text/javascript">-->
+<!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+<!--</script>-->
+
+<!--Watermark library-->
+<script src="../static/js/jquery.watermark.min.js" th:src="@{/js/jquery.watermark.min.js}"></script>
+
+<script th:inline="javascript">
+    var url = '/img/overlays/' + [[${user.getOverlay()}]] + '.png';
+    $(function () {
+        $('#profileOverlay').watermark({
+            path: url,
+            gravity: 's'
+        });
+    });
+</script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var stadiumLevel = '' + [[${user.getStadiumLevel()}]];
+        var number = parseInt(stadiumLevel, 10);
+
+        // Show final stadium achieved
+        $('#stadiumDiv' + number).show();
+
+        // change btn style - active
+        $('#stadiumBtn' + number).removeClass('btn-dark');
+        $('#stadiumBtn' + number).addClass('btn-success');
+    });
+
+    function showStadium(number) {
+        // hide all the other fabs
+        $('.sketchfab-embed-wrapper').hide();
+        $('.btn-fab').removeClass('btn-success');
+        $('.btn-fab').addClass('btn-dark');
+
+        // show the selected fab
+        $('#stadiumDiv' + number).show();
+        $('#stadiumBtn' + number).removeClass('btn-dark');
+        $('#stadiumBtn' + number).addClass('btn-success');
+    }
+</script>
+
+<script>
+    //$('.adBanner').hide();
+    var randNoMobile = -1;
+    var randNoDesktop = -1;
+    var randNoMobile_down = -1;
+    var randNoDesktop_down = -1;
+
+    $(document).ready(function () {
+        randNoMobile = Math.floor((Math.random() * 14) + 1);
+        randNoDesktop = Math.floor((Math.random() * 8) + 1);
+        randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+        randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+
+        var startWidth = $(window).width();
+        if (Math.min(startWidth, 800) !== 800) {
+            $('#mobileAdBanner' + randNoMobile).show();
+            $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '15%');
+        } else {
+            $('#desktopAdBanner' + randNoDesktop).show();
+            $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '10%');
+        }
+    });
+
+    $(window).resize(function () {
+        if (randNoMobile == -1) {
+            randNoMobile = Math.floor((Math.random() * 14) + 1);
+        }
+        if (randNoDesktop == -1) {
+            randNoDesktop = Math.floor((Math.random() * 8) + 1);
+        }
+        if (randNoMobile_down == -1) {
+            randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+        }
+        if (randNoDesktop_down == -1) {
+            randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+        }
+        $('.adBanner').hide();
+        var startWidth = $(window).width();
+        if (Math.min(startWidth, 800) !== 800) {
+            $('#mobileAdBanner' + randNoMobile).show();
+            $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '15%');
+        } else {
+            $('#desktopAdBanner' + randNoDesktop).show();
+            $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '10%');
+        }
+    });
+</script>
+
+<script>
+    $("#slideshow > div:gt(0)").hide();
+    $("#slideshow2 > div:gt(0)").hide();
+
+    setInterval(function() {
+        $('#slideshow > div:first')
+            .fadeOut(0)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow');
+    },  4000);
+
+    setInterval(function() {
+        $('#slideshow2 > div:first')
+            .fadeOut(0)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow2');
+    },  4000);
+</script>
+
+</body>
+
+</html>

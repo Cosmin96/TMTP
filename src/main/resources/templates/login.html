@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Top Bantz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet"/>
+
+    <!-- Tingle plugin css -->
+    <link rel="stylesheet" href="../static/css/tingle.min.css" th:href="@{/css/tingle.min.css}"/>
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+
+     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
+
+    <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9674699695564602",
+            enable_page_level_ads: true
+        });
+    </script>
+
+    <script src='https://www.google.com/recaptcha/api.js?onload=recaptchaOnload&amp;render=explicit' async="true" defer="true"></script>
+
+  </head>
+
+  <body class="index" id="page-top" th:background="@{/img/background/grass.png}">
+
+    <!-- Navigation -->
+ <nav style="z-index: 100 !important;" class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <a class="navbar-brand" href="index.html">Top Bantz</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal"><i class="fa fa-book" style="color: white" aria-hidden="true"></i> Terms and conditions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal2"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> FAQ</a>
+          </li>
+          <!--<li class="nav-item">-->
+            <!--<a class="nav-link" href="store.html">Store</a>-->
+          <!--</li>-->
+          <!--<li class="nav-item">-->
+            <!--<a class="nav-link" href="league.html">Live Scores</a>-->
+          <!--</li>-->
+          <!--<li class="nav-item">-->
+            <!--<a class="nav-link" href="https://discord.gg/pHnEN2s">Chat</a>-->
+          <!--</li>-->
+          <!--<li class="nav-item">-->
+            <!--<a class="nav-link" href="profile.html">My profile</a>-->
+          <!--</li>-->
+          <!--<li class="nav-item">-->
+            <!--<a class="nav-link" href="login.html">Login/Signup</a>-->
+          <!--</li>-->
+        </ul>
+      </div>
+    </nav>
+
+    <video class="mobileNone" th:autoplay="true" th:loop="true" id="video-background">
+      <source th:src="@{/img/video.mp4}" type="video/mp4" />
+    </video>
+
+
+
+     <div class="form navbarmargin">
+
+         <div class="errorField" th:if="${errorLogin}">
+           <center>
+             <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+           </center>
+         </div>
+       <div class="successField" th:if="${successReset}">
+         <center>
+           <p th:text="${successResetMessage}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+         </center>
+       </div>
+      <ul class="tab-group">
+        <li class="tab active"><a href="#signup">Sign Up</a></li>
+        <li class="tab"><a href="#login">Log In</a></li>
+      </ul>
+      
+      <div class="tab-content">
+        <div id="signup">   
+          <h1>Sign Up for Free</h1>
+          
+          <form th:object="${user}" th:action="@{/registerUser}" enctype="multipart/form-data" method="POST">
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                First Name<span class="req">*</span>
+              </label>
+              <input th:field="*{firstName}" type="text" th:required="true" autocomplete="off" />
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Last Name<span class="req">*</span>
+              </label>
+              <input th:field="*{lastName}" type="text" th:required="true" autocomplete="off"/>
+            </div>
+          </div>
+
+            <div class="field-wrap">
+              <label>
+                Username<span class="req">*</span>
+              </label>
+              <input th:field="*{username}" type="text" th:required="true" autocomplete="off"/>
+            </div>
+
+          <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input th:field="*{email}" type="email" th:required="true" autocomplete="off"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Set A Password<span class="req">*</span>
+            </label>
+            <input th:field="*{password}" type="password" th:required="true" autocomplete="off"/>
+          </div>
+
+            <h4 style="color:white">Select the team you support:</h4>
+            <div class="field-wrap">
+              <select th:required="true" class="inputLikeSelect" th:field="*{team}"  id="dropOperator">
+                <option style="color: rgb(22, 40, 52) !important;" th:each="team : ${teams}" th:value="${team}" th:text="${team.teamName}"></option>
+              </select>
+            </div>
+
+            <h4 style="color:white">Upload profile photo (max 5mb):</h4>
+            <div class="field-wrap">
+              <!--<label for="profile"><h6>Upload photo (max 5mb): </h6></label>-->
+              <input type="file" id="profile" name="file" />
+            </div>
+
+            <h4 style="color:white">Enter invite code (Optional):</h4>
+            <div class="field-wrap">
+              <input name="inviteCode"  type="text" autocomplete="off"/>
+            </div>
+
+            <div class="field-wrap">
+              <h5 style="color:white">By signing up, you agree with the terms and conditions set by Top Bantz</h5>
+              <h5 style="color:white">By signing up, you confirm that you are above 16 years old</h5>
+            </div>
+          
+          <button type="submit" class="button button-block">Sign up now</button>
+          
+          </form>
+
+        </div>
+        
+        <div id="login">   
+          <h1>Welcome Back!</h1>
+          
+          <form th:object="${userForm}" th:action="@{/login}" method="POST">
+            <div class="field-wrap">
+            <label>
+              Username<span class="req">*</span>
+            </label>
+            <input type="text" th:field="*{username}" th:required="true" autocomplete="off"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input type="password" th:field="*{password}" th:required="true" autocomplete="off"/>
+          </div>
+          
+          <p class="forgot"><a id="aResetPass" href="#">Forgot Password?</a></p>
+          
+          <button type="submit" class="button button-block">Log In</button>
+          
+          </form>
+
+        </div>
+        
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
+
+
+    <!-- Footer -->
+    <footer class="text-center" style="margin-top: 10%;">
+      <div class="footer-above">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-md-12">
+              <h3>Social Media</h3>
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="https://plus.google.com/u/0/105657970600756533313">
+                    <i class="fa fa-fw fa-google-plus"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="https://twitter.com/topbantz_app">
+                    <i class="fa fa-fw fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="https://www.facebook.com/topbantzapp/">
+                    <i class="fa fa-fw fa-facebook"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="https://www.linkedin.com/company/top-bantz/">
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-social btn-outline" href="mailto:topbantzcontact@gmail.com" target="_top">
+                    <i class="fa fa-fw fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-below">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              Copyright &copy; Top Bantz 2017
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              Top Bantz Does Not Tolerate Any Form of Racism or Discrimination
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              Visit Top Bantz on desktop for the full experience
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top d-lg-none">
+      <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Top Bantz Terms and Conditions</h4>
+          </div>
+          <div class="modal-body">
+            <p>MOBILE APP TERMS &amp; CONDITIONS</p>
+
+            <p>PLEASE READ THESE TERMS AND CONDITIONS CAREFULLY</p>
+
+            <p>AGREEMENT TO TERMS<br />
+              These Terms and Conditions constitute a legally binding agreement made between you, whether<br />
+              personally or on behalf of an entity (&ldquo;you&rdquo;) and Top Bantz (&ldquo;we,&rdquo; &ldquo;us&rdquo; or &ldquo;our&rdquo;), concerning your<br />
+              access to and use of the mobile application (the App). You agree that by accessing the App, you<br />
+              have read, understood, and agree to be bound by all of these Terms and Conditions Use. IF YOU<br />
+              DO NOT AGREE WITH ALL OF THESE TERMS and CONDITIONS, THEN YOU ARE<br />
+              EXPRESSLY PROHIBITED FROM USING THE APP AND YOU MUST DISCONTINUE USE<br />
+              IMMEDIATELY.<br />
+              Supplemental terms and conditions or documents that may be posted on our website concerning<br />
+              the App from time to time are hereby expressly incorporated herein by reference. We reserve the<br />
+              right, in our sole discretion, to make changes or modifications to these Terms and Conditions at<br />
+              any time and for any reason. We will alert you about any changes by updating the &ldquo;Last updated&rdquo;<br />
+              date of these Terms and Conditions and you waive any right to receive specific notice of each<br />
+              such change. It is your responsibility to periodically review these Terms and Conditions to stay<br />
+              informed of updates. You will be subject to, and will be deemed to have been made aware of and<br />
+              to have accepted, the changes in any revised Terms and Conditions by your continued use of the<br />
+              App after the date such revised Terms are posted.<br />
+              The information provided on the App is not intended for distribution to or use by any person or<br />
+              entity in any jurisdiction or country where such distribution or use would be contrary to law or<br />
+              regulation or which would subject us to any registration requirement within such jurisdiction or<br />
+              country. Accordingly, those persons who choose to access the App from other locations do so on<br />
+              their own initiative and are solely responsible for compliance with local laws, if and to the extent<br />
+              local laws are applicable.<br />
+              The App is intended for users who are at least 18 years old. Persons under the age of 13 are not<br />
+              permitted to register for the App.</p>
+
+            <p>INTELLECTUAL PROPERTY RIGHTS<br />
+              Unless otherwise indicated, the App is our proprietary property and all source code, databases,<br />
+              functionality, software, App designs, audio, video, text, photographs, and graphics on the App<br />
+              (collectively, the &ldquo;Content&rdquo;) and the trademarks, service marks, and logos contained therein are<br />
+              owned or controlled by us or licensed to us, and are protected by copyright and trademark laws<br />
+              and various other intellectual property rights. The Content are provided on the App &ldquo;AS IS&rdquo; for</p>
+
+            <p>your information and personal use only. Except as expressly provided in these Terms of Use, no<br />
+              part of the App and no Content may be copied, reproduced, aggregated, republished, uploaded,<br />
+              posted, publicly displayed, encoded, translated, transmitted, distributed, sold, licensed, or<br />
+              otherwise exploited for any commercial purpose whatsoever, without our express prior written<br />
+              permission.<br />
+              Provided that you are eligible to use the App, you are granted a limited license to access and use<br />
+              the App and to download or print a copy of any portion of the Content to which you have properly<br />
+              gained access solely for your personal, non-commercial use. We reserve all rights not expressly<br />
+              granted to you in and to the App, Content and the Marks.<br />
+              USER REPRESENTATIONS<br />
+              By using the App, you represent and warrant that: (1) all registration information you submit will<br />
+              be true, accurate, current, and complete; (2) you will maintain the accuracy of such information<br />
+              and promptly update such registration information as necessary; (3) you have the legal capacity<br />
+              and you agree to comply with these Terms of Use; (4) you are not under the age of 13; (5) not a<br />
+              minor in the jurisdiction in which you reside, or if a minor, you have received parental permission<br />
+              to use the App; (6) you will not access the App through automated or non-human means, whether<br />
+              through a bot, script or otherwise; (7) you will not use the App for any illegal or unauthorized<br />
+              purpose; and (8) your use of the App will not violate any applicable law or regulation.<br />
+              If you provide any information that is untrue, inaccurate, not current, or incomplete, we have the<br />
+              right to suspend or terminate your account and refuse any and all current or future use of the App<br />
+              (or any portion thereof).<br />
+              USER REGISTRATION<br />
+              You may be required to register with the App. You agree to keep your password confidential and<br />
+              will be responsible for all use of your account and password. We reserve the right to remove,<br />
+              reclaim, or change a username you select if we determine, in our sole discretion, that such<br />
+              username is inappropriate, obscene, or otherwise objectionable.<br />
+              USER CONDUCT<br />
+              By using our App, you agree to conduct yourself in a respectful manner. Any conduct which is<br />
+              considered to be disrespectful will be marked by the user receiving a &lsquo;yellow card&rsquo; as a warning.<br />
+              This yellow card will be applied to that user&rsquo;s registration for one week from the date of issue.<br />
+              Example of conduct that would earn a yellow card is; posting excessively lengthy voice messages<br />
+              on the platform.<br />
+              If a user receives a second yellow card within a week of the first yellow card being awarded, they<br />
+              will be issued with a &lsquo;red card&rsquo; and given a 1 match day ban meaning the use will be unable to<br />
+              use the app or post during a match.</p>
+
+            <p>If we consider a user&rsquo;s conduct to be significantly below the standards expected, we can issue an<br />
+              automatic red card. Offences that will incur an automatic red card include; racisim, homophobia,<br />
+              sexual content being posted, violent or disturbing images or clips.<br />
+              At our sole discretion, if we consider a user&rsquo;s conduct to be consistently in breach of these rules<br />
+              (or if any user makes any direct threats to another user or their family) we can implement a lifetime<br />
+              ban for the offending user.<br />
+              Any sanction imposed by us can be appealed within 4 working days of the sanction being<br />
+              imposed. This appeal will be considered by us, and our decision is final. We shall aim to provide<br />
+              a decision within 2 days of the appeal. However, we reserve the right to extend any sanction if we<br />
+              consider the appeal to be without merit and an attempt to waste our time.<br />
+              The most important thing for us is that all our users enjoy using our service. We believe that our<br />
+              expectations of user conduct to be reasonable. We don&rsquo;t mind friendly banter, we just want to<br />
+              make sure it stays friendly.</p>
+
+            <p>
+              PROHIBITED ACTIVITIES<br />
+              You may not access or use the App for any purpose other than that for which we make the App<br />
+              available. The App may not be used in connection with any commercial endeavors except those<br />
+              that are specifically endorsed or approved by us.<br />
+              As a user of the App, you agree not to:<br />
+              1. systematically retrieve data or other content from the App to create or compile, directly or<br />
+              indirectly, a collection, compilation, database, or directory without written permission from<br />
+              us.<br />
+              2. make any unauthorized use of the App, including collecting usernames and/or email<br />
+              addresses of users by electronic or other means for the purpose of sending unsolicited<br />
+              email, or creating user accounts by automated means or under false pretenses.<br />
+              3. use a buying agent or purchasing agent to make purchases on the App.<br />
+              4. use the App to advertise or offer to sell goods and services.<br />
+              5. circumvent, disable, or otherwise interfere with security-related features of the App,<br />
+              including features that prevent or restrict the use or copying of any Content or enforce<br />
+              limitations on the use of the App and/or the Content contained therein.<br />
+              6. engage in unauthorized framing of or linking to the App.<br />
+              7. trick, defraud, or mislead us and other users, especially in any attempt to learn sensitive<br />
+              account information such as user passwords;<br />
+              8. make improper use of our support services or submit false reports of abuse or misconduct.<br />
+              9. engage in any automated use of the system, such as using scripts to send comments or<br />
+              messages, or using any data mining, robots, or similar data gathering and extraction tools.</p>
+
+            <p>10. interfere with, disrupt, or create an undue burden on the App or the networks or services<br />
+              connected to the App.<br />
+              11. attempt to impersonate another user or person or use the username of another user.<br />
+              12. sell or otherwise transfer your profile.<br />
+              13. use any information obtained from the App in order to harass, abuse, or harm another<br />
+              person.<br />
+              14. use the App as part of any effort to compete with us or otherwise use the App and/or the<br />
+              Content for any revenue-generating endeavor or commercial enterprise.<br />
+              15. decipher, decompile, disassemble, or reverse engineer any of the software comprising or<br />
+              in any way making up a part of the App.<br />
+              16. attempt to bypass any measures of the App designed to prevent or restrict access to the<br />
+              App, or any portion of the App.<br />
+              17. harass, annoy, intimidate, or threaten any of our employees or agents engaged in providing<br />
+              any portion of the App to you.<br />
+              18. delete the copyright or other proprietary rights notice from any Content.<br />
+              19. copy or adapt the App&rsquo;s software, including but not limited to Flash, PHP, HTML, JavaScript,<br />
+              or other code.<br />
+              20. upload or transmit (or attempt to upload or to transmit) viruses, Trojan horses, or other<br />
+              material, including excessive use of capital letters and spamming (continuous posting of<br />
+              repetitive text), that interferes with any party&rsquo;s uninterrupted use and enjoyment of the App<br />
+              or modifies, impairs, disrupts, alters, or interferes with the use, features, functions,<br />
+              operation, or maintenance of the App.<br />
+              21. upload or transmit (or attempt to upload or to transmit) any material that acts as a passive<br />
+              or active information collection or transmission mechanism, including without limitation,<br />
+              clear graphics interchange formats (&ldquo;gifs&rdquo;), 1&times;1 pixels, web bugs, cookies, or other similar<br />
+              devices (sometimes referred to as &ldquo;spyware&rdquo; or &ldquo;passive collection mechanisms&rdquo; or &ldquo;pcms&rdquo;).<br />
+              22. except as may be the result of standard search engine or Internet browser usage, use,<br />
+              launch, develop, or distribute any automated system, including without limitation, any<br />
+              spider, robot, cheat utility, scraper, or offline reader that accesses the App, or using or<br />
+              launching any unauthorized script or other software.<br />
+              23. disparage, tarnish, or otherwise harm, in our opinion, us and/or the App.<br />
+              24. use the App in a manner inconsistent with any applicable laws or regulations.<br />
+              25. [other]<br />
+              USER GENERATED CONTRIBUTIONS<br />
+              The App may invite you to chat, contribute to, or participate in blogs, message boards, online<br />
+              forums, and other functionality, and may provide you with the opportunity to create, submit, post,<br />
+              display, transmit, perform, publish, distribute, or broadcast content and materials to us or on the<br />
+              App, including but not limited to text, writings, video, audio, photographs, graphics, comments,<br />
+              suggestions, or personal information or other material (collectively, &quot;Contributions&quot;). Contributions<br />
+              may be viewable by other users of the App and through third-party Apps. As such, any<br />
+              Contributions you transmit may be treated as non-confidential and non-proprietary. When you<br />
+              create or make available any Contributions, you thereby represent and warrant that:<br />
+              1. the creation, distribution, transmission, public display, or performance, and the accessing,</p>
+
+            <p>downloading, or copying of your Contributions do not and will not infringe the proprietary<br />
+              rights, including but not limited to the copyright, patent, trademark, trade secret, or moral<br />
+              rights of any third party.<br />
+              2. you are the creator and owner of or have the necessary licenses, rights, consents, releases,<br />
+              and permissions to use and to authorize us, the App, and other users of the App to use your<br />
+              Contributions in any manner contemplated by the App and these Terms of Use.<br />
+              3. you have the written consent, release, and/or permission of each and every identifiable<br />
+              individual person in your Contributions to use the name or likeness of each and every such<br />
+              identifiable individual person to enable inclusion and use of your Contributions in any<br />
+              manner contemplated by the App and these Terms of Use.<br />
+              4. your Contributions are not false, inaccurate, or misleading.<br />
+              5. your Contributions are not unsolicited or unauthorized advertising, promotional materials,<br />
+              pyramid schemes, chain letters, spam, mass mailings, or other forms of solicitation.<br />
+              6. your Contributions are not obscene, lewd, lascivious, filthy, violent, harassing, libelous,<br />
+              slanderous, or otherwise objectionable (as determined by us).<br />
+              7. your Contributions do not ridicule, mock, disparage, intimidate, or abuse anyone.<br />
+              8. your Contributions do not advocate the violent overthrow of any government or incite,<br />
+              encourage, or threaten physical harm against another.<br />
+              9. your Contributions do not violate any applicable law, regulation, or rule.<br />
+              10. your Contributions do not violate the privacy or publicity rights of any third party.<br />
+              11. your Contributions do not contain any material that solicits personal information from anyone<br />
+              under the age of 18 or exploits people under the age of 18 in a sexual or violent manner.<br />
+              12. your Contributions do not violate any laws concerning child pornography, or otherwise<br />
+              intended to protect the health or well-being of minors;<br />
+              13. your Contributions do not include any offensive comments that are connected to race,<br />
+              national origin, gender, sexual preference, or physical handicap.<br />
+              14. your Contributions do not otherwise violate, or link to material that violates, any provision of<br />
+              these Terms of Use, or any applicable law or regulation.<br />
+              .</p>
+
+            <p>
+              CONTRIBUTION LICENSE<br />
+              By posting your Contributions to any part of the App or making Contributions accessible to the<br />
+              App by linking your account from the App to any of your social networking accounts, you<br />
+              automatically grant, and you represent and warrant that you have the right to grant, to us an<br />
+              unrestricted, unlimited, irrevocable, perpetual, non-exclusive, transferable, royalty-free, fully-paid,<br />
+              worldwide right, and license to host, use, copy, reproduce, disclose, sell, resell, publish,<br />
+              broadcast, retitle, archive, store, cache, publicly perform, publicly display, reformat, translate,<br />
+              transmit, excerpt (in whole or in part), and distribute such Contributions (including, without<br />
+              limitation, your image and voice) for any purpose, commercial, advertising, or otherwise, and to<br />
+              prepare derivative works of, or incorporate into other works, such Contributions, and grant and<br />
+              authorize sublicenses of the foregoing. The use and distribution may occur in any media formats<br />
+              and through any media channels.<br />
+              This license will apply to any form, media, or technology now known or hereafter developed, and<br />
+              includes our use of your name, company name, and franchise name, as applicable, and any of<br />
+              the trademarks, service marks, trade names, logos, and personal and commercial images you<br />
+              provide. You waive all moral rights in your Contributions, and you warrant that moral rights have<br />
+              not otherwise been asserted in your Contributions.<br />
+              We do not assert any ownership over your Contributions. You retain full ownership of all of your<br />
+              Contributions and any intellectual property rights or other proprietary rights associated with your<br />
+              Contributions. We are not liable for any statements or representations in your Contributions<br />
+              provided by you in any area on the App. You are solely responsible for your Contributions to the<br />
+              App and you expressly agree to exonerate us from any and all responsibility and to refrain from<br />
+              any legal action against us regarding your Contributions.<br />
+              We have the right, in our sole and absolute discretion, (1) to edit, redact, or otherwise change any<br />
+              Contributions; (2) to re-categorize any Contributions to place them in more appropriate locations<br />
+              on the App; and (3) to pre-screen or delete any Contributions at any time and for any reason,<br />
+              without notice. We have no obligation to monitor your Contributions.</p>
+
+            <p>GUIDELINES FOR REVIEWS<br />
+              We may provide you areas on the App to leave reviews or ratings. When posting a review, you<br />
+              must comply with the following criteria: (1) you should have firsthand experience with the<br />
+              person/entity being reviewed; (2) your reviews should not contain offensive profanity, or abusive,<br />
+              racist, offensive, or hate language; (3) your reviews should not contain discriminatory references<br />
+              based on religion, race, gender, national origin, age, marital status, sexual orientation, or<br />
+              disability; (4) your reviews should not contain references to illegal activity; (5) you should not be<br />
+              affiliated with competitors if posting negative reviews; (6) you should not make any conclusions<br />
+              as to the legality of conduct; (7) you may not post any false or misleading statements; and (8) you<br />
+              may not organize a campaign encouraging others to post reviews, whether positive or negative.<br />
+              We may accept, reject, or remove reviews in our sole discretion. We have absolutely no obligation<br />
+              to screen reviews or to delete reviews, even if anyone considers reviews objectionable or</p>
+
+            <p>inaccurate. Reviews are not endorsed by us, and do not necessarily represent our opinions or<br />
+              the views of any of our affiliates or partners. We do not assume liability for any review or for any<br />
+              claims, liabilities, or losses resulting from any review. By posting a review, you hereby grant to us<br />
+              a perpetual, non-exclusive, worldwide, royalty-free, fully-paid, assignable, and sublicensable right<br />
+              and license to reproduce, modify, translate, transmit by any means, display, perform, and/or<br />
+              distribute all content relating to reviews.</p>
+
+            <p>MOBILE APPLICATION LICENSE<br />
+              Use License<br />
+              If you access the App then we grant you a revocable, non-exclusive, non-transferable, limited<br />
+              right to install and use the mobile application on wireless electronic devices owned or controlled<br />
+              by you, and to access and use the mobile application on such devices strictly in accordance with<br />
+              the terms and conditions of this mobile application license contained in these Terms of Use. You<br />
+              shall not: (1) decompile, reverse engineer, disassemble, attempt to derive the source code of, or<br />
+              decrypt the application; (2) make any modification, adaptation, improvement, enhancement,<br />
+              translation, or derivative work from the application; (3) violate any applicable laws, rules, or<br />
+              regulations in connection with your access or use of the application; (4) remove, alter, or obscure<br />
+              any proprietary notice (including any notice of copyright or trademark) posted by us or the<br />
+              licensors of the application; (5) use the application for any revenue generating endeavor,<br />
+              commercial enterprise, or other purpose for which it is not designed or intended; (6) make the<br />
+              application available over a network or other environment permitting access or use by multiple<br />
+              devices or users at the same time; (7) use the application for creating a product, service, or<br />
+              software that is, directly or indirectly, competitive with or in any way a substitute for the application;<br />
+              (8) use the application to send automated queries to any App or to send any unsolicited<br />
+              commercial e-mail; or (9) use any proprietary information or any of our interfaces or our other<br />
+              intellectual property in the design, development, manufacture, licensing, or distribution of any<br />
+              applications, accessories, or devices for use with the application.<br />
+              Apple and Android Devices<br />
+              The following terms apply when you use a mobile application obtained from either the Apple Store<br />
+              or Google Play (each an &ldquo;App Distributor&rdquo;) to access the App: (1) the license granted to you for<br />
+              our mobile application is limited to a non-transferable license to use the application on a device<br />
+              that utilizes the Apple iOS or Android operating systems, as applicable, and in accordance with<br />
+              the usage rules set forth in the applicable App Distributor&rsquo;s terms of service; (2) we are responsible<br />
+              for providing any maintenance and support services with respect to the mobile application as<br />
+              specified in the terms and conditions of this mobile application license contained in these Terms<br />
+              of Use or as otherwise required under applicable law, and you acknowledge that each App<br />
+              Distributor has no obligation whatsoever to furnish any maintenance and support services with<br />
+              respect to the mobile application; (3) in the event of any failure of the mobile application to conform<br />
+              to any applicable warranty, you may notify the applicable App Distributor, and the App Distributor,<br />
+              in accordance with its terms and policies, may refund the purchase price, if any, paid for the<br />
+              mobile application, and to the maximum extent permitted by applicable law, the App Distributor<br />
+              will have no other warranty obligation whatsoever with respect to the mobile application; (4) you<br />
+              represent and warrant that (i) you are not located in a country that is subject to a U.S. government</p>
+
+            <p>embargo, or that has been designated by the U.S. government as a &ldquo;terrorist supporting&rdquo; country<br />
+              and (ii) you are not listed on any U.S. government list of prohibited or restricted parties; (5) you<br />
+              must comply with applicable third-party terms of agreement when using the mobile application,<br />
+              e.g., if you have a VoIP application, then you must not be in violation of their wireless data service<br />
+              agreement when using the mobile application; and (6) you acknowledge and agree that the App<br />
+              Distributors are third-party beneficiaries of the terms and conditions in this mobile application<br />
+              license contained in these Terms of Use, and that each App Distributor will have the right (and<br />
+              will be deemed to have accepted the right) to enforce the terms and conditions in this mobile<br />
+              application license contained in these Terms of Use against you as a third-party beneficiary<br />
+              thereof.</p>
+
+            <p>SOCIAL MEDIA<br />
+              As part of the functionality of the App, you may link your account with online accounts you have<br />
+              with third-party service providers (each such account, a &ldquo;Third-Party Account&rdquo;) by either: (1)<br />
+              providing your Third-Party Account login information through the App; or (2) allowing us to access<br />
+              your Third-Party Account, as is permitted under the applicable terms and conditions that govern<br />
+              your use of each Third-Party Account. You represent and warrant that you are entitled to disclose<br />
+              your Third-Party Account login information to us and/or grant us access to your Third-Party<br />
+              Account, without breach by you of any of the terms and conditions that govern your use of the<br />
+              applicable Third-Party Account, and without obligating us to pay any fees or making us subject to<br />
+              any usage limitations imposed by the third-party service provider of the Third-Party Account. By<br />
+              granting us access to any Third-Party Accounts, you understand that (1) we may access, make</p>
+
+            <p>available, and store (if applicable) any content that you have provided to and stored in your Third-<br />
+              Party Account (the &ldquo;Social Network Content&rdquo;) so that it is available on and through the App via</p>
+
+            <p>your account, including without limitation any friend lists and (2) we may submit to and receive<br />
+              from your Third-Party Account additional information to the extent you are notified when you link<br />
+              your account with the Third-Party Account. Depending on the Third-Party Accounts you choose<br />
+              and subject to the privacy settings that you have set in such Third-Party Accounts, personally<br />
+              identifiable information that you post to your Third-Party Accounts may be available on and<br />
+              through your account on the App. Please note that if a Third-Party Account or associated service<br />
+              becomes unavailable or our access to such Third-Party Account is terminated by the third-party<br />
+              service provider, then Social Network Content may no longer be available on and through the<br />
+              App. You will have the ability to disable the connection between your account on the App and<br />
+              your Third-Party Accounts at any time. PLEASE NOTE THAT YOUR RELATIONSHIP WITH THE<br />
+              THIRD-PARTY SERVICE PROVIDERS ASSOCIATED WITH YOUR THIRD-PARTY<br />
+              ACCOUNTS IS GOVERNED SOLELY BY YOUR AGREEMENT(S) WITH SUCH THIRD-PARTY<br />
+              SERVICE PROVIDERS. We make no effort to review any Social Network Content for any<br />
+              purpose, including but not limited to, for accuracy, legality, or non-infringement, and we are not<br />
+              responsible for any Social Network Content. You acknowledge and agree that we may access<br />
+              your email address book associated with a Third-Party Account and your contacts list stored on<br />
+              your mobile device or tablet computer solely for purposes of identifying and informing you of those<br />
+              contacts who have also registered to use the App. You can deactivate the connection between<br />
+              the App and your Third-Party Account by contacting us using the contact information below or<br />
+              through your account settings (if applicable). We will attempt to delete any information stored on</p>
+
+            <p>our servers that was obtained through such Third-Party Account, except the username and profile<br />
+              picture that become associated with your account.<br />
+              SUBMISSIONS<br />
+              You acknowledge and agree that any questions, comments, suggestions, ideas, feedback, or<br />
+              other information regarding the App (&quot;Submissions&quot;) provided by you to us are non-confidential<br />
+              and shall become our sole property. We shall own exclusive rights, including all intellectual<br />
+              property rights, and shall be entitled to the unrestricted use and dissemination of these<br />
+              Submissions for any lawful purpose, commercial or otherwise, without acknowledgment or<br />
+              compensation to you. You hereby waive all moral rights to any such Submissions, and you hereby<br />
+              warrant that any such Submissions are original with you or that you have the right to submit such<br />
+              Submissions. You agree there shall be no recourse against us for any alleged or actual<br />
+              infringement or misappropriation of any proprietary right in your Submissions.<br />
+              THIRD-PARTY APPS AND CONTENT<br />
+              The App may contain (or you may be sent via the App) links to other Apps (&quot;Third-Party Apps&quot;)<br />
+              as well as articles, photographs, text, graphics, pictures, designs, music, sound, video,<br />
+              information, applications, software, and other content or items belonging to or originating from<br />
+              third parties (&quot;Third-Party Content&quot;). Such Third-Party Apps and Third-Party Content are not<br />
+              investigated, monitored, or checked for accuracy, appropriateness, or completeness by us, and<br />
+              we are not responsible for any Third-Party Apps accessed through the App or any Third-Party<br />
+              Content posted on, available through, or installed from the App, including the content, accuracy,</p>
+
+            <p>offensiveness, opinions, reliability, privacy practices, or other policies of or contained in the Third-<br />
+              Party Apps or the Third-Party Content. Inclusion of, linking to, or permitting the use or installation</p>
+
+            <p>of any Third-Party Apps or any Third-Party Content does not imply approval or endorsement<br />
+              thereof by us. If you decide to leave the App and access the Third-Party Apps or to use or install<br />
+              any Third-Party Content, you do so at your own risk, and you should be aware these Terms of<br />
+              Use no longer govern. You should review the applicable terms and policies, including privacy and<br />
+              data gathering practices, of any App to which you navigate from the App or relating to any<br />
+              applications you use or install from the App. Any purchases you make through Third-Party Apps<br />
+              will be through other Apps and from other companies, and we take no responsibility whatsoever<br />
+              in relation to such purchases which are exclusively between you and the applicable third party.</p>
+
+            <p>You agree and acknowledge that we do not endorse the products or services offered on Third-<br />
+              Party Apps and you shall hold us harmless from any harm caused by your purchase of such</p>
+
+            <p>products or services. Additionally, you shall hold us harmless from any losses sustained by you<br />
+              or harm caused to you relating to or resulting in any way from any Third-Party Content or any<br />
+              contact with Third-Party Apps.<br />
+              ADVERTISERS<br />
+              We allow advertisers to display their advertisements and other information in certain areas of the<br />
+              App, such as sidebar advertisements or banner advertisements. If you are an advertiser, you<br />
+              shall take full responsibility for any advertisements you place on the App and any services<br />
+              provided on the App or products sold through those advertisements. Further, as an advertiser,</p>
+
+            <p>you warrant and represent that you possess all rights and authority to place advertisements on<br />
+              the App, including, but not limited to, intellectual property rights, publicity rights, and contractual<br />
+              rights. [As an advertiser, you agree that such advertisements are subject to our Digital Millennium<br />
+              Copyright Act (&ldquo;DMCA&rdquo;) Notice and Policy provisions as described below, and you understand<br />
+              and agree there will be no refund or other compensation for DMCA takedown-related issues.] We<br />
+              simply provide the space to place such advertisements, and we have no other relationship with<br />
+              advertisers.<br />
+              APP MANAGEMENT<br />
+              We reserve the right, but not the obligation, to: (1) monitor the App for violations of these Terms<br />
+              of Use; (2) take appropriate legal action against anyone who, in our sole discretion, violates the<br />
+              law or these Terms of Use, including without limitation, reporting such user to law enforcement<br />
+              authorities; (3) in our sole discretion and without limitation, refuse, restrict access to, limit the<br />
+              availability of, or disable (to the extent technologically feasible) any of your Contributions or any<br />
+              portion thereof; (4) in our sole discretion and without limitation, notice, or liability, to remove from<br />
+              the App or otherwise disable all files and content that are excessive in size or are in any way<br />
+              burdensome to our systems; and (5) otherwise manage the App in a manner designed to protect<br />
+              our rights and property and to facilitate the proper functioning of the App.<br />
+              PRIVACY POLICY<br />
+              We care about data privacy and security. By using the App, you agree to be bound by our Privacy Policy, which is incorporated into these Terms of Use. <br />
+              Your personal data will not be stored outside of the EEA (European Economic Area).
+              .</p>
+
+            <p>COPYRIGHT INFRINGEMENTS<br />
+              We respect the intellectual property rights of others. If you believe that any material available on<br />
+              or through the App infringes upon any copyright you own or control, please immediately notify us<br />
+              using the contact information provided below (a &ldquo;Notification&rdquo;). A copy of your Notification will be<br />
+              sent to the person who posted or stored the material addressed in the Notification. Please be<br />
+              advised that pursuant to federal law you may be held liable for damages if you make material<br />
+              misrepresentations in a Notification. Thus, if you are not sure that material located on or linked to<br />
+              by the App infringes your copyright, you should consider first contacting an attorney.]<br />
+              TERM AND TERMINATION<br />
+              These Terms of Use shall remain in full force and effect while you use the App. WITHOUT<br />
+              LIMITING ANY OTHER PROVISION OF THESE TERMS OF USE, WE RESERVE THE RIGHT<br />
+              TO, IN OUR SOLE DISCRETION AND WITHOUT NOTICE OR LIABILITY, DENY ACCESS TO<br />
+              AND USE OF THE APP (INCLUDING BLOCKING CERTAIN IP ADDRESSES), TO ANY<br />
+              PERSON FOR ANY REASON OR FOR NO REASON, INCLUDING WITHOUT LIMITATION FOR<br />
+              BREACH OF ANY REPRESENTATION, WARRANTY, OR COVENANT CONTAINED IN THESE<br />
+              TERMS OF USE OR OF ANY APPLICABLE LAW OR REGULATION. WE MAY TERMINATE<br />
+              YOUR USE OR PARTICIPATION IN THE APP OR DELETE [YOUR ACCOUNT AND] ANY</p>
+
+            <p>CONTENT OR INFORMATION THAT YOU POSTED AT ANY TIME, WITHOUT WARNING, IN<br />
+              OUR SOLE DISCRETION.<br />
+              If we terminate or suspend your account for any reason, you are prohibited from registering and<br />
+              creating a new account under your name, a fake or borrowed name, or the name of any third<br />
+              party, even if you may be acting on behalf of the third party. In addition to terminating or<br />
+              suspending your account, we reserve the right to take appropriate legal action, including without<br />
+              limitation pursuing civil, criminal, and injunctive redress.<br />
+              MODIFICATIONS AND INTERRUPTIONS<br />
+              We reserve the right to change, modify, or remove the contents of the App at any time or for any<br />
+              reason at our sole discretion without notice. However, we have no obligation to update any<br />
+              information on our App. We also reserve the right to modify or discontinue all or part of the App<br />
+              without notice at any time. We will not be liable to you or any third party for any modification,<br />
+              price change, suspension, or discontinuance of the App.<br />
+              We cannot guarantee the App will be available at all times. We may experience hardware,<br />
+              software, or other problems or need to perform maintenance related to the App, resulting in<br />
+              interruptions, delays, or errors. We reserve the right to change, revise, update, suspend,<br />
+              discontinue, or otherwise modify the App at any time or for any reason without notice to you. You<br />
+              agree that we have no liability whatsoever for any loss, damage, or inconvenience caused by your<br />
+              inability to access or use the App during any downtime or discontinuance of the App. Nothing in<br />
+              these Terms of Use will be construed to obligate us to maintain and support the App or to supply<br />
+              any corrections, updates, or releases in connection therewith.<br />
+              GOVERNING LAW<br />
+              These Terms of Use and your use of the App are governed by and construed in accordance with<br />
+              the laws of England and Wales</p>
+
+            <p>CORRECTIONS<br />
+              There may be information on the App that contains typographical errors, inaccuracies, or<br />
+              omissions that may relate to the App, including descriptions, pricing, availability, and various other<br />
+              information. We reserve the right to correct any errors, inaccuracies, or omissions and to change<br />
+              or update the information on the App at any time, without prior notice.<br />
+              DISCLAIMER<br />
+              THE APP IS PROVIDED ON AN AS-IS AND AS-AVAILABLE BASIS. YOU AGREE THAT YOUR<br />
+              USE OF THE APP SERVICES WILL BE AT YOUR SOLE RISK. TO THE FULLEST EXTENT<br />
+              PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, IN<br />
+              CONNECTION WITH THE APP AND YOUR USE THEREOF, INCLUDING, WITHOUT<br />
+              LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A<br />
+              PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE MAKE NO WARRANTIES OR</p>
+
+            <p>REPRESENTATIONS ABOUT THE ACCURACY OR COMPLETENESS OF THE APP&rsquo;S<br />
+              CONTENT OR THE CONTENT OF ANY APPS LINKED TO THIS APP AND WE WILL ASSUME<br />
+              NO LIABILITY OR RESPONSIBILITY FOR ANY (1) ERRORS, MISTAKES, OR INACCURACIES<br />
+              OF CONTENT AND MATERIALS, (2) PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY<br />
+              NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO AND USE OF THE APP, (3)<br />
+              ANY UNAUTHORISED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND<br />
+              ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (4)<br />
+              ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE APP, (5) ANY<br />
+              BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE WHICH MAY BE TRANSMITTED TO OR<br />
+              THROUGH THE APP BY ANY THIRD PARTY, AND/OR (6) ANY ERRORS OR OMISSIONS IN<br />
+              ANY CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND<br />
+              INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR<br />
+              OTHERWISE MADE AVAILABLE VIA THE APP. WE DO NOT WARRANT, ENDORSE,<br />
+              GUARANTEE, OR ASSUME RESPONSIBILITY FOR ANY PRODUCT OR SERVICE<br />
+              ADVERTISED OR OFFERED BY A THIRD PARTY THROUGH THE APP, ANY HYPERLINKED<br />
+              APP, OR ANY APP OR MOBILE APPLICATION FEATURED IN ANY BANNER OR OTHER<br />
+              ADVERTISING, AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE<br />
+              FOR MONITORING ANY TRANSACTION BETWEEN YOU AND ANY THIRD-PARTY<br />
+              PROVIDERS OF PRODUCTS OR SERVICES. AS WITH THE PURCHASE OF A PRODUCT<br />
+              OR SERVICE THROUGH ANY MEDIUM OR IN ANY ENVIRONMENT, YOU SHOULD USE<br />
+              YOUR BEST JUDGMENT AND EXERCISE CAUTION WHERE APPROPRIATE.<br />
+              LIMITATIONS OF LIABILITY<br />
+              IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE TO<br />
+              YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL,<br />
+              EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT,<br />
+              LOST REVENUE, LOSS OF DATA, OR OTHER DAMAGES ARISING FROM YOUR USE OF<br />
+              THE APP, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+
+            <p>INDEMNIFICATION<br />
+              You agree to defend, indemnify, and hold us harmless, including our subsidiaries, affiliates, and<br />
+              all of our respective officers, agents, partners, and employees, from and against any loss,<br />
+              damage, liability, claim, or demand, including reasonable attorneys&rsquo; fees and expenses, made by<br />
+              any third party due to or arising out of: (1) [your Contributions]; (2) use of the App; (3) breach of<br />
+              these Terms of Use; (4) any breach of your representations and warranties set forth in these<br />
+              Terms of Use; (5) your violation of the rights of a third party, including but not limited to intellectual<br />
+              property rights; or (6) any overt harmful act toward any other user of the App with whom you<br />
+              connected via the App. Notwithstanding the foregoing, we reserve the right, at your expense, to<br />
+              assume the exclusive defense and control of any matter for which you are required to indemnify<br />
+              us, and you agree to cooperate, at your expense, with our defense of such claims. We will use<br />
+              reasonable efforts to notify you of any such claim, action, or proceeding which is subject to this<br />
+              indemnification upon becoming aware of it.</p>
+
+            <p>USER DATA<br />
+              We will maintain certain data that you transmit to the App for the purpose of managing the App,<br />
+              as well as data relating to your use of the App. Although we perform regular routine backups of<br />
+              data, you are solely responsible for all data that you transmit or that relates to any activity you<br />
+              have undertaken using the App. You agree that we shall have no liability to you for any loss or<br />
+              corruption of any such data, and you hereby waive any right of action against us arising from any<br />
+              such loss or corruption of such data.</p>
+
+            <p>ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND<br />
+              SIGNATURES<br />
+              Visiting the App, sending us emails, and completing online forms constitute electronic<br />
+              communications. You consent to receive electronic communications, and you agree that all<br />
+              agreements, notices, disclosures, and other communications we provide to you electronically, via<br />
+              email and on the App, satisfy any legal requirement that such communication be in writing. YOU<br />
+              HEREBY AGREE TO THE USE OF ELECTRONIC SIGNATURES, CONTRACTS, ORDERS,<br />
+              AND OTHER RECORDS, AND TO ELECTRONIC DELIVERY OF NOTICES, POLICIES, AND<br />
+              RECORDS OF TRANSACTIONS INITIATED OR COMPLETED BY US OR VIA THE APP. You<br />
+              hereby waive any rights or requirements under any statutes, regulations, rules, ordinances, or</p>
+
+            <p>other laws in any jurisdiction which require an original signature or delivery or retention of non-<br />
+              electronic records, or to payments or the granting of credits by any means other than electronic</p>
+
+            <p>means.</p>
+
+            <p>MISCELLANEOUS<br />
+              These Terms of Use and any policies or operating rules posted by us on the App constitute the<br />
+              entire agreement and understanding between you and us. Our failure to exercise or enforce any<br />
+              right or provision of these Terms of Use shall not operate as a waiver of such right or provision.<br />
+              These Terms of Use operate to the fullest extent permissible by law. We may assign any or all of<br />
+              our rights and obligations to others at any time. We shall not be responsible or liable for any loss,<br />
+              damage, delay, or failure to act caused by any cause beyond our reasonable control. If any<br />
+              provision or part of a provision of these Terms of Use is determined to be unlawful, void, or<br />
+              unenforceable, that provision or part of the provision is deemed severable from these Terms of<br />
+              Use and does not affect the validity and enforceability of any remaining provisions. There is no<br />
+              joint venture, partnership, employment or agency relationship created between you and us as a<br />
+              result of these Terms of Use or use of the App. You agree that these Terms of Use will not be<br />
+              construed against us by virtue of having drafted them. You hereby waive any and all defenses<br />
+              you may have based on the electronic form of these Terms of Use and the lack of signing by the<br />
+              parties hereto to execute these Terms of Use.</p>
+            [Corporate Name]<br />
+            [Corporate Address]<br />
+            [Corporate Phone Number]<br />
+            [Corporate Fax Number]<br />
+            [Email Address]<br />
+
+
+            <p><h2><b>End user licence agreement</b></h2><br />
+              Please read this EULA carefully, as it sets out the basis upon which we license the Software for use.<br />
+              By clicking &quot;accept agreement&quot; when you first install the Software, you agree to be bound by the provisions of this EULA<br />
+              OR<br />
+              Before you download the Software from our website, we will ask you to give your express agreement to the provisions of this EULA. <br />
+              By agreeing to be bound by this EULA, you further agree that your employees OR any person you authorise to use the Software on your behalf OR anybody else will comply with the provision of this EULA.<br />
+              AGREEMENT<br />
+              1. Definitions<br />
+              1.1 Except to the extent expressly provided otherwise, in this EULA:<br />
+              &quot;Charges&quot; means those amounts that the parties have agreed in writing shall be payable by the User to the Licensor in respect of this EULA;<br />
+              &quot;Documentation&quot; means the documentation for the Software produced by the Licensor and delivered or made available by the Licensor to the User;<br />
+              &quot;Effective Date&quot; means the date upon which the User gives the User's express consent to this EULA, following the issue of this EULA by the Licensor;<br />
+              &quot;EULA&quot; means this end user licence agreement, including any amendments to this end user licence agreement from time to time;<br />
+              &quot;Force Majeure Event&quot; means an event, or a series of related events, that is outside the reasonable control of the party affected (including failures of the internet or any public telecommunications network, hacker attacks, denial of service attacks, virus or other malicious software attacks or infections, power failures, industrial disputes affecting any third party, changes to the law, disasters, explosions, fires, floods, riots, terrorist attacks and wars);<br />
+              &quot;Intellectual Property Rights&quot; means all intellectual property rights wherever in the world, whether registrable or unregistrable, registered or unregistered, including any application or right of application for such rights (and these &quot;intellectual property rights&quot; include copyright and related rights, database rights, confidential information, trade secrets, know-how, business names, trade names, trade marks, service marks, passing off rights, unfair competition rights, patents, petty patents, utility models, semi-conductor topography rights and rights in designs);<br />
+              &quot;Licensor&quot; means Top Bantz Ltd. a company incorporated in England and Wales with the registration number 10856104 having its registered office at 36 Hayes Court, Alperton Wembley HA0 4LW<br />
+              &quot;Licensor Indemnity Event&quot; has the meaning given to it in Clause 13.1;<br />
+              &quot;Maintenance Services&quot; means the [supply to the User] OR [application to the Software] OR [supply to the User and application to the Software] of Updates and Upgrades;<br />
+              &quot;Minimum Term&quot; means[, in respect of this EULA, the period of 12 months beginning on the Effective Date];<br />
+              &quot;Services&quot; means [any services that the Licensor provides to the User, or has an obligation to provide to the User, under this EULA];<br />
+              &quot;Software&quot; means Top Bantz Web application and IOS and Android Apps<br />
+              &quot;Software Defect&quot; means a defect, error or bug in the Software having [an adverse effect] OR [a material adverse effect] on [the appearance, operation, functionality or performance of the Software][, but excluding any defect, error or bug caused by or arising as a result of:<br />
+              (a) [any act or omission of the User or any person authorised by the User to use the Software];<br />
+              (b) [any use of the Software contrary to the Documentation by the User or any person authorised by the User to use the Software];<br />
+              (c) [a failure of the User to perform or observe any of its obligations in this EULA]; and/or<br />
+              (d) [an incompatibility between the Software and any other system, network, application, program, hardware or software not specified as compatible in the Software Specification];]<br />
+              &quot;Software Specification&quot; means [the specification for the Software set out in the Documentation];<br />
+              &quot;Source Code&quot; means [the Software code in human-readable form or any part of the Software code in human-readable form, including code compiled to create the Software or decompiled from the Software, but excluding interpreted code comprised in the Software];<br />
+              &quot;Support Services&quot; means [support in relation to the use of the Software and the identification and resolution of errors in the Software, but shall not include the provision of training services whether in relation to the Software or otherwise];<br />
+              &quot;Term&quot; means [the term of this EULA, commencing in accordance with Clause 3.1 and ending in accordance with Clause 3.2];<br />
+              &quot;Update&quot; means [a hotfix, patch or minor version update to the Software];<br />
+              &quot;Upgrade&quot; means [a major version upgrade of the Software];<br />
+              &quot;User&quot; means [the person to whom the Licensor grants a right to use the Software under this EULA]; and<br />
+              &quot;User Indemnity Event&quot; has the meaning given to it in Clause 13.3.<br />
+              2. Term<br />
+              3.1 This EULA shall come into force upon the Effective Date.<br />
+              3.2 This EULA shall continue in force indefinitely and immediately <br />
+              4. Licence<br />
+              4.1 The Licensor hereby grants to the User from [the date of supply of the Software to the User][ until [the end of the Term]] a [worldwide, non-exclusive] licence to:<br />
+              (a) [install[ [a single instance] of] the Software];<br />
+              (b) [use[ [a single instance] of] the Software[ in accordance with the Documentation]]; and<br />
+              subject to the limitations and prohibitions set out and referred to in this Clause 4.<br />
+              4.2 The User may not sub-license and must not purport to sub-license any rights granted under Clause 4.1[ without the prior written consent of the Licensor].<br />
+              OR<br />
+              4.2 The User may sub-license the rights granted in Clause 4.1 to [any third party][ for the purposes of [hosting the Software and supporting the User's use of the Software in accordance with this EULA] only]. Any such sub-licence shall automatically terminate upon the termination of the licence in Clause 4.1.<br />
+              4.3 Save to the extent expressly permitted by this EULA or required by applicable law on a non-excludable basis, any licence granted under this Clause 4 shall be subject to the following prohibitions:<br />
+              (a) [the User must not [sell, resell, rent, lease, loan, supply, publish, distribute or redistribute] the Software];<br />
+              (b) [the User must not alter, edit or adapt the Software]; and<br />
+              (c) [the User must not decompile, de-obfuscate or reverse engineer, or attempt to decompile, de-obfuscate or reverse engineer, the Software].<br />
+              4.4 The User shall be responsible for the security of copies of the Software supplied to the User under this EULA[ (or created from such copies)] and shall use all reasonable endeavours (including all reasonable security measures) to ensure that access to such copies is restricted to persons authorised to use them under this EULA.<br />
+              5. Source Code<br />
+              5.1 Nothing in this EULA shall give to the User or any other person any right to access or use the Source Code or constitute any licence of the Source Code.<br />
+              (c) the provisions of this Clause 6, excluding this Clause 6.8, shall cease to apply, but the other provisions of this EULA will continue notwithstanding such termination.<br />
+              7. Support Services<br />
+              7.1 The Licensor shall provide the Support Services to the User [during the Term].<br />
+              7.2 The Licensor shall provide the Support Services [with reasonable skill and care] OR [in accordance with the standards of skill and care reasonably expected from a leading service provider in the Licensor's industry] OR [[specify standard(s)]].<br />
+              7.3 The Licensor may suspend the provision of the Support Services if any amount due to be paid by the User to the Licensor under this EULA is overdue, and the Licensor has given to the User at least [30 days'] written notice, following the amount becoming overdue, of its intention to suspend the Support Services on this basis.<br />
+              7.4 [Either party may terminate the Support Services by giving to the other party] OR [The Licensor may terminate the Support Services by giving to the User] OR [The User may terminate the Support Services by giving to the Licensor] at least [30 days'] written notice[ expiring on or at any time after the first anniversary of the Effective Date].<br />
+              7.5 If the Support Services are terminated in accordance with the provisions of this Clause 7:<br />
+              (a) the User must pay to the Licensor any outstanding Charges in respect of Support Services provided to the User before the termination of the Support Services;<br />
+              (b) the Licensor must refund to the User any Charges paid by the User to the Licensor in respect of Support Services that were to be provided to the User after the termination of the Support Services; and<br />
+              (c) the provisions of this Clause 7, excluding this Clause 7.5, shall cease to apply, but the other provisions of this EULA will continue notwithstanding such termination.<br />
+              8. No assignment of Intellectual Property Rights<br />
+              8.1 Nothing in this EULA shall operate to assign or transfer any Intellectual Property Rights from the Licensor to the User, or from the User to the Licensor.</p>
+
+            <p>9. Charges<br />
+              9.1 The User shall pay the Charges to the Licensor in accordance with this EULA.<br />
+              9.2 All amounts stated in or in relation to this EULA are, unless the context requires otherwise, stated [inclusive of any applicable value added taxes] OR [exclusive of any applicable value added taxes, which will be added to those amounts and payable by the User to the Licensor].<br />
+              10. Payments<br />
+              10.1 The Licensor shall issue [invoices] OR [an invoice] OR [receipts] OR [a receipt] for the Charges to the User <br />
+              10.2 The User must pay the Charges to the Licensor [in advance] OR [within the period of [30 days] following [the issue of an invoice in accordance with this Clause 10] OR [the receipt of an invoice issued in accordance with this Clause 10]].<br />
+              10.3 The User must pay the Charges by [debit card, credit card, direct debit, bank transfer or cheque] (using such payment details as are notified by the Licensor to the User from time to time).<br />
+              10.4 If the User does not pay any amount properly due to the Licensor under this EULA, the Licensor may:<br />
+              (a) charge the User interest on the overdue amount at the rate of [8% per annum above the Bank of England base rate from time to time] (which interest will accrue daily until the date of actual payment and be compounded at the end of each calendar month); or<br />
+              (b) claim interest and statutory compensation from the User pursuant to the Late Payment of Commercial Debts (Interest) Act 1998.<br />
+              11. Warranties<br />
+              11.1 The Licensor warrants to the User that it has the legal right and authority to enter into this EULA and to perform its obligations under this EULA.<br />
+              11.2 The Licensor warrants to the User that:<br />
+              (a) [the Software as provided will conform in all [material] respects with the Software Specification];<br />
+              (b) [the Software may not be supplied free from Software Defects<br />
+              (c) [the Software will be supplied free from viruses, worms, Trojan horses, ransomware, spyware, adware and other malicious software programs]; and<br />
+              (d) [the Software shall incorporate security features reflecting the requirements of good industry practice].<br />
+              11.3 The Licensor warrants to the User that the Software[, when used by the User in accordance with this EULA,] will not breach [any laws, statutes or regulations applicable under English law].<br />
+              11.4 The Licensor warrants to the User that the Software, when used by the User in accordance with this EULA, will not infringe the Intellectual Property Rights of any person [in any jurisdiction and under any applicable law].<br />
+              11.5 If [the Licensor reasonably determines, or any third party alleges, that the use of the Software by the User in accordance with this EULA infringes any person's Intellectual Property Rights], the Licensor may[ acting reasonably] at its own cost and expense:<br />
+              (a) modify the Software in such a way that it no longer infringes the relevant Intellectual Property Rights[, providing that [any such modification must not introduce any Software Defects into the Software and must not result in the Software failing to conform with the Software Specification]]; or<br />
+              (b) procure for the User the right to use the Software in accordance with this EULA.<br />
+              11.6 The User warrants to the Licensor that it has the legal right and authority to enter into this EULA and to perform its obligations under this EULA.<br />
+              11.7 All of the parties' warranties and representations in respect of the subject matter of this EULA are expressly set out in this EULA. To the maximum extent permitted by applicable law, no other warranties or representations concerning the subject matter of this EULA will be implied into this EULA or any related contract.<br />
+              12. Acknowledgements and warranty limitations<br />
+              12.1 The User acknowledges that complex software is never wholly free from defects, errors and bugs; and subject to the other provisions of this EULA, the Licensor gives no warranty or representation that the Software will be wholly free from defects, errors and bugs.<br />
+              12.2 The User acknowledges that complex software is never entirely free from security vulnerabilities; and subject to the other provisions of this EULA, the Licensor gives no warranty or representation that the Software will be entirely secure.<br />
+              12.3 The User acknowledges that the Software is only designed to be compatible with that software specified as compatible in the Software Specification; and the Licensor does not warrant or represent that the Software will be compatible with any other software.<br />
+              12.4 The User acknowledges that the Licensor will not provide any [legal, financial, accountancy or taxation advice] under this EULA or in relation to the Software; and, except to the extent expressly provided otherwise in this EULA, the Licensor does not warrant or represent that the Software or the use of the Software by the User will not give rise to any legal liability on the part of the User or any other person.<br />
+              13. Indemnities<br />
+              13.1 The Licensor will not indemnify and shall not keep indemnified the User against any and all liabilities, damages, losses, costs and expenses (including legal expenses and amounts reasonably paid in settlement of legal claims) suffered or incurred by the User and arising directly or indirectly as a result of any breach by the Licensor of [this EULA] OR [[specify provisions]] (a &quot;Licensor Indemnity Event&quot;).<br />
+              13.2 The User must:<br />
+              (a) upon becoming aware of an actual or potential Licensor Indemnity Event, notify the Licensor;<br />
+              (b) provide to the Licensor all such assistance as may be reasonably requested by the Licensor in relation to the Licensor Indemnity Event;<br />
+              (c) allow the Licensor the exclusive conduct of all disputes, proceedings, negotiations and settlements with third parties relating to the Licensor Indemnity Event; and<br />
+              (d) not admit liability to any third party in connection with the Licensor Indemnity Event or settle any disputes or proceedings involving a third party and relating to the Licensor Indemnity Event without the prior written consent of the Licensor,<br />
+              [without prejudice to the Licensor's obligations under Clause 13.1] OR [and the Licensor's obligation to indemnify the User under Clause 13.1 shall not apply unless the User complies with the requirements of this Clause 13.2].<br />
+              13.3 The User shall indemnify and shall keep indemnified the Licensor against any and all liabilities, damages, losses, costs and expenses (including legal expenses and amounts reasonably paid in settlement of legal claims) suffered or incurred by the Licensor and arising directly or indirectly as a result of any breach by the User of [this EULA] OR [[specify provisions]] (a &quot;User Indemnity Event&quot;).<br />
+              13.4 The Licensor must:<br />
+              (a) upon becoming aware of an actual or potential User Indemnity Event, notify the User;<br />
+              (b) provide to the User all such assistance as may be reasonably requested by the User in relation to the User Indemnity Event;<br />
+              (c) allow the User the exclusive conduct of all disputes, proceedings, negotiations and settlements with third parties relating to the User Indemnity Event; and<br />
+              (d) not admit liability to any third party in connection with the User Indemnity Event or settle any disputes or proceedings involving a third party and relating to the User Indemnity Event without the prior written consent of the User,<br />
+              [without prejudice to the User's obligations under Clause 13.3] OR [and the User's obligation to indemnify the Licensor under Clause 13.3 shall not apply unless the Licensor complies with the requirements of this Clause 13.4].<br />
+              13.5 The indemnity protection set out in this Clause 13 [shall] OR [shall not] be subject to the limitations and exclusions of liability set out in this EULA[, except [exceptions]].<br />
+              14. Limitations and exclusions of liability<br />
+              14.1 Nothing in this EULA will:<br />
+              (a) limit or exclude any liability for death or personal injury resulting from negligence;<br />
+              (b) limit or exclude any liability for fraud or fraudulent misrepresentation;<br />
+              (c) limit any liabilities in any way that is not permitted under applicable law; or<br />
+              (d) exclude any liabilities that may not be excluded under applicable law,<br />
+              and, if a party is a consumer, that party's statutory rights will not be excluded or limited by this EULA, except to the extent permitted by law.<br />
+              14.2 The limitations and exclusions of liability set out in this Clause 14 and elsewhere in this EULA: <br />
+              (a) are subject to Clause 14.1; and<br />
+              (b) govern all liabilities arising under this EULA or relating to the subject matter of this EULA, including liabilities arising in contract, in tort (including negligence) and for breach of statutory duty, except to the extent expressly provided otherwise in this EULA.<br />
+              14.3 The Licensor will not be liable to the User in respect of any losses arising out of a Force Majeure Event.<br />
+              14.4 The Licensor will not be liable to the User in respect of any loss of profits or anticipated savings.<br />
+              14.5 The Licensor will not be liable to the User in respect of any loss of revenue or income.<br />
+              14.6 The Licensor will not be liable to the User in respect of any loss of business, contracts or opportunities.<br />
+              14.7 The Licensor will not be liable to the User in respect of any loss or corruption of any data, database or software.<br />
+              14.8 The Licensor will not be liable to the User in respect of any special, indirect or consequential loss or damage.<br />
+              15. Termination<br />
+              15.1 The Licensor may terminate this EULA by giving to the User [not less than 30 days'] written notice of termination[, expiring [at the end of any [calendar month]] OR [after the end of the Minimum Term]].<br />
+              15.2 The User may terminate this EULA by giving to the Licensor [not less than 30 days'] written notice of termination[, expiring [at the end of any [calendar month]] OR [after the end of the Minimum Term]].<br />
+              15.3 Either party may terminate this EULA immediately by giving written notice of termination to the other party if:<br />
+              (a) the other party commits any [breach] OR [material breach] of this EULA[, and the breach is not remediable];<br />
+              (b) [the other party commits a [breach] OR [material breach] of this EULA, and the breach is remediable but the other party fails to remedy the breach within the period of [30 days] following the giving of a written notice to the other party requiring the breach to be remedied]; or<br />
+              (c) [the other party persistently breaches this EULA (irrespective of whether such breaches collectively constitute a material breach)].<br />
+              15.4 Either party may terminate this EULA immediately by giving written notice of termination to the other party if:<br />
+              (a) the other party:<br />
+              (i) is dissolved;<br />
+              (ii) ceases to conduct all (or substantially all) of its business;<br />
+              (iii) is or becomes unable to pay its debts as they fall due;<br />
+              (iv) is or becomes insolvent or is declared insolvent; or<br />
+              (v) convenes a meeting or makes or proposes to make any arrangement or composition with its creditors;<br />
+              (b) an administrator, administrative receiver, liquidator, receiver, trustee, manager or similar is appointed over any of the assets of the other party;<br />
+              (c) an order is made for the winding up of the other party, or the other party passes a resolution for its winding up[ (other than for the purpose of a solvent company reorganisation where the resulting entity will assume all the obligations of the other party under this EULA)]; or<br />
+              (d) [if that other party is an individual:<br />
+              (i) that other party dies;<br />
+              (ii) as a result of illness or incapacity, that other party becomes incapable of managing his or her own affairs; or<br />
+              (iii) that other party is the subject of a bankruptcy petition or order.]<br />
+              15.5 The Licensor may terminate this EULA immediately by giving written notice to the User if:<br />
+              (a) any amount due to be paid by the User to the Licensor under this EULA is unpaid by the due date and remains unpaid upon the date that that written notice of termination is given; and<br />
+              (b) the Licensor has given to the User at least [30 days'] written notice, following the failure to pay, of its intention to terminate this EULA in accordance with this Clause 15.5.<br />
+              16. Effects of termination<br />
+              16.1 Upon the termination of this EULA, all of the provisions of this EULA shall cease to have effect, save that the following provisions of this EULA shall survive and continue to have effect (in accordance with their express terms or otherwise indefinitely): [Clauses 1, 4.1, 10.2, 10.4, 13, 14, 16, 17 and 18].<br />
+              16.2 Except to the extent that this EULA expressly provides otherwise, the termination of this EULA shall not affect the accrued rights of either party.<br />
+              16.3 Within [30 days] following the termination of this EULA for any reason:<br />
+              (a) the User must pay to the Licensor [any Charges in respect of Services provided to the User before the termination of this EULA and in respect of licences in effect before the termination of this EULA]; and<br />
+              (b) the Licensor must refund to the User [any Charges paid by the User to the Licensor in respect of Services that were to be (but are not) provided to the User after the termination of this EULA and in respect of licences that were to be (but are not) in effect after the termination of this EULA],<br />
+              without prejudice to the parties' other legal rights.<br />
+              16.4 For the avoidance of doubt, the licences of the Software in this EULA shall terminate upon the termination of this EULA; and, accordingly, the User must immediately cease to use the Software upon the termination of this EULA.<br />
+              16.5 Within [10 Business Days] following the termination of this EULA, the User must:<br />
+              (a) return to the Licensor or dispose of as the Licensor may instruct all media in its possession or control containing the Software; and<br />
+              (b) irrevocably delete from all computer systems in its possession or control all copies of the Software.<br />
+              17. General<br />
+              17.1 No breach of any provision of this EULA shall be waived except with the express written consent of the party not in breach.<br />
+              17.2 If any provision of this EULA is determined by any court or other competent authority to be unlawful and/or unenforceable, the other provisions of this EULA will continue in effect. If any unlawful and/or unenforceable provision would be lawful or enforceable if part of it were deleted, that part will be deemed to be deleted, and the rest of the provision will continue in effect (unless that would contradict the clear intention of the parties, in which case the entirety of the relevant provision will be deemed to be deleted).<br />
+              17.3 This EULA may not be varied except by a written document signed by or on behalf of each of the parties.<br />
+              17.4 The User hereby agrees that the Licensor may assign the Licensor's contractual rights and obligations under this EULA to [any successor to all or a substantial part of the business of the Licensor from time to time] OR [any third party]. The User must not without the prior written consent of the Licensor assign, transfer or otherwise deal with any of the User's contractual rights or obligations under this EULA.<br />
+              17.5 This EULA is made for the benefit of the parties, and is not intended to benefit any third party or be enforceable by any third party. The rights of the parties to terminate, rescind, or agree any amendment, waiver, variation or settlement under or relating to this EULA are not subject to the consent of any third party.<br />
+              17.6 Subject to Clause 14.1, this EULA shall constitute the entire agreement between the parties in relation to the subject matter of this EULA, and shall supersede all previous agreements, arrangements and understandings between the parties in respect of that subject matter.<br />
+              17.7 This EULA shall be governed by and construed in accordance with [English law].<br />
+              17.8 The courts of [England] shall have exclusive jurisdiction to adjudicate any dispute arising under or in connection with this EULA.<br />
+              18. Interpretation<br />
+              18.1 In this EULA, a reference to a statute or statutory provision includes a reference to: <br />
+              (a) that statute or statutory provision as modified, consolidated and/or re-enacted from time to time; and<br />
+              (b) any subordinate legislation made under that statute or statutory provision.<br />
+              18.2 The Clause headings do not affect the interpretation of this EULA.<br />
+              18.3 References in this EULA to &quot;calendar months&quot; are to [the 12 named periods (January, February and so on) into which a year is divided].<br />
+              18.4 In this EULA, general words shall not be given a restrictive interpretation by reason of being preceded or followed by words indicating a particular class of acts, matters or things.</p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="myModal2" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Top Bantz FAQ</h4>
+          </div>
+          <div class="modal-body" style="color: black">
+
+            <p>TOP BANTZ APP</p>
+
+            <p>1. Creating A New Account<br />
+              &bull; Fill out all the necessary fields in the text boxes<br />
+              &bull; Ensure that username is between 6 to 32 characters long<br />
+              &bull; Email follows general @email.com format<br />
+              &bull; User remembers their username is case sensitive<br />
+              2. Logging-In<br />
+              &bull; Check if you have inputted your username correctly (upper case letters haven&rsquo;t been used<br />
+              where lower-case letters were inputted)<br />
+              &bull; Ask an admin If you been banned or not<br />
+              3. Uploading a New Video<br />
+              &bull; Manually upload your video onto YouTube using the &lsquo;Upload Feature&rsquo;<br />
+              &bull; Copy the video&rsquo;s web address (URL). Eg: https://www.youtube.com/watch?v=z_rH<br />
+              &bull; Paste into the YouTube URL box on the Create New Post option<br />
+              &bull; Add a description and Upload<br />
+              4. Problems Uploading a New Video<br />
+              &bull; Ensure URL has been correctly copied including the https://<br />
+              &bull; Ensure video is actually from YouTube<br />
+              &bull; Ensure you scroll down to see your video<br />
+              5. Stadiums, Kits and Images<br />
+              &bull; Check if you have an internet connection<br />
+              &bull; Enable browser cookies from browser settings<br />
+              &bull; Enable flash from browser settings<br />
+              &bull; Try to refresh the page</p>
+
+            <p>6. Earning and Spending Green Points<br />
+              &bull; Points are earned for positive posts on the app<br />
+              &bull; Every 100 likes on a post gives you 1 Green-Point automatically<br />
+              &bull; Can be spent on items in the merchandise store<br />
+              &bull; Green points can also be purchased via deals on the merchandise page</p>
+
+            <p>7. Yellow Card / Red Card<br />
+              &bull; Cards are given for negative behavior on the app including but not limited to offensive<br />
+              language and content<br />
+              &bull; A yellow card is given for a minor offence</p>
+
+            <p>&bull; 2 yellow cards automatically convert into a red card and you are banned from the app for 3<br />
+              days<br />
+              &bull; After the match ban is over, you will be able to login to the app as normal</p>
+
+            <p>8. Microphone Problems on Discord<br />
+              &bull; Check if you are using a microphone and it is plugged in and connected<br />
+              &bull; &ldquo;Allow&rdquo; app to record voice<br />
+              &bull; &ldquo;Allow&rdquo; app to record video<br />
+              &bull; Open Discord and make sure you haven&rsquo;t set their microphone to mute<br />
+              &bull; Make sure you are actually in a lobby, if you are; your name will appear in the lobby<br />
+              participants list.</p>
+
+            <p>9. Uploading Media onto Discord<br />
+              &bull; Make sure you &ldquo;Allow&rdquo; for Discord to access the user&rsquo;s gallery<br />
+              &bull; Make sure you haven&rsquo;t already posted the same image<br />
+              &bull; Make sure you have a stable internet connection</p>
+
+            <p>10. Uploading Medio onto Top Bantz App<br />
+              &bull; Make sure the video came from YouTube<br />
+              &bull; Make sure it follows the link type: www.youtube.com/videolink<br />
+              11. Locating Your VIP Lobby<br />
+              &bull; Go to your home page and access the VIP lobby from the box to the left-hand side.</p>
+
+            <p>12. 3-D Stadium Navigation<br />
+              &bull; Use your mouse and up, down, left, right keys on their keypad to navigate around the<br />
+              stadium</p>
+
+            <p>Discord<br />
+              1. Personal Message Another User<br />
+              &bull; Left Click on user&rsquo;s profile photo or name until an information box comes up<br />
+              &bull; Write personal message in the box<br />
+              &bull; Press Enter to send<br />
+              2. See Who Else Is Online<br />
+              &bull; Check right hand side column to see all users who are either online or offline</p>
+
+            <p>3. Switching Between Voice Banter Lobbies<br />
+              &bull; Know which lobby you are in by observing your name under the lobby&rsquo;s name<br />
+              &bull; Click on whichever lobby you want to go on by selecting it with your mouse<br />
+              4. Create A New Private Channel<br />
+              &bull; Press the + icon on the let hand side of the screen on the navbar<br />
+              &bull; Adjust the settings and the server is created</p>
+
+            <p>5. How to Start a Video Call with People (9 People Max)<br />
+              &bull; Press the &ldquo;Friends&rdquo; Icon on the top left-hand corner of the screen<br />
+              &bull; Click &ldquo;All&rdquo; to see all friends<br />
+              &bull; Hover over a friend&rsquo;s name until it turns grey<br />
+              &bull; Press the video call option<br />
+              &bull; To add up to 8 more friends onto the call, press this button and add friends by their<br />
+              username</p>
+
+            <p>6. Invite Friends Who Are Not on Discord<br />
+              &bull; Click on the bottom pointing arrow to bring up the lobby settings<br />
+              &bull; Click on &ldquo;Invite People&rdquo;, copy the link and send to friends</p>
+
+            <p>7. Accessing User Settings<br />
+              &bull; Click on the gear icon on the bottom left hand side of the screen</p>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+    <script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+    <!-- Tingle script import -->
+    <script src="../static/js/tingle.min.js" th:src="@{/js/tingle.min.js}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+    <script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+    <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-3993803388816871",
+            enable_page_level_ads: true
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var _captchaTries = 0;
+            var isFirstCall = 0;
+            var modal;
+            function recaptchaOnload() {
+                if(isFirstCall == 0) {
+                    _captchaTries++;
+                    if (_captchaTries > 9)
+                        return;
+                    if ($('.g-recaptcha').length > 0) {
+                        grecaptcha.render("recaptcha", {
+                            sitekey: '6LfG9kYUAAAAANUmfD3aBhlnQqbXgU1JjzEZIIV7',
+                            callback: function () {
+                                console.log('recaptcha callback');
+                            }
+                        });
+                        isFirstCall = 1;
+                        return;
+                    }
+                    window.setTimeout(recaptchaOnload, 1000);
+                }
+            }
+
+
+            $('#aResetPass').click( function(e) {
+                e.preventDefault();
+
+                console.log(isFirstCall);
+
+                recaptchaOnload();
+
+                if(isFirstCall == 0) {
+                    // instanciate new modal
+                    modal = new tingle.modal({
+                        footer: true,
+                        stickyFooter: false,
+                        closeMethods: ['overlay', 'button', 'escape'],
+                        closeLabel: "Close",
+                        onOpen: function () {
+                            console.log('modal open');
+                        },
+                        onClose: function () {
+                            console.log('modal closed');
+                        },
+                        beforeClose: function () {
+                            return true; // close the modal
+                        }
+                    });
+
+                    $('.tingle-modal-box__content').css('paddingBottom', '0px');
+                    $('.tingle-modal-box__footer').addClass('text-center');
+
+                    // set content
+                    modal.setContent('<form id="resetPassForm" th:object="${userForm}" th:action="@{/reset-password}" method="POST">' +
+                        '               <div class="field-wrap">' +
+                        '               <input style="color:#000000 !important;" placeholder="Email" type="text" th:field="*{email}" th:required="true" autocomplete="off"/>' +
+                        '               </div>' +
+                        '               <div class="field-wrap">' +
+                        '               <input style="color:#000000 !important;" placeholder="Username" type="text" th:field="*{username}" th:required="true" autocomplete="off"/>' +
+                        '               </div>' +
+                        '               <div class="field-wrap">' +
+                        '               <input style="color:#000000 !important;" placeholder="New Password" type="password" th:field="*{password}" th:required="true" autocomplete="off"/>' +
+                        '               </div>' +
+                        '               <div class="field-wrap">' +
+                        '               <center><div id="recaptcha" class="g-recaptcha" data-sitekey="6LfG9kYUAAAAANUmfD3aBhlnQqbXgU1JjzEZIIV7"></div></center>' +
+                        '               </div>' +
+                        '             </form>');
+
+                    // add a button to Amazon page
+                    modal.addFooterBtn('Reset Password!', 'tingle-btn tingle-btn--primary btn-success', function () {
+                        $('#resetPassForm').submit();
+                    });
+                }
+
+                // open modal
+                modal.open();
+
+                return false;
+            });
+
+        });
+    </script>
+
+  </body>
+
+</html>

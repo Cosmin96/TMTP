@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Top Bantz</title>
+
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../static/css/cards.css" th:href="@{/css/cards.css}" />
+
+    <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9674699695564602",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+
+<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+
+<!-- Navigation -->
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container" style="margin-top: 10%">
+    <div class="row">
+
+        <div class="col-md-4 col-xs-12">
+            <div class="row">
+                <div class="profileCard">
+                    <center>
+                        <img id="overlay" th:src="@{'/getFiles/' + ${user.getUsername()} + '.jpg'}" width="60%" height="60%" />
+                        <h2 style="margin-top:3%" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Parik Panchal</h2>
+                        <h3 th:text="${user.getTitle()}">The Man!</h3>
+
+                        <div style="margin-top: 10%">
+                            <div class="col-lg-12">
+                                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i> <span th:text="${greenPoints}"></span></p>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i> <span th:text="${yellowPoints}"></span></p>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i> <span th:text="${redPoints}"></span></p>
+                            </div>
+                        </div>
+
+                    </center>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="profileCard" style="padding-left: 2%;">
+                    <h1 style="color: black; margin-bottom: 8%; padding-left: 3%">My Player Kit</h1>
+                    <div class="row">
+                        <div class="col-sm-7" style="float:right">
+                            <img th:src="@{'/img/kits/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="90%" height="auto" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-7" style="float:right">
+                            <img th:src="@{'/img/kits/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}" width="90%" height="auto" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-7" style="float:right">
+                            <img th:src="@{'/img/kits/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}" width="90%" height="auto" />
+                        </div>
+                        <div class="col-sm-5" style="float:left">
+                            <br /><br /><br />
+                            <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}" width="120px" height="120px"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-8 col-xs-12">
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change First and Last Names</h1>
+                <center>
+                    <form style="width: 90% !important; margin-top: 1%; margin-left: 2%" th:object="${nameForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateName'}" method="POST">
+                        <div class="form-group">
+                            <label for="fname" style="float: left;"><h6>First name</h6></label>
+                            <input type="text" th:field="*{fname}" class="form-control" style="width:100%;" id="fname" />
+                        </div>
+                        <div class="form-group">
+                            <label for="lname" style="float: left;"><h6>Last name</h6></label>
+                            <input type="text" id="lname" th:field="*{lname}" class="form-control" style="width:100%;" />
+                        </div>
+
+                        <button style="margin-top: 2%;" class="btn btn-success">Submit</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Reset Password</h1>
+                <center>
+                    <form style="width: 90% !important; margin-top: 1%; margin-left: 2%" th:object="${passForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updatePassword'}" method="POST">
+                        <div class="form-group">
+                            <label for="oldpass" style="float: left;"><h6>New Password</h6></label>
+                            <input type="text" th:field="*{oldPass}" class="form-control" style="width:100%;" id="oldpass" />
+                        </div>
+                        <div class="form-group">
+                            <label for="newPass" style="float: left;"><h6>Confirm New Password</h6></label>
+                            <input type="text" id="newPass" th:field="*{newPass}" class="form-control" style="width:100%;" />
+                        </div>
+
+                        <button style="margin-top: 2%;" class="btn btn-success">Submit</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change Points/Cards</h1>
+                <center>
+                    <form method="POST" th:object="${pointsForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updatePoints'}">
+                        <div class="form-group">
+                            <label for="number" style="float: left; padding-left:3%"><h6>Change point values</h6></label>
+                            <input type="text" id="number" th:field="*{points}" class="form-control" style="width:80%;" />
+                        </div>
+                        <div class="form-group" style="width: 80%">
+                            <label for="overlayselect">Point colors:</label>
+                            <select th:field="*{color}" class="form-control" id="overlayselect">
+                                <option th:value="green">Green</option>
+                                <option th:value="yellow">Yellow</option>
+                                <option th:value="red">Red</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" value="Upload">Update</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Title</h1>
+                <center>
+                    <form method="POST" th:object="${titleForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateTitle'}">
+                        <div class="form-group" style="width: 80%">
+                            <label for="overlayselect">Available titles:</label>
+                            <select th:field="*{titleName}" class="form-control" id="overlayselect">
+                                <option value="Stay in your lane!">Stay in your lane!</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'title'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" value="Upload">Change</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change ban status</h1>
+                <center>
+                    <form method="POST" th:object="${bannedForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateBan'}">
+                        <div class="form-group" style="width: 80%">
+                            <label for="overlayselect">Ban status:</label>
+                            <select th:field="*{banned}" class="form-control" id="overlayselect">
+                                <option th:value="true">Banned</option>
+                                <option th:value="false">Unbanned</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" value="Upload">Update</button>
+                    </form>
+                </center>
+            </div>
+
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change Profile Picture</h1>
+                <center>
+                    <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/profileUpload'}">
+                        <label for="profile"><h6>Upload photo (max 5mb): </h6></label>
+                        <input type="file" id="profile" name="file" />
+                        <button class="btn btn-success" value="Upload">Upload</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Profile Overlay</h1>
+                <center>
+                    <form method="POST" th:object="${overlayForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateOverlay'}">
+                        <div class="form-group" style="width: 80%">
+                            <label for="overlayselect">Available overlays:</label>
+                            <select th:field="*{overlayName}" class="form-control" id="overlayselect">
+                                <option value="none">None</option>
+                                <option th:each="item : ${user.getShopItems()}" th:if="${item.getType().equals('overlay') || item.getType().equals('clubOverlay')}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" value="Upload">Change</button>
+                    </form>
+                </center>
+            </div>
+
+            <div class="stadiumCard">
+                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Player Kit</h1>
+                <center>
+                    <form method="POST" th:object="${kitForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateKit'}">
+
+                        <div class="form-group" style="width: 80%">
+                            <label for="jacketselect">Available jackets:</label>
+                            <select th:field="*{jacket}" class="form-control" id="jacketselect">
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'jacket'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="width: 80%">
+                            <label for="shortselect">Available shorts:</label>
+                            <select th:field="*{shorts}" class="form-control" id="shortselect">
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'shorts'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="width: 80%">
+                            <label for="sockselect">Available socks:</label>
+                            <select th:field="*{socks}" class="form-control" id="sockselect">
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'socks'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="width: 80%">
+                            <label for="footballselect">Available footballs:</label>
+                            <select th:field="*{football}" class="form-control" id="footballselect">
+                                <option value="none">None</option>
+                                <option th:each="item : ${inventory}" th:if="${item.getType() == 'football'}" th:value="${item.getName()}">
+                                    <span th:text="${item.getName()}"></span>
+                                </option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-success" value="Upload">Change</button>
+                    </form>
+                </center>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="fragments/infomodal :: infomodal"></div>
+
+<!-- Footer -->
+<footer class="text-center" style="margin-top: 10%;">
+    <div class="footer-above">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h3>Social Media</h3>
+                    <ul class="list-inline">
+
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="https://plus.google.com/u/0/105657970600756533313">
+                                <i class="fa fa-fw fa-google-plus"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="https://twitter.com/topbantz_app">
+                                <i class="fa fa-fw fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="https://www.facebook.com/topbantzapp/">
+                                <i class="fa fa-fw fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="https://www.linkedin.com/company/top-bantz/">
+                                <i class="fa fa-fw fa-linkedin"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="mailto:topbantzcontact@gmail.com" target="_top">
+                                <i class="fa fa-fw fa-envelope"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    Copyright &copy; Top Bantz 2017
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    Top Bantz Does Not Tolerate Any Form of Racism or Discrimination
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top d-lg-none">
+    <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+<script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+
+<!--<script type="text/javascript">-->
+    <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];    $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+<!--</script>-->
+
+<!--Watermark library-->
+<script src="../static/js/jquery.watermark.min.js" th:src="@{/js/jquery.watermark.min.js}"></script>
+
+<script th:inline="javascript">
+    var url = '/img/overlays/'+ [[${user.getOverlay()}]] + '.png';
+    $(function() {
+        $('#overlay').watermark({
+            path: url,
+            gravity: 's'
+        });
+    });
+</script>
+
+</body>
+
+</html>

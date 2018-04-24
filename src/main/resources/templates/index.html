@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Top Bantz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+          rel="stylesheet"/>
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css"
+          th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+
+    <!-- Tingle plugin css -->
+    <link rel="stylesheet" href="../static/css/tingle.min.css" th:href="@{/css/tingle.min.css}"/>
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet"/>
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
+
+    <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9674699695564602",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+
+<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+
+<!-- Navigation -->
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div th:replace="fragments/ads :: adstop"></div>
+
+<div style="margin-top: 2% !important;" class="container statsmenu">
+
+    <div class="row">
+        <div class="col-lg-3">
+            <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i>
+                <span th:text="${greenPoints + ' Green Points'}"></span></p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i>
+                <span th:text="${yellowPoints + ' Yellow Cards'}"></span></p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i>
+                <span th:text="${redPoints + ' Red Cards'}"></span></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="errorField2" th:if="${error}">
+            <center>
+                <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on
+                    multiple lines to see if design is screwed!</p>
+            </center>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 3%;">
+
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <div style="margin-bottom: 3%; width: 100%; margin-left: 1%" class="row" th:if="${myLobbies or hasLobbies}">
+
+                <div class="postcard">
+                    <div class="row" style="margin-left: 5%; margin-top:3%; margin-right: 5%">
+                        <h3><u>My VIP Lobbies</u></h3>
+                    </div>
+                    <div th:if="${hasOwnLobby}" class="row" style="margin-left: 5%; margin-top:1%">
+                        <h4 style="margin-top: 5%">Send link to invite friends:</h4>
+                        <input id="lobbyLink" style="width: 80%" type="text"
+                               th:value="${'www.topbantz.com/privateLobby/' + myLobby.getId()}"/>
+                        <button class="btn btn-success" style="margin-left: 3%; margin-top: 3%; margin-bottom: 1%"
+                                onclick="copyToClipboard('#lobbyLink')">Copy Link
+                        </button>
+
+                        <div class="row" style="margin-left: 5%; margin-top: 5%">
+                            <a th:href="@{'/privateLobby/' + ${myLobby.getId()}}"><h3 style="font-size: 20px;">My
+                                Lobby</h3></a>
+                        </div>
+                    </div>
+                    <div th:each="lobby : ${joinedLobbies}" class="row" style="margin-left: 5%; margin-top:5%">
+                        <a th:href="@{'/privateLobby/' + ${lobby.getId()}}"><h3 style="font-size: 20px;"
+                                                                                th:text="${lobby.getCreator() + '''s Lobby'}"></h3>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-bottom: 3%; width: 100%; margin-left: 1%" class="row">
+                <div class="postcard">
+                    <div class="row" style="margin-left: 5%; margin-top:3%; margin-right: 5%">
+                        <h3><u>My Invite Code</u></h3>
+                    </div>
+                    <div class="row" style="margin-left: 5%; margin-top:1%; margin-bottom: 1%;">
+                        <h4 style="margin-top: 5%; width: 80%">Get 3 green points for each friend you invite!</h4>
+                        <input id="inviteCodeLink" style="width: 80%" type="text"
+                               th:value="${user.getId()}"/>
+                        <button class="btn btn-success" style="margin-left: 3%; margin-top: 3%"
+                                onclick="copyToClipboard('#inviteCodeLink')">Copy Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="row">-->
+            <!--<script src="http://www.btfscores.com/widgets/widget-side.min.js" th:async="true"></script>-->
+            <!--<div id="sidebar-soccer-goal" style="width:250px;"></div>-->
+            <!--</div>-->
+        </div>
+
+        <div class="col-lg-6 col-xs-12 scrollabelcolumn">
+
+            <div class="postcard">
+                <div class="row" style="margin-left: 5%; margin-top:3%">
+                    <h3>Search for users</h3>
+                </div>
+                <div class="row" style="margin-left: 5%; margin-top:3%; margin-bottom: 5%">
+                    <div class="col-xs-10">
+                        <input class="awesomplete sizeInput" id="userSearchInput" data-minchars="1" list="mylist"/>
+                        <datalist id="mylist">
+                            <option th:each="oneUser : ${allUsers}"><span th:text="${oneUser}"></span></option>
+                        </datalist>
+                    </div>
+                    <div class="col-xs-2" style="margin-left: 2%">
+                        <button onclick="searchForUser()" id="userSearchButton" class="btn btn-success">Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="postcard">
+                <div class="row" style="margin-left: 5%; margin-top:3%">
+                    <h3>Create new post</h3>
+                </div>
+                <div class="row" style="margin-left: 5%; margin-top:1%">
+                    <form style="width:90%" th:object="${videoPostForm}" th:action="@{/newPost}" method="POST">
+                        <div class="form-group">
+                            <label for="description">Post Description</label>
+                            <textarea th:field="*{description}" class="form-control" id="description"
+                                      style="width:100%; height: 100px;" placeholder="Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="url">YouTube share link (press share and copy link)</label>
+                            <label for="url">The best posts will be featured on our <a
+                                    href="https://www.youtube.com/user/topmentruepundits">Youtube Channel</a></label>
+                            <input th:field="*{link}" class="form-control" style="width:100%;" type="text"
+                                   placeholder="Youtube Share Link (https://youtu.be/[id])" id="url"/>
+                        </div>
+                        <button style="margin-top: 3%; margin-bottom: 5%" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="postcard" style="margin-top: 2%;">
+                <iframe style="margin-bottom: -2%;" width="100%" height="315" src="https://www.youtube.com/embed/Yym9E_6WYBc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="true"></iframe>
+            </div>
+
+            <div class="videocard" th:each="post : ${posts}"
+                 th:classappend="${post.isFlagged() and user.getAdmin()} ? videocardflag : nothing">
+                <div class="row" style="margin-left: 2%; margin-top:3%">
+                    <div class="col-sm-5">
+                        <p align="left" style="color: black">
+                            <img
+                                    th:src="@{'/getFiles/' + ${post.getUser().getUsername()} + '.jpg'}" width="50px"
+                                    height="50px"/> <a th:href="@{'/profile/' + ${post.getCreator()}}"><span
+                                th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></a>
+                        </p>
+                    </div>
+                    <div class="col-sm-7">
+                        <a th:if="${not user.getAdmin() and not post.isFlagged()}"
+                           style="background-color: #cc3b3e !important; float:right; margin-right: 2%"
+                           class="btn btn-danger" th:href="@{'/post/' + ${post.getId()} + '/flag'}">
+                            <i class="fa fa-flag" aria-hidden="true"></i>
+                            Flag
+                        </a>
+                        <a th:if="${user.getAdmin() and post.isFlagged()}"
+                           style="background-color: #cc3b3e !important; float:right; margin-right: 2%"
+                           class="btn btn-danger" th:href="@{'/post/' + ${post.getId()} + '/unflag'}">
+                            <i class="fa fa-flag" aria-hidden="true"></i>
+                            Unflag
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row"
+                     style="margin-left: 5%; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word">
+                    <p align="left" style="color: black; width: 95%" th:text="${post.getDescription()}"></p>
+                </div>
+
+                <div class="row" style="margin-left: 5%;">
+                    <p align="left" th:if="${user.getAdmin()}"><a
+                            th:href="@{'/post/' + ${post.getId()} + '/delete/'}"><i class="fa fa-times"
+                                                                                    aria-hidden="true"></i> Delete</a>
+                    </p>
+                </div>
+
+                <div class="row" th:if="${post.getVideo()}" style="margin-top:3%">
+                    <div style="align-content:center;height:0;margin-bottom:73%">
+                        <iframe th:src="${post.getLink()}" width="480" height="360" frameborder="0"
+                                style="position:absolute;width:80%;left:10%"></iframe>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-left: 5%;">
+                    <p align="left"><a th:href="@{'/post/' + ${post.getId()}}">See comments</a></p>
+                </div>
+
+                <div class="row buttonRow">
+                    <div class="col-xs-12 col-sm-12 col-md-5 text-xs-center">
+                        <a class="btn btn-success" th:href="'javascript:likeButton(\'' + ${post.getId()} + '\')'"
+                           th:id="${'like' + post.getId()}">
+                            <!--th:href="@{'/like/' + ${post.getId()}}"-->
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                            <span th:if="${!post.getLikeUsers().contains(user.getUsername())}"
+                                  th:text="${'Like - ' + post.getLikes() + ' likes'}"></span>
+                            <span th:if="${post.getLikeUsers().contains(user.getUsername())}"
+                                  th:text="${'Liked - ' + post.getLikes() + ' likes'}"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-2 mobileNone">
+                        &nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-5 text-xs-center buttonMargin">
+                        <a style="" class="btn btn-danger"
+                           th:href="'javascript:dislikeButton(\'' + ${post.getId()} + '\')'"
+                           th:id="${'dislike' + post.getId()}">
+                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                            <span th:if="${!post.getDislikeUsers().contains(user.getUsername())}"
+                                  th:text="${'Dislike - ' + post.getDislikes() + ' dislikes'}"></span>
+                            <span th:if="${post.getDislikeUsers().contains(user.getUsername())}"
+                                  th:text="${'Disliked - ' + post.getDislikes() + ' dislikes'}"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 mobileNone">
+            <div class="row">
+                <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
+                <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300"
+                        style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football
+                    premier league</a>on talkSPORT
+                </iframe>
+
+
+            </div>
+            <div class="row">
+                <iframe src="https://discordapp.com/widget?id=347112707809607680&amp;theme=dark" width="350"
+                        height="500" allowtransparency="true" frameborder="0"></iframe>
+            </div>
+            <br/>
+
+            <div class="row">
+                <a href="https://www.amazon.co.uk/?tag=topbantz2018-21&amp;linkCode=ur1">
+                    <div th:replace="fragments/slideshow :: slideshow2"></div>
+                </a>
+            </div>
+
+            <!--<div class="row">-->
+            <!--<iframe src="https://discordapp.com/widget?id=347112707809607680" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top:20px" />-->
+            <!--</div>-->
+
+        </div>
+    </div>
+
+</div>
+
+<br/><br/>
+<div th:replace="fragments/ads :: adsbottom"></div>
+
+<!-- Footer -->
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top d-lg-none">
+    <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+
+
+<div th:replace="fragments/infomodal :: infomodal"></div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"
+        th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+<script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+<script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+
+<!-- Tingle script import -->
+<script src="../static/js/tingle.min.js" th:src="@{/js/tingle.min.js}"></script>
+
+<script>
+    function copyToClipboard(element) {
+        var $temp = $("<input />");
+        $("body").append($temp);
+        $temp.val($(element).val()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+</script>
+
+<!--<script type="text/javascript">-->
+<!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];-->
+<!--$('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+<!--</script>-->
+
+<script>
+    function searchForUser() {
+        var userValue = $('#userSearchInput').val();
+        var endpoint = '/profile/' + userValue;
+        console.log("entered");
+        $.ajax({
+            url: endpoint,
+            crossDomain: true,
+            success: function (data) {
+                console.log("Successful redirection");
+                window.location.href = endpoint;
+            }
+        })
+    }
+</script>
+
+<script th:inline="javascript">
+    function likeButton(id) {
+        $.ajax({
+            url: '/like/' + id,
+            success: function (data) {
+                var str = $("#like" + id + " > span").text();
+                if (str.charAt(4) == 'd') {
+                    $("#like" + id + " > span").text("Like - " + data[0] + " likes");
+                }
+                else {
+                    $("#like" + id + " > span").text("Liked - " + data[0] + " likes");
+                    $("#dislike" + id + " > span").text("Dislike - " + data[1] + " dislikes");
+                }
+            }
+        })
+    }
+
+    function dislikeButton(id) {
+        $.ajax({
+            url: '/dislike/' + id,
+            success: function (data) {
+                var str = $("#dislike" + id + " > span").text();
+                if (str.charAt(7) == 'd') {
+                    $("#dislike" + id + " > span").text("Dislike - " + data[1] + " dislikes");
+                }
+                else {
+                    $("#dislike" + id + " > span").text("Disliked - " + data[1] + " dislikes");
+                    $("#like" + id + " > span").text("Like - " + data[0] + " likes");
+                }
+            }
+        })
+    }
+
+</script>
+
+<!-- The below script handles the display of popups, using the popup var/flag set by the app -->
+<script th:if="${popup}" th:inline="javascript">
+    $(document).ready(function () {
+
+        function triggerAmazonPopup() {
+            // instanciate new modal
+            var modal = new tingle.modal({
+                footer: true,
+                stickyFooter: false,
+                closeMethods: ['overlay', 'button', 'escape'],
+                closeLabel: "Close",
+                onOpen: function () {
+                    console.log('modal open');
+                },
+                onClose: function () {
+                    console.log('modal closed');
+                },
+                beforeClose: function () {
+                    return true; // close the modal
+                }
+            });
+
+            var randNo = Math.floor((Math.random() * 4) + 1);
+            var imgSource = '/img/products/' + randNo + '.png';
+            var url = $('<textarea/>').html("https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true").text();
+
+            $('.tingle-modal-box').addClass('make-modal-smaller');
+            $('.tingle-modal-box__content').css('padding', '1px');
+            $('.tingle-modal-box__footer').addClass('text-center');
+
+            // set content
+            modal.setContent('<center><img width="100%" height="auto" align="middle" src="' + imgSource + '"/></center>'
+                + '<center><h6 style="padding-top:4px !important">Hi! Are you looking for the newest Top Bantz products?</h6></center>'
+                + '<center><h6>Check them out on our <a class="text-orange" href="' + url + '">Amazon Page</a></h6></center>');
+
+            // add a button to Amazon page
+            modal.addFooterBtn('Shop Now On Amazon!', 'tingle-btn tingle-btn--primary btn-orange', function () {
+                window.location.href = url;
+            });
+
+            $('.tingle-modal').css('overflow', 'scroll');
+
+            // open modal
+            modal.open();
+        }
+
+        /*<![CDATA[*/
+        var popup = /*[[${popup}]]*/ 'default';
+        if (popup == "amazon") {
+            console.log("Showing Amazon Popup...");
+            triggerAmazonPopup();
+        }
+        /*]]>*/
+
+    });
+</script>
+
+<script>
+    //$('.adBanner').hide();
+    var randNoMobile = -1;
+    var randNoDesktop = -1;
+    var randNoMobile_down = -1;
+    var randNoDesktop_down = -1;
+
+    $(document).ready(function () {
+        randNoMobile = Math.floor((Math.random() * 14) + 1);
+        randNoDesktop = Math.floor((Math.random() * 8) + 1);
+        randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+        randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+
+        var startWidth = $(window).width();
+        if (Math.min(startWidth, 800) !== 800) {
+            $('#mobileAdBanner' + randNoMobile).show();
+            $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '15%');
+        } else {
+            $('#desktopAdBanner' + randNoDesktop).show();
+            $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '10%');
+        }
+    });
+
+    $(window).resize(function () {
+        if (randNoMobile == -1) {
+            randNoMobile = Math.floor((Math.random() * 14) + 1);
+        }
+        if (randNoDesktop == -1) {
+            randNoDesktop = Math.floor((Math.random() * 8) + 1);
+        }
+        if (randNoMobile_down == -1) {
+            randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+        }
+        if (randNoDesktop_down == -1) {
+            randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+        }
+        $('.adBanner').hide();
+        var startWidth = $(window).width();
+        if (Math.min(startWidth, 800) !== 800) {
+            $('#mobileAdBanner' + randNoMobile).show();
+            $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '15%');
+        } else {
+            $('#desktopAdBanner' + randNoDesktop).show();
+            $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '10%');
+        }
+    });
+</script>
+
+<script>
+    $("#slideshow > div:gt(0)").hide();
+    $("#slideshow2 > div:gt(0)").hide();
+
+    setInterval(function() {
+        $('#slideshow > div:first')
+            .fadeOut(0)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow');
+    },  4000);
+
+    setInterval(function() {
+        $('#slideshow2 > div:first')
+            .fadeOut(0)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow2');
+    },  4000);
+</script>
+
+</body>
+
+</html>
