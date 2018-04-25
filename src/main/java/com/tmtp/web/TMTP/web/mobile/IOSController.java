@@ -1,27 +1,40 @@
 package com.tmtp.web.TMTP.web.mobile;
 
+import com.tmtp.web.TMTP.dto.AppResponse;
+import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
+import com.tmtp.web.TMTP.dto.exceptions.NoUserFound;
+import com.tmtp.web.TMTP.dto.exceptions.UserBannedException;
 import com.tmtp.web.TMTP.entity.Team;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.UserInfo;
-import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
-import com.tmtp.web.TMTP.dto.exceptions.NoUserFound;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
+import com.tmtp.web.TMTP.service.StorageService;
 import com.tmtp.web.TMTP.utils.RequestValidator;
 import com.tmtp.web.TMTP.web.UserDataFacade;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class IOSController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(IOSController.class);
 
     private final UserService userService;
     private final SecurityService securityService;
     private final RequestValidator requestValidator;
     private final UserDataFacade userDataFacade;
     private final MessageSource messageSource;
+    private final StorageService storageService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public IOSController(final UserService userService,
@@ -29,17 +42,22 @@ public class IOSController {
                          final RequestValidator requestValidator,
                          final UserDataFacade userDataFacade,
                          final MessageSource messageSource,
+                         final StorageService storageService,
                          final BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.securityService = securityService;
         this.requestValidator = requestValidator;
         this.userDataFacade = userDataFacade;
         this.messageSource = messageSource;
+        this.storageService = storageService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @RequestMapping(value = "/mobile/register", method = RequestMethod.POST)
-    public UserInfo registerUserFromApp(@RequestBody UserInfo userInfo){
+    public AppResponse registerUserFromApp(
+            @RequestBody UserInfo userInfo,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("inviteCode") String inviteCode){
 
         String errorMessage = requestValidator.validateRegistration(userInfo);
         if(errorMessage != null) {
@@ -62,14 +80,32 @@ public class IOSController {
         userService.save(user);
         securityService.autologin(userInfo.getUsername(), userInfo.getPassword());
 
+        if(!file.isEmpty()) {
+            String photoName = storageService.store(file, userInfo.getUsername());
+            LOG.info("Username {}, photo saved: {}.", userInfo.getUsername(), photoName);
+        }
+
+        if(inviteCode != null) {
+            // Check if code belongs to any user
+            User referredUser = userService.findById(inviteCode);
+            if(referredUser != null) {
+                referredUser.getPoints().setGreen(referredUser.getPoints().getGreen() + 3);
+                userService.updateUser(referredUser);
+            }
+        }
+
         userInfo.setPassword("");
         userInfo.setSessionID(RequestContextHolder.currentRequestAttributes().getSessionId());
 
-        return userInfo;
+        LOG.info("Registration validation passed with data {} and user saved.", userInfo);
+
+        AppResponse response = new AppResponse();
+        response.setData(userInfo);
+        return response;
     }
 
     @RequestMapping(value = "/mobile/login", method = RequestMethod.POST)
-    public UserInfo loginUserFromApp(@RequestBody UserInfo userInfo){
+    public AppResponse loginUserFromApp(@RequestBody UserInfo userInfo){
         User user = userDataFacade.retrieveUser(userInfo.getUsername());
 
         if(user == null || !bCryptPasswordEncoder.matches(userInfo.getPassword(), user.getPassword())){
@@ -84,7 +120,31 @@ public class IOSController {
         userInfo.setPassword("");
         userInfo.setSessionID(RequestContextHolder.currentRequestAttributes().getSessionId());
 
-        return userInfo;
+        AppResponse response = new AppResponse();
+        response.setData(userInfo);
+        return response;
+    }
+
+    @RequestMapping(value = "/mobile/scores")
+    public AppResponse getScoresPage() {
+
+        User user = userDataFacade.retrieveLoggedUser();
+
+        if(user.getBanned()){
+            throw new UserBannedException(getMessage("Banned.userForm.username"));
+        }
+
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("user", user);
+        userData.put("fname", user.getFirstName());
+        userData.put("username", user.getUsername());
+        userData.put("greenPoints", user.getPoints().getGreen());
+        userData.put("yellowPoints", user.getPoints().getYellow());
+        userData.put("redPoints", user.getPoints().getRed());
+
+        AppResponse response = new AppResponse();
+        response.setData(userData);
+        return response;
     }
 
     private String getMessage(String messageKey) {
