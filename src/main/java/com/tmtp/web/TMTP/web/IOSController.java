@@ -1,8 +1,9 @@
-package com.tmtp.web.TMTP.web.mobile;
+package com.tmtp.web.TMTP.web;
 
 import com.tmtp.web.TMTP.entity.Team;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.UserInfo;
+import com.tmtp.web.TMTP.entity.exceptions.NoUserFound;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.security.UserValidator;
@@ -15,8 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import java.util.Locale;
+
 @RestController
-@RequestMapping(value = "/v1")
 public class IOSController {
 
     private final UserService userService;
@@ -40,7 +42,7 @@ public class IOSController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/mobile/register", method = RequestMethod.POST)
     public UserInfo registerUserFromApp(@RequestBody UserInfo userInfo){
 
         userInfo.setUsername(userInfo.getUsername().replaceAll(" ",""));
@@ -65,13 +67,12 @@ public class IOSController {
         return userInfo;
     }
 
-    @PostMapping(value = "/loginUser", produces = "application/json", consumes = "application/json")
-    @ResponseBody
-    public ResponseEntity<UserInfo> loginUserFromApp(@RequestBody UserInfo userInfo ){
+    @RequestMapping(value = "/mobile/login", method = RequestMethod.POST)
+    public UserInfo loginUserFromApp(@RequestBody UserInfo userInfo){
         User user = userDataFacade.retrieveUser(userInfo.getUsername());
 
         if(user == null || !bCryptPasswordEncoder.matches(userInfo.getPassword(), user.getPassword())){
-            return new ResponseEntity<UserInfo>(HttpStatus.NO_CONTENT);
+            throw new NoUserFound(getMessage("INVALID_CREDENTIALS"));
         }
 
         securityService.autologin(userInfo.getUsername(), userInfo.getPassword());
@@ -82,6 +83,10 @@ public class IOSController {
         userInfo.setPassword("");
         userInfo.setSessionID(RequestContextHolder.currentRequestAttributes().getSessionId());
 
-        return new ResponseEntity<UserInfo>(userInfo, HttpStatus.OK);
+        return userInfo;
+    }
+
+    private String getMessage(String messageKey) {
+        return messageSource.getMessage(messageKey, null, Locale.ENGLISH);
     }
 }

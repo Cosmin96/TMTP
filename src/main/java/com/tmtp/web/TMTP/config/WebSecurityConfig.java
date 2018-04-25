@@ -29,17 +29,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/css/**", "/js/**", "/vendor/**","/img/**",
-                        "/reset-password",
-                        "/login",
-                        "/register",
-                        "/registerUser",
-                        "/loginUser").permitAll()
+                .antMatchers(
+                        //allow static resources
+                        "/resources/**", "/css/**", "/js/**", "/vendor/**","/img/**",
+
+                        //allow web endpoints
+                        "/reset-password", "/login", "/register", "/registerUser", "/loginUser",
+
+                        //allow mobile endpoints
+                        "/mobile/register", "/mobile/login").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/register")
-                .permitAll()
                 .and()
                 .logout()
                 .permitAll();
