@@ -1,4 +1,4 @@
-package com.tmtp.web.TMTP.entity.exceptions;
+package com.tmtp.web.TMTP.dto.exceptions;
 
 public class NoUserFound extends RuntimeException {
 

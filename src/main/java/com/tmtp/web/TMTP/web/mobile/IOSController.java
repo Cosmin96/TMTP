@@ -1,42 +1,38 @@
-package com.tmtp.web.TMTP.web;
+package com.tmtp.web.TMTP.web.mobile;
 
 import com.tmtp.web.TMTP.entity.Team;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.UserInfo;
-import com.tmtp.web.TMTP.entity.exceptions.NoUserFound;
+import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
+import com.tmtp.web.TMTP.dto.exceptions.NoUserFound;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
-import com.tmtp.web.TMTP.security.UserValidator;
+import com.tmtp.web.TMTP.utils.RequestValidator;
 import com.tmtp.web.TMTP.web.UserDataFacade;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
-
-import java.util.Locale;
 
 @RestController
 public class IOSController {
 
     private final UserService userService;
     private final SecurityService securityService;
-    private final UserValidator userValidator;
+    private final RequestValidator requestValidator;
     private final UserDataFacade userDataFacade;
     private final MessageSource messageSource;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public IOSController(final UserService userService,
                          final SecurityService securityService,
-                         final UserValidator userValidator,
+                         final RequestValidator requestValidator,
                          final UserDataFacade userDataFacade,
                          final MessageSource messageSource,
                          final BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.securityService = securityService;
-        this.userValidator = userValidator;
+        this.requestValidator = requestValidator;
         this.userDataFacade = userDataFacade;
         this.messageSource = messageSource;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -44,6 +40,11 @@ public class IOSController {
 
     @RequestMapping(value = "/mobile/register", method = RequestMethod.POST)
     public UserInfo registerUserFromApp(@RequestBody UserInfo userInfo){
+
+        String errorMessage = requestValidator.validateRegistration(userInfo);
+        if(errorMessage != null) {
+            throw new BadFormatException(errorMessage);
+        }
 
         userInfo.setUsername(userInfo.getUsername().replaceAll(" ",""));
         userInfo.setUsername(userInfo.getUsername().replaceAll("[^\\w\\s]+",""));
@@ -87,6 +88,6 @@ public class IOSController {
     }
 
     private String getMessage(String messageKey) {
-        return messageSource.getMessage(messageKey, null, Locale.ENGLISH);
+        return messageSource.getMessage(messageKey, null, null);
     }
 }
