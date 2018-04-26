@@ -37,8 +37,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                         "/reset-password", "/login", "/register", "/registerUser", "/loginUser",
 
                         //allow mobile endpoints
-                        "/mobile/register", "/mobile/login").permitAll()
+                        "/mobile/register", "/mobile/login", "/mobile/reset-password").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/register")
+                .permitAll()
                 .and()
                 .logout()
                 .permitAll();
