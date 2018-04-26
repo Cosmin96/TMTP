@@ -15,12 +15,17 @@ import com.tmtp.web.TMTP.web.UserDataFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -125,7 +130,7 @@ public class IOSController {
         return response;
     }
 
-    @RequestMapping(value = "/mobile/scores")
+    @RequestMapping(value = "/mobile/scores", method = RequestMethod.GET)
     public AppResponse getScoresPage() {
 
         User user = userDataFacade.retrieveLoggedUser();
@@ -145,6 +150,15 @@ public class IOSController {
         AppResponse response = new AppResponse();
         response.setData(userData);
         return response;
+    }
+
+    @RequestMapping(value="/mobile/logout", method = RequestMethod.GET)
+    public AppResponse logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return new AppResponse();
     }
 
     private String getMessage(String messageKey) {
