@@ -267,7 +267,6 @@ public class LoginController {
                 redirectAttributes.addFlashAttribute("errorMessage", "Captcha validation failed!");
                 return "redirect:/register";
             }
-
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;

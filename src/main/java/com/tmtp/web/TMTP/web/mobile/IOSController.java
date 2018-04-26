@@ -161,6 +161,32 @@ public class IOSController {
         return new AppResponse();
     }
 
+    @RequestMapping(value="/mobile/reset-password", method = RequestMethod.POST)
+    public AppResponse resetPassword(@RequestBody UserInfo userInfo) {
+
+        User user = userDataFacade.retrieveUser(userInfo.getUsername());
+
+        AppResponse response = new AppResponse();
+
+        if(user == null || !user.getEmail().equals(userInfo.getEmail())) {
+            response.setSuccess(false);
+            response.setData(getMessage("INVALID_USER_DATA"));
+        } else if(userInfo.getPassword() == null || userInfo.getPassword().trim().isEmpty() ||
+                userInfo.getPassword().length() < 6 || userInfo.getPassword().length() > 32) {
+            response.setSuccess(false);
+            response.setData(getMessage("Size.userForm.password"));
+        } else if(user.getBanned()) {
+            response.setSuccess(false);
+            response.setData(getMessage("Banned.userForm.username"));
+        } else {
+            user.setPassword(bCryptPasswordEncoder.encode(userInfo.getPassword()));
+            userDataFacade.updateUser(user);
+            response.setData(getMessage("PASSWORD_UPDATED"));
+        }
+
+        return response;
+    }
+
     private String getMessage(String messageKey) {
         return messageSource.getMessage(messageKey, null, null);
     }
