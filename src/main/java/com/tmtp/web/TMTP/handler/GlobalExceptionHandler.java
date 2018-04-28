@@ -48,8 +48,17 @@ public class GlobalExceptionHandler {
         return message;
     }
 
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage exceptionFound(HttpServletRequest request, Exception exception) {
+        String exceptionName = "Exception";
+        ErrorMessage message = getErrorMessage(request, exception, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        LOG.error(messageSource.getMessage("EXCEPTION_MESSAGE", new Object[]{exceptionName, message, exception}, Locale.ENGLISH));
+        return message;
+    }
+
     private ErrorMessage getErrorMessage(HttpServletRequest request, Exception exception, int status) {
-        LOG.error("Exception is {}", exception);
         ErrorMessage message = new ErrorMessage();
         message.setTimestamp(new Date().getTime());
         message.setError(exception.getMessage());

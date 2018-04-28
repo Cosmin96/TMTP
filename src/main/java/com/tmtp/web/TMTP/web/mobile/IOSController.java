@@ -15,6 +15,7 @@ import com.tmtp.web.TMTP.web.VideoPostsFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -65,9 +66,20 @@ public class IOSController {
 
     @RequestMapping(value = "/mobile/register", method = RequestMethod.POST)
     public AppResponse registerUserFromApp(
-            @RequestBody UserInfo userInfo,
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("inviteCode") String inviteCode){
+            @RequestPart("file") MultipartFile file,
+            @RequestHeader("username") String username,
+            @RequestHeader("password") String password,
+            @RequestHeader("email") String email,
+            @RequestHeader("firstName") String firstName,
+            @RequestHeader("lastName") String lastName,
+            @RequestHeader(name = "inviteCode", required = false) String inviteCode){
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setEmail(email);
+        userInfo.setUsername(username);
+        userInfo.setPassword(password);
+        userInfo.setFirstName(firstName);
+        userInfo.setLastName(lastName);
 
         String errorMessage = requestValidator.validateRegistration(userInfo);
         if(errorMessage != null) {
