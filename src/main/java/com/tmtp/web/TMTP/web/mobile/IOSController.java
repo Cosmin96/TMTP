@@ -4,14 +4,14 @@ import com.tmtp.web.TMTP.dto.AppResponse;
 import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
 import com.tmtp.web.TMTP.dto.exceptions.NoUserFound;
 import com.tmtp.web.TMTP.dto.exceptions.UserBannedException;
-import com.tmtp.web.TMTP.entity.Team;
-import com.tmtp.web.TMTP.entity.User;
-import com.tmtp.web.TMTP.entity.UserInfo;
+import com.tmtp.web.TMTP.entity.*;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.service.StorageService;
 import com.tmtp.web.TMTP.utils.RequestValidator;
+import com.tmtp.web.TMTP.web.PrivateLobbyFacade;
 import com.tmtp.web.TMTP.web.UserDataFacade;
+import com.tmtp.web.TMTP.web.VideoPostsFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -26,8 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class IOSController {
@@ -38,6 +37,8 @@ public class IOSController {
     private final SecurityService securityService;
     private final RequestValidator requestValidator;
     private final UserDataFacade userDataFacade;
+    private final PrivateLobbyFacade privateLobbyFacade;
+    private final VideoPostsFacade videoPostsFacade;
     private final MessageSource messageSource;
     private final StorageService storageService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -46,6 +47,8 @@ public class IOSController {
                          final SecurityService securityService,
                          final RequestValidator requestValidator,
                          final UserDataFacade userDataFacade,
+                         final VideoPostsFacade videoPostsFacade,
+                         final PrivateLobbyFacade privateLobbyFacade,
                          final MessageSource messageSource,
                          final StorageService storageService,
                          final BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -53,6 +56,8 @@ public class IOSController {
         this.securityService = securityService;
         this.requestValidator = requestValidator;
         this.userDataFacade = userDataFacade;
+        this.videoPostsFacade = videoPostsFacade;
+        this.privateLobbyFacade = privateLobbyFacade;
         this.messageSource = messageSource;
         this.storageService = storageService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -146,6 +151,77 @@ public class IOSController {
         userData.put("greenPoints", user.getPoints().getGreen());
         userData.put("yellowPoints", user.getPoints().getYellow());
         userData.put("redPoints", user.getPoints().getRed());
+
+        AppResponse response = new AppResponse();
+        response.setData(userData);
+        return response;
+    }
+
+    @RequestMapping(value = "/mobile/home", method = RequestMethod.GET)
+    public AppResponse getHomeFeed() {
+
+        User user = userDataFacade.retrieveLoggedUser();
+        if(user.getBanned()){
+            throw new UserBannedException(getMessage("Banned.userForm.username"));
+        }
+
+        List<VideoPosts> posts = videoPostsFacade.retrieveListOfVideoPosts();
+
+        //"algorithmic news feed"
+        //Collections.shuffle(posts);
+
+        Collections.sort(posts, new Comparator<VideoPosts>() {
+            @Override
+            public int compare(VideoPosts videoPosts, VideoPosts t1) {
+                return videoPosts.getId().compareTo(t1.getId());
+            }
+        });
+        Collections.reverse(posts);
+
+        List<String> allUsers = new ArrayList<String>();
+        for(User oneuser : userDataFacade.retrieveAllUsers()){
+            allUsers.add(oneuser.getUsername());
+        }
+
+        List<PrivateLobby> joinedLobbies = new ArrayList<PrivateLobby>();
+        if(!privateLobbyFacade.retrieveAll().isEmpty()){
+            for(PrivateLobby lobby : privateLobbyFacade.retrieveAll()){
+                if(lobby.getJoinedUsers().contains(user.getUsername())){
+                    joinedLobbies.add(lobby);
+                }
+            }
+        }
+
+        Map<String, Object> userData = new HashMap<>();
+
+        userData.put("allUsers", allUsers);
+        userData.put("user", user);
+        userData.put("fname", user.getFirstName());
+        userData.put("username", user.getUsername());
+        userData.put("greenPoints", user.getPoints().getGreen());
+        userData.put("yellowPoints", user.getPoints().getYellow());
+        userData.put("redPoints", user.getPoints().getRed());
+        userData.put("videoPostForm", new VideoPosts());
+
+        if(!joinedLobbies.isEmpty()) {
+            userData.put("joinedLobbies", joinedLobbies);
+            userData.put("myLobbies", true);
+        }
+        else{
+            userData.put("myLobbies", false);
+        }
+
+        if(user.getPrivateLobby()) {
+            PrivateLobby userLobby = privateLobbyFacade.findByCreator(user.getUsername());
+            userData.put("myLobby", userLobby);
+            userData.put("hasLobbies", true);
+            userData.put("hasOwnLobby", true);
+        }
+        else{
+            userData.put("hasOwnLobby", false);
+            userData.put("hasLobbies", false);
+        }
+        userData.put("posts", posts);
 
         AppResponse response = new AppResponse();
         response.setData(userData);
