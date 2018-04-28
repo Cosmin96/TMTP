@@ -201,7 +201,6 @@ public class IOSController {
         userData.put("greenPoints", user.getPoints().getGreen());
         userData.put("yellowPoints", user.getPoints().getYellow());
         userData.put("redPoints", user.getPoints().getRed());
-        userData.put("videoPostForm", new VideoPosts());
 
         if(!joinedLobbies.isEmpty()) {
             userData.put("joinedLobbies", joinedLobbies);
