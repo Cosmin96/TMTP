@@ -92,11 +92,9 @@ public class IOSController {
         user.setProfile("no");
         user.setTeam(Team.ARSENAL);
 
-        userService.save(user);
-        securityService.autologin(userInfo.getUsername(), userInfo.getPassword());
-
         if (userInfo.getImage() != null && !userInfo.getImage().isEmpty()) {
             String photoName = storageService.store(userInfo.getImage(), userInfo.getUsername());
+            user.setProfile("yes");
             LOG.info("Username {}, photo saved: {}.", userInfo.getUsername(), photoName);
         }
 
@@ -108,6 +106,9 @@ public class IOSController {
                 userService.updateUser(referredUser);
             }
         }
+
+        userService.save(user);
+        securityService.autologin(userInfo.getUsername(), userInfo.getPassword());
 
         userInfo.setPassword("");
         userInfo.setSessionID(RequestContextHolder.currentRequestAttributes().getSessionId());
