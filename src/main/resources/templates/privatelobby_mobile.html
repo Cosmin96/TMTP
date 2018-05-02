@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Top Bantz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+    <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9674699695564602",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+
+<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+
+<!--<nav th:replace="fragments/navbar :: navbar"></nav>-->
+
+<div th:replace="fragments/ads :: adstop"></div>
+
+<div style="margin-top: 2% !important;" class="container statsmenu">
+
+    <div class="row">
+        <div class="col-lg-3">
+            <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i>
+                <span th:text="${greenPoints + ' Green Points'}"></span></p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i>
+                <span th:text="${yellowPoints + ' Yellow Cards'}"></span></p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i>
+                <span th:text="${redPoints + ' Red Cards'}"></span></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="errorField2" th:if="${error}">
+            <center>
+                <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on
+                    multiple lines to see if design is screwed!</p>
+            </center>
+        </div>
+    </div>
+</div>
+
+<div th:if="${not showLobby}" class="container" style="margin-top: 3%;">
+    <div class="row stadiumCard">
+        <center>
+            <form th:action="@{'/privateLobby/join/' + ${lobby.getId()}}" method="POST" style="margin-left: 120%; margin-right: auto">
+                <input type='hidden' value="49" name='amount' style="margin-left: auto; margin-right: auto" />
+                <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        th:attr='data-key=${stripePublicKey},
+                                                    data-currency=${currency}'
+                        data-amount="49"
+                        data-label="Join Lobby for £0.49"
+                        data-description="Join Private lobby"
+                        data-name="TMTP"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-locale="auto"
+                        data-zip-code="true"
+                        data-currency="gbp">
+                </script>
+            </form>
+        </center>
+        <!--<a th:href="@{'/privateLobby/join/' + ${lobby.getId()}}" class="btn btn-success" style="margin-left: auto; margin-right: auto">Join Lobby</a>-->
+    </div>
+</div>
+
+<div th:if="${showLobby}" class="container" style="margin-top: 3%;">
+    <div class="row desktopNone">
+        <div class="col-xs-12">
+            <div class="row" style="margin-left: 6%">
+                <a href="https://talksport.com/football" class="linkwrap">
+                    <div class="blocker"></div>
+                <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
+                <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
+                </a>
+            </div>
+            <div class="row" style="margin-left: 1%">
+
+                <iframe src="https://discordapp.com/widget?id=347112707809607680&amp;theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+
+            </div>
+
+            <br/>
+
+
+        </div>
+    </div>
+
+    <div class="row">
+        <!--<div class="col-lg-3 mobileNone">-->
+        <!--<script src="http://www.btfscores.com/widgets/widget-side.min.js" th:async="true"></script>-->
+        <!--<div id="sidebar-soccer-goal" style="width:250px;"></div>-->
+        <!--</div>-->
+
+
+        <div class="col-md-9 col-xs-12 scrollabelcolumn">
+            <div class="text-center stadiumCard">
+                <center>
+                    <h1>To access live and voice chat lobbies, click the following button:</h1>
+                    <a class="btn btn-success" href="https://discord.gg/pHnEN2s">Join chat</a>
+                </center>
+            </div>
+            <div class="row">
+                <h3 style="color:white">This VIP Lobby was created by <span th:text="${lobbyCreator}"></span></h3>
+                <h3 style="color:white">Banter privately with your friends</h3>
+            </div>
+
+            <div class="row">
+                <div class="chat-bar margin-top">
+                    <div style="border-bottom: 1px solid rgba(0,0,0,0.1)" class="paddinger-20-nobottom">
+                        <h4 class="bold" style="color: #000!important;">Private Chat</h4>
+                    </div>
+
+                    <div class="paddinger-0-20">
+
+                        <div th:id="'chat-' + ${lobby.getId()}" class="chat-conversation">
+                            <center id="center-load-more"><a id="load-more" style="display: none;" href="javascript:loadMore();">Load more</a></center>
+
+                            <th:block th:each="message : ${messages}">
+                                <div class="chat-message">
+                                    <h7>
+                                        <font class="bold chat-message-author">
+                                            <img class="chat-message-author-pic" th:src="@{'/getFiles/' + ${message.getUsername()} + '.jpg'}" width="15px" height="15px"/>
+                                            <a th:text="'&nbsp;' + ${message.getUsername()} + '&nbsp;'" class="chat-message-author-a" style="color:inherit;" th:href="'/profile/' + ${message.getUsername()}"></a>
+                                        </font>
+                                        <font th:text="${message.getText()}" class="chat-message-content">Some message here</font>
+                                    </h7>
+                                </div>
+                            </th:block>
+
+                        </div>
+
+                    </div>
+
+                    <div style="border-top: 1px solid rgba(0,0,0,0.1)" class="paddinger-20">
+
+                        <input id="message-text" type="text" class="input-message chat-field chat-field-large" placeholder="Write a message..."/>
+                        <input id="send-message-id" style="margin-left:10px;" type="button" class="send-message btn btn-success" value="Send"/>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--<center>-->
+                <!--<div class="row">-->
+                    <!--&lt;!&ndash;<iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=9c487911-6e59-4856-8b72-94548de2e43c&amp;room=DEFAULT_ROOM&amp;iframe=true" width="800px" height="700px" allow="microphone" ></iframe>&ndash;&gt;-->
+                    <!--<center>-->
+                        <!--<div id="otEmbedContainer" style="width:600px; height:700px"></div>-->
+                        <!--<script th:src="@{'https://tokbox.com/embed/embed/ot-embed.js?embedId=f427b4fa-1b1f-478c-9c29-731e1a7f77b9&amp;room=' + ${lobby.getId()}}">-->
+
+                        <!--</script>-->
+
+                        <!--<script type="text/javascript">-->
+                            <!--var pubOptions = {-->
+                                <!--publishAudio:true,-->
+                                <!--publishVideo:false,-->
+                                <!--subscribeToAudio:true,-->
+                                <!--subscribeToVideo:false,-->
+                                <!--videoSource: null,-->
+                            <!--};-->
+                            <!--var publisher;-->
+                            <!--publisher = OT.initPublisher('otEmbedContainer', pubOptions);-->
+                            <!--publisher.publishVideo(false);-->
+
+                        <!--</script>-->
+                    <!--</center>-->
+                <!--</div>-->
+            <!--</center>-->
+
+            <div class="row" style="margin-top: 3%;">
+                <div class="mobileNone">
+                <iframe frameborder="0"  scrolling="yes" width="520" height="700" src="https://www.fctables.com/england/premier-league/iframe/?type=table&amp;lang_id=2&amp;country=5&amp;template=10&amp;team=&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
+                </div>
+                <div class="desktopNone">
+                    <a href="https://www.fctables.com" class="linkwrap">
+                        <div class="blockerfct"></div>
+                        <iframe frameborder="0"  scrolling="yes" width="520" height="700" src="https://www.fctables.com/england/premier-league/iframe/?type=table&amp;lang_id=2&amp;country=5&amp;template=10&amp;team=&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row stadiumCard" style="margin-top: 3%">
+                <iframe id="iframe-livescore-box" src="https://www.fctables.com/livescore_feed/66353b5d04a4146a915e1293d/" width="100%" height="500" scrolling="yes" frameborder="0" onload="resizeIframe(this)"></iframe><script>window.addEventListener("DOMContentLoaded",function(){(function(){var a=window.addEventListener?"addEventListener":"attachEvent",b=window[a],c="attachEvent"==a?"onmessage":"message",d=document.getElementById("iframe-livescore-box");b(c,function(a){var b=JSON.parse(a.data);d.style.height=b.height+"px",console.log(b)},!1)})()},!1);</script>
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mobileNone">
+            <div class="row">
+                <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
+                <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
+            </div>
+            <div class="row">
+                <iframe src="https://discordapp.com/widget?id=347112707809607680&amp;theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+            </div>
+
+            <br/>
+            <div class="row">
+                <a href="https://www.amazon.co.uk/?tag=topbantz2018-21&amp;linkCode=ur1">
+                    <div th:replace="fragments/slideshow :: slideshow2"></div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<br/><br/>
+<div th:replace="fragments/ads :: adsbottom"></div>
+
+<!-- Footer -->
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top d-lg-none">
+    <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+
+<!-- Modal -->
+<div th:replace="fragments/infomodal :: infomodal"></div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+<script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+
+<!--<script type="text/javascript">-->
+    <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+<!--</script>-->
+
+<!-- Pusher for chat -->
+<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        $('.chat-conversation').animate({scrollTop: $('.chat-conversation').prop("scrollHeight")}, 500);
+    });
+
+    /*<![CDATA[*/
+    var league = /*[[${lobby.getId()}]]*/ '0';
+    /*]]>*/
+
+    /*<![CDATA[*/
+    var totalMessagesAtLoad = /*[[${totalMessages}]]*/ '0';
+    /*]]>*/
+
+    var startMaxMessages = 30;
+    totalMessagesAtLoad = parseInt(totalMessagesAtLoad, 10);
+
+    var start;
+    start = totalMessagesAtLoad - startMaxMessages;
+
+    if(startMaxMessages > totalMessagesAtLoad - 1) {
+        start = 0;
+    } else {
+        $('#load-more').show();
+    }
+
+    function prependMessage(text, username) {
+        $('#chat-' + league).prepend('<div class="chat-message">' +
+            '                  <h7>' +
+            '                    <font class="bold chat-message-author">' +
+            '                      <img class="chat-message-author-pic" src="/getFiles/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+            '                    </font>' +
+            '                    <font class="chat-message-content">' + text + '</font>' +
+            '                  </h7>' +
+            '                </div>');
+    }
+
+    function appendMessage(text, username) {
+        $('#chat-' + league).append('<div class="chat-message">' +
+            '                  <h7>' +
+            '                    <font class="bold chat-message-author">' +
+            '                      <img class="chat-message-author-pic" src="/getFiles/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+            '                    </font>' +
+            '                    <font class="chat-message-content">' + text + '</font>' +
+            '                  </h7>' +
+            '                </div>');
+    }
+
+    function loadMore() {
+        if(!(start > 0)) { return; }
+
+        var startToSend = Math.max(0, start - 30);
+        var endToSend = start;
+
+        $.ajax({
+            url: '/get-next-messages/' + ('chat-' + league) + '/' + startToSend + '/' + endToSend,
+            success: function (data) {
+                start = startToSend;
+                $('#load-more').remove();
+                $('#center-load-more').remove();
+
+                for(var i = data.length - 1; i > -1; i--) {
+                    prependMessage(data[i].text, data[i].username);
+                }
+
+                if(start > 0) {
+                    // create new load-more
+                    $('#chat-' + league).prepend('<center id="center-load-more"><a id="load-more" style="display: none;" href="javascript:loadMore();">Load more</a></center>');
+                    $('#load-more').show();
+                }
+            },
+            error: function () {
+                console.log("Error!");
+            }
+        });
+    }
+
+    var pusher = new Pusher('6cf8829fd3f2bc2ca22f', {
+        cluster: 'eu',
+        encrypted: true
+    });
+
+    var channel = pusher.subscribe('chat-' + league);
+    channel.bind('new-message', function(data) {
+        message = data.message;
+        username = data.username;
+
+        appendMessage(message, username);
+    });
+</script>
+
+<script th:inline="javascript">
+    $('#send-message-id').click(function () {
+        var textToSend = $('#message-text').val();
+
+        /*<![CDATA[*/
+        var league = /*[[${lobby.getId()}]]*/ '0';
+        /*]]>*/
+
+        sendMessage(textToSend);
+    });
+
+    $("#message-text").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#send-message-id").click();
+        }
+    });
+
+    function sendMessage(textToSend) {
+        if(textToSend.length > 0) {
+            if(textToSend.length > 1000) {
+                window.alert("The text can be maximum 1000 characters long!");
+                return;
+            }
+            $('#message-text').val('');
+            $.ajax({
+                url: '/new-chat-message/' + btoa(textToSend) + '/' + ('chat-' + league),
+                success: function (data) {
+                    console.log(data);
+                    $('.chat-conversation').animate({scrollTop: $('.chat-conversation').prop("scrollHeight")}, 500);
+                },
+                error: function () {
+                    console.log("Error!");
+                }
+            });
+        }
+    }
+</script>
+
+
+<script>
+    $('.adBanner').hide();
+    var randNoMobile = -1;
+    var randNoDesktop = -1;
+    var randNoMobile_down = -1;
+    var randNoDesktop_down = -1;
+
+    $(document).ready(function () {
+        randNoMobile = Math.floor((Math.random() * 14) + 1);
+        randNoDesktop = Math.floor((Math.random() * 8) + 1);
+        randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+        randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+
+        var startWidth = $(window).width();
+        if (Math.min(startWidth, 800) !== 800) {
+            $('#mobileAdBanner' + randNoMobile).show();
+            $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '15%');
+        } else {
+            $('#desktopAdBanner' + randNoDesktop).show();
+            $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '10%');
+        }
+    });
+
+    $(window).resize(function () {
+        if (randNoMobile == -1) {
+            randNoMobile = Math.floor((Math.random() * 14) + 1);
+        }
+        if (randNoDesktop == -1) {
+            randNoDesktop = Math.floor((Math.random() * 8) + 1);
+        }
+        if (randNoMobile_down == -1) {
+            randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+        }
+        if (randNoDesktop_down == -1) {
+            randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+        }
+        $('.adBanner').hide();
+        var startWidth = $(window).width();
+        if (Math.min(startWidth, 800) !== 800) {
+            $('#mobileAdBanner' + randNoMobile).show();
+            $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '15%');
+        } else {
+            $('#desktopAdBanner' + randNoDesktop).show();
+            $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '10%');
+        }
+    });
+</script>
+
+<script>
+    $("#slideshow > div:gt(0)").hide();
+    $("#slideshow2 > div:gt(0)").hide();
+
+    setInterval(function() {
+        $('#slideshow > div:first')
+            .fadeOut(0)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow');
+    },  4000);
+
+    setInterval(function() {
+        $('#slideshow2 > div:first')
+            .fadeOut(0)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow2');
+    },  4000);
+</script>
+
+</body>
+
+</html>

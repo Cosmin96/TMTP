@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Top Bantz</title>
+
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+
+    <!-- Tingle plugin css -->
+    <link rel="stylesheet" href="../static/css/tingle.min.css" th:href="@{/css/tingle.min.css}"/>
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../static/css/cards.css" th:href="@{/css/cards.css}" />
+
+    <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9674699695564602",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+
+  <body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+
+  <!--<nav th:replace="fragments/navbar :: navbar"></nav>-->
+
+  <div th:replace="fragments/ads :: adstop"></div>
+
+    <div style="margin-top: 2% !important;" class="container statsmenu">
+
+        <div class="row">
+            <div class="col-lg-3">
+                <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
+            </div>
+
+            <div class="col-lg-3">
+                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i>
+                    <span th:text="${greenPoints + ' Green Points'}"></span></p>
+            </div>
+
+            <div class="col-lg-3">
+                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i>
+                    <span th:text="${yellowPoints + ' Yellow Cards'}"></span></p>
+            </div>
+
+            <div class="col-lg-3">
+                <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i>
+                    <span th:text="${redPoints + ' Red Cards'}"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="errorField2" th:if="${error}">
+                <center>
+                    <p th:text="${message}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+                </center>
+            </div>
+        </div>
+        <div class="row">
+            <div class="errorField2" style="background-color: #00ff00 !important" th:if="${confirmation}">
+                <center>
+                    <p th:text="${boughtItem + ' has been successfully purchased'}" style="vertical-align: center;">This is an error message that spans on multiple lines to see if design is screwed!</p>
+                </center>
+            </div>
+        </div>
+    </div>
+
+  <div class="container">
+      <div class="row">
+          <div class="col-xs-12" style="margin-top: 5%; margin-left: auto; margin-right: auto">
+              <center>
+                  <h1 style="color:white">Click to purchase Top Bantz Merchandise:</h1>
+                  <center>
+                      <a href="https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true" class="btn btn-success" style="margin-left: 12%">Merchandise</a>
+                  </center>
+              </center>
+          </div>
+      </div>
+  </div>
+
+    <div class="container" th:if="${not user.getPrivateLobby()}">
+        <div class="row" style="margin-top: 5%">
+            <center>
+            <h4 style="color:white">Banter live using voice and video when you purchase a VIP Lobby:</h4>
+            </center>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" style="margin-top: 5%; margin-left: auto; margin-right: auto">
+                <center>
+                <div class="cards">
+                    <div class="cards-container">
+                        <div class="row">
+                            <h3>Buy VIP Lobby</h3>
+                        </div>
+                        <div class="row" style="margin-bottom:2%">
+
+                            <div class="col-xs-12">
+                                <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                    <form th:action="@{'/lobby/create/card'}" method="POST" style="margin-left: 60%; margin-right: auto">
+                                        <input type='hidden' value="49" name='amount' style="margin-left: auto; margin-right: auto" />
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                th:attr='data-key=${stripePublicKey},
+                                                    data-currency=${currency}'
+                                                data-amount="49"
+                                                data-label="£0.49"
+                                                data-description="Banter live using voice and video when you purchase a VIP Lobby"
+                                                data-name="Top Bantz"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-zip-code="true"
+                                                data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </center>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12" style="margin-top:40px; margin-left: -20px;">
+                                    <center>
+                                        <a th:if="${user.getPoints().getGreen()} lt 50" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="50Pts">Buy</span></a>
+                                        <a th:if="${user.getPoints().getGreen()} ge 50" th:href="@{'/lobby/create/points'}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="50Pts">Buy</span></a>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 3%">
+        <div class="row">
+
+            <div class="col-xs-3"  style="margin-left: 3%">
+                <div class="cards">
+                    <img th:src="@{'/img/chest4.png'}" alt="Avatar" width="325px" height="325px" />
+                    <div class="cards-container">
+                        <div class="row">
+                            <h3>Buy small chest</h3>
+                        </div>
+                        <div class="row">
+                            <h4>Get 50 points</h4>
+                        </div>
+                        <div class="row" style="margin-bottom:2%">
+                            <div class="col-xs-12">
+                                <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                    <form th:action="@{'/buy/chest/small'}" method="POST" style="margin-left: 120%; margin-right: auto">
+                                        <input type='hidden' value="999" name='amount' style="margin-left: auto; margin-right: auto" />
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                th:attr='data-key=${stripePublicKey},
+                                                    data-currency=${currency}'
+                                                data-amount="999"
+                                                data-label="£9.99"
+                                                data-description="Gain 50 green points instantly"
+                                                data-name="Top Bantz"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-zip-code="true"
+                                                data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3" style="margin-left: 3%">
+                <div class="cards">
+                    <img th:src="@{'/img/chest5.png'}" alt="Avatar" width="325px" height="325px" />
+                    <div class="cards-container">
+                        <div class="row">
+                            <h3>Buy medium chest</h3>
+                        </div>
+                        <div class="row">
+                            <h4>Get 100 points</h4>
+                        </div>
+                        <div class="row" style="margin-bottom:2%">
+                            <div class="col-xs-12">
+                                <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                    <form th:action="@{'/buy/chest/medium'}" method="POST" style="margin-left: 120%; margin-right: auto">
+                                        <input type='hidden' value="1499" name='amount' style="margin-left: auto; margin-right: auto" />
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                th:attr='data-key=${stripePublicKey},
+                                                    data-currency=${currency}'
+                                                data-amount="1499"
+                                                data-label="£14.99"
+                                                data-description="Gain 100 green points instantly"
+                                                data-name="Top Bantz"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-zip-code="true"
+                                                data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3" style="margin-left: 3%">
+                <div class="cards">
+                    <img th:src="@{'/img/chest6.png'}" alt="Avatar" width="325px" height="325px" />
+                    <div class="cards-container">
+                        <div class="row">
+                            <h3>Buy large chest</h3>
+                        </div>
+                        <div class="row">
+                            <h4>Get 150 points</h4>
+                        </div>
+                        <div class="row" style="margin-bottom:2%">
+                            <div class="col-xs-12">
+                                <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                    <form th:action="@{'/buy/chest/large'}" method="POST" style="margin-left: 120%; margin-right: auto">
+                                        <input type='hidden' value="1999" name='amount' style="margin-left: auto; margin-right: auto" />
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                th:attr='data-key=${stripePublicKey},
+                                                    data-currency=${currency}'
+                                                data-amount="1999"
+                                                data-label="£19.99"
+                                                data-description="Gain 150 green points instantly"
+                                                data-name="Top Bantz"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-zip-code="true"
+                                                data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container statsmenu" style="margin-top: 2% !important; padding-bottom: 1% !important;">
+        <div class="row">
+            <div class="col-lg-2" style="margin-top: 1%">
+                <center>
+                <a class="btn btn-success"  th:href="@{'/shop/'}" style="font-size: 20px;">T-Shirts</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2" style="margin-top: 1%">
+                <center>
+                <a class="btn btn-success"  th:href="@{'/shop/shorts'}" style="font-size: 20px;">Shorts</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2" style="margin-top: 1%">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/socks'}" style="font-size: 20px;">Socks</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2" style="margin-top: 1%">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/footballs'}" style="font-size: 20px;">Footballs</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2" style="margin-top: 1%">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/overlays'}" style="font-size: 20px;">Overlays</a>
+                </center>
+            </div>
+
+            <div class="col-lg-2" style="margin-top: 1%">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/titles'}" style="font-size: 20px;">Titles</a>
+                </center>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 1%">
+            <div class="col-lg-2">
+                <center>
+                    <a class="btn btn-success" th:href="@{'/shop/trophies'}" style="font-size: 20px;">Trophies</a>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row stadiumCard" th:if="${category.equals('title')}">
+            <h2>Use these titles to express your mood. These titles will be displayed on your Profile Page</h2>
+        </div>
+        <div class="row">
+            <div th:each="item : ${inventory}" th:if="${item.getType().equals(category)}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
+                <div class="cards">
+                    <img th:if="${not item.getType().equals('title')}" th:src="@{${item.getImgPath()}}" alt="Avatar" style="width:100%" />
+                    <div class="cards-container">
+                            <div class="row">
+                                <h3 style="margin-left: 2%" th:text="${item.getName()}">John Doe</h3>
+                            </div>
+                            <div class="row" style="margin-bottom:2%">
+                                <div class="col-md-6 col-xs-6">
+                                    <center>
+                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                    </center>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                        <form th:action="@{'/charge/' + ${item.getId()}}" method="POST">
+                                            <input type='hidden' th:value='${item.getGbpPrice()}' name='amount' />
+                                            <script
+                                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                    th:attr='data-key=${stripePublicKey},
+                                                    data-amount=${item.getGbpPrice()},
+                                                    data-currency=${currency},
+                                                    data-description=${item.getName()},
+                                                    data-label=${item.getGbpPriceFormatted()}'
+                                                    data-name="Top Bantz"
+                                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                    data-locale="auto"
+                                                    data-zip-code="true"
+                                                    data-currency="gbp">
+                                            </script>
+                                        </form>
+                                    </center>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1 th:if="${category.equals('overlay')}" style="color: white"><b><u>Club Overlays</u></b></h1>
+            <div class="row" th:if="${category.equals('overlay')}">
+                <div th:each="item : ${clubOverlays}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
+                    <div class="cards">
+                        <img th:if="${not item.getType().equals('title')}" th:src="@{${item.getImgPath()}}" alt="Avatar" style="width:100%" />
+                        <div class="cards-container">
+                            <div class="row">
+                                <h3 style="margin-left: 2%" th:text="${item.getName()}">John Doe</h3>
+                            </div>
+                            <div class="row" style="margin-bottom:2%">
+                                <div class="col-md-6 col-xs-6">
+                                    <center>
+                                        <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                        <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                    </center>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <center>
+                                        <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                        <form th:action="@{'/charge/' + ${item.getId()}}" method="POST">
+                                            <input type='hidden' th:value='${item.getGbpPrice()}' name='amount' />
+                                            <script
+                                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                    th:attr='data-key=${stripePublicKey},
+                                                    data-amount=${item.getGbpPrice()},
+                                                    data-currency=${currency},
+                                                    data-description=${item.getName()},
+                                                    data-label=${item.getGbpPriceFormatted()}'
+                                                    data-name="Top Bantz"
+                                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                    data-locale="auto"
+                                                    data-zip-code="true"
+                                                    data-currency="gbp">
+                                            </script>
+                                        </form>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1 th:if="${category.equals('overlay')}" style="color: white"><b><u>Country Overlays</u></b></h1>
+            <div class="row" th:if="${category.equals('overlay')}">
+            <div th:each="item : ${countryOverlays}" class="col-md-4 col-sm-6 col-xs-12" style="margin-top: 5%;">
+                <div class="cards">
+                    <img th:if="${not item.getType().equals('title')}" th:src="@{${item.getImgPath()}}" alt="Avatar" style="width:100%" />
+                    <div class="cards-container">
+                        <div class="row">
+                            <h3 style="margin-left: 2%" th:text="${item.getName()}">John Doe</h3>
+                        </div>
+                        <div class="row" style="margin-bottom:2%">
+                            <div class="col-md-6 col-xs-6">
+                                <center>
+                                    <a th:if="${user.getPoints().getGreen()} lt ${item.getPointPrice()}" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                    <a th:if="${user.getPoints().getGreen()} ge ${item.getPointPrice()}" th:href="@{'/buy/' + ${item.getId()}}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="${item.getPointPrice()} + Pts">Buy</span></a>
+                                </center>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <center>
+                                    <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
+                                    <form th:action="@{'/charge/' + ${item.getId()}}" method="POST">
+                                        <input type='hidden' th:value='${item.getGbpPrice()}' name='amount' />
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                th:attr='data-key=${stripePublicKey},
+                                                    data-amount=${item.getGbpPrice()},
+                                                    data-currency=${currency},
+                                                    data-description=${item.getName()},
+                                                    data-label=${item.getGbpPriceFormatted()}'
+                                                data-name="Top Bantz"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-zip-code="true"
+                                                data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+  <div th:replace="fragments/infomodal :: infomodal"></div>
+
+  <br/><br/>
+  <div th:replace="fragments/ads :: adsbottom"></div>
+
+  <!-- Footer -->
+  <footer th:replace="fragments/footer :: footer"></footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top d-lg-none">
+      <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+    <script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+
+  <!-- Tingle script import -->
+  <script src="../static/js/tingle.min.js" th:src="@{/js/tingle.min.js}"></script>
+
+    <!--<script type="text/javascript">-->
+        <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+    <!--</script>-->
+
+    <script>
+        $('.adBanner').hide();
+        var randNoMobile = -1;
+        var randNoDesktop = -1;
+        var randNoMobile_down = -1;
+        var randNoDesktop_down = -1;
+
+        $(document).ready(function () {
+            randNoMobile = Math.floor((Math.random() * 14) + 1);
+            randNoDesktop = Math.floor((Math.random() * 8) + 1);
+            randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+            randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+
+            var startWidth = $(window).width();
+            if (Math.min(startWidth, 800) !== 800) {
+                $('#mobileAdBanner' + randNoMobile).show();
+                $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+                $('.top-ads-container').css('marginTop', '15%');
+            } else {
+                $('#desktopAdBanner' + randNoDesktop).show();
+                $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+                $('.top-ads-container').css('marginTop', '10%');
+            }
+        });
+
+        $(window).resize(function () {
+            if (randNoMobile == -1) {
+                randNoMobile = Math.floor((Math.random() * 14) + 1);
+            }
+            if (randNoDesktop == -1) {
+                randNoDesktop = Math.floor((Math.random() * 8) + 1);
+            }
+            if (randNoMobile_down == -1) {
+                randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+            }
+            if (randNoDesktop_down == -1) {
+                randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+            }
+            $('.adBanner').hide();
+            var startWidth = $(window).width();
+            if (Math.min(startWidth, 800) !== 800) {
+                $('#mobileAdBanner' + randNoMobile).show();
+                $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+                $('.top-ads-container').css('marginTop', '15%');
+            } else {
+                $('#desktopAdBanner' + randNoDesktop).show();
+                $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+                $('.top-ads-container').css('marginTop', '10%');
+            }
+        });
+    </script>
+
+  <script>
+      $("#slideshow > div:gt(0)").hide();
+      $("#slideshow2 > div:gt(0)").hide();
+
+      setInterval(function() {
+          $('#slideshow > div:first')
+              .fadeOut(0)
+              .next()
+              .fadeIn(1000)
+              .end()
+              .appendTo('#slideshow');
+      },  4000);
+
+      setInterval(function() {
+          $('#slideshow2 > div:first')
+              .fadeOut(0)
+              .next()
+              .fadeIn(1000)
+              .end()
+              .appendTo('#slideshow2');
+      },  4000);
+  </script>
+
+  <!-- The below script handles the display of popups, using the popup var/flag set by the app -->
+  <script type="text/javascript">
+      $(document).ready(function () {
+
+          function triggerAmazonPopup() {
+              // instanciate new modal
+              var modal = new tingle.modal({
+                  footer: true,
+                  stickyFooter: false,
+                  closeMethods: ['overlay', 'button', 'escape'],
+                  closeLabel: "Close",
+                  onOpen: function () {
+                      console.log('modal open');
+                  },
+                  onClose: function () {
+                      console.log('modal closed');
+                  },
+                  beforeClose: function () {
+                      return true; // close the modal
+                  }
+              });
+
+              var randNo = Math.floor((Math.random() * 4) + 1);
+              var imgSource = '/img/products/' + randNo + '.png';
+              var url = $('<textarea/>').html("https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true").text();
+
+              $('.tingle-modal-box').addClass('make-modal-smaller');
+              $('.tingle-modal-box__content').css('padding', '1px');
+              $('.tingle-modal-box__footer').addClass('text-center');
+
+              // set content
+              modal.setContent('<center><img width="100%" height="auto" align="middle" src="' + imgSource + '"/></center>'
+                  + '<center><h6 style="padding-top:4px !important">Hi! Are you looking for the newest Top Bantz products?</h6></center>'
+                  + '<center><h6>Check them out on our <a class="text-orange" href="' + url + '">Amazon Page</a></h6></center>');
+
+              // add a button to Amazon page
+              modal.addFooterBtn('Shop Now On Amazon!', 'tingle-btn tingle-btn--primary btn-orange', function () {
+                  window.location.href = url;
+              });
+
+              $('.tingle-modal').css('overflow', 'scroll');
+
+              // open modal
+              modal.open();
+          }
+
+          console.log("Showing Amazon Popup...");
+          triggerAmazonPopup();
+
+      });
+  </script>
+
+  </body>
+
+</html>

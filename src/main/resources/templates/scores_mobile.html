@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Top Bantz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+
+    <!-- Custom styles -->
+    <link href="../static/css/freelancer.min.css" th:href="@{/css/freelancer.min.css}" rel="stylesheet" />
+    <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
+
+    <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9674699695564602",
+            enable_page_level_ads: true
+        });
+    </script>
+
+</head>
+
+<body class="index" id="page-top"  th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+
+<!-- Navigation -->
+<!--<nav th:replace="fragments/navbar :: navbar"></nav>-->
+
+<div th:replace="fragments/ads :: adstop"></div>
+
+<div style="margin-top: 2% !important;" class="container statsmenu">
+
+    <div class="row">
+        <div class="col-lg-3">
+            <p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #00ff00" aria-hidden="true"></i>
+                <span th:text="${greenPoints + ' Green Points'}"></span></p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ffff00" aria-hidden="true"></i>
+                <span th:text="${yellowPoints + ' Yellow Cards'}"></span></p>
+        </div>
+
+        <div class="col-lg-3">
+            <p align="center" class="pointBox"><i class="fa fa-square" style="color: #ff0000" aria-hidden="true"></i>
+                <span th:text="${redPoints + ' Red Cards'}"></span></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="errorField2" th:if="${error}">
+            <center>
+                <p th:text="${errorMessage}" style="vertical-align: center;">This is an error message that spans on
+                    multiple lines to see if design is screwed!</p>
+            </center>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 3%">
+    <center>
+    <div class="mobileNone">
+    <iframe height="400" scrolling="yes" style="background-color: white" src="https://talksport.com/talksport/rss_widget/" width="300"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
+    </div>
+    <div class="desktopNone">
+        <a href="https://talksport.com/football" class="linkwrap">
+            <div class="blocker"></div>
+            <iframe height="400" scrolling="yes" style="background-color: white" src="https://talksport.com/talksport/rss_widget/" width="300"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
+
+        </a>
+    </div>
+
+    </center>
+
+</div>
+
+<div class="container stadiumCard" style="margin-top: 3%">
+    <iframe id="iframe-livescore-box" src="https://www.fctables.com/livescore_feed/66353b5d04a4146a915e1293d/" width="100%" height="3100" scrolling="yes" frameborder="0" onload="resizeIframe(this)"></iframe><script>window.addEventListener("DOMContentLoaded",function(){(function(){var a=window.addEventListener?"addEventListener":"attachEvent",b=window[a],c="attachEvent"==a?"onmessage":"message",d=document.getElementById("iframe-livescore-box");b(c,function(a){var b=JSON.parse(a.data);d.style.height=b.height+"px",console.log(b)},!1)})()},!1);</script>
+</div>
+
+<br/><br/>
+<div th:replace="fragments/ads :: adsbottom"></div>
+
+<!-- Footer -->
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top d-lg-none">
+    <a class="btn btn-primary page-scroll" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+
+
+<!-- Modal -->
+<div th:replace="fragments/infomodal :: infomodal"></div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="../static/vendor/popper/popper.min.js" th:src="@{/vendor/popper/popper.min.js}"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="../static/js/jqBootstrapValidation.js" th:src="@{/js/jqBootstrapValidation.js}"></script>
+<script src="../static/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
+<script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    }
+</script>
+<!--<script type="text/javascript">-->
+<!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];-->
+<!--$('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+<!--</script>-->
+
+<script>
+    $('.adBanner').hide();
+    var randNoMobile = -1;
+    var randNoDesktop = -1;
+    var randNoMobile_down = -1;
+    var randNoDesktop_down = -1;
+
+    $(document).ready(function () {
+        randNoMobile = Math.floor((Math.random() * 14) + 1);
+        randNoDesktop = Math.floor((Math.random() * 8) + 1);
+        randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+        randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+
+        var startWidth = $(window).width();
+        if (Math.min(startWidth, 800) !== 800) {
+            $('#mobileAdBanner' + randNoMobile).show();
+            $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '15%');
+        } else {
+            $('#desktopAdBanner' + randNoDesktop).show();
+            $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '10%');
+        }
+    });
+
+    $(window).resize(function () {
+        if (randNoMobile == -1) {
+            randNoMobile = Math.floor((Math.random() * 14) + 1);
+        }
+        if (randNoDesktop == -1) {
+            randNoDesktop = Math.floor((Math.random() * 8) + 1);
+        }
+        if (randNoMobile_down == -1) {
+            randNoMobile_down = Math.floor((Math.random() * 14) + 1);
+        }
+        if (randNoDesktop_down == -1) {
+            randNoDesktop_down = Math.floor((Math.random() * 8) + 1);
+        }
+        $('.adBanner').hide();
+        var startWidth = $(window).width();
+        if (Math.min(startWidth, 800) !== 800) {
+            $('#mobileAdBanner' + randNoMobile).show();
+            $('#mobileAdBanner' + randNoMobile_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '15%');
+        } else {
+            $('#desktopAdBanner' + randNoDesktop).show();
+            $('#desktopAdBanner' + randNoDesktop_down + "_down").show();
+            $('.top-ads-container').css('marginTop', '10%');
+        }
+    });
+</script>
+
+<script>
+    $("#slideshow > div:gt(0)").hide();
+    $("#slideshow2 > div:gt(0)").hide();
+
+    setInterval(function() {
+        $('#slideshow > div:first')
+            .fadeOut(0)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow');
+    },  4000);
+
+    setInterval(function() {
+        $('#slideshow2 > div:first')
+            .fadeOut(0)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow2');
+    },  4000);
+</script>
+
+</body>
+
+</html>
