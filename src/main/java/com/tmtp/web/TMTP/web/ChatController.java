@@ -53,11 +53,11 @@ public class ChatController {
         // More verification can be added here if needed
     }
 
-    @RequestMapping(value = "/new-chat-message/{text}/{room}", method = RequestMethod.GET)
+    @RequestMapping(value = "/new-chat-message/{text}/{room}", method = RequestMethod.POST)
     @ResponseBody
-    public String createNewPost(
+    public String sendMessageToRoom(
             @PathVariable("text") String text, @PathVariable("room") String room,
-            @RequestParam(required = false, value = "Text") MessageType messageType) {
+            @RequestParam(required = false, defaultValue = "TEXT") MessageType messageType) {
         User user = userDataFacade.retrieveLoggedUser();
         if (user.getBanned()) {
             return getMessage("FORBIDDEN_REQUEST");
