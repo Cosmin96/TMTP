@@ -1,6 +1,7 @@
 package com.tmtp.web.TMTP.web;
 
 import com.pusher.rest.Pusher;
+import com.tmtp.web.TMTP.dto.enums.MessageType;
 import com.tmtp.web.TMTP.entity.ChatMessage;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.repository.ChatMessageRepository;
@@ -8,6 +9,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,52 +34,55 @@ public class ChatController {
 
     private final UserDataFacade userDataFacade;
     private final ChatMessageRepository chatMessageRepository;
+    private final MessageSource messageSource;
 
-    public ChatController(final UserDataFacade userDataFacade, final ChatMessageRepository chatMessageRepository) {
+    public ChatController(
+            final UserDataFacade userDataFacade,
+            final ChatMessageRepository chatMessageRepository,
+            final MessageSource messageSource) {
         this.userDataFacade = userDataFacade;
         this.chatMessageRepository = chatMessageRepository;
+        this.messageSource = messageSource;
     }
 
     private boolean isRoomOk(String room) {
-        if(room == null) {
+        if (room == null) {
             return false;
-        } else if(room.length() <= 0) {
-            return false;
-        }
+        } else return room.length() > 0;
 
         // More verification can be added here if needed
-
-        return true;
     }
 
     @RequestMapping(value = "/new-chat-message/{text}/{room}", method = RequestMethod.GET)
     @ResponseBody
-    public String createNewPost(@PathVariable("text") String text, @PathVariable("room") String room){
+    public String createNewPost(
+            @PathVariable("text") String text, @PathVariable("room") String room,
+            @RequestParam(required = false, value = "Text") MessageType messageType) {
         User user = userDataFacade.retrieveLoggedUser();
-        if(user.getBanned()){
-            return "Forbidden!";
+        if (user.getBanned()) {
+            return getMessage("FORBIDDEN_REQUEST");
         }
 
-        if(text == null) {
-            return "Invalid request!";
+        if (text == null) {
+            return getMessage("INVALID_REQUEST");
         }
 
         // Decode base64
         text = StringUtils.newStringUtf8(Base64.decodeBase64(text));
-        if(text.length() <= 0 || text.length() > 1000) {
-            return "Invalid request!";
+        if (text.length() <= 0 || text.length() > 1000) {
+            return getMessage("INVALID_REQUEST");
         }
 
         //Check / create chat room
-        if(isRoomOk(room) == false) {
-            return "Invalid request!";
+        if (!isRoomOk(room)) {
+            return getMessage("INVALID_REQUEST");
         }
 
         Pusher pusher = new Pusher(pusherAppId, pusherAppKey, pusherSecretKey);
         pusher.setCluster(pusherCluster);
         pusher.setEncrypted(true);
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("message", text);
         map.put("username", user.getUsername());
 
@@ -88,6 +93,7 @@ public class ChatController {
         chatMessage.setName(room);
         chatMessage.setText(text);
         chatMessage.setUsername(user.getUsername());
+        chatMessage.setMessageType(messageType);
 
         // Save message in database
         chatMessageRepository.save(chatMessage);
@@ -98,10 +104,9 @@ public class ChatController {
 
     @RequestMapping(value = "/get-next-messages/{room}/{start}/{end}", method = RequestMethod.GET)
     @ResponseBody
-    public List<ChatMessage> getNextBatch(@PathVariable String room, @PathVariable int start, @PathVariable int end)
-    {
+    public List<ChatMessage> getNextBatch(@PathVariable String room, @PathVariable int start, @PathVariable int end) {
         //Check / create chat room
-        if(isRoomOk(room) == false) {
+        if (!isRoomOk(room)) {
             return null;
         }
 
@@ -109,10 +114,20 @@ public class ChatController {
         List<ChatMessage> chatMessages = chatMessageRepository.findByName(room);
         int total = chatMessages.size();
 
-        if(start > end) { return null; }
-        if(start < 0 || start > total) { return null; }
-        if(end < 0 || end > total) { return null; }
+        if (start > end) {
+            return null;
+        }
+        if (start < 0 || start > total) {
+            return null;
+        }
+        if (end < 0 || end > total) {
+            return null;
+        }
 
         return chatMessages.subList(start, end);
+    }
+
+    private String getMessage(String messageKey) {
+        return messageSource.getMessage(messageKey, null, null);
     }
 }

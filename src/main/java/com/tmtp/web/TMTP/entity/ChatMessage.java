@@ -1,15 +1,18 @@
 package com.tmtp.web.TMTP.entity;
 
+import com.tmtp.web.TMTP.dto.enums.MessageType;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
 public class ChatMessage {
+
     @Id
     private String id;
     private String name;
     private String username;
     private String text;
     private DateTime dateTime;
+    private MessageType messageType = MessageType.TEXT;
 
     public String getId() {
         return id;
@@ -26,6 +29,7 @@ public class ChatMessage {
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", text='" + text + '\'' +
+                ", messageType='" + messageType + '\'' +
                 ", dateTime=" + dateTime +
                 '}';
     }
@@ -60,5 +64,13 @@ public class ChatMessage {
 
     public void setDateTime(DateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public MessageType getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
     }
 }
