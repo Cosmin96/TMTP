@@ -82,7 +82,7 @@
                         <div style="margin-top: 10%" th:if="${settingsButton}">
                             <div class="col-lg-12">
                                 <a class="btn btn-success"
-                                   th:href="@{'/settings/' + ${user.getUsername()}}">Personalize</a>
+                                   th:href="@{'/mobile/settings/' + ${user.getUsername()}}">Personalize</a>
                             </div>
                         </div>
 
@@ -241,11 +241,11 @@
 
                     <div th:if="${upgradeButton} and ${settingsButton}" style="margin-top: 4%">
                         <div th:if="${enoughPoints}">
-                            <a th:href="@{'/profile/' + ${user.getUsername()} + '/stadiumUpgrade'}"
+                            <a th:href="@{'/mobile/profile/' + ${user.getUsername()} + '/stadiumUpgrade'}"
                                class="btn btn-success"><span style="color:white" th:text="${buttonMessage}"></span></a>
                         </div>
                         <div th:if="${!enoughPoints}">
-                            <a th:href="@{'/profile/' + ${user.getUsername()} + '/stadiumUpgrade'}"
+                            <a th:href="@{'/mobile/profile/' + ${user.getUsername()} + '/stadiumUpgrade'}"
                                class="btn btn-success" style="background-color:#333 !important;"><span
                                     style="color:white" th:text="${buttonMessage}"></span></a>
                         </div>

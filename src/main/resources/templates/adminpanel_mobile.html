@@ -166,8 +166,8 @@
                             <span th:if="${user.getBanned()} == false">No</span>
                         </td>
                         <td>
-                            <p align="center" ><a th:href="@{'/admin/edit/' + ${user.getUsername()}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></p><br />
-                            <p align="center" ><a th:href="@{'/admin/delete/' + ${user.getUsername()}}"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></p>
+                            <p align="center" ><a th:href="@{'/mobile/admin/edit/' + ${user.getUsername()}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></p><br />
+                            <p align="center" ><a th:href="@{'/mobile/admin/delete/' + ${user.getUsername()}}"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></p>
                         </td>
                     </tr>
                 </tbody>

@@ -82,7 +82,7 @@
         <button class="btn btn-success center-block" style="color:white; font-size: 24px; margin-left: 5%" id="jobSubmitButton">Submit an ad/job</button>
 
         <div class="form-control" style="background-color: #D8D8D8;margin-top:3%" id="jobSubmitForm">
-            <form enctype="multipart/form-data" style="margin-left: 5%;width:90%" th:object="${jobForm}" th:action="@{/jobs/submit}" method="POST">
+            <form enctype="multipart/form-data" style="margin-left: 5%;width:90%" th:object="${jobForm}" th:action="@{/mobile/jobs/submit}" method="POST">
                 <div class="form-group">
                     <label for="description">Job Name</label>
                     <input th:field="*{title}" type="text" class="form-control" id="description" style="width:100%;" />

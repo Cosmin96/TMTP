@@ -48,6 +48,30 @@ public class ChargeController {
         return "redirect:/shop";
     }
 
+    @PostMapping("/mobile/charge/{id}")
+    public String chargeMobile(@PathVariable("id") String id, ChargeRequest chargeRequest, Model model, RedirectAttributes redirectAttributes) throws StripeException {
+        User user = userDataFacade.retrieveLoggedUser();
+        ShopItem shopItem = shopItemFacade.retrieveItemById(id);
+        for(ShopItem item : user.getShopItems()) {
+            if (item.getName().equals(shopItem.getName())) {
+                redirectAttributes.addFlashAttribute("error", true);
+                redirectAttributes.addFlashAttribute("message", "You already own this item!");
+                return "redirect:/mobile/shop";
+            }
+        }
+
+        chargeRequest.setDescription("Payment");
+        chargeRequest.setCurrency(ChargeRequest.Currency.GBP);
+        Charge charge = paymentsService.charge(chargeRequest);
+
+
+        user.getShopItems().add(shopItem);
+        userDataFacade.updateUser(user);
+        redirectAttributes.addFlashAttribute("confirmation", true);
+        redirectAttributes.addFlashAttribute("boughtItem", shopItem.getName());
+        return "redirect:/mobile/shop";
+    }
+
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());

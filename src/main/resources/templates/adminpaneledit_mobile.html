@@ -102,7 +102,7 @@
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change First and Last Names</h1>
                 <center>
-                    <form style="width: 90% !important; margin-top: 1%; margin-left: 2%" th:object="${nameForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateName'}" method="POST">
+                    <form style="width: 90% !important; margin-top: 1%; margin-left: 2%" th:object="${nameForm}" th:action="@{'/mobile/admin/edit/' + ${user.getUsername()} + '/updateName'}" method="POST">
                         <div class="form-group">
                             <label for="fname" style="float: left;"><h6>First name</h6></label>
                             <input type="text" th:field="*{fname}" class="form-control" style="width:100%;" id="fname" />
@@ -120,7 +120,7 @@
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Reset Password</h1>
                 <center>
-                    <form style="width: 90% !important; margin-top: 1%; margin-left: 2%" th:object="${passForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updatePassword'}" method="POST">
+                    <form style="width: 90% !important; margin-top: 1%; margin-left: 2%" th:object="${passForm}" th:action="@{'/mobile/admin/edit/' + ${user.getUsername()} + '/updatePassword'}" method="POST">
                         <div class="form-group">
                             <label for="oldpass" style="float: left;"><h6>New Password</h6></label>
                             <input type="text" th:field="*{oldPass}" class="form-control" style="width:100%;" id="oldpass" />
@@ -138,7 +138,7 @@
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change Points/Cards</h1>
                 <center>
-                    <form method="POST" th:object="${pointsForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updatePoints'}">
+                    <form method="POST" th:object="${pointsForm}" th:action="@{'/mobile/admin/edit/' + ${user.getUsername()} + '/updatePoints'}">
                         <div class="form-group">
                             <label for="number" style="float: left; padding-left:3%"><h6>Change point values</h6></label>
                             <input type="text" id="number" th:field="*{points}" class="form-control" style="width:80%;" />
@@ -159,7 +159,7 @@
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Title</h1>
                 <center>
-                    <form method="POST" th:object="${titleForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateTitle'}">
+                    <form method="POST" th:object="${titleForm}" th:action="@{'/mobile/admin/edit/' + ${user.getUsername()} + '/updateTitle'}">
                         <div class="form-group" style="width: 80%">
                             <label for="overlayselect">Available titles:</label>
                             <select th:field="*{titleName}" class="form-control" id="overlayselect">
@@ -177,7 +177,7 @@
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change ban status</h1>
                 <center>
-                    <form method="POST" th:object="${bannedForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateBan'}">
+                    <form method="POST" th:object="${bannedForm}" th:action="@{'/mobile/admin/edit/' + ${user.getUsername()} + '/updateBan'}">
                         <div class="form-group" style="width: 80%">
                             <label for="overlayselect">Ban status:</label>
                             <select th:field="*{banned}" class="form-control" id="overlayselect">
@@ -194,7 +194,7 @@
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Change Profile Picture</h1>
                 <center>
-                    <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/profileUpload'}">
+                    <form method="POST" enctype="multipart/form-data" th:action="@{'/mobile/admin/edit/' + ${user.getUsername()} + '/profileUpload'}">
                         <label for="profile"><h6>Upload photo (max 5mb): </h6></label>
                         <input type="file" id="profile" name="file" />
                         <button class="btn btn-success" value="Upload">Upload</button>
@@ -205,7 +205,7 @@
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Profile Overlay</h1>
                 <center>
-                    <form method="POST" th:object="${overlayForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateOverlay'}">
+                    <form method="POST" th:object="${overlayForm}" th:action="@{'/mobile/admin/edit/' + ${user.getUsername()} + '/updateOverlay'}">
                         <div class="form-group" style="width: 80%">
                             <label for="overlayselect">Available overlays:</label>
                             <select th:field="*{overlayName}" class="form-control" id="overlayselect">
@@ -223,7 +223,7 @@
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%">Choose Player Kit</h1>
                 <center>
-                    <form method="POST" th:object="${kitForm}" th:action="@{'/admin/edit/' + ${user.getUsername()} + '/updateKit'}">
+                    <form method="POST" th:object="${kitForm}" th:action="@{'/mobile/admin/edit/' + ${user.getUsername()} + '/updateKit'}">
 
                         <div class="form-group" style="width: 80%">
                             <label for="jacketselect">Available jackets:</label>
