@@ -14,10 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MobilePostController {
@@ -77,6 +75,26 @@ public class MobilePostController {
         videoPostsFacade.createVideoPost(videoPosts, userDataFacade.retrieveLoggedUser());
         return response;
     }
+
+    @RequestMapping(value = "/mobile/post/{id}", method = RequestMethod.PUT)
+    public AppResponse updateFlagStatusOfPost(@PathVariable("id") String id,
+                                              @RequestParam boolean flagPost) {
+
+        User user = userDataFacade.retrieveLoggedUser();
+        if (user.getBanned()) {
+            throw new UserBannedException(getMessage("Banned.userForm.username"));
+        }
+
+        AppResponse response = new AppResponse();
+
+        VideoPosts videoPosts = videoPostsFacade.retrievePostById(id);
+        videoPosts.setFlagged(flagPost);
+        videoPostsFacade.updateVideoPost(videoPosts);
+
+        response.setData(userDataService.getUserHomeFeed(user));
+        return response;
+    }
+
 
     private String getMessage(String messageKey) {
         return messageSource.getMessage(messageKey, null, null);
