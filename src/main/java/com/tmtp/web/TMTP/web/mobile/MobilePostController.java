@@ -95,7 +95,6 @@ public class MobilePostController {
         return response;
     }
 
-
     private String getMessage(String messageKey) {
         return messageSource.getMessage(messageKey, null, null);
     }
