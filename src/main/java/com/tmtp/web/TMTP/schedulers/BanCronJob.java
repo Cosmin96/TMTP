@@ -1,4 +1,4 @@
-package com.tmtp.web.TMTP.service;
+package com.tmtp.web.TMTP.schedulers;
 
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.security.UserService;

@@ -1,4 +1,4 @@
-package com.tmtp.web.TMTP.service;
+package com.tmtp.web.TMTP.dto.exceptions;
 
 public class StorageException extends RuntimeException {
 

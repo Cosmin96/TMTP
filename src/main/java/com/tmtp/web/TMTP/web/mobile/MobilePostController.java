@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class MobilePostController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(IOSController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MobilePostController.class);
 
     private final UserDataFacade userDataFacade;
     private final UserService userService;

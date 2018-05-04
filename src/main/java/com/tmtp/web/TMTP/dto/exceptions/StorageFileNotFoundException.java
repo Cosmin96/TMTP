@@ -1,4 +1,6 @@
-package com.tmtp.web.TMTP.service;
+package com.tmtp.web.TMTP.dto.exceptions;
+
+import com.tmtp.web.TMTP.dto.exceptions.StorageException;
 
 public class StorageFileNotFoundException extends StorageException {
 
