@@ -143,7 +143,12 @@
             <input th:field="*{password}" type="password" th:required="true" autocomplete="off"/>
           </div>
 
-
+            <h4 style="color:white">Select the team you support:</h4>
+            <div class="field-wrap">
+              <select th:required="true" class="inputLikeSelect" th:field="*{team}"  id="dropOperator">
+                <option style="color: rgb(22, 40, 52) !important;" th:each="team : ${teams}" th:value="${team}" th:text="${team.teamName}"></option>
+              </select>
+            </div>
 
             <h4 style="color:white">Upload profile photo (max 5mb):</h4>
             <div class="field-wrap">
