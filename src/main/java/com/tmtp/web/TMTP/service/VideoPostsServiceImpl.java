@@ -1,10 +1,12 @@
 package com.tmtp.web.TMTP.service;
 
+import com.tmtp.web.TMTP.dto.exceptions.NoDataFound;
 import com.tmtp.web.TMTP.entity.Comment;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.repository.VideoPostsRepository;
 import org.bson.types.ObjectId;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,40 +14,44 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class VideoPostsServiceImpl implements VideoPostsService {
 
     private final VideoPostsRepository videoPostsRepository;
+    private final MessageSource messageSource;
 
-    public VideoPostsServiceImpl(final VideoPostsRepository videoPostsRepository) {
+    public VideoPostsServiceImpl(
+            final VideoPostsRepository videoPostsRepository,
+            final MessageSource messageSource) {
         this.videoPostsRepository = videoPostsRepository;
+        this.messageSource = messageSource;
     }
 
     @Override
-    public List<VideoPosts> retrieveListOfVideoPosts(){
+    public List<VideoPosts> retrieveListOfVideoPosts() {
         return videoPostsRepository.findAll();
     }
 
     @Override
-    public List<VideoPosts> retrieveListOfVideoPostsByUsername(String username){
+    public List<VideoPosts> retrieveListOfVideoPostsByUsername(String username) {
         return videoPostsRepository.findByCreator(username);
     }
 
     @Override
-    public VideoPosts retrieveVideoPostById(String id){
+    public VideoPosts retrieveVideoPostById(String id) {
         return videoPostsRepository.findById(id);
     }
 
     @Override
-    public void createVideoPost(VideoPosts videoPosts, User user){
+    public void createVideoPost(VideoPosts videoPosts, User user) {
         String url = "";
 
-        if(videoPosts.getLink().contains("https://youtu.be/")) {
+        if (videoPosts.getLink().contains("https://youtu.be/")) {
             url = "https://www.youtube.com/embed/" + videoPosts.getLink().replace("https://youtu.be/", "");
             videoPosts.setVideo(true);
-        }
-        else{
+        } else {
             videoPosts.setVideo(false);
         }
         videoPosts.setComments(Collections.emptyList());
@@ -61,7 +67,7 @@ public class VideoPostsServiceImpl implements VideoPostsService {
     }
 
     @Override
-    public void addNewComment(VideoPosts videoPosts, Comment comment, User user){
+    public void addNewComment(VideoPosts videoPosts, Comment comment, User user) {
 
         comment.setId(new ObjectId().toString());
         comment.setTimestamp(LocalDateTime.now());
@@ -73,17 +79,67 @@ public class VideoPostsServiceImpl implements VideoPostsService {
     }
 
     @Override
-    public void updatePost(VideoPosts videoPosts){
+    public void updatePost(VideoPosts videoPosts) {
         videoPostsRepository.save(videoPosts);
     }
 
     @Override
-    public void deletePost(VideoPosts videoPosts){
+    public void deletePost(VideoPosts videoPosts) {
         videoPostsRepository.delete(videoPosts);
     }
 
     @Override
-    public void deletePostComment(VideoPosts videoPosts){
+    public void deletePostComment(VideoPosts videoPosts) {
         videoPostsRepository.save(videoPosts);
+    }
+
+    @Override
+    public void flagVideoPost(String postId, boolean flagStatus) {
+        VideoPosts videoPosts = videoPostsRepository.findById(postId);
+        videoPosts.setFlagged(flagStatus);
+        videoPostsRepository.save(videoPosts);
+    }
+
+    @Override
+    public VideoPosts updateLikeStatusForPost(String postId, String userName, boolean isLike) {
+
+        VideoPosts videoPosts = videoPostsRepository.findById(postId);
+
+        if (videoPosts != null) {
+            if (isLike) {
+                if (videoPosts.getLikeUsers().contains(userName)) {
+                    videoPosts.getLikeUsers().remove(userName);
+                    videoPosts.setLikes(videoPosts.getLikes() - 1);
+                } else {
+                    videoPosts.setLikes(videoPosts.getLikes() + 1);
+                    videoPosts.getLikeUsers().add(userName);
+                }
+                if (videoPosts.getDislikeUsers().contains(userName)) {
+                    videoPosts.setDislikes(videoPosts.getDislikes() - 1);
+                    videoPosts.getDislikeUsers().remove(userName);
+                }
+            } else {
+                if (videoPosts.getDislikeUsers().contains(userName)) {
+                    videoPosts.getDislikeUsers().remove(userName);
+                    videoPosts.setDislikes(videoPosts.getDislikes() - 1);
+                } else {
+                    videoPosts.setDislikes(videoPosts.getDislikes() + 1);
+                    videoPosts.getDislikeUsers().add(userName);
+                }
+                if (videoPosts.getLikeUsers().contains(userName)) {
+                    videoPosts.setLikes(videoPosts.getLikes() - 1);
+                    videoPosts.getLikeUsers().remove(userName);
+                }
+            }
+        } else {
+            throw new NoDataFound(messageSource.getMessage("EXCEPTION_MESSAGE",
+                    new Object[]{postId}, Locale.ENGLISH));
+        }
+        videoPostsRepository.save(videoPosts);
+        return videoPosts;
+    }
+
+    private String getMessage(String messageKey) {
+        return messageSource.getMessage(messageKey, null, null);
     }
 }

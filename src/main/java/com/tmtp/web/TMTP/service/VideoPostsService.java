@@ -23,4 +23,8 @@ public interface VideoPostsService {
     void deletePost(VideoPosts videoPosts);
 
     void deletePostComment(VideoPosts videoPosts);
+
+    void flagVideoPost(String postId, boolean flagStatus);
+
+    VideoPosts updateLikeStatusForPost(String postId, String userName, boolean isLike);
 }

@@ -7,6 +7,7 @@ import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.service.UserDataService;
+import com.tmtp.web.TMTP.service.VideoPostsService;
 import com.tmtp.web.TMTP.web.UserDataFacade;
 import com.tmtp.web.TMTP.web.VideoPostsFacade;
 import org.joda.time.DateTime;
@@ -26,6 +27,7 @@ public class MobilePostController {
     private final UserService userService;
     private final UserDataService userDataService;
     private final VideoPostsFacade videoPostsFacade;
+    private final VideoPostsService videoPostsService;
     private final MessageSource messageSource;
 
     @Autowired
@@ -33,11 +35,13 @@ public class MobilePostController {
                                 final UserService userService,
                                 final UserDataService userDataService,
                                 final MessageSource messageSource,
-                                final VideoPostsFacade videoPostsFacade) {
+                                final VideoPostsFacade videoPostsFacade,
+                                final VideoPostsService videoPostsService) {
         this.userDataFacade = userDataFacade;
         this.userService = userService;
         this.userDataService = userDataService;
         this.videoPostsFacade = videoPostsFacade;
+        this.videoPostsService = videoPostsService;
         this.messageSource = messageSource;
     }
 
@@ -80,18 +84,51 @@ public class MobilePostController {
     public AppResponse updateFlagStatusOfPost(@PathVariable("id") String id,
                                               @RequestParam boolean flagPost) {
 
+        LOG.info("Trying to flag a post with ID {} and status as {}.", id, flagPost);
         User user = userDataFacade.retrieveLoggedUser();
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
         }
 
+        videoPostsService.flagVideoPost(id, flagPost);
+        LOG.info("Flagged a post with ID {} and status as {}.", id, flagPost);
+
         AppResponse response = new AppResponse();
-
-        VideoPosts videoPosts = videoPostsFacade.retrievePostById(id);
-        videoPosts.setFlagged(flagPost);
-        videoPostsFacade.updateVideoPost(videoPosts);
-
         response.setData(userDataService.getUserHomeFeed(user));
+        return response;
+    }
+
+    @RequestMapping(value = "/post/{id}/like", method = RequestMethod.PUT)
+    public AppResponse likePost(@PathVariable("id") String id) {
+
+        User user = userDataFacade.retrieveLoggedUser();
+        LOG.info("Trying to like a post with ID {} by userName {}.", id, user.getUsername());
+        if (user.getBanned()) {
+            throw new UserBannedException(getMessage("Banned.userForm.username"));
+        }
+
+        VideoPosts updatedPost = videoPostsService.updateLikeStatusForPost(id, user.getUsername(), true);
+        LOG.info("Liked a post with ID {} by userName {}.", id, user.getUsername());
+
+        AppResponse response = new AppResponse();
+        response.setData(updatedPost);
+        return response;
+    }
+
+    @RequestMapping(value = "/post/{id}/dislike", method = RequestMethod.PUT)
+    public AppResponse dislikePost(@PathVariable("id") String id) {
+
+        User user = userDataFacade.retrieveLoggedUser();
+        LOG.info("Trying to dislike a post with ID {} by userName {}.", id, user.getUsername());
+        if (user.getBanned()) {
+            throw new UserBannedException(getMessage("Banned.userForm.username"));
+        }
+
+        VideoPosts updatedPost = videoPostsService.updateLikeStatusForPost(id, user.getUsername(), false);
+        LOG.info("Disliked a post with ID {} by userName {}.", id, user.getUsername());
+
+        AppResponse response = new AppResponse();
+        response.setData(updatedPost);
         return response;
     }
 

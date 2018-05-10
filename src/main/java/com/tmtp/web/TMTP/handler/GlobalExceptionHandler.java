@@ -2,6 +2,7 @@ package com.tmtp.web.TMTP.handler;
 
 import com.tmtp.web.TMTP.dto.ErrorMessage;
 import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
+import com.tmtp.web.TMTP.dto.exceptions.NoDataFound;
 import com.tmtp.web.TMTP.dto.exceptions.NoUserFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,16 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage noUserFound(HttpServletRequest request, Exception exception) {
         String exceptionName = "NoUserFound";
+        ErrorMessage message = getErrorMessage(request, exception, HttpStatus.NOT_FOUND.value());
+        LOG.error(messageSource.getMessage("EXCEPTION_MESSAGE", new Object[]{exceptionName, message, exception}, Locale.ENGLISH));
+        return message;
+    }
+
+    @ResponseBody
+    @ExceptionHandler(NoDataFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage noDataFound(HttpServletRequest request, Exception exception) {
+        String exceptionName = "NoDataFound";
         ErrorMessage message = getErrorMessage(request, exception, HttpStatus.NOT_FOUND.value());
         LOG.error(messageSource.getMessage("EXCEPTION_MESSAGE", new Object[]{exceptionName, message, exception}, Locale.ENGLISH));
         return message;
