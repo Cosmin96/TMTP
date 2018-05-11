@@ -49,7 +49,7 @@ public class MobilePostController {
     public AppResponse createNewPost(@RequestBody VideoPosts videoPosts) {
 
         User user = userDataFacade.retrieveLoggedUser();
-        AppResponse response = new AppResponse();
+        LOG.info("Creating new post by user ID {} and post data [{}].", user.getId(), videoPosts);
 
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
@@ -58,6 +58,8 @@ public class MobilePostController {
         if (videoPosts.getDescription().isEmpty()) {
             throw new BadFormatException("Your post does not contain any text or description");
         }
+
+        AppResponse response = new AppResponse();
 
         if (videoPostsFacade.filterComment(videoPosts.getDescription())) {
             user.getPoints().setYellow(user.getPoints().getYellow() + 1);
@@ -76,6 +78,7 @@ public class MobilePostController {
             response.setData(userDataService.getUserHomeFeed(user));
             return response;
         }
+
         videoPostsFacade.createVideoPost(videoPosts, userDataFacade.retrieveLoggedUser());
         return response;
     }
@@ -126,6 +129,18 @@ public class MobilePostController {
 
         VideoPosts updatedPost = videoPostsService.updateLikeStatusForPost(id, user.getUsername(), false);
         LOG.info("Disliked a post with ID {} by userName {}.", id, user.getUsername());
+
+        AppResponse response = new AppResponse();
+        response.setData(updatedPost);
+        return response;
+    }
+
+    @RequestMapping(value = "/post/{postId}/comment", method = RequestMethod.POST)
+    public AppResponse postComment(@PathVariable String postId,
+                              @RequestBody String text) {
+        User user = userDataFacade.retrieveLoggedUser();
+        LOG.info("Adding a comment [{}] on Video post with ID {}.", text, postId);
+        VideoPosts updatedPost = videoPostsService.addNewComment(postId, text, user);
 
         AppResponse response = new AppResponse();
         response.setData(updatedPost);

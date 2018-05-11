@@ -67,6 +67,28 @@ public class VideoPostsServiceImpl implements VideoPostsService {
     }
 
     @Override
+    public VideoPosts addNewComment(String postId, String commentText, User user) {
+
+        VideoPosts videoPosts = videoPostsRepository.findById(postId);
+
+        if (videoPosts == null) {
+            throw new NoDataFound(messageSource.getMessage(
+                    "NO_VIDEOPOST_FOUND", new Object[]{postId}, Locale.ENGLISH));
+        }
+
+        Comment comment = new Comment();
+        comment.setId(new ObjectId().toString());
+        comment.setComment(commentText);
+        comment.setTimestamp(LocalDateTime.now());
+        comment.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+        comment.setUser(user);
+        videoPosts.getComments().add(comment);
+
+        videoPostsRepository.save(videoPosts);
+        return videoPosts;
+    }
+
+    @Override
     public void addNewComment(VideoPosts videoPosts, Comment comment, User user) {
 
         comment.setId(new ObjectId().toString());
@@ -132,7 +154,7 @@ public class VideoPostsServiceImpl implements VideoPostsService {
                 }
             }
         } else {
-            throw new NoDataFound(messageSource.getMessage("EXCEPTION_MESSAGE",
+            throw new NoDataFound(messageSource.getMessage("NO_VIDEOPOST_FOUND",
                     new Object[]{postId}, Locale.ENGLISH));
         }
         videoPostsRepository.save(videoPosts);

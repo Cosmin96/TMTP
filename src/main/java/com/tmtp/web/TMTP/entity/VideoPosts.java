@@ -146,7 +146,6 @@ public class VideoPosts {
                 ", description='" + description + '\'' +
                 ", creator='" + creator + '\'' +
                 ", user=" + user +
-                ", comments=" + comments +
                 '}';
     }
 }
