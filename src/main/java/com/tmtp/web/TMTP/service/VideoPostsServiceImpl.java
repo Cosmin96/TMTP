@@ -45,7 +45,7 @@ public class VideoPostsServiceImpl implements VideoPostsService {
     }
 
     @Override
-    public void createVideoPost(VideoPosts videoPosts, User user) {
+    public VideoPosts createVideoPost(VideoPosts videoPosts, User user) {
         String url = "";
 
         if (videoPosts.getLink().contains("https://youtu.be/")) {
@@ -64,6 +64,8 @@ public class VideoPostsServiceImpl implements VideoPostsService {
         videoPosts.setDislikeUsers(Collections.emptyList());
         videoPosts.setLikeUsers(Collections.emptyList());
         videoPostsRepository.save(videoPosts);
+
+        return videoPosts;
     }
 
     @Override

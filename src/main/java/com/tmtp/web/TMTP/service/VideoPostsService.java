@@ -14,7 +14,7 @@ public interface VideoPostsService {
 
     VideoPosts retrieveVideoPostById(String id);
 
-    void createVideoPost(VideoPosts videoPosts, User user);
+    VideoPosts createVideoPost(VideoPosts videoPosts, User user);
 
     VideoPosts addNewComment(String postId, String commentText, User user);
 

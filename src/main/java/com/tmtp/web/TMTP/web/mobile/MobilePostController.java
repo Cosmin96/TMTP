@@ -78,7 +78,8 @@ public class MobilePostController {
             return response;
         }
 
-        videoPostsFacade.createVideoPost(videoPosts, userDataFacade.retrieveLoggedUser());
+        response.setData(videoPostsService.createVideoPost(
+                videoPosts, userDataFacade.retrieveLoggedUser()));
         return response;
     }
 
