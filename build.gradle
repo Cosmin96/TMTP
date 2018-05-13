@@ -26,6 +26,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+	compile('com.cloudinary:cloudinary-http44:1.17.0')
 	compile 'joda-time:joda-time:2.9.9'
 	compile 'com.stripe:stripe-java:5.21.0'
 	compile 'org.projectlombok:lombok:1.16.18'

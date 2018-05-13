@@ -49,9 +49,8 @@ public class LoginController {
     private final PrivateLobbyFacade privateLobbyFacade;
     private final StorageService storageService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private ShopItemRepository shopItemRepository;
 
+    @Autowired
     public LoginController(final UserService userService,
                            final SecurityService securityService,
                            final UserValidator userValidator,
@@ -126,8 +125,10 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("userForm") User userForm, Model model, RedirectAttributes redirectAttributes){
+
         userForm.setUsername(userForm.getUsername().replaceAll(" ",""));
         userForm.setUsername(userForm.getUsername().replaceAll("[^\\w\\s]+",""));
+
         userForm.setUsername(userForm.getUsername().toLowerCase());
         User user = userDataFacade.retrieveUser(userForm.getUsername());
 
@@ -242,9 +243,11 @@ public class LoginController {
 
     @RequestMapping(value="/reset-password", method = RequestMethod.POST)
     public String resetPassword (@ModelAttribute("userForm") User userForm, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+
         userForm.setUsername(userForm.getUsername().replaceAll(" ",""));
         userForm.setUsername(userForm.getUsername().replaceAll("[^\\w\\s]+",""));
         userForm.setUsername(userForm.getUsername().toLowerCase());
+
         User user = userDataFacade.retrieveUser(userForm.getUsername());
 
         String captcha = request.getParameter("g-recaptcha-response");

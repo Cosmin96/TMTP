@@ -1,5 +1,7 @@
 package com.tmtp.web.TMTP.service;
 
+import com.tmtp.web.TMTP.dto.exceptions.StorageException;
+import com.tmtp.web.TMTP.dto.exceptions.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -8,16 +10,18 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Base64;
 import java.util.stream.Stream;
 
 @Service
-public class StorageServiceImpl implements  StorageService{
+public class StorageServiceImpl implements StorageService {
 
     private final Path rootLocation;
     private final Path jacketsLocation;
@@ -26,6 +30,21 @@ public class StorageServiceImpl implements  StorageService{
     public StorageServiceImpl(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
         this.jacketsLocation = Paths.get(properties.getJacketsLocation());
+    }
+
+    @Override
+    public String store(String base64Str, String username) {
+        String filename = StringUtils.cleanPath(username + ".jpg");
+        try {
+            byte[] scanBytes = Base64.getDecoder().decode(base64Str);
+            ByteArrayInputStream bis = new ByteArrayInputStream(scanBytes);
+            Files.copy(bis, this.rootLocation.resolve(filename),
+                    StandardCopyOption.REPLACE_EXISTING);
+            return filename;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -44,8 +63,7 @@ public class StorageServiceImpl implements  StorageService{
             }
             Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
         return filename;
@@ -67,8 +85,7 @@ public class StorageServiceImpl implements  StorageService{
             }
             Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
         return filename;
@@ -80,11 +97,9 @@ public class StorageServiceImpl implements  StorageService{
             return Files.walk(this.rootLocation, 1)
                     .filter(path -> !path.equals(this.rootLocation))
                     .map(path -> this.rootLocation.relativize(path));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
         }
-
     }
 
     @Override
@@ -104,16 +119,14 @@ public class StorageServiceImpl implements  StorageService{
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
-            }
-            else {
+            } else {
                 file = load("profile.png", rootLocation);
                 return new UrlResource(file.toUri());
 //                throw new StorageFileNotFoundException(
 //                        "Could not read file: " + filename);
 
             }
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
@@ -125,16 +138,14 @@ public class StorageServiceImpl implements  StorageService{
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
-            }
-            else {
+            } else {
                 file = load("1.png", jacketsLocation);
                 return new UrlResource(file.toUri());
 //                throw new StorageFileNotFoundException(
 //                        "Could not read file: " + filename);
 
             }
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
@@ -148,8 +159,7 @@ public class StorageServiceImpl implements  StorageService{
     public void init() {
         try {
             Files.createDirectories(rootLocation);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
     }

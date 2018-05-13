@@ -14,7 +14,9 @@ public interface VideoPostsService {
 
     VideoPosts retrieveVideoPostById(String id);
 
-    void createVideoPost(VideoPosts videoPosts, User user);
+    VideoPosts createVideoPost(VideoPosts videoPosts, User user);
+
+    VideoPosts addNewComment(String postId, String commentText, User user);
 
     void addNewComment(VideoPosts videoPosts, Comment comment, User user);
 
@@ -23,4 +25,8 @@ public interface VideoPostsService {
     void deletePost(VideoPosts videoPosts);
 
     void deletePostComment(VideoPosts videoPosts);
+
+    void flagVideoPost(String postId, boolean flagStatus);
+
+    VideoPosts updateLikeStatusForPost(String postId, String userName, boolean isLike);
 }
