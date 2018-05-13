@@ -24,8 +24,7 @@ public class TokenInfo implements Serializable {
     private TokenType tokenType;
     private DeviceType deviceType;
 
-    private Date createdOn;
-    private Date lastUsedAt;
+    private Date createdOn = new Date();
 
     public String getTokenId() {
         return tokenId;
@@ -75,14 +74,6 @@ public class TokenInfo implements Serializable {
         this.createdOn = createdOn;
     }
 
-    public Date getLastUsedAt() {
-        return lastUsedAt;
-    }
-
-    public void setLastUsedAt(Date lastUsedAt) {
-        this.lastUsedAt = lastUsedAt;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,7 +93,7 @@ public class TokenInfo implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("TokenInfo{tokenId='%s', userName='%s', tokenType=%s, deviceType=%s, createdOn=%s, lastUsedAt=%s}",
-                tokenId, userName, tokenType, deviceType, createdOn, lastUsedAt);
+        return String.format("TokenInfo{tokenId='%s', userName='%s', tokenType=%s, deviceType=%s, createdOn=%s}",
+                tokenId, userName, tokenType, deviceType, createdOn);
     }
 }

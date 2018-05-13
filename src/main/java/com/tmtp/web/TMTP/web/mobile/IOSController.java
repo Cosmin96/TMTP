@@ -1,6 +1,8 @@
 package com.tmtp.web.TMTP.web.mobile;
 
 import com.tmtp.web.TMTP.dto.AppResponse;
+import com.tmtp.web.TMTP.dto.enums.DeviceType;
+import com.tmtp.web.TMTP.dto.enums.TokenType;
 import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
 import com.tmtp.web.TMTP.dto.exceptions.NoUserFound;
 import com.tmtp.web.TMTP.dto.exceptions.UserBannedException;
@@ -11,6 +13,7 @@ import com.tmtp.web.TMTP.entity.UserRegistration;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.service.StorageService;
+import com.tmtp.web.TMTP.service.TokenInfoService;
 import com.tmtp.web.TMTP.service.UserDataService;
 import com.tmtp.web.TMTP.utils.RequestValidator;
 import com.tmtp.web.TMTP.web.PrivateLobbyFacade;
@@ -44,6 +47,7 @@ public class IOSController {
     private final UserDataService userDataService;
     private final MessageSource messageSource;
     private final StorageService storageService;
+    private final TokenInfoService tokenInfoService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public IOSController(final UserService userService,
@@ -52,6 +56,7 @@ public class IOSController {
                          final UserDataFacade userDataFacade,
                          final UserDataService userDataService,
                          final MessageSource messageSource,
+                         final TokenInfoService tokenInfoService,
                          final StorageService storageService,
                          final BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
@@ -61,6 +66,7 @@ public class IOSController {
         this.userDataService = userDataService;
         this.messageSource = messageSource;
         this.storageService = storageService;
+        this.tokenInfoService = tokenInfoService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -104,8 +110,11 @@ public class IOSController {
         userService.save(user);
         securityService.autologin(userInfo.getUsername(), userInfo.getPassword());
 
+        String tokenValue = RequestContextHolder.currentRequestAttributes().getSessionId();
+        tokenInfoService.persistToken(userInfo.getUsername(), tokenValue, TokenType.ACCESS_TOKEN, DeviceType.IOS);
+
         userInfo.setPassword("");
-        userInfo.setSessionID(RequestContextHolder.currentRequestAttributes().getSessionId());
+        userInfo.setSessionID(tokenValue);
 
         LOG.info("Registration validation passed with data {} and user saved.", userInfo);
 
@@ -124,11 +133,14 @@ public class IOSController {
 
         securityService.autologin(userInfo.getUsername(), userInfo.getPassword());
 
+        String tokenValue = RequestContextHolder.currentRequestAttributes().getSessionId();
+        tokenInfoService.persistToken(userInfo.getUsername(), tokenValue, TokenType.ACCESS_TOKEN, DeviceType.IOS);
+
         userInfo.setEmail(user.getEmail());
         userInfo.setFirstName(user.getFirstName());
         userInfo.setLastName(user.getLastName());
         userInfo.setPassword("");
-        userInfo.setSessionID(RequestContextHolder.currentRequestAttributes().getSessionId());
+        userInfo.setSessionID(tokenValue);
 
         AppResponse response = new AppResponse();
         response.setData(userInfo);
@@ -164,6 +176,12 @@ public class IOSController {
 
     @RequestMapping(value = "/mobile/logout", method = RequestMethod.GET)
     public AppResponse logoutPage(HttpServletRequest request, HttpServletResponse response) {
+
+        //Clean access token for this user
+        User user = userDataFacade.retrieveLoggedUser();
+        String tokenValue = RequestContextHolder.currentRequestAttributes().getSessionId();
+        tokenInfoService.deleteToken(user.getUsername(), tokenValue, TokenType.ACCESS_TOKEN, DeviceType.IOS);
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
