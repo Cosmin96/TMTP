@@ -16,6 +16,7 @@ public class User {
     private String email;
     private String username;
     private String profile;
+    private String profileImageUrl;
     private String title;
     private String overlay;
     private String password;
@@ -93,6 +94,14 @@ public class User {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getOverlay() {

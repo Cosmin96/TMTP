@@ -21,6 +21,7 @@ import com.tmtp.web.TMTP.web.UserDataFacade;
 import com.tmtp.web.TMTP.web.VideoPostsFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,6 +40,9 @@ import javax.servlet.http.HttpServletResponse;
 public class IOSController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IOSController.class);
+
+    @Value("${user.default.profileImage}")
+    private String defaultProfilePicUrl;
 
     private final UserService userService;
     private final SecurityService securityService;
@@ -91,6 +95,7 @@ public class IOSController {
         user.setEmail(userInfo.getEmail());
         user.setProfile("no");
         user.setTeam(Team.ARSENAL);
+        user.setProfileImageUrl(defaultProfilePicUrl);
 
         if (userInfo.getImage() != null && !userInfo.getImage().isEmpty()) {
             String photoName = storageService.store(userInfo.getImage(), userInfo.getUsername());
