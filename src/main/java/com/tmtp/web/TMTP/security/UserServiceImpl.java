@@ -7,6 +7,7 @@ import com.tmtp.web.TMTP.repository.RoleRepository;
 import com.tmtp.web.TMTP.repository.UserRepository;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Value("${user.default.profileImage}")
+    private String defaultProfilePicUrl;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -66,6 +70,9 @@ public class UserServiceImpl implements UserService {
         userToSave.setRoles(new HashSet<>(roleRepository.findAll()));
         userToSave.setPoints(createNewPointsObject());
         userToSave.setTeam(user.getTeam());
+        userToSave.setProfileImageUrl(user.getProfileImageUrl() != null ?
+                user.getProfileImageUrl() : defaultProfilePicUrl);
+
         userRepository.save(userToSave);
     }
 

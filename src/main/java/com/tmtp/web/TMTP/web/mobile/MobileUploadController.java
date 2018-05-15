@@ -4,23 +4,20 @@ import com.tmtp.web.TMTP.dto.AppResponse;
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.security.UserService;
-import com.tmtp.web.TMTP.service.StorageService;
 import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
-import com.tmtp.web.TMTP.web.FileUploadController;
 import com.tmtp.web.TMTP.web.UserDataFacade;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 @RestController
 public class MobileUploadController {
-
-    private static final Logger LOG = LoggerFactory.getLogger(FileUploadController.class);
 
     @Value("${cloudinary.profile.folder}")
     private String profileBucket;

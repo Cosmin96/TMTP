@@ -5,6 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmtp.web.TMTP.constants.CommonKey;
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
+import com.tmtp.web.TMTP.utils.Utility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * This is a service which only concerns itself to upload file on the Cloudinary.
@@ -48,9 +51,11 @@ public class CloudStorageServiceImpl implements CloudStorageService {
     @Override
     public CloudinaryObject uploadFile(MultipartFile file, String bucketName) {
 
+        String profileImgIdentifier = UUID.randomUUID().toString().replace("-", "");
+
         Map params = ObjectUtils.asMap(
                 //Provide the Cloudinary folder name where this image should be uploaded
-                CommonKey.PUBLIC_ID, bucketName,
+                CommonKey.PUBLIC_ID, bucketName + File.separator + profileImgIdentifier + file.getName(),
 
                 //Ensure that this file has a unique name when it is saved to Cloudinary
                 CommonKey.UNIQUE_FILENAME, true);
@@ -58,7 +63,7 @@ public class CloudStorageServiceImpl implements CloudStorageService {
 
         CloudinaryObject cloudinaryObject = null;
         try {
-            Map uploadResult = cloudinary.uploader().upload(file, params);
+            Map uploadResult = cloudinary.uploader().upload(file.getBytes(), params);
             cloudinaryObject = objectMapper.convertValue(uploadResult, CloudinaryObject.class);
             LOG.info("File uploaded to cloudinary: {}", cloudinaryObject);
         } catch (IOException | IllegalArgumentException ex) {

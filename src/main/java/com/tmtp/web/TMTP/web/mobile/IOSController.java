@@ -97,12 +97,6 @@ public class IOSController {
         user.setTeam(Team.ARSENAL);
         user.setProfileImageUrl(defaultProfilePicUrl);
 
-        if (userInfo.getImage() != null && !userInfo.getImage().isEmpty()) {
-            String photoName = storageService.store(userInfo.getImage(), userInfo.getUsername());
-            user.setProfile("yes");
-            LOG.info("Username {}, photo saved: {}.", userInfo.getUsername(), photoName);
-        }
-
         if (userInfo.getInviteCode() != null) {
             // Check if code belongs to any user
             User referredUser = userService.findById(userInfo.getInviteCode());

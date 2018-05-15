@@ -37,19 +37,13 @@ public class ChatServiceImpl implements ChatService {
     private String audioBucket;
 
     private final CloudStorageService cloudStorage;
-    private final UserDataFacade userDataFacade;
     private final ChatMessageRepository chatMessageRepository;
-    private final MessageSource messageSource;
 
     public ChatServiceImpl(
             final CloudStorageService cloudStorage,
-            final UserDataFacade userDataFacade,
-            final ChatMessageRepository chatMessageRepository,
-            final MessageSource messageSource) {
+            final ChatMessageRepository chatMessageRepository) {
         this.cloudStorage = cloudStorage;
-        this.userDataFacade = userDataFacade;
         this.chatMessageRepository = chatMessageRepository;
-        this.messageSource = messageSource;
     }
 
     @Override
