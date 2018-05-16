@@ -28,4 +28,9 @@ public class AppConfig {
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
+
+    @Bean
+    public AppReqInterceptor reqInterceptor() {
+        return new AppReqInterceptor();
+    }
 }

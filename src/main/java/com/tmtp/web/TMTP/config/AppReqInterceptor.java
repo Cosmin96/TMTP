@@ -7,46 +7,58 @@ import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.service.TokenInfoService;
 import com.tmtp.web.TMTP.web.UserDataFacade;
-import com.tmtp.web.TMTP.web.mobile.IOSController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-//@Configuration
-//@Component
-public class UserAuthenticationFilter extends OncePerRequestFilter {
+@Configuration
+public class AppReqInterceptor extends HandlerInterceptorAdapter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UserAuthenticationFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AppReqInterceptor.class);
 
     @Autowired
+    @Lazy
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    @Lazy
     private TokenInfoService tokenInfoService;
 
     @Autowired
+    @Lazy
     private UserService userService;
 
     @Autowired
+    @Lazy
     private UserDataFacade userDataFacade;
 
     @Autowired
+    @Lazy
     private SecurityService securityService;
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws IOException, ServletException {
-        LOG.debug("########### URL called: {}.", request.getRequestURL());
+    public boolean preHandle(
+            HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String deviceHeader = request.getHeader("topbantzDevice");
         String authHeader = request.getHeader("Authorization");
+
+        LOG.info("\n\tDevice header: {}\n\t Auth Header: {}.", deviceHeader, authHeader);
 
         if (userDataFacade.retrieveLoggedUser() == null &&
                 //first check if the request is from a mobile device or not
@@ -60,7 +72,13 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
             if(tokenInfo != null && StringUtils.isNotBlank(tokenInfo.getUserName())) {
                 //extract user from the token
                 User deviceUser = userService.findByUsername(tokenInfo.getUserName());
-                securityService.autologin(deviceUser.getUsername(), deviceUser.getPassword());
+                //securityService.autologin(deviceUser.getUsername(), deviceUser.getPassword());
+
+                UsernamePasswordAuthenticationToken authReq
+                        = new UsernamePasswordAuthenticationToken(deviceUser.getUsername(), deviceUser.getPassword());
+                authReq.setDetails(request);
+                Authentication auth = this.authenticationManager.authenticate(authReq);
+                SecurityContextHolder.getContext().setAuthentication(auth);
             } else {
                 LOG.error("Null token or no username found for token: [{}].", tokenInfo);
             }
@@ -69,6 +87,6 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
                     "ignoring check in both cases.");
         }
 
-        filterChain.doFilter(request, response);
+        return super.preHandle(request, response, handler);
     }
 }
