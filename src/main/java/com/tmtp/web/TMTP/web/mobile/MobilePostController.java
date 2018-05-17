@@ -1,6 +1,8 @@
 package com.tmtp.web.TMTP.web.mobile;
 
+import com.cloudinary.utils.StringUtils;
 import com.tmtp.web.TMTP.dto.AppResponse;
+import com.tmtp.web.TMTP.dto.NewCommentDto;
 import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
 import com.tmtp.web.TMTP.dto.exceptions.UserBannedException;
 import com.tmtp.web.TMTP.entity.User;
@@ -143,10 +145,15 @@ public class MobilePostController {
     @RequestMapping(value = "/post/{postId}/comment", method = RequestMethod.POST)
     public AppResponse postComment(
             @PathVariable String postId,
-            @RequestBody String text) {
+            @RequestBody NewCommentDto commentDto) {
         User user = userDataFacade.retrieveLoggedUser();
-        LOG.info("Adding a comment [{}] on Video post with ID {}.", text, postId);
-        VideoPosts updatedPost = videoPostsService.addNewComment(postId, text, user);
+
+        if(StringUtils.isBlank(commentDto.getText())) {
+            throw new BadFormatException("Comment cannot be blank.");
+        }
+
+        LOG.info("Adding a comment [{}] on Video post with ID {}.", commentDto.getText(), postId);
+        VideoPosts updatedPost = videoPostsService.addNewComment(postId, commentDto.getText(), user);
 
         AppResponse response = new AppResponse();
         response.setData(updatedPost);
