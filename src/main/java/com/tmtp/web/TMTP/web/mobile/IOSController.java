@@ -27,10 +27,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -147,9 +144,9 @@ public class IOSController {
     }
 
     @RequestMapping(value = "/mobile/scores", method = RequestMethod.GET)
-    public AppResponse getScoresPage() {
+    public AppResponse getScoresPage(@RequestHeader("Authorization") String authHeader) {
 
-        User user = userDataFacade.retrieveLoggedUser();
+        User user = userDataFacade.getUserFromAuthHeader(authHeader);
 
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
@@ -161,9 +158,10 @@ public class IOSController {
     }
 
     @RequestMapping(value = "/mobile/home", method = RequestMethod.GET)
-    public AppResponse getHomeFeed() {
+    public AppResponse getHomeFeed(@RequestHeader("Authorization") String authHeader) {
 
-        User user = userDataFacade.retrieveLoggedUser();
+        User user = userDataFacade.getUserFromAuthHeader(authHeader);
+
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
         }
@@ -174,10 +172,13 @@ public class IOSController {
     }
 
     @RequestMapping(value = "/mobile/logout", method = RequestMethod.GET)
-    public AppResponse logoutPage(HttpServletRequest request, HttpServletResponse response) {
+    public AppResponse logoutPage(@RequestHeader("Authorization") String authHeder,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
 
         //Clean access token for this user
-        User user = userDataFacade.retrieveLoggedUser();
+        User user = userDataFacade.getUserFromAuthHeader(authHeder);
+
         String tokenValue = RequestContextHolder.currentRequestAttributes().getSessionId();
         tokenInfoService.deleteToken(user.getUsername(), tokenValue, TokenType.ACCESS_TOKEN, DeviceType.IOS);
 

@@ -8,10 +8,7 @@ import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
 import com.tmtp.web.TMTP.web.UserDataFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -36,11 +33,13 @@ public class MobileUploadController {
     }
 
     @RequestMapping(value = "/mobile/profileUpload", method = RequestMethod.POST)
-    public AppResponse handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+    public AppResponse handleFileUpload(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestParam("file") MultipartFile file) throws IOException {
 
         CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, profileBucket);
 
-        User loggedInUser = userDataFacade.retrieveLoggedUser();
+        User loggedInUser = userDataFacade.getUserFromAuthHeader(authHeader);
         loggedInUser.setProfileImageUrl(cloudinaryObject.getSecureUrl());
         userService.updateUser(loggedInUser);
 

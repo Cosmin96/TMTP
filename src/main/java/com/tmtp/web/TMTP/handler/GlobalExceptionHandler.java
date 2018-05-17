@@ -4,6 +4,7 @@ import com.tmtp.web.TMTP.dto.ErrorMessage;
 import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
 import com.tmtp.web.TMTP.dto.exceptions.NoDataFound;
 import com.tmtp.web.TMTP.dto.exceptions.NoUserFound;
+import com.tmtp.web.TMTP.dto.exceptions.UnauthorisedAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,16 @@ public class GlobalExceptionHandler {
     public ErrorMessage noDataFound(HttpServletRequest request, Exception exception) {
         String exceptionName = "NoDataFound";
         ErrorMessage message = getErrorMessage(request, exception, HttpStatus.NOT_FOUND.value());
+        LOG.error(messageSource.getMessage("EXCEPTION_MESSAGE", new Object[]{exceptionName, message, exception}, Locale.ENGLISH));
+        return message;
+    }
+
+    @ResponseBody
+    @ExceptionHandler(UnauthorisedAccess.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorMessage unauthorisedAccess(HttpServletRequest request, Exception exception) {
+        String exceptionName = "UnauthorisedAccess";
+        ErrorMessage message = getErrorMessage(request, exception, HttpStatus.UNAUTHORIZED.value());
         LOG.error(messageSource.getMessage("EXCEPTION_MESSAGE", new Object[]{exceptionName, message, exception}, Locale.ENGLISH));
         return message;
     }
