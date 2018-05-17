@@ -12,13 +12,10 @@ import com.tmtp.web.TMTP.entity.UserInfo;
 import com.tmtp.web.TMTP.entity.UserRegistration;
 import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
-import com.tmtp.web.TMTP.service.StorageService;
 import com.tmtp.web.TMTP.service.TokenInfoService;
 import com.tmtp.web.TMTP.service.UserDataService;
 import com.tmtp.web.TMTP.utils.RequestValidator;
-import com.tmtp.web.TMTP.web.PrivateLobbyFacade;
 import com.tmtp.web.TMTP.web.UserDataFacade;
-import com.tmtp.web.TMTP.web.VideoPostsFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +24,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +47,6 @@ public class IOSController {
     private final UserDataFacade userDataFacade;
     private final UserDataService userDataService;
     private final MessageSource messageSource;
-    private final StorageService storageService;
     private final TokenInfoService tokenInfoService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -58,7 +57,6 @@ public class IOSController {
                          final UserDataService userDataService,
                          final MessageSource messageSource,
                          final TokenInfoService tokenInfoService,
-                         final StorageService storageService,
                          final BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.securityService = securityService;
@@ -66,7 +64,6 @@ public class IOSController {
         this.userDataFacade = userDataFacade;
         this.userDataService = userDataService;
         this.messageSource = messageSource;
-        this.storageService = storageService;
         this.tokenInfoService = tokenInfoService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
