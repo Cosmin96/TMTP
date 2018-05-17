@@ -144,9 +144,9 @@ public class IOSController {
     }
 
     @RequestMapping(value = "/mobile/scores", method = RequestMethod.GET)
-    public AppResponse getScoresPage(@RequestHeader("Authorization") String authHeader) {
+    public AppResponse getScoresPage() {
 
-        User user = userDataFacade.getUserFromAuthHeader(authHeader);
+        User user = userDataFacade.retrieveLoggedUser();
 
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
@@ -158,9 +158,9 @@ public class IOSController {
     }
 
     @RequestMapping(value = "/mobile/home", method = RequestMethod.GET)
-    public AppResponse getHomeFeed(@RequestHeader("Authorization") String authHeader) {
+    public AppResponse getHomeFeed() {
 
-        User user = userDataFacade.getUserFromAuthHeader(authHeader);
+        User user = userDataFacade.retrieveLoggedUser();
 
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
@@ -172,12 +172,11 @@ public class IOSController {
     }
 
     @RequestMapping(value = "/mobile/logout", method = RequestMethod.GET)
-    public AppResponse logoutPage(@RequestHeader("Authorization") String authHeder,
-                                  HttpServletRequest request,
+    public AppResponse logoutPage(HttpServletRequest request,
                                   HttpServletResponse response) {
 
         //Clean access token for this user
-        User user = userDataFacade.getUserFromAuthHeader(authHeder);
+        User user = userDataFacade.retrieveLoggedUser();
 
         String tokenValue = RequestContextHolder.currentRequestAttributes().getSessionId();
         tokenInfoService.deleteToken(user.getUsername(), tokenValue, TokenType.ACCESS_TOKEN, DeviceType.IOS);
@@ -190,9 +189,10 @@ public class IOSController {
     }
 
     @RequestMapping(value = "/mobile/reset-password", method = RequestMethod.POST)
-    public AppResponse resetPassword(@RequestBody UserInfo userInfo) {
+    public AppResponse resetPassword(
+            @RequestBody UserInfo userInfo) {
 
-        User user = userDataFacade.retrieveUser(userInfo.getUsername());
+        User user = userDataFacade.retrieveLoggedUser();
 
         AppResponse response = new AppResponse();
 

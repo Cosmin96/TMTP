@@ -34,12 +34,11 @@ public class MobileUploadController {
 
     @RequestMapping(value = "/mobile/profileUpload", method = RequestMethod.POST)
     public AppResponse handleFileUpload(
-            @RequestHeader("Authorization") String authHeader,
             @RequestParam("file") MultipartFile file) throws IOException {
 
         CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, profileBucket);
 
-        User loggedInUser = userDataFacade.getUserFromAuthHeader(authHeader);
+        User loggedInUser = userDataFacade.retrieveLoggedUser();
         loggedInUser.setProfileImageUrl(cloudinaryObject.getSecureUrl());
         userService.updateUser(loggedInUser);
 

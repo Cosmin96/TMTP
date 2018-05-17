@@ -47,10 +47,9 @@ public class MobilePostController {
 
     @RequestMapping(value = "/mobile/post", method = RequestMethod.POST)
     public AppResponse createNewPost(
-            @RequestHeader("Authorization") String authHeader,
             @RequestBody VideoPosts videoPosts) {
 
-        User user = userDataFacade.getUserFromAuthHeader(authHeader);
+        User user = userDataFacade.retrieveLoggedUser();
         LOG.info("Creating new post by user ID {} and post data [{}].", user.getId(), videoPosts);
 
         if (user.getBanned()) {
@@ -88,12 +87,11 @@ public class MobilePostController {
 
     @RequestMapping(value = "/mobile/post/{id}", method = RequestMethod.PUT)
     public AppResponse updateFlagStatusOfPost(
-            @RequestHeader("Authorization") String authHeader,
             @PathVariable("id") String id,
             @RequestParam boolean flagPost) {
 
         LOG.info("Trying to flag a post with ID {} and status as {}.", id, flagPost);
-        User user = userDataFacade.getUserFromAuthHeader(authHeader);
+        User user = userDataFacade.retrieveLoggedUser();
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
         }
@@ -108,10 +106,9 @@ public class MobilePostController {
 
     @RequestMapping(value = "/post/{id}/like", method = RequestMethod.PUT)
     public AppResponse likePost(
-            @RequestHeader("Authorization") String authHeader,
             @PathVariable("id") String id) {
 
-        User user = userDataFacade.getUserFromAuthHeader(authHeader);
+        User user = userDataFacade.retrieveLoggedUser();
         LOG.info("Trying to like a post with ID {} by userName {}.", id, user.getUsername());
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
@@ -127,10 +124,9 @@ public class MobilePostController {
 
     @RequestMapping(value = "/post/{id}/dislike", method = RequestMethod.PUT)
     public AppResponse dislikePost(
-            @RequestHeader("Authorization") String authHeader,
             @PathVariable("id") String id) {
 
-        User user = userDataFacade.getUserFromAuthHeader(authHeader);
+        User user = userDataFacade.retrieveLoggedUser();
         LOG.info("Trying to dislike a post with ID {} by userName {}.", id, user.getUsername());
         if (user.getBanned()) {
             throw new UserBannedException(getMessage("Banned.userForm.username"));
@@ -146,10 +142,9 @@ public class MobilePostController {
 
     @RequestMapping(value = "/post/{postId}/comment", method = RequestMethod.POST)
     public AppResponse postComment(
-            @RequestHeader("Authorization") String authHeader,
             @PathVariable String postId,
             @RequestBody String text) {
-        User user = userDataFacade.getUserFromAuthHeader(authHeader);
+        User user = userDataFacade.retrieveLoggedUser();
         LOG.info("Adding a comment [{}] on Video post with ID {}.", text, postId);
         VideoPosts updatedPost = videoPostsService.addNewComment(postId, text, user);
 
