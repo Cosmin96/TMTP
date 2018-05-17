@@ -1,6 +1,7 @@
 package com.tmtp.web.TMTP.config;
 
 import com.cloudinary.utils.StringUtils;
+import com.tmtp.web.TMTP.dto.exceptions.UnauthorisedAccess;
 import com.tmtp.web.TMTP.entity.Role;
 import com.tmtp.web.TMTP.entity.TokenInfo;
 import com.tmtp.web.TMTP.entity.User;
@@ -60,6 +61,8 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
                 UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
                 Authentication a = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(a);
+            } else {
+                throw new UnauthorisedAccess();
             }
         }
 
