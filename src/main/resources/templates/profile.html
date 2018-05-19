@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="profileCard" style="width:100% !important">
                     <center>
-                        <img id="profileOverlay" th:src="@{'/getFiles/' + ${user.getUsername()} + '.jpg'}" width="60%"
+                        <img id="profileOverlay" th:src="${user.getProfileImageUrl()}" width="60%"
                              height="60%"/>
                         <h2 style="margin-top:3%" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Parik
                             Panchal</h2>

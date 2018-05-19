@@ -1,11 +1,14 @@
 package com.tmtp.web.TMTP.web.mobile;
 
+import com.cloudinary.utils.StringUtils;
 import com.tmtp.web.TMTP.dto.AppResponse;
+import com.tmtp.web.TMTP.dto.NewCommentDto;
 import com.tmtp.web.TMTP.dto.exceptions.BadFormatException;
 import com.tmtp.web.TMTP.dto.exceptions.UserBannedException;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.entity.VideoPosts;
 import com.tmtp.web.TMTP.security.UserService;
+import com.tmtp.web.TMTP.service.TokenInfoService;
 import com.tmtp.web.TMTP.service.UserDataService;
 import com.tmtp.web.TMTP.service.VideoPostsService;
 import com.tmtp.web.TMTP.web.UserDataFacade;
@@ -45,7 +48,8 @@ public class MobilePostController {
     }
 
     @RequestMapping(value = "/mobile/post", method = RequestMethod.POST)
-    public AppResponse createNewPost(@RequestBody VideoPosts videoPosts) {
+    public AppResponse createNewPost(
+            @RequestBody VideoPosts videoPosts) {
 
         User user = userDataFacade.retrieveLoggedUser();
         LOG.info("Creating new post by user ID {} and post data [{}].", user.getId(), videoPosts);
@@ -84,8 +88,9 @@ public class MobilePostController {
     }
 
     @RequestMapping(value = "/mobile/post/{id}", method = RequestMethod.PUT)
-    public AppResponse updateFlagStatusOfPost(@PathVariable("id") String id,
-                                              @RequestParam boolean flagPost) {
+    public AppResponse updateFlagStatusOfPost(
+            @PathVariable("id") String id,
+            @RequestParam boolean flagPost) {
 
         LOG.info("Trying to flag a post with ID {} and status as {}.", id, flagPost);
         User user = userDataFacade.retrieveLoggedUser();
@@ -102,7 +107,8 @@ public class MobilePostController {
     }
 
     @RequestMapping(value = "/post/{id}/like", method = RequestMethod.PUT)
-    public AppResponse likePost(@PathVariable("id") String id) {
+    public AppResponse likePost(
+            @PathVariable("id") String id) {
 
         User user = userDataFacade.retrieveLoggedUser();
         LOG.info("Trying to like a post with ID {} by userName {}.", id, user.getUsername());
@@ -119,7 +125,8 @@ public class MobilePostController {
     }
 
     @RequestMapping(value = "/post/{id}/dislike", method = RequestMethod.PUT)
-    public AppResponse dislikePost(@PathVariable("id") String id) {
+    public AppResponse dislikePost(
+            @PathVariable("id") String id) {
 
         User user = userDataFacade.retrieveLoggedUser();
         LOG.info("Trying to dislike a post with ID {} by userName {}.", id, user.getUsername());
@@ -136,11 +143,17 @@ public class MobilePostController {
     }
 
     @RequestMapping(value = "/post/{postId}/comment", method = RequestMethod.POST)
-    public AppResponse postComment(@PathVariable String postId,
-                              @RequestBody String text) {
+    public AppResponse postComment(
+            @PathVariable String postId,
+            @RequestBody NewCommentDto commentDto) {
         User user = userDataFacade.retrieveLoggedUser();
-        LOG.info("Adding a comment [{}] on Video post with ID {}.", text, postId);
-        VideoPosts updatedPost = videoPostsService.addNewComment(postId, text, user);
+
+        if(StringUtils.isBlank(commentDto.getText())) {
+            throw new BadFormatException("Comment cannot be blank.");
+        }
+
+        LOG.info("Adding a comment [{}] on Video post with ID {}.", commentDto.getText(), postId);
+        VideoPosts updatedPost = videoPostsService.addNewComment(postId, commentDto.getText(), user);
 
         AppResponse response = new AppResponse();
         response.setData(updatedPost);
