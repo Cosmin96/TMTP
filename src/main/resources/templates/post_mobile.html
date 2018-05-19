@@ -148,7 +148,7 @@
                     <hr style="background-color: #2C3E50; height: 4px;" />
                     <div th:each="comment : ${comments}" class="row" style="margin-left: 1%; margin-top:1%; margin-bottom: 2%;">
                         <div class="col-md-1">
-                            <img th:src="@{'/getFiles/' + ${comment.getUser().getUsername()} + '.jpg'}" width="50px" height="50px" />
+                            <img th:src="${comment.getUser().getProfileImageUrl()}" width="50px" height="50px" />
                         </div>
                         <div class="col-md-11">
                             <p align="left" style="margin-left: 3%; color: black"><a th:href="@{'/profile/' + ${comment.getUser().getUsername()}}"><span th:text="${comment.getUser().getFirstName()} + ' ' + ${comment.getUser().getLastName()}"></span></a><span th:text="' ' + ${comment.getComment()}"></span></p>

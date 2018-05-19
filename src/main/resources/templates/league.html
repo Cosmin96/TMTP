@@ -125,7 +125,7 @@
                                 <div class="chat-message">
                                     <h7>
                                         <font class="bold chat-message-author">
-                                            <img class="chat-message-author-pic" th:src="@{'/getFiles/' + ${message.getUsername()} + '.jpg'}" width="15px" height="15px"/>
+                                            <img class="chat-message-author-pic" th:src="@{'/getProfilePic/' + ${message.getUsername()}}" width="15px" height="15px"/>
                                             <a th:text="'&nbsp;' + ${message.getUsername()} + '&nbsp;'" class="chat-message-author-a" style="color:inherit;" th:href="'/profile/' + ${message.getUsername()}"></a>
                                         </font>
                                         <font th:text="${message.getText()}" class="chat-message-content">Some message here</font>
@@ -647,7 +647,7 @@
         $('#chat-' + league).prepend('<div class="chat-message">' +
             '                  <h7>' +
             '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getFiles/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '" width="15px" height="15px"/>' +
             '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
             '                    </font>' +
             '                    <font class="chat-message-content">' + text + '</font>' +
@@ -660,7 +660,7 @@
         $('#chat-' + league).append('<div class="chat-message">' +
             '                  <h7>' +
             '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getFiles/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '" width="15px" height="15px"/>' +
             '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
             '                    </font>' +
             '                    <font class="chat-message-content">' + text + '</font>' +

@@ -34,6 +34,9 @@ public class FileUploadController {
     @Value("${cloudinary.profile.folder}")
     private String profileBucket;
 
+    @Value("${user.default.profileImage}")
+    private String defaultProfilePicUrl;
+
     private final StorageService storageService;
     private final CloudStorageService cloudStorage;
     private final UserService userService;
@@ -106,5 +109,17 @@ public class FileUploadController {
         Resource file = storageService.loadJacketAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(new InputStreamResource(file.getInputStream()));
+    }
+
+    @GetMapping("/getProfilePic/{username}")
+    @ResponseBody
+    public String getprofileImage(@PathVariable String username) {
+
+        User user = userService.findByUsername(username);
+        if (user == null) {
+            return defaultProfilePicUrl;
+        } else {
+            return user.getProfileImageUrl();
+        }
     }
 }

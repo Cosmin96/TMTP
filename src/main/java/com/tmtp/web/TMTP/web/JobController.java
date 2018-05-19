@@ -2,11 +2,12 @@ package com.tmtp.web.TMTP.web;
 
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
+import com.tmtp.web.TMTP.dto.CloudinaryObject;
 import com.tmtp.web.TMTP.entity.Job;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.payment.ChargeRequest;
 import com.tmtp.web.TMTP.payment.StripeService;
-import com.tmtp.web.TMTP.service.StorageService;
+import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
 import com.tmtp.web.TMTP.web.formobjects.JobForm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,24 +17,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @Controller
 public class JobController {
+
+    @Value("${cloudinary.job.folder}")
+    private String jobBucket;
 
     @Value("${STRIPE_PUBLIC_KEY}")
     private String stripePublicKey;
     private final UserDataFacade userDataFacade;
     private final JobsDataFacade jobsDataFacade;
-    private final StorageService storageService;
     private final StripeService paymentsService;
+    private final CloudStorageService cloudStorage;
 
     public JobController(final UserDataFacade userDataFacade,
                          final JobsDataFacade jobsDataFacade,
-                         final StorageService storageService,
-                         final StripeService paymentsService) {
+                         final StripeService paymentsService,
+                         final CloudStorageService cloudStorage) {
         this.userDataFacade = userDataFacade;
         this.jobsDataFacade = jobsDataFacade;
-        this.storageService = storageService;
         this.paymentsService = paymentsService;
+        this.cloudStorage = cloudStorage;
     }
 
     @RequestMapping("/jobs")
@@ -56,7 +62,7 @@ public class JobController {
     }
 
     @RequestMapping("/jobs/submit")
-    public String submitNewJob(@ModelAttribute("jobForm") JobForm jobForm, ChargeRequest chargeRequest, Model model) throws StripeException{
+    public String submitNewJob(@ModelAttribute("jobForm") JobForm jobForm, ChargeRequest chargeRequest, Model model) throws StripeException, IOException {
         User user = userDataFacade.retrieveLoggedUser();
         if(user.getBanned()){
             return "redirect:/scores";
@@ -64,8 +70,7 @@ public class JobController {
         jobsDataFacade.createNewJob(jobForm);
         if(!jobForm.getImagePath().isEmpty()) {
             Job job = jobsDataFacade.retrieveJobByDescription(jobForm.getDescription());
-            jobPhotoUpload(jobForm.getImagePath(), job.getId());
-            job.setImagePath(job.getId());
+            job.setImagePath(jobPhotoUpload(jobForm.getImagePath()));
             jobsDataFacade.updateJob(job);
         }
 
@@ -76,8 +81,9 @@ public class JobController {
         return "redirect:/jobs";
     }
 
-    private void jobPhotoUpload(MultipartFile file, String id) {
-        String photoName = storageService.storeJobPhoto(file, id);
+    private String jobPhotoUpload(MultipartFile file) throws IOException {
+        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, jobBucket);
+        return cloudinaryObject.getSecureUrl();
     }
 
     @ExceptionHandler(StripeException.class)

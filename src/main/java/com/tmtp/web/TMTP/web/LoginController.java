@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.web;
 
+import com.tmtp.web.TMTP.dto.CloudinaryObject;
 import com.tmtp.web.TMTP.entity.PrivateLobby;
 import com.tmtp.web.TMTP.entity.Team;
 import com.tmtp.web.TMTP.entity.User;
@@ -9,8 +10,10 @@ import com.tmtp.web.TMTP.security.SecurityService;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.security.UserValidator;
 import com.tmtp.web.TMTP.service.StorageService;
+import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.*;
@@ -40,6 +44,9 @@ import static org.springframework.http.HttpHeaders.USER_AGENT;
 @Controller
 public class LoginController {
 
+    @Value("${cloudinary.profile.folder}")
+    private String profileBucket;
+
     private final UserService userService;
     private final SecurityService securityService;
     private final UserValidator userValidator;
@@ -47,7 +54,7 @@ public class LoginController {
     private final VideoPostsFacade videoPostsFacade;
     private final MessageSource messageSource;
     private final PrivateLobbyFacade privateLobbyFacade;
-    private final StorageService storageService;
+    private final CloudStorageService cloudStorageService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -58,7 +65,7 @@ public class LoginController {
                            final VideoPostsFacade videoPostsFacade,
                            final MessageSource messageSource,
                            final PrivateLobbyFacade privateLobbyFacade,
-                           final StorageService storageService,
+                           final CloudStorageService cloudStorageService,
                            final BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.securityService = securityService;
@@ -67,7 +74,7 @@ public class LoginController {
         this.videoPostsFacade = videoPostsFacade;
         this.messageSource = messageSource;
         this.privateLobbyFacade = privateLobbyFacade;
-        this.storageService = storageService;
+        this.cloudStorageService = cloudStorageService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -86,7 +93,7 @@ public class LoginController {
                                Model model,
                                RedirectAttributes redirectAttributes,
                                @RequestParam("file") MultipartFile file,
-                               @RequestParam("inviteCode") String inviteCode) {
+                               @RequestParam("inviteCode") String inviteCode) throws IOException {
 
         userValidator.validate(userForm, bindingResult);
 
@@ -99,7 +106,8 @@ public class LoginController {
         userForm.setUsername(userForm.getUsername().replaceAll("[^\\w\\s]+",""));
         userForm.setUsername(userForm.getUsername().toLowerCase());
         if(!file.isEmpty()) {
-            String photoName = storageService.store(file, userForm.getUsername());
+            CloudinaryObject cloudinaryObject = cloudStorageService.uploadFile(file, profileBucket);
+            userForm.setProfileImageUrl(cloudinaryObject.getSecureUrl());
             userForm.setProfile("yes");
         }
         else userForm.setProfile("no");

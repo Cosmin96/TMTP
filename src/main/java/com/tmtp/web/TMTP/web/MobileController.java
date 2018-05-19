@@ -2,12 +2,14 @@ package com.tmtp.web.TMTP.web;
 
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
+import com.tmtp.web.TMTP.dto.CloudinaryObject;
 import com.tmtp.web.TMTP.entity.*;
 import com.tmtp.web.TMTP.payment.ChargeRequest;
 import com.tmtp.web.TMTP.payment.StripeService;
 import com.tmtp.web.TMTP.repository.ChatMessageRepository;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.service.StorageService;
+import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
 import com.tmtp.web.TMTP.web.formobjects.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,10 +29,12 @@ import java.util.List;
 @Controller
 public class MobileController {
 
+    @Value("${cloudinary.job.folder}")
+    private String jobBucket;
+
     @Value("${STRIPE_PUBLIC_KEY}")
     private String stripePublicKey;
     private final JobsDataFacade jobsDataFacade;
-    private final StorageService storageService;
     private final StripeService paymentsService;
     private final UserDataFacade userDataFacade;
     private final UserService userService;
@@ -37,18 +42,18 @@ public class MobileController {
     private final ChatMessageRepository chatMessageRepository;
     private final PrivateLobbyFacade privateLobbyFacade;
     private final ShopItemFacade shopItemFacade;
+    private final CloudStorageService cloudStorage;
 
     public MobileController(final JobsDataFacade jobsDataFacade,
-                            final StorageService storageService,
                             final StripeService paymentsService,
                             final UserDataFacade userDataFacade,
                             final UserService userService,
                             final BCryptPasswordEncoder bCryptPasswordEncoder,
                             final ChatMessageRepository chatMessageRepository,
                             final PrivateLobbyFacade privateLobbyFacade,
-                            final ShopItemFacade shopItemFacade) {
+                            final ShopItemFacade shopItemFacade,
+                            final CloudStorageService cloudStorage) {
         this.jobsDataFacade = jobsDataFacade;
-        this.storageService = storageService;
         this.paymentsService = paymentsService;
         this.userDataFacade = userDataFacade;
         this.userService = userService;
@@ -56,6 +61,7 @@ public class MobileController {
         this.chatMessageRepository = chatMessageRepository;
         this.privateLobbyFacade = privateLobbyFacade;
         this.shopItemFacade = shopItemFacade;
+        this.cloudStorage = cloudStorage;
     }
 
     //ADMIN CONTROLLER ENDPOINTS
@@ -241,7 +247,7 @@ public class MobileController {
     }
 
     @RequestMapping("/mobile/jobs/submit")
-    public String submitNewJob(@ModelAttribute("jobForm") JobForm jobForm, ChargeRequest chargeRequest, Model model) throws StripeException {
+    public String submitNewJob(@ModelAttribute("jobForm") JobForm jobForm, ChargeRequest chargeRequest, Model model) throws StripeException, IOException {
         User user = userDataFacade.retrieveLoggedUser();
         if(user.getBanned()){
             return "redirect:/mobile/scores";
@@ -249,8 +255,7 @@ public class MobileController {
         jobsDataFacade.createNewJob(jobForm);
         if(!jobForm.getImagePath().isEmpty()) {
             Job job = jobsDataFacade.retrieveJobByDescription(jobForm.getDescription());
-            jobPhotoUpload(jobForm.getImagePath(), job.getId());
-            job.setImagePath(job.getId());
+            job.setImagePath(jobPhotoUpload(jobForm.getImagePath()));
             jobsDataFacade.updateJob(job);
         }
 
@@ -261,8 +266,9 @@ public class MobileController {
         return "redirect:/mobile/jobs";
     }
 
-    private void jobPhotoUpload(MultipartFile file, String id) {
-        String photoName = storageService.storeJobPhoto(file, id);
+    private String jobPhotoUpload(MultipartFile file) throws IOException {
+        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, jobBucket);
+        return cloudinaryObject.getSecureUrl();
     }
 
     @ExceptionHandler(StripeException.class)
