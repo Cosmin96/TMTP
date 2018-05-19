@@ -2,7 +2,7 @@
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/site/wwwroot/logs/tmtp-%d{yyyy-MM-dd}.log
+			<fileNamePattern>/opt/TMTP_Logs/tmtp-%d{yyyy-MM-dd}.log
 			</fileNamePattern>
 			<maxHistory>30</maxHistory>
 			<totalSizeCap>3GB</totalSizeCap>
