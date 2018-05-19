@@ -395,6 +395,7 @@
             }
             $('#message-text').val('');
             $.ajax({
+                type: "POST",
                 url: '/new-chat-message/' + Base64.encode(textToSend) + '/' + ('chat-' + league),
                 success: function (data) {
                     console.log(data);
