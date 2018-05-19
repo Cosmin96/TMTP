@@ -140,20 +140,6 @@ public class IOSController {
         return response;
     }
 
-    @RequestMapping(value = "/mobile/scores", method = RequestMethod.GET)
-    public AppResponse getScoresPage() {
-
-        User user = userDataFacade.retrieveLoggedUser();
-
-        if (user.getBanned()) {
-            throw new UserBannedException(getMessage("Banned.userForm.username"));
-        }
-
-        AppResponse response = new AppResponse();
-        response.setData(userDataService.getUserScore(user));
-        return response;
-    }
-
     @RequestMapping(value = "/mobile/home", method = RequestMethod.GET)
     public AppResponse getHomeFeed() {
 
