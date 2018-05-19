@@ -216,6 +216,10 @@
                 </div>
 
                 <div class="row" style="margin-left: 5%;">
+                    <p align="left"><a th:href="@{'/post/' + ${post.getId()}}">See comments</a></p>
+                </div>
+
+                <div class="row" style="margin-left: 5%;">
                     <p align="left" th:if="${user.getAdmin()}"><a
                             th:href="@{'/post/' + ${post.getId()} + '/delete/'}"><i class="fa fa-times"
                                                                                     aria-hidden="true"></i> Delete</a>
@@ -229,9 +233,6 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-left: 5%;">
-                    <p align="left"><a th:href="@{'/post/' + ${post.getId()}}">See comments</a></p>
-                </div>
 
                 <div class="row buttonRow">
                     <div class="col-xs-12 col-sm-12 col-md-5 text-xs-center">
@@ -309,6 +310,7 @@
 
 
 <div th:replace="fragments/infomodal :: infomodal"></div>
+<div th:replace="fragments/infomodal :: mailmodal"></div>
 
 <!-- Bootstrap core JavaScript -->
 <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>

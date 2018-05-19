@@ -233,7 +233,7 @@
               </a>
             </li>
             <li class="list-inline-item">
-              <a class="btn-social btn-outline" href="mailto:topbantzcontact@gmail.com" target="_top">
+              <a class="btn-social btn-outline" data-toggle="modal" data-target="#mailModal" target="_top">
                 <i class="fa fa-fw fa-envelope"></i>
               </a>
             </li>
@@ -262,6 +262,8 @@
     </div>
   </div>
 </footer>
+
+<div th:replace="fragments/infomodal :: mailmodal"></div>
 
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-top d-lg-none">
