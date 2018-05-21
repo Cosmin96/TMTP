@@ -33,21 +33,6 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public String store(String base64Str, String username) {
-        String filename = StringUtils.cleanPath(username + ".jpg");
-        try {
-            byte[] scanBytes = Base64.getDecoder().decode(base64Str);
-            ByteArrayInputStream bis = new ByteArrayInputStream(scanBytes);
-            Files.copy(bis, this.rootLocation.resolve(filename),
-                    StandardCopyOption.REPLACE_EXISTING);
-            return filename;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
     public String store(MultipartFile file, String username) {
         //String filename = StringUtils.cleanPath(file.getOriginalFilename());
         String filename = StringUtils.cleanPath(username + ".jpg");

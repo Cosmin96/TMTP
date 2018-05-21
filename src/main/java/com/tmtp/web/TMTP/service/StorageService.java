@@ -10,8 +10,6 @@ public interface StorageService {
 
     void init();
 
-    String store(String base64Str, String username);
-
     String store(MultipartFile file, String username);
 
     String storeJobPhoto(MultipartFile file, String id);
