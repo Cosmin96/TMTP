@@ -236,29 +236,22 @@
 
 
                 <div class="row buttonRow">
-                    <div class="col-xs-12 col-sm-12 col-md-5 text-xs-center">
-                        <a class="btn btn-success" th:href="'javascript:likeButton(\'' + ${post.getId()} + '\')'"
-                           th:id="${'like' + post.getId()}">
+                    <div class="col-xs-3">
+                        <a class="btn btn-success" th:href="'javascript:likeButton(\'' + ${post.getId()} + '\')'" th:id="${'like' + post.getId()}">
                             <!--th:href="@{'/like/' + ${post.getId()}}"-->
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                            <span th:if="${!post.getLikeUsers().contains(user.getUsername())}"
-                                  th:text="${'Like - ' + post.getLikes() + ' likes'}"></span>
-                            <span th:if="${post.getLikeUsers().contains(user.getUsername())}"
-                                  th:text="${'Liked - ' + post.getLikes() + ' likes'}"></span>
+                            <span th:if="${!post.getLikeUsers().contains(user.getUsername())}" th:text="${'Like - ' + post.getLikes() + ' likes'}"></span>
+                            <span th:if="${post.getLikeUsers().contains(user.getUsername())}" th:text="${'Liked - ' + post.getLikes() + ' likes'}"></span>
                         </a>
                     </div>
-                    <div class="col-md-2 mobileNone">
+                    <div class="col-xs-1">
                         &nbsp;&nbsp;&nbsp;
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-5 text-xs-center buttonMargin">
-                        <a style="" class="btn btn-danger"
-                           th:href="'javascript:dislikeButton(\'' + ${post.getId()} + '\')'"
-                           th:id="${'dislike' + post.getId()}">
+                    <div class="col-xs-3">
+                        <a style="text-decoration:none !important" class="btn btn-danger" th:href="'javascript:dislikeButton(\'' + ${post.getId()} + '\')'" th:id="${'dislike' + post.getId()}">
                             <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                            <span th:if="${!post.getDislikeUsers().contains(user.getUsername())}"
-                                  th:text="${'Dislike - ' + post.getDislikes() + ' dislikes'}"></span>
-                            <span th:if="${post.getDislikeUsers().contains(user.getUsername())}"
-                                  th:text="${'Disliked - ' + post.getDislikes() + ' dislikes'}"></span>
+                            <span th:if="${!post.getDislikeUsers().contains(user.getUsername())}" th:text="${'Dislike - ' + post.getDislikes() + ' dislikes'}"></span>
+                            <span th:if="${post.getDislikeUsers().contains(user.getUsername())}" th:text="${'Disliked - ' + post.getDislikes() + ' dislikes'}"></span>
                         </a>
                     </div>
                 </div>
