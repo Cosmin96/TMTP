@@ -2,6 +2,7 @@ package com.tmtp.web.TMTP.web.mobile;
 
 import com.tmtp.web.TMTP.dto.AppResponse;
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
+import com.tmtp.web.TMTP.dto.enums.FileType;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
@@ -36,7 +37,7 @@ public class MobileUploadController {
     public AppResponse handleFileUpload(
             @RequestParam("file") MultipartFile file) throws IOException {
 
-        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, profileBucket);
+        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, FileType.IMAGE, profileBucket);
 
         User loggedInUser = userDataFacade.retrieveLoggedUser();
         loggedInUser.setProfileImageUrl(cloudinaryObject.getSecureUrl());

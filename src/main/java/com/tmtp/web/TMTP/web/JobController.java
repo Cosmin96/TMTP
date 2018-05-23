@@ -3,6 +3,7 @@ package com.tmtp.web.TMTP.web;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
+import com.tmtp.web.TMTP.dto.enums.FileType;
 import com.tmtp.web.TMTP.entity.Job;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.payment.ChargeRequest;
@@ -82,7 +83,7 @@ public class JobController {
     }
 
     private String jobPhotoUpload(MultipartFile file) throws IOException {
-        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, jobBucket);
+        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, FileType.IMAGE, jobBucket);
         return cloudinaryObject.getSecureUrl();
     }
 

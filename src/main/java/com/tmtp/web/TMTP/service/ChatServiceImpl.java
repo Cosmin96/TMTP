@@ -2,6 +2,7 @@ package com.tmtp.web.TMTP.service;
 
 import com.pusher.rest.Pusher;
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
+import com.tmtp.web.TMTP.dto.enums.FileType;
 import com.tmtp.web.TMTP.dto.enums.MessageType;
 import com.tmtp.web.TMTP.entity.ChatMessage;
 import com.tmtp.web.TMTP.entity.User;
@@ -56,7 +57,7 @@ public class ChatServiceImpl implements ChatService {
             User user, MultipartFile file, String room, MessageType messageType)
             throws IOException {
 
-        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, audioBucket);
+        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, FileType.AUDIO, audioBucket);
         String secureUrl = cloudinaryObject.getSecureUrl();
         return pushMessageToPusher(user, secureUrl, room, messageType);
     }

@@ -5,6 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmtp.web.TMTP.constants.CommonKey;
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
+import com.tmtp.web.TMTP.dto.enums.FileType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +48,25 @@ public class CloudStorageServiceImpl implements CloudStorageService {
      * @return Response received from Cloudinary
      */
     @Override
-    public CloudinaryObject uploadFile(MultipartFile file, String bucketName) {
+    public CloudinaryObject uploadFile(MultipartFile file, FileType fileType, String bucketName) {
 
         String uniqueIdentifier = UUID.randomUUID().toString().replace("-", "");
 
         Map params = ObjectUtils.asMap(
-                //Provide the Cloudinary folder name where this image should be uploaded
-                CommonKey.PUBLIC_ID, bucketName + File.separator + uniqueIdentifier + file.getName(),
+
+                //Provide the folder name
+                CommonKey.FOLDER, bucketName,
+
+                //Provide the Cloudinary public ID we generated
+                CommonKey.PUBLIC_ID, uniqueIdentifier,
 
                 //Ensure that this file has a unique name when it is saved to Cloudinary
                 CommonKey.UNIQUE_FILENAME, true);
+
+        if (fileType != FileType.IMAGE) {
+            params.put(CommonKey.RESOURCE_TYPE, CommonKey.TYPE_RAW);
+        }
+
         LOG.info("Uploading file to cloudinary bucket {}.", bucketName);
 
         CloudinaryObject cloudinaryObject = null;

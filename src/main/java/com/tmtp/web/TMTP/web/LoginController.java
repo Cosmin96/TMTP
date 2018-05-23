@@ -1,6 +1,7 @@
 package com.tmtp.web.TMTP.web;
 
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
+import com.tmtp.web.TMTP.dto.enums.FileType;
 import com.tmtp.web.TMTP.entity.PrivateLobby;
 import com.tmtp.web.TMTP.entity.Team;
 import com.tmtp.web.TMTP.entity.User;
@@ -106,7 +107,7 @@ public class LoginController {
         userForm.setUsername(userForm.getUsername().replaceAll("[^\\w\\s]+",""));
         userForm.setUsername(userForm.getUsername().toLowerCase());
         if(!file.isEmpty()) {
-            CloudinaryObject cloudinaryObject = cloudStorageService.uploadFile(file, profileBucket);
+            CloudinaryObject cloudinaryObject = cloudStorageService.uploadFile(file, FileType.IMAGE, profileBucket);
             userForm.setProfileImageUrl(cloudinaryObject.getSecureUrl());
             userForm.setProfile("yes");
         }

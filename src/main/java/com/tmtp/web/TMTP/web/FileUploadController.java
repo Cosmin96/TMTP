@@ -1,6 +1,7 @@
 package com.tmtp.web.TMTP.web;
 
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
+import com.tmtp.web.TMTP.dto.enums.FileType;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.security.UserService;
 import com.tmtp.web.TMTP.service.StorageService;
@@ -58,7 +59,7 @@ public class FileUploadController {
                                    @RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) throws IOException {
 
-        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, profileBucket);
+        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, FileType.IMAGE, profileBucket);
 
         User loggedInUser = userDataFacade.retrieveLoggedUser();
         loggedInUser.setProfileImageUrl(cloudinaryObject.getSecureUrl());
@@ -71,7 +72,7 @@ public class FileUploadController {
                                           @RequestParam("file") MultipartFile file,
                                           RedirectAttributes redirectAttributes) throws IOException {
 
-        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, profileBucket);
+        CloudinaryObject cloudinaryObject = cloudStorage.uploadFile(file, FileType.IMAGE, profileBucket);
 
         User user = userDataFacade.retrieveLoggedUser();
         user.setProfileImageUrl(cloudinaryObject.getSecureUrl());
