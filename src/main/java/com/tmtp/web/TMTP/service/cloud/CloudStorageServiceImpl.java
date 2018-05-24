@@ -63,9 +63,21 @@ public class CloudStorageServiceImpl implements CloudStorageService {
                 //Ensure that this file has a unique name when it is saved to Cloudinary
                 CommonKey.UNIQUE_FILENAME, true);
 
-        if (fileType != FileType.IMAGE) {
-            params.put(CommonKey.RESOURCE_TYPE, CommonKey.TYPE_RAW);
+        switch (fileType) {
+            case IMAGE:
+                params.put(CommonKey.RESOURCE_TYPE, CommonKey.TYPE_IMAGE);
+                break;
+
+            case VIDEO:
+            case AUDIO:
+                params.put(CommonKey.RESOURCE_TYPE, CommonKey.TYPE_VIDEO);
+                break;
+
+            default:
+                params.put(CommonKey.RESOURCE_TYPE, CommonKey.TYPE_AUTO);
+                break;
         }
+
 
         LOG.info("Uploading file to cloudinary bucket {}.", bucketName);
 
