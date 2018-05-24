@@ -102,8 +102,8 @@
             <div class="row" style="margin-left: 6%">
                 <a href="https://talksport.com/football" class="linkwrap">
                     <div class="blocker"></div>
-                <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
-                <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
+                    <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
+                    <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
                 </a>
             </div>
             <div class="row" style="margin-left: 1%">
@@ -152,10 +152,13 @@
                                 <div class="chat-message">
                                     <h7>
                                         <font class="bold chat-message-author">
-                                            <img class="chat-message-author-pic" th:src="@{'/getProfilePic/' + ${message.getUsername()}}" width="15px" height="15px"/>
+                                            <img class="chat-message-author-pic" th:src="@{'/getProfilePic/' + ${message.getUsername()}}" width="15px" height="15px" />
                                             <a th:text="'&nbsp;' + ${message.getUsername()} + '&nbsp;'" class="chat-message-author-a" style="color:inherit;" th:href="'/profile/' + ${message.getUsername()}"></a>
                                         </font>
-                                        <font th:text="${message.getText()}" class="chat-message-content">Some message here</font>
+                                        <font th:if="${message.getMessageType().getText().equals('Text')}" th:text="${message.getText()}" class="chat-message-content">Some message here</font>
+                                        <audio th:if="${message.getMessageType().getText().equals('Audio')}" th:controls="controls">
+                                            <source th:src="${message.getText()}" type="audio/wav" />
+                                        </audio>
                                     </h7>
                                 </div>
                             </th:block>
@@ -167,43 +170,54 @@
                     <div style="border-top: 1px solid rgba(0,0,0,0.1)" class="paddinger-20">
 
                         <input id="message-text" type="text" class="input-message chat-field chat-field-large" placeholder="Write a message..."/>
+                        <button  class="btn btn-success" onclick="clickRecording(this)">
+                            <i id="notRecording" class="fa fa-microphone" style="color:white"></i>
+                            <i id="Recording" class="fa fa-circle" style="display:none; color:red"></i>
+                        </button>
                         <input id="send-message-id" style="margin-left:10px;" type="button" class="send-message btn btn-success" value="Send"/>
 
                     </div>
 
                 </div>
-
+                <div style="display:none">
+                    <div id="viz">
+                        <canvas id="analyser" width="1024" height="350"></canvas>
+                        <br />
+                        <canvas id="wavedisplay" width="1024" height="350"></canvas>
+                    </div>
+                    <a id="save" class="btn btn-success" href="#">Download Audio</a>
+                </div>
             </div>
 
             <!--<center>-->
-                <!--<div class="row">-->
-                    <!--&lt;!&ndash;<iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=9c487911-6e59-4856-8b72-94548de2e43c&amp;room=DEFAULT_ROOM&amp;iframe=true" width="800px" height="700px" allow="microphone" ></iframe>&ndash;&gt;-->
-                    <!--<center>-->
-                        <!--<div id="otEmbedContainer" style="width:600px; height:700px"></div>-->
-                        <!--<script th:src="@{'https://tokbox.com/embed/embed/ot-embed.js?embedId=f427b4fa-1b1f-478c-9c29-731e1a7f77b9&amp;room=' + ${lobby.getId()}}">-->
+            <!--<div class="row">-->
+            <!--&lt;!&ndash;<iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=9c487911-6e59-4856-8b72-94548de2e43c&amp;room=DEFAULT_ROOM&amp;iframe=true" width="800px" height="700px" allow="microphone" ></iframe>&ndash;&gt;-->
+            <!--<center>-->
+            <!--<div id="otEmbedContainer" style="width:600px; height:700px"></div>-->
+            <!--<script th:src="@{'https://tokbox.com/embed/embed/ot-embed.js?embedId=f427b4fa-1b1f-478c-9c29-731e1a7f77b9&amp;room=' + ${lobby.getId()}}">-->
 
-                        <!--</script>-->
+            <!--</script>-->
 
-                        <!--<script type="text/javascript">-->
-                            <!--var pubOptions = {-->
-                                <!--publishAudio:true,-->
-                                <!--publishVideo:false,-->
-                                <!--subscribeToAudio:true,-->
-                                <!--subscribeToVideo:false,-->
-                                <!--videoSource: null,-->
-                            <!--};-->
-                            <!--var publisher;-->
-                            <!--publisher = OT.initPublisher('otEmbedContainer', pubOptions);-->
-                            <!--publisher.publishVideo(false);-->
+            <!--<script type="text/javascript">-->
+            <!--var pubOptions = {-->
+            <!--publishAudio:true,-->
+            <!--publishVideo:false,-->
+            <!--subscribeToAudio:true,-->
+            <!--subscribeToVideo:false,-->
+            <!--videoSource: null,-->
+            <!--};-->
+            <!--var publisher;-->
+            <!--publisher = OT.initPublisher('otEmbedContainer', pubOptions);-->
+            <!--publisher.publishVideo(false);-->
 
-                        <!--</script>-->
-                    <!--</center>-->
-                <!--</div>-->
+            <!--</script>-->
+            <!--</center>-->
+            <!--</div>-->
             <!--</center>-->
 
             <div class="row" style="margin-top: 3%;">
                 <div class="mobileNone">
-                <iframe frameborder="0"  scrolling="yes" width="520" height="700" src="https://www.fctables.com/england/premier-league/iframe/?type=table&amp;lang_id=2&amp;country=5&amp;template=10&amp;team=&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
+                    <iframe frameborder="0"  scrolling="yes" width="520" height="700" src="https://www.fctables.com/england/premier-league/iframe/?type=table&amp;lang_id=2&amp;country=5&amp;template=10&amp;team=&amp;timezone=Europe/London&amp;time=24&amp;po=1&amp;ma=1&amp;wi=1&amp;dr=1&amp;los=1&amp;gf=1&amp;ga=1&amp;gd=1&amp;pts=1&amp;ng=1&amp;form=1&amp;width=520&amp;height=700&amp;font=Verdana&amp;fs=12&amp;lh=22&amp;bg=FFFFFF&amp;fc=333333&amp;logo=1&amp;tlink=1&amp;ths=1&amp;thb=1&amp;thba=FFFFFF&amp;thc=000000&amp;bc=dddddd&amp;hob=f5f5f5&amp;hobc=ebe7e7&amp;lc=333333&amp;sh=1&amp;hfb=1&amp;hbc=3bafda&amp;hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
                 </div>
                 <div class="desktopNone">
                     <a href="https://www.fctables.com" class="linkwrap">
@@ -272,9 +286,33 @@
 <!-- Custom scripts for this template -->
 <script src="../static/js/freelancer.min.js" th:src="@{/js/freelancer.min.js}"></script>
 <script src="../static/js/base64.js" th:src="@{/js/base64.js}"></script>
+
 <!--<script type="text/javascript">-->
-    <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
+<!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
 <!--</script>-->
+
+<!--Audio stuff-->
+<script src="../static/js/audio/audiodisplay.js" th:src="@{/js/audio/audiodisplay.js}"></script>
+<script src="../static/js/audio/recorder.js" th:src="@{/js/audio/recorder.js}"></script>
+<script src="../static/js/audio/main.js" th:src="@{/js/audio/main.js}"></script>
+<script th:inline="javascript">
+    var counter = 0;
+    var lobby = [[${lobby.getId()}]];
+    function clickRecording(buttonRec){
+        if(counter === 0){
+            $("#notRecording").hide();
+            $("#Recording").show();
+            counter = 1;
+            toggleRecording(buttonRec, lobby);
+        }
+        else{
+            $("#Recording").hide();
+            $("#notRecording").show();
+            counter = 0;
+            toggleRecording(buttonRec, lobby);
+        }
+    }
+</script>
 
 <!-- Pusher for chat -->
 <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
@@ -286,6 +324,7 @@
     /*<![CDATA[*/
     var league = /*[[${lobby.getId()}]]*/ '0';
     /*]]>*/
+
 
     /*<![CDATA[*/
     var totalMessagesAtLoad = /*[[${totalMessages}]]*/ '0';
@@ -304,13 +343,26 @@
     }
 
     function prependMessage(text, username) {
+
         $('#chat-' + league).prepend('<div class="chat-message">' +
             '                  <h7>' +
             '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '" width="15px" height="15px"/>' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
             '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
             '                    </font>' +
             '                    <font class="chat-message-content">' + text + '</font>' +
+            '                  </h7>' +
+            '                </div>');
+    }
+
+    function appendAudioMessage(text, username) {
+        $('#chat-' + league).prepend('<div class="chat-message">' +
+            '                  <h7>' +
+            '                    <font class="bold chat-message-author">' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+            '                    </font>' +
+            '                    <audio controls="controls">' + '<source src="' + text + '" type="audio/wav" /> + </audio>' +
             '                  </h7>' +
             '                </div>');
     }
@@ -319,10 +371,22 @@
         $('#chat-' + league).append('<div class="chat-message">' +
             '                  <h7>' +
             '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '" width="15px" height="15px"/>' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
             '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
             '                    </font>' +
             '                    <font class="chat-message-content">' + text + '</font>' +
+            '                  </h7>' +
+            '                </div>');
+    }
+
+    function appendAudioMessage(text, username) {
+        $('#chat-' + league).append('<div class="chat-message">' +
+            '                  <h7>' +
+            '                    <font class="bold chat-message-author">' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+            '                    </font>' +
+            '                    <audio controls="controls">' + '<source src="' + text + '" type="audio/wav" /> + </audio>' +
             '                  </h7>' +
             '                </div>');
     }
@@ -341,7 +405,10 @@
                 $('#center-load-more').remove();
 
                 for(var i = data.length - 1; i > -1; i--) {
-                    prependMessage(data[i].text, data[i].username);
+                    if(data[i].type === "Audio"){
+                        prependAudioMessage(data[i].text, data[i].username);
+                    }
+                    else prependMessage(data[i].text, data[i].username);
                 }
 
                 if(start > 0) {
@@ -365,8 +432,12 @@
     channel.bind('new-message', function(data) {
         message = data.message;
         username = data.username;
-
-        appendMessage(message, username);
+        if(data.type === "Audio") {
+            appendAudioMessage(message, username);
+        }
+        else{
+            appendMessage(message, username);
+        }
     });
 </script>
 

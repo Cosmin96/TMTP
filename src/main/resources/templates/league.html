@@ -128,7 +128,10 @@
                                             <img class="chat-message-author-pic" th:src="@{'/getProfilePic/' + ${message.getUsername()}}" width="15px" height="15px"/>
                                             <a th:text="'&nbsp;' + ${message.getUsername()} + '&nbsp;'" class="chat-message-author-a" style="color:inherit;" th:href="'/profile/' + ${message.getUsername()}"></a>
                                         </font>
-                                        <font th:text="${message.getText()}" class="chat-message-content">Some message here</font>
+                                        <font th:if="${message.getMessageType().getText().equals('Text')}" th:text="${message.getText()}" class="chat-message-content">Some message here</font>
+                                        <audio th:if="${message.getMessageType().getText().equals('Audio')}" th:controls="controls">
+                                            <source th:src="${message.getText()}" type="audio/wav" />
+                                        </audio>
                                     </h7>
                                 </div>
                             </th:block>
@@ -140,8 +143,21 @@
                     <div style="border-top: 1px solid rgba(0,0,0,0.1)" class="paddinger-20">
 
                         <input id="message-text" type="text" class="input-message chat-field chat-field-large" placeholder="Write a message..."/>
+                        <button  class="btn btn-success" onclick="clickRecording(this)">
+                            <i id="notRecording" class="fa fa-microphone" style="color:white"></i>
+                            <i id="Recording" class="fa fa-circle" style="display:none; color:red"></i>
+                        </button>
                         <input id="send-message-id" style="margin-left:10px;" type="button" class="send-message btn btn-success" value="Send"/>
 
+                    </div>
+
+                    <div style="display:none">
+                        <div id="viz">
+                            <canvas id="analyser" width="1024" height="350"></canvas>
+                            <br />
+                            <canvas id="wavedisplay" width="1024" height="350"></canvas>
+                        </div>
+                        <a id="save" class="btn btn-success" href="#">Download Audio</a>
                     </div>
 
                 </div>
@@ -615,6 +631,30 @@
 <!--var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];        $('body').css({'background-image': 'url(/img/background/' + images[Math.floor(Math.random() * images.length)] + ')'});-->
 <!--</script>-->
 
+<!--Audio stuff-->
+<script src="../static/js/audio/audiodisplay.js" th:src="@{/js/audio/audiodisplay.js}"></script>
+<script src="../static/js/audio/recorder.js" th:src="@{/js/audio/recorder.js}"></script>
+<script src="../static/js/audio/main.js" th:src="@{/js/audio/main.js}"></script>
+<script th:inline="javascript">
+    var counter = 0;
+    var lobby = [[${league}]];
+    function clickRecording(buttonRec){
+        if(counter === 0){
+            $("#notRecording").hide();
+            $("#Recording").show();
+            counter = 1;
+            toggleRecording(buttonRec, lobby);
+        }
+        else{
+            $("#Recording").hide();
+            $("#notRecording").show();
+            counter = 0;
+            toggleRecording(buttonRec, lobby);
+        }
+    }
+</script>
+
+
 <!-- Pusher for chat -->
 <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 <script th:inline="javascript">
@@ -647,7 +687,7 @@
         $('#chat-' + league).prepend('<div class="chat-message">' +
             '                  <h7>' +
             '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '" width="15px" height="15px"/>' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
             '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
             '                    </font>' +
             '                    <font class="chat-message-content">' + text + '</font>' +
@@ -655,15 +695,38 @@
             '                </div>');
     }
 
-    function appendMessage(text, username) {
+    function prependAudioMessage(text, username) {
+        $('#chat-' + league).prepend('<div class="chat-message">' +
+            '                  <h7>' +
+            '                    <font class="bold chat-message-author">' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+            '                    </font>' +
+            '                    <audio controls="controls">' + '<source src="' + text + '" type="audio/wav" /> + </audio>' +
+            '                  </h7>' +
+            '                </div>');
+    }
 
+    function appendMessage(text, username) {
         $('#chat-' + league).append('<div class="chat-message">' +
             '                  <h7>' +
             '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '" width="15px" height="15px"/>' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
             '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
             '                    </font>' +
             '                    <font class="chat-message-content">' + text + '</font>' +
+            '                  </h7>' +
+            '                </div>');
+    }
+
+    function appendAudioMessage(text, username) {
+        $('#chat-' + league).append('<div class="chat-message">' +
+            '                  <h7>' +
+            '                    <font class="bold chat-message-author">' +
+            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
+            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+            '                    </font>' +
+            '                    <audio controls="controls">' + '<source src="' + text + '" type="audio/wav" /> + </audio>' +
             '                  </h7>' +
             '                </div>');
     }
@@ -682,7 +745,10 @@
                 $('#center-load-more').remove();
 
                 for(var i = data.length - 1; i > -1; i--) {
-                    prependMessage(data[i].text, data[i].username);
+                    if(data[i].type === "Audio"){
+                        prependAudioMessage(data[i].text, data[i].username);
+                    }
+                    else prependMessage(data[i].text, data[i].username);
                 }
 
                 if(start > 0) {
@@ -707,7 +773,12 @@
         message = data.message;
         username = data.username;
 
-        appendMessage(message, username);
+        if(data.type === "Audio") {
+            appendAudioMessage(message, username);
+        }
+        else{
+            appendMessage(message, username);
+        }
     });
 </script>
 

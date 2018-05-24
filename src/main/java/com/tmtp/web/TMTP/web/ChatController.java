@@ -13,8 +13,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -71,6 +71,29 @@ public class ChatController {
 
         chatService.sendTextMessageInRoom(user, text, room);
         return "Sent";
+    }
+
+    @RequestMapping(value = "/audio-message/{room}", method = RequestMethod.POST, headers = "content-type=multipart/form-data")
+    @ResponseBody
+    public AppResponse sendAudioMediaMessageToRoom(
+            MultipartHttpServletRequest request, @PathVariable("room") String room,
+            @RequestParam MessageType messageType) throws IOException {
+        User user = userDataFacade.retrieveLoggedUser();
+
+        MultipartFile file = request.getFile("file");
+
+        if (user.getBanned()) {
+            throw new UserBannedException(getMessage("Banned.userForm.username"));
+        }
+
+        //Check / create chat room
+        if (!isRoomOk(room)) {
+            throw new IllegalArgumentException(getMessage("INVALID_REQUEST"));
+        }
+
+        AppResponse response = new AppResponse();
+        response.setData(chatService.sendMediaMessageInRoom(user, file, room, messageType));
+        return response;
     }
 
     @RequestMapping(value = "/media-message/{room}", method = RequestMethod.POST)

@@ -55,5 +55,9 @@ public class DeleteAudioNoteTask {
                         chatMessage.getText(), chatMessage.getMessageType());
             }
         });
+
+        for(ChatMessage message : messagesToDelete) {
+            chatMessageRepository.delete(message);
+        }
     }
 }
