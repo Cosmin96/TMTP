@@ -100,8 +100,9 @@ p { font-family: 'Slabo 27px', serif !important; }
     outline: none;
     color: #000a3e;
 }
+
 .chat-field-large{
-    width: 85% !important;
+    width: 80% !important;
 }
 .chat-field:focus{
     background-color: #fff;
@@ -533,7 +534,7 @@ a:focus{
     }
 
     .buttonRow{
-        margin-top: 25%;
+        margin-top: 45%;
     }
     
     .mobileNone{
