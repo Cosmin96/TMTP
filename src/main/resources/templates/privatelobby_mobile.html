@@ -152,7 +152,7 @@
                                 <div class="chat-message">
                                     <h7>
                                         <font class="bold chat-message-author">
-                                            <img class="chat-message-author-pic" th:src="@{'/getProfilePic/' + ${message.getUsername()}}" width="15px" height="15px" />
+                                            <img class="chat-message-author-pic" width="15px" height="15px" th:attr="data-location=@{/getProfilePic/{user}(user=${message.username})}" />
                                             <a th:text="'&nbsp;' + ${message.getUsername()} + '&nbsp;'" class="chat-message-author-a" style="color:inherit;" th:href="'/profile/' + ${message.getUsername()}"></a>
                                         </font>
                                         <font th:if="${message.getMessageType().getText().equals('Text')}" th:text="${message.getText()}" class="chat-message-content">Some message here</font>
@@ -188,32 +188,6 @@
                     <a id="save" class="btn btn-success" href="#">Download Audio</a>
                 </div>
             </div>
-
-            <!--<center>-->
-            <!--<div class="row">-->
-            <!--&lt;!&ndash;<iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=9c487911-6e59-4856-8b72-94548de2e43c&amp;room=DEFAULT_ROOM&amp;iframe=true" width="800px" height="700px" allow="microphone" ></iframe>&ndash;&gt;-->
-            <!--<center>-->
-            <!--<div id="otEmbedContainer" style="width:600px; height:700px"></div>-->
-            <!--<script th:src="@{'https://tokbox.com/embed/embed/ot-embed.js?embedId=f427b4fa-1b1f-478c-9c29-731e1a7f77b9&amp;room=' + ${lobby.getId()}}">-->
-
-            <!--</script>-->
-
-            <!--<script type="text/javascript">-->
-            <!--var pubOptions = {-->
-            <!--publishAudio:true,-->
-            <!--publishVideo:false,-->
-            <!--subscribeToAudio:true,-->
-            <!--subscribeToVideo:false,-->
-            <!--videoSource: null,-->
-            <!--};-->
-            <!--var publisher;-->
-            <!--publisher = OT.initPublisher('otEmbedContainer', pubOptions);-->
-            <!--publisher.publishVideo(false);-->
-
-            <!--</script>-->
-            <!--</center>-->
-            <!--</div>-->
-            <!--</center>-->
 
             <div class="row" style="margin-top: 3%;">
                 <div class="mobileNone">
@@ -343,52 +317,59 @@
     }
 
     function prependMessage(text, username) {
-
-        $('#chat-' + league).prepend('<div class="chat-message">' +
-            '                  <h7>' +
-            '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
-            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
-            '                    </font>' +
-            '                    <font class="chat-message-content">' + text + '</font>' +
-            '                  </h7>' +
-            '                </div>');
+        loadImage(username, function (data) {
+            $('#chat-' + league).prepend('<div class="chat-message">' +
+                '                  <h7>' +
+                '                    <font class="bold chat-message-author">' +
+                '                      <img class="chat-message-author-pic" src="' + data + '" width="15px" height="15px"/>' +
+                '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+                '                    </font>' +
+                '                    <font class="chat-message-content">' + text + '</font>' +
+                '                  </h7>' +
+                '                </div>');
+        });
     }
 
     function appendAudioMessage(text, username) {
-        $('#chat-' + league).prepend('<div class="chat-message">' +
-            '                  <h7>' +
-            '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
-            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
-            '                    </font>' +
-            '                    <audio controls="controls">' + '<source src="' + text + '" type="audio/wav" /> + </audio>' +
-            '                  </h7>' +
-            '                </div>');
+        loadImage(username, function (data) {
+            $('#chat-' + league).prepend('<div class="chat-message">' +
+                '                  <h7>' +
+                '                    <font class="bold chat-message-author">' +
+                '                      <img class="chat-message-author-pic" src="' + data + '" width="15px" height="15px"/>' +
+                '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+                '                    </font>' +
+                '                    <audio controls="controls">' + '<source src="' + text + '" type="audio/wav" /> + </audio>' +
+                '                  </h7>' +
+                '                </div>');
+        });
     }
 
     function appendMessage(text, username) {
-        $('#chat-' + league).append('<div class="chat-message">' +
-            '                  <h7>' +
-            '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
-            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
-            '                    </font>' +
-            '                    <font class="chat-message-content">' + text + '</font>' +
-            '                  </h7>' +
-            '                </div>');
+        loadImage(username, function (data) {
+            $('#chat-' + league).append('<div class="chat-message">' +
+                '                  <h7>' +
+                '                    <font class="bold chat-message-author">' +
+                '                      <img class="chat-message-author-pic" src="' + data + '" width="15px" height="15px"/>' +
+                '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+                '                    </font>' +
+                '                    <font class="chat-message-content">' + text + '</font>' +
+                '                  </h7>' +
+                '                </div>');
+        });
     }
 
     function appendAudioMessage(text, username) {
-        $('#chat-' + league).append('<div class="chat-message">' +
-            '                  <h7>' +
-            '                    <font class="bold chat-message-author">' +
-            '                      <img class="chat-message-author-pic" src="/getProfilePic/' + username + '.jpg" width="15px" height="15px"/>' +
-            '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
-            '                    </font>' +
-            '                    <audio controls="controls">' + '<source src="' + text + '" type="audio/wav" /> + </audio>' +
-            '                  </h7>' +
-            '                </div>');
+        loadImage(username, function (data) {
+            $('#chat-' + league).append('<div class="chat-message">' +
+                '                  <h7>' +
+                '                    <font class="bold chat-message-author">' +
+                '                      <img class="chat-message-author-pic" src="' + data + '" width="15px" height="15px"/>' +
+                '                      <a class="chat-message-author-a" style="color:inherit;" href="/profile/' + username + '">&nbsp;' + username + '&nbsp;</a>' +
+                '                    </font>' +
+                '                    <audio controls="controls">' + '<source src="' + text + '" type="audio/wav" /> + </audio>' +
+                '                  </h7>' +
+                '                </div>');
+        });
     }
 
     function loadMore() {
@@ -554,6 +535,24 @@
             .end()
             .appendTo('#slideshow2');
     },  4000);
+</script>
+
+<script>
+    $(function () {
+        $('.chat-message-author-pic').each(function (i, e) {
+            $.get($(e).data('location'), function (data) {
+                $(e).prop('src', data);
+            }, 'text');
+        });
+    });
+</script>
+
+<script>
+    function loadImage(username, handleImage) {
+        $.get("/getProfilePic/" + username, function (data) {
+            handleImage(data);
+        }, 'text');
+    }
 </script>
 
 </body>
