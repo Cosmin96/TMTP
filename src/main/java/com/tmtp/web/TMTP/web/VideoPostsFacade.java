@@ -46,7 +46,7 @@ public class VideoPostsFacade {
     }
 
     public boolean filterComment(String comment){
-        return commentFilteringService.filterComment(comment);
+        return commentFilteringService.filterComment(comment.toLowerCase());
     }
 
 }

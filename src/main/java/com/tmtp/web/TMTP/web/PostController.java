@@ -40,7 +40,7 @@ public class PostController {
             return "redirect:/home";
         }
 
-        if(videoPostsFacade.filterComment(videoPosts.getDescription().toLowerCase())){
+        if(videoPostsFacade.filterComment(videoPosts.getDescription())){
             user.getPoints().setYellow(user.getPoints().getYellow() + 1);
             if(user.getPoints().getYellow() == 2){
                 user.getPoints().setYellow(0);
