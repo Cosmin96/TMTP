@@ -106,11 +106,11 @@
                     <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
                 </a>
             </div>
-            <div class="row" style="margin-left: 1%">
+            <!--<div class="row" style="margin-left: 1%">-->
 
-                <iframe src="https://discordapp.com/widget?id=347112707809607680&amp;theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+                <!--<iframe src="https://discordapp.com/widget?id=347112707809607680&amp;theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>-->
 
-            </div>
+            <!--</div>-->
 
             <br/>
 
@@ -126,15 +126,15 @@
 
 
         <div class="col-md-9 col-xs-12 scrollabelcolumn">
-            <div class="text-center stadiumCard">
-                <center>
-                    <h1>To access live and voice chat lobbies, click the following button:</h1>
-                    <a class="btn btn-success" href="https://discord.gg/pHnEN2s">Join chat</a>
-                </center>
-            </div>
+            <!--<div class="text-center stadiumCard">-->
+                <!--<center>-->
+                    <!--<h1>To access live and voice chat lobbies, click the following button:</h1>-->
+                    <!--<a class="btn btn-success" href="https://discord.gg/pHnEN2s">Join chat</a>-->
+                <!--</center>-->
+            <!--</div>-->
             <div class="row">
-                <h3 style="color:white">This VIP Lobby was created by <span th:text="${lobbyCreator}"></span></h3>
-                <h3 style="color:white">Banter privately with your friends</h3>
+                <h3 style="color:white">This VIP Lobby was created by <span th:text="${lobbyCreator}"></span>.</h3>
+                <h3 style="color:white"> Banter privately with your friends</h3>
             </div>
 
             <div class="row">
@@ -170,7 +170,7 @@
                     <div style="border-top: 1px solid rgba(0,0,0,0.1)" class="paddinger-20">
 
                         <input id="message-text" type="text" class="input-message chat-field chat-field-large" placeholder="Write a message..."/>
-                        <button  class="btn btn-success" onclick="clickRecording(this)">
+                        <button  class="btn btn-success" id="recordButton" onclick="clickRecording(this)">
                             <i id="notRecording" class="fa fa-microphone" style="color:white"></i>
                             <i id="Recording" class="fa fa-circle" style="display:none; color:red"></i>
                         </button>
@@ -212,9 +212,9 @@
                 <!--<iframe width="300" height="350" src="http://www.football.co.uk/widget/premier-league/" frameborder="0" scrolling="no"></iframe>-->
                 <iframe height="350" scrolling="yes" src="https://talksport.com/talksport/rss_widget/" width="300" style="background-color: white"><a href="https://talksport.com/talksport/rss_widget/">Football premier league</a>on talkSPORT</iframe>
             </div>
-            <div class="row">
-                <iframe src="https://discordapp.com/widget?id=347112707809607680&amp;theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
-            </div>
+            <!--<div class="row">-->
+                <!--<iframe src="https://discordapp.com/widget?id=347112707809607680&amp;theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>-->
+            <!--</div>-->
 
             <br/>
             <div class="row">
@@ -278,6 +278,12 @@
             $("#Recording").show();
             counter = 1;
             toggleRecording(buttonRec, lobby);
+
+            setTimeout(function(){
+                if(counter === 1){
+                    $("#recordButton").click();
+                }
+            }, 10000);
         }
         else{
             $("#Recording").hide();

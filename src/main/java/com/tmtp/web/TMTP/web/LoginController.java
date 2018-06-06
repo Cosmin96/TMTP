@@ -257,6 +257,10 @@ public class LoginController {
         userForm.setUsername(userForm.getUsername().replaceAll("[^\\w\\s]+",""));
         userForm.setUsername(userForm.getUsername().toLowerCase());
 
+        userForm.setEmail(userForm.getEmail().replaceAll(" ",""));
+        userForm.setEmail(userForm.getEmail().replaceAll("[^\\w\\s]+",""));
+        userForm.setEmail(userForm.getEmail().toLowerCase());
+
         User user = userDataFacade.retrieveUser(userForm.getUsername());
 
         String captcha = request.getParameter("g-recaptcha-response");
