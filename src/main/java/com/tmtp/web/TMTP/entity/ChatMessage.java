@@ -4,7 +4,7 @@ import com.tmtp.web.TMTP.dto.enums.MessageType;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
-public class ChatMessage {
+public class ChatMessage implements Comparable<ChatMessage>{
 
     @Id
     private String id;
@@ -72,5 +72,10 @@ public class ChatMessage {
 
     public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
+    }
+
+    @Override
+    public int compareTo(ChatMessage chatMessage) {
+        return chatMessage.getDateTime().compareTo(this.getDateTime());
     }
 }

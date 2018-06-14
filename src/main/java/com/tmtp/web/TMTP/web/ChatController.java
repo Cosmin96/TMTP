@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -128,6 +129,8 @@ public class ChatController {
 
         int requireNMessages = 30;
         List<ChatMessage> chatMessages = chatMessageRepository.findByName(room);
+        Collections.sort(chatMessages);
+
         int total = chatMessages.size();
 
         if (start > end) {
