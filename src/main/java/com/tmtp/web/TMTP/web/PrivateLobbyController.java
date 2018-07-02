@@ -9,6 +9,7 @@ import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.payment.ChargeRequest;
 import com.tmtp.web.TMTP.payment.StripeService;
 import com.tmtp.web.TMTP.repository.ChatMessageRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,8 @@ public class PrivateLobbyController {
     private final UserDataFacade userDataFacade;
     private final StripeService paymentService;
     private final ChatMessageRepository chatMessageRepository;
+    @Value("${STRIPE_PUBLIC_KEY}")
+    private String stripePublicKey;
 
     public PrivateLobbyController(final PrivateLobbyFacade privateLobbyFacade,
                                   final UserDataFacade userDataFacade,
@@ -54,6 +57,8 @@ public class PrivateLobbyController {
 
         boolean owner = false;
         boolean joined = false;
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.GBP);
         model.addAttribute("lobby", privateLobby);
         model.addAttribute("user", user);
         model.addAttribute("messages", chatMessages);

@@ -9,7 +9,6 @@ import com.tmtp.web.TMTP.payment.ChargeRequest;
 import com.tmtp.web.TMTP.payment.StripeService;
 import com.tmtp.web.TMTP.repository.ChatMessageRepository;
 import com.tmtp.web.TMTP.security.UserService;
-import com.tmtp.web.TMTP.service.StorageService;
 import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
 import com.tmtp.web.TMTP.web.formobjects.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -521,6 +520,8 @@ public class MobileController {
 
         boolean owner = false;
         boolean joined = false;
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.GBP);
         model.addAttribute("lobby", privateLobby);
         model.addAttribute("user", user);
         model.addAttribute("messages", chatMessages);
