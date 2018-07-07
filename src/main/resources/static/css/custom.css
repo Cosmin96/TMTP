@@ -524,6 +524,14 @@ a:focus{
     bottom: 10px;
 }
 
+.kitbg{
+    background-image: url("/static/img/kitbg.jpg");
+}
+
+.trophybg{
+    background-image: url("/static/img/trophybg.jpg");
+}
+
 @media (max-width: 767px){
     .statsmenu{
         margin-top:20%;
