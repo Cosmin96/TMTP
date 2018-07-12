@@ -29,6 +29,8 @@ var TMTPChat = (function(){
           }, 'text');
         });
       });
+      
+      this.scrollToBottom();
     },
     installViewListeners: function(){
       var self = this;
@@ -61,7 +63,13 @@ var TMTPChat = (function(){
       this.channel = this.pusher.subscribe('chat-' + this.id);
       this.channel.bind('new-message', function(data){
         self.addMessage(data.message, data.username, data.type === "Audio");
+        self.scrollToBottom();
       });
+    },
+    scrollToBottom: function(){
+      $(this.messageList).animate({
+        scrollTop: this.messageList.scrollHeight
+      }, 500);
     },
     onHistoryLoaded: function(data, newStart){
       this.start = newStart;
