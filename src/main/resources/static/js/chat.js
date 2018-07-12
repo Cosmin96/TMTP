@@ -29,7 +29,7 @@ var TMTPChat = (function(){
           }, 'text');
         });
       });
-      
+
       this.scrollToBottom();
     },
     installViewListeners: function(){
@@ -53,6 +53,10 @@ var TMTPChat = (function(){
         if(event.keyCode === 13)
           self.sendMessage();
       });
+
+      $(this.messageList).on('click', '.chat-wrap', function(e){
+        self.unwrapAudio(e.target);
+      })
     },
     initPusher: function(){
       var self = this;
@@ -76,7 +80,8 @@ var TMTPChat = (function(){
       var fragment = document.createDocumentFragment();
       // TODO for some reason MessageType enum is rendered by Jackson in uppercase (AUDIO) here
       for (var i = 0; i < data.length; ++i)
-        fragment.appendChild(this.createMessageNode(data[i].text, data[i].username, data[i].messageType && data[i].messageType.toLowerCase() === "audio"));
+        fragment.appendChild(this.createMessageNode(data[i].text, data[i].username, data[i].messageType
+            && data[i].messageType.toLowerCase() === "audio"));
 
       this.messageList.insertBefore(fragment, this.messageList.querySelector('.chat-message'));
       if(this.start <= 0){
@@ -105,10 +110,17 @@ var TMTPChat = (function(){
       node.querySelector('.chat-message-author-a').innerHTML = '&nbsp;' + username + '&nbsp;';
       node.querySelector('.chat-message-author-a').href = '/profile/' + username;
       if(isAudio){
-        node.querySelector('.chat-message-content').remove();
-        node.querySelector('audio source').src = message;
+        node.querySelector('.chat-message-content.chat-text').remove();
+        if(TMTPChat.requiresClickToPlayAudio()){
+          node.querySelector('.chat-message-content.chat-wrap').setAttribute('audio-src', message);
+          node.querySelector('audio').remove();
+        }else{
+          node.querySelector('.chat-message-content.chat-wrap').remove();
+          node.querySelector('audio source').src = message;
+        }
       }else{
-        node.querySelector('.chat-message-content').textContent = message;
+        node.querySelector('.chat-message-content.chat-text').textContent = message;
+        node.querySelector('.chat-message-content.chat-wrap').remove();
         node.querySelector('audio').remove();
       }
       //use non-virtual node to reference later since document fragment will likely be destroyed
@@ -118,6 +130,11 @@ var TMTPChat = (function(){
         root.querySelector('.chat-message-author-pic').src = data;
       });
       return node;
+    },
+    unwrapAudio: function(node){
+      var audioNode = document.importNode(this.messageTemplate.content.querySelector('audio'), true);
+      audioNode.querySelector('source').src = node.getAttribute('audio-src');
+      node.replaceWith(audioNode);
     },
     addMessage: function(message, username, isAudio){
       this.messageList.appendChild(this.createMessageNode(message, username, isAudio));
@@ -165,5 +182,9 @@ var TMTPChat = (function(){
   TMTPChat.AUTO_STOP_RECORDING = 10000; //10 sec before automatically stop recording
   TMTPChat.START_MAX_MESSAGES = 30;
   TMTPChat.PUSHER_ID = '6cf8829fd3f2bc2ca22f';
+  TMTPChat.requiresClickToPlayAudio = function(){
+    // currently just always (here could be a test for iOS device)
+    return true;
+  }
   return TMTPChat;
 })()
