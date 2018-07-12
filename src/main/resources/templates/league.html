@@ -37,7 +37,9 @@
 <body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
 
 <!-- Navigation -->
-<nav th:replace="fragments/navbar :: navbar"></nav>
+<th:block th:if="${isMobile != true}" >
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+</th:block>
 
 <div th:replace="fragments/ads :: adstop"></div>
 

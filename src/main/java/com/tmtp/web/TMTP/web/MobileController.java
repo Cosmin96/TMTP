@@ -314,7 +314,7 @@ public class MobileController {
         model.addAttribute("messages", chatMessages);
         model.addAttribute("totalMessages", total);
         model.addAttribute("isMobile", true);
-        return "league_mobile";
+        return "league";
     }
 
     //PRIVATE LOBBY CONTROLLER
