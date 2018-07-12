@@ -113,57 +113,7 @@
             </center>
 
             <div class="row">
-                <div class="chat-bar margin-top">
-                    <div style="border-bottom: 1px solid rgba(0,0,0,0.1)" class="paddinger-20-nobottom">
-                        <h4 class="bold" style="color: #000!important;">Chat</h4>
-                    </div>
-
-                    <div class="paddinger-0-20">
-
-                        <div th:id="'chat-' + ${league}" class="chat-conversation">
-                            <center id="center-load-more"><a id="load-more" style="display: none;" href="javascript:loadMore();">Load more</a></center>
-
-                            <th:block th:each="message : ${messages}">
-                                <div class="chat-message">
-                                    <h7>
-                                        <font class="bold chat-message-author">
-                                            <img class="chat-message-author-pic" width="15px" height="15px" th:attr="data-location=@{/getProfilePic/{user}(user=${message.username})}" />
-                                            <a th:text="'&nbsp;' + ${message.getUsername()} + '&nbsp;'" class="chat-message-author-a" style="color:inherit;" th:href="'/profile/' + ${message.getUsername()}"></a>
-                                        </font>
-                                        <font th:if="${message.getMessageType().getText().equals('Text')}" th:text="${message.getText()}" class="chat-message-content">Some message here</font>
-                                        <audio th:if="${message.getMessageType().getText().equals('Audio')}" th:controls="controls">
-                                            <source th:src="${message.getText()}" type="audio/wav" />
-                                        </audio>
-                                    </h7>
-                                </div>
-                            </th:block>
-
-                        </div>
-
-                    </div>
-
-                    <div style="border-top: 1px solid rgba(0,0,0,0.1)" class="paddinger-20">
-
-                        <input id="message-text" type="text" class="input-message chat-field chat-field-large" placeholder="Write a message..."/>
-                        <button  class="btn btn-success" id="recordButton" onclick="clickRecording(this)">
-                            <i id="notRecording" class="fa fa-microphone" style="color:white"></i>
-                            <i id="Recording" class="fa fa-circle" style="display:none; color:red"></i>
-                        </button>
-                        <input id="send-message-id" style="margin-left:10px;" type="button" class="send-message btn btn-success" value="Send"/>
-
-                    </div>
-
-                    <div style="display:none">
-                        <div id="viz">
-                            <canvas id="analyser" width="1024" height="350"></canvas>
-                            <br />
-                            <canvas id="wavedisplay" width="1024" height="350"></canvas>
-                        </div>
-                        <a id="save" class="btn btn-success" href="#">Download Audio</a>
-                    </div>
-
-                </div>
-
+              <div th:replace="fragments/chat :: chat(${league}, ${messages}, false)"></div>
             </div>
 
             <!--<center>-->
