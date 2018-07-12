@@ -74,10 +74,11 @@ var TMTPChat = (function(){
     onHistoryLoaded: function(data, newStart){
       this.start = newStart;
       var fragment = document.createDocumentFragment();
+      // TODO for some reason MessageType enum is rendered by Jackson in uppercase (AUDIO) here
       for (var i = 0; i < data.length; ++i)
-        fragment.appendChild(this.createMessageNode(data[i].text, data[i].username, data[i].type === "Audio"));
+        fragment.appendChild(this.createMessageNode(data[i].text, data[i].username, data[i].messageType && data[i].messageType.toLowerCase() === "audio"));
 
-      this.messageList.insertBefore(fragment, self.querySelector('.chat-message'));
+      this.messageList.insertBefore(fragment, this.messageList.querySelector('.chat-message'));
       if(this.start <= 0){
         this.loadMoreButton.parentNode.remove(); // TODO this refers to <center> element, should remove itself, not the parent
       }
@@ -86,12 +87,11 @@ var TMTPChat = (function(){
       if(this.start <= 0)
         return;
 
-      var startToSend = Math.max(0, start - TMTPChat.START_MAX_MESSAGES);
-      var endToSend = start;
+      var startToSend = Math.max(0, this.start - TMTPChat.START_MAX_MESSAGES);
       var self = this;
 
       $.ajax({
-        url: '/get-next-messages/' + ('chat-' + league) + '/' + startToSend + '/' + endToSend,
+        url: '/get-next-messages/' + ('chat-' + this.id) + '/' + startToSend + '/' + this.start,
         success: function(data){
           self.onHistoryLoaded(data, startToSend);
         },
@@ -111,9 +111,11 @@ var TMTPChat = (function(){
         node.querySelector('.chat-message-content').textContent = message;
         node.querySelector('audio').remove();
       }
+      //use non-virtual node to reference later since document fragment will likely be destroyed
+      var root = node.querySelector('.chat-message');
       //let the node be operatable before image URL actually loads
       this.getAndProcessImageUrl(username, function(data){
-        node.querySelector('.chat-message-author-pic').src = userPic;
+        root.querySelector('.chat-message-author-pic').src = data;
       });
       return node;
     },

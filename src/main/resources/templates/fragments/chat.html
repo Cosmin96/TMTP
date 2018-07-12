@@ -33,7 +33,7 @@
 
       <div th:id="'chat-' + ${id}" class="chat-conversation">
         <center id="center-load-more">
-          <a id="load-more" style="display: none;">Load more</a>
+          <a id="load-more" style="display: none;" href="javascript:void(0)">Load more</a>
         </center>
         
         <th:block th:each="message : ${messages}">
