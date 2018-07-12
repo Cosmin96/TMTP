@@ -336,7 +336,8 @@
         });
     }
 
-    function appendAudioMessage(text, username) {
+    function prependAudioMessage(text, username) {
+
         loadImage(username, function (data) {
             $('#chat-' + league).prepend('<div class="chat-message">' +
                 '                  <h7>' +
