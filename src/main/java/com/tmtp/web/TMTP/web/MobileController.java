@@ -326,6 +326,7 @@ public class MobileController {
             return "redirect:/scores";
         }
 
+        PrivateLobbyController.preparePrivateLobbyModel(model, privateLobby, user, stripePublicKey);
         int lastNMessages = 30;
         List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + privateLobby.getId());
         int total = chatMessages.size();
@@ -333,38 +334,11 @@ public class MobileController {
         if(total > 30) {
             chatMessages = chatMessages.subList(total - lastNMessages, total);
         }
-
-        boolean owner = false;
-        boolean joined = false;
-        model.addAttribute("stripePublicKey", stripePublicKey);
-        model.addAttribute("currency", ChargeRequest.Currency.GBP);
-        model.addAttribute("lobby", privateLobby);
-        model.addAttribute("user", user);
         model.addAttribute("messages", chatMessages);
         model.addAttribute("totalMessages", total);
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("greenPoints", user.getPoints().getGreen());
-        model.addAttribute("yellowPoints", user.getPoints().getYellow());
-        model.addAttribute("redPoints", user.getPoints().getRed());
-        model.addAttribute("lobbyCreator", privateLobby.getCreator());
-        model.addAttribute("trophyMessageCheck", false);
-        model.addAttribute("trophyMessage", "Congratulations for creating your own VIP room. You have won a free golden trophy");
+        model.addAttribute("isMobile", true);
 
-        if(!privateLobby.getJoinedUsers().isEmpty()){
-            if(privateLobby.getJoinedUsers().contains(user.getUsername())){
-                joined = true;
-            }
-        }
-        if(privateLobby.getCreator().equals(user.getUsername())){
-            owner = true;
-        }
-        if(owner || joined){
-            model.addAttribute("showLobby", true);
-        }
-        else{
-            model.addAttribute("showLobby", false);
-        }
-        return "privatelobby_mobile";
+        return "privatelobby";
     }
 
     @RequestMapping("/mobile/privateLobby/join/{id}")
