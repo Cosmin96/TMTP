@@ -39,15 +39,6 @@ public class PrivateLobbyController {
         this.paymentService = paymentService;
         this.chatMessageRepository = chatMessageRepository;
     }
-
-	private static PrivateLobby createDummyLobby(User user) {
-		PrivateLobby result = new PrivateLobby();
-		result.setId("9999"); // it's over NINE THOUSAAAANDZZ!!!!
-		result.setCreator(user.getUsername());
-		result.setJoinedUsers(Collections.singletonList(user.getId()));
-		return result;
-	}
-
     @RequestMapping("/privateLobby/{id}")
     public String openLobby(@PathVariable("id") String id, Model model){
         PrivateLobby privateLobby = privateLobbyFacade.findById(id);
@@ -55,9 +46,6 @@ public class PrivateLobbyController {
         User user = userDataFacade.retrieveLoggedUser();
         if(user.getBanned()){
             return "redirect:/scores";
-        }
-        if(privateLobby == null) {
-        	privateLobby = createDummyLobby(user);
         }
         preparePrivateLobbyModel(model, privateLobby, user, stripePublicKey);
 
