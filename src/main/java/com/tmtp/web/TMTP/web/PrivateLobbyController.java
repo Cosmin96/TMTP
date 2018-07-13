@@ -1,5 +1,15 @@
 package com.tmtp.web.TMTP.web;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.tmtp.web.TMTP.entity.ChatMessage;
@@ -9,15 +19,6 @@ import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.payment.ChargeRequest;
 import com.tmtp.web.TMTP.payment.StripeService;
 import com.tmtp.web.TMTP.repository.ChatMessageRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 public class PrivateLobbyController {
@@ -39,13 +40,26 @@ public class PrivateLobbyController {
         this.chatMessageRepository = chatMessageRepository;
     }
 
+	private static PrivateLobby createDummyLobby(User user) {
+		PrivateLobby result = new PrivateLobby();
+		result.setId("9999"); // it's over NINE THOUSAAAANDZZ!!!!
+		result.setCreator(user.getUsername());
+		result.setJoinedUsers(Collections.singletonList(user.getId()));
+		return result;
+	}
+
     @RequestMapping("/privateLobby/{id}")
     public String openLobby(@PathVariable("id") String id, Model model){
         PrivateLobby privateLobby = privateLobbyFacade.findById(id);
+        //TODO here should be explicit check if lobby with given id actually exists and is valid
         User user = userDataFacade.retrieveLoggedUser();
         if(user.getBanned()){
             return "redirect:/scores";
         }
+        if(privateLobby == null) {
+        	privateLobby = createDummyLobby(user);
+        }
+        preparePrivateLobbyModel(model, privateLobby, user, stripePublicKey);
 
         int lastNMessages = 30;
         List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + privateLobby.getId());
@@ -55,14 +69,19 @@ public class PrivateLobbyController {
             chatMessages = chatMessages.subList(total - lastNMessages, total);
         }
 
-        boolean owner = false;
+        model.addAttribute("messages", chatMessages);
+        model.addAttribute("totalMessages", total);
+        
+        return "privatelobby";
+    }
+
+	public static void preparePrivateLobbyModel(Model model, PrivateLobby privateLobby, User user, String stripePublicKey) {
+		boolean owner = false;
         boolean joined = false;
         model.addAttribute("stripePublicKey", stripePublicKey);
         model.addAttribute("currency", ChargeRequest.Currency.GBP);
         model.addAttribute("lobby", privateLobby);
         model.addAttribute("user", user);
-        model.addAttribute("messages", chatMessages);
-        model.addAttribute("totalMessages", total);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
@@ -85,8 +104,7 @@ public class PrivateLobbyController {
         else{
             model.addAttribute("showLobby", false);
         }
-        return "privatelobby";
-    }
+	}
 
     @RequestMapping("/privateLobby/join/{id}")
     public String joinLobby(@PathVariable("id") String id, ChargeRequest chargeRequest) throws StripeException{

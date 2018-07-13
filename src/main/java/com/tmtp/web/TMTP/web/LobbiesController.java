@@ -1,14 +1,15 @@
 package com.tmtp.web.TMTP.web;
 
-import com.tmtp.web.TMTP.entity.ChatMessage;
-import com.tmtp.web.TMTP.entity.User;
-import com.tmtp.web.TMTP.repository.ChatMessageRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import com.tmtp.web.TMTP.entity.ChatMessage;
+import com.tmtp.web.TMTP.entity.User;
+import com.tmtp.web.TMTP.repository.ChatMessageRepository;
 
 @Controller
 public class LobbiesController {
@@ -39,11 +40,32 @@ public class LobbiesController {
 
     @RequestMapping("/lobby/{league}")
     public String lobbyPage(@PathVariable("league") String league, Model model){
-        int n = 0;
         User user = userDataFacade.retrieveLoggedUser();
         if(user.getBanned()){
             return "redirect:/scores";
         }
+        int lobbyIndex = prepareLobbyModel(league, model, user);
+        
+        int lastNMessages = 30;
+        List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + lobbyIndex);
+        int total = chatMessages.size();
+
+        if(total > 30) {
+            chatMessages = chatMessages.subList(total - lastNMessages, total);
+        }
+        
+        model.addAttribute("messages", chatMessages);
+        model.addAttribute("totalMessages", total);
+        return "league";
+    }
+
+	/**
+	 * Determines lobby index by league name and prepares Spring MVC model for the template.
+	 *  
+	 * @return the lobby index
+	 */
+	public static int prepareLobbyModel(String league, Model model, User user) {
+		int n = 0;
         switch(league){
             case "fapremier":
                 n = 1;
@@ -224,23 +246,13 @@ public class LobbiesController {
                 break;
         }
 
-        int lastNMessages = 30;
-        List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + n);
-        int total = chatMessages.size();
-
-        if(total > 30) {
-            chatMessages = chatMessages.subList(total - lastNMessages, total);
-        }
-
         model.addAttribute("league", n);
         model.addAttribute("user", user);
-        model.addAttribute("messages", chatMessages);
-        model.addAttribute("totalMessages", total);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("greenPoints", user.getPoints().getGreen());
         model.addAttribute("yellowPoints", user.getPoints().getYellow());
         model.addAttribute("redPoints", user.getPoints().getRed());
-        return "league";
-    }
+        return n;
+	}
 }

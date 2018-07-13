@@ -1,5 +1,21 @@
 package com.tmtp.web.TMTP.web;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.StringUtils;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.tmtp.web.TMTP.dto.AppResponse;
 import com.tmtp.web.TMTP.dto.enums.MessageType;
 import com.tmtp.web.TMTP.dto.exceptions.UserBannedException;
@@ -7,17 +23,6 @@ import com.tmtp.web.TMTP.entity.ChatMessage;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.repository.ChatMessageRepository;
 import com.tmtp.web.TMTP.service.ChatService;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.StringUtils;
-import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 public class ChatController {
@@ -129,6 +134,7 @@ public class ChatController {
 
         int requireNMessages = 30;
         List<ChatMessage> chatMessages = chatMessageRepository.findByName(room);
+        //TODO this should be sorted from older to newer 
         Collections.sort(chatMessages);
 
         int total = chatMessages.size();
