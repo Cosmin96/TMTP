@@ -106,7 +106,6 @@
             </div>
         </div>
         <div class="col-md-8 col-xs-12">
-          <div class="row">
             <div class="stadiumCard">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
                         th:if="${username.equals(user.getUsername())}">My</span><span
@@ -250,37 +249,35 @@
                     </div>
                 </center>
             </div>
-          </div>
-          <div class="row">
-            <div id="kit-area" class="profileCard">
-                <div class="row">
-                    <div class="col-sm-8" style="float:right">
-                        <img th:src="@{'/img/kits/profile/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="80%"
-                             height="auto"/>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-8" style="float:right">
-                        <img th:src="@{'/img/kits/profile/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}" width="80%"
-                             height="auto"/>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-8" style="float:right">
-                        <img th:src="@{'/img/kits/profile/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}" width="80%"
-                             height="auto"/>
-                    </div>
-                    <div class="col-sm-4" style="float:left">
-                        <br/><br/><br/>
-                        <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}"
-                             width="150px" height="150px"/>
-                    </div>
-                </div>
+          <div id="kit-area" class="profileCard">
+            <div class="row">
+              <div class="col-sm-8" style="float: right">
+                <img th:src="@{'/img/kits/profile/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="80%"
+                  height="auto" />
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-sm-8" style="float: right">
+                <img th:src="@{'/img/kits/profile/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}" width="80%"
+                  height="auto" />
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-sm-8" style="float: right">
+                <img th:src="@{'/img/kits/profile/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}" width="80%"
+                  height="auto" />
+              </div>
+              <div class="col-sm-4" style="float: left">
+                <br />
+                <br />
+                <br /> <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}"
+                  width="150px" height="150px" />
+              </div>
             </div>
           </div>
-        </div>
+      </div>
     </div>
 </div>
 
