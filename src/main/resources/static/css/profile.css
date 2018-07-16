@@ -1,0 +1,17 @@
+#kit-area {
+  padding-left: 2%;
+  padding-top: 0;
+  padding-bottom: 1%;
+  flex-grow: 1;
+  background-image: url('/img/test bg-min-min.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#trophy-area {
+  background-image: url('/img/trophybg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
