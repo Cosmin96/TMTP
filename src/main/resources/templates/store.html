@@ -104,13 +104,14 @@
             <div class="col-xs-12" style="margin-top: 5%; margin-left: auto; margin-right: auto">
                 <center>
                 <div class="cards">
+                    <img th:src="@{'/img/VIP.png'}" alt="Avatar" width="325px" height="325px" />
                     <div class="cards-container">
                         <div class="row">
                             <h3>Buy VIP Lobby</h3>
                         </div>
                         <div class="row" style="margin-bottom:2%">
 
-                            <div class="col-xs-12">
+                            <div class="col-xs-6">
                                 <center>
                                     <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
                                     <form th:action="@{'/lobby/create/card'}" method="POST" style="margin-left: 60%; margin-right: auto">
@@ -132,7 +133,7 @@
                                 </center>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12" style="margin-top:40px; margin-left: -20px;">
+                                <div class="col-xs-6" style="margin-top:40px; margin-left: -20px;">
                                     <center>
                                         <a th:if="${user.getPoints().getGreen()} lt 50" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="50Pts">Buy</span></a>
                                         <a th:if="${user.getPoints().getGreen()} ge 50" th:href="@{'/lobby/create/points'}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="50Pts">Buy</span></a>
@@ -263,52 +264,101 @@
         </div>
     </div>
 
-    <div class="container statsmenu" style="margin-top: 2% !important; padding-bottom: 1% !important;">
+    <div class="container statsmenu desktopNone" style="margin-top: 2% !important; padding-bottom: 1% !important;">
         <div class="row">
-            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
-                <a class="btn btn-success"  th:href="@{'/shop/'}" style="font-size: 20px;">T-Shirts</a>
+                <a class="btn btn-success"  th:href="@{'/shop/'}" style="font-size: 20px; width: 100px">T-Shirts</a>
                 </center>
             </div>
 
             <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
-                <a class="btn btn-success"  th:href="@{'/shop/shorts'}" style="font-size: 20px;">Shorts</a>
+                <a class="btn btn-success"  th:href="@{'/shop/shorts'}" style="font-size: 20px; width: 100px">Shorts</a>
                 </center>
             </div>
 
             <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
-                <a class="btn btn-success" th:href="@{'/shop/socks'}" style="font-size: 20px;">Socks</a>
+                <a class="btn btn-success" th:href="@{'/shop/socks'}" style="font-size: 20px; width: 100px">Socks</a>
+                </center>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
+                <center>
+                <a class="btn btn-success" th:href="@{'/shop/footballs'}" style="font-size: 20px; width: 100px">Footballs</a>
                 </center>
             </div>
 
             <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
-                <a class="btn btn-success" th:href="@{'/shop/footballs'}" style="font-size: 20px;">Footballs</a>
+                <a class="btn btn-success" th:href="@{'/shop/overlays'}" style="font-size: 20px; width: 100px">Overlays</a>
                 </center>
             </div>
 
             <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
-                <a class="btn btn-success" th:href="@{'/shop/overlays'}" style="font-size: 20px;">Overlays</a>
-                </center>
-            </div>
-
-            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
-                <center>
-                <a class="btn btn-success" th:href="@{'/shop/titles'}" style="font-size: 20px;">Titles</a>
+                <a class="btn btn-success" th:href="@{'/shop/titles'}" style="font-size: 20px; width: 100px">Titles</a>
                 </center>
             </div>
         </div>
         <div class="row" style="margin-top: 1%">
             <div class="col-lg-2">
                 <center>
-                    <a class="btn btn-success" th:href="@{'/shop/trophies'}" style="font-size: 20px;">Trophies</a>
+                    <a class="btn btn-success" th:href="@{'/shop/trophies'}" style="font-size: 20px; width: 100px">Trophies</a>
                 </center>
             </div>
         </div>
     </div>
+
+  <div class="container statsmenu mobileNone" style="margin-top: 2% !important; padding-bottom: 1% !important;">
+      <div class="row">
+          <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
+              <center>
+                  <a class="btn btn-success"  th:href="@{'/shop/'}" style="font-size: 20px;">T-Shirts</a>
+              </center>
+          </div>
+
+          <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
+              <center>
+                  <a class="btn btn-success"  th:href="@{'/shop/shorts'}" style="font-size: 20px;">Shorts</a>
+              </center>
+          </div>
+
+          <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
+              <center>
+                  <a class="btn btn-success" th:href="@{'/shop/socks'}" style="font-size: 20px;">Socks</a>
+              </center>
+          </div>
+
+          <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
+              <center>
+                  <a class="btn btn-success" th:href="@{'/shop/footballs'}" style="font-size: 20px;">Footballs</a>
+              </center>
+          </div>
+
+          <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
+              <center>
+                  <a class="btn btn-success" th:href="@{'/shop/overlays'}" style="font-size: 20px;">Overlays</a>
+              </center>
+          </div>
+
+          <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
+              <center>
+                  <a class="btn btn-success" th:href="@{'/shop/titles'}" style="font-size: 20px;">Titles</a>
+              </center>
+          </div>
+      </div>
+      <div class="row" style="margin-top: 1%">
+          <div class="col-lg-2">
+              <center>
+                  <a class="btn btn-success" th:href="@{'/shop/trophies'}" style="font-size: 20px;">Trophies</a>
+              </center>
+          </div>
+      </div>
+  </div>
 
     <div class="container">
         <div class="row stadiumCard" th:if="${category.equals('title')}">

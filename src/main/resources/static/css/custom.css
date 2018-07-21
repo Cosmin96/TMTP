@@ -320,10 +320,18 @@ p {
 
 .profileCard{
     /*background-color: #D8D8D8;*/
+    /*border: solid;*/
+    /*border-color: #2C3E50;*/
+    /*border-radius: 2px;*/
+    /*background-color: #fff;*/
+
     border: solid;
-    border-color: #2C3E50;
+    border-color: #000;
     border-radius: 2px;
-    background-color: #fff;
+    background-color: #13232f;
+    opacity: 0.9;
+    color: white !important;
+
     margin-top: 5%;
     align-content: center;
     padding-top: 10%;
@@ -336,14 +344,22 @@ a:focus{
 
 .stadiumCard{
     /*background-color: #D8D8D8;*/
+    /*border: solid;*/
+    /*border-color: #2C3E50;*/
+    /*border-radius: 2px;*/
+    /*background-color: #fff;*/
+    /*margin-top: 3%;*/
+    /*align-content: center;*/
+    /*padding-top: 3%;*/
+    /*padding-bottom: 5%;*/
+
     border: solid;
-    border-color: #2C3E50;
+    border-color: #000;
     border-radius: 2px;
-    background-color: #fff;
-    margin-top: 3%;
-    align-content: center;
-    padding-top: 3%;
-    padding-bottom: 5%;
+    background-color: #13232f;
+    opacity: 0.9;
+    color: white !important;
+    margin-top: 1%;
 }
 
 #video-background {
