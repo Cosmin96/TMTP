@@ -208,12 +208,21 @@ p {
 }
 
 .videocard {
+    /*old code*/
     /*background-color: #D8D8D8;*/
+    /*border: solid;*/
+    /*border-color: #2C3E50;*/
+    /*border-radius: 2px;*/
+    /*background-color: #fff;*/
+    /*margin-top: 3%;*/
+
     border: solid;
-    border-color: #2C3E50;
+    border-color: #000;
     border-radius: 2px;
-    background-color: #fff;
-    margin-top: 3%;
+    background-color: #13232f;
+    opacity: 0.9;
+    color: white !important;
+    margin-top: 1%;
 }
 
 .nothing{
@@ -231,9 +240,11 @@ p {
 .postcard {
     /*background-color: #D8D8D8;*/
     border: solid;
-    border-color: #2C3E50;
+    border-color: #000;
     border-radius: 2px;
-    background-color: #fff;
+    background-color: #13232f;
+    opacity: 0.9;
+    color: white !important;
     margin-top: 1%;
 }
 

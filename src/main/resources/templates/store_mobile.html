@@ -114,13 +114,13 @@
                                 <center>
                                     <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
                                     <form th:action="@{'/mobile/lobby/create/card'}" method="POST" style="margin-left: 60%; margin-right: auto">
-                                        <input type='hidden' value="49" name='amount' style="margin-left: auto; margin-right: auto" />
+                                        <input type='hidden' value="99" name='amount' style="margin-left: auto; margin-right: auto" />
                                         <script
                                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                                 th:attr='data-key=${stripePublicKey},
                                                     data-currency=${currency}'
-                                                data-amount="49"
-                                                data-label="£0.49"
+                                                data-amount="99"
+                                                data-label="£0.99"
                                                 data-description="Banter live using voice and video when you purchase a VIP Lobby"
                                                 data-name="Top Bantz"
                                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"

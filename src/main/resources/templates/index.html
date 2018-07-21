@@ -50,8 +50,14 @@
 
 <div th:replace="fragments/ads :: adstop"></div>
 
-<!--<div style="margin-top: 2% !important;" class="container statsmenu">-->
+<div class="row desktopNone">
+    <center>
+    <img th:src="@{/img/logobg.png}" width="80%" style="margin-top: 8%"/>
+        <h1 style="font-size: 1.5em !important; color: white; margin-top: 5%">Welcome to the world's first football social app with voice notes</h1>>
+    </center>
+</div>
 
+<!--<div style="margin-top: 2% !important;" class="container statsmenu">-->
     <!--<div class="row">-->
         <!--<div class="col-lg-3">-->
             <!--<p align="left" style="color: #00DEB6; font-size: 26px;">Overview</p>-->
@@ -187,7 +193,7 @@
                  th:classappend="${post.isFlagged() and user.getAdmin()} ? videocardflag : nothing">
                 <div class="row" style="margin-left: 2%; margin-top:3%">
                     <div class="col-sm-5">
-                        <p align="left" style="color: black">
+                        <p align="left">
                             <img
                                     th:src="${post.getUser().getProfileImageUrl()}" width="50px"
                                     height="50px"/> <a th:href="@{'/profile/' + ${post.getCreator()}}"><span
@@ -212,7 +218,7 @@
 
                 <div class="row"
                      style="margin-left: 5%; white-space: pre-line; word-wrap: break-word; overflow-wrap: break-word">
-                    <p align="left" style="color: black; width: 95%" th:text="${post.getDescription()}"></p>
+                    <p align="left" style="width: 95%" th:text="${post.getDescription()}"></p>
                 </div>
 
                 <div class="row" style="margin-left: 5%;">

@@ -114,13 +114,13 @@
                                 <center>
                                     <!--<a class="btn btn-success"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i> <span style="color:white" th:text="'£' + ${item.getGbpPrice()}">Buy</span></a>-->
                                     <form th:action="@{'/lobby/create/card'}" method="POST" style="margin-left: 60%; margin-right: auto">
-                                        <input type='hidden' value="49" name='amount' style="margin-left: auto; margin-right: auto" />
+                                        <input type='hidden' value="99" name='amount' style="margin-left: auto; margin-right: auto" />
                                         <script
                                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                                 th:attr='data-key=${stripePublicKey},
                                                     data-currency=${currency}'
-                                                data-amount="49"
-                                                data-label="£0.49"
+                                                data-amount="99"
+                                                data-label="£0.99"
                                                 data-description="Banter live using voice and video when you purchase a VIP Lobby"
                                                 data-name="Top Bantz"
                                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
@@ -265,37 +265,37 @@
 
     <div class="container statsmenu" style="margin-top: 2% !important; padding-bottom: 1% !important;">
         <div class="row">
-            <div class="col-lg-2" style="margin-top: 1%">
+            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
                 <a class="btn btn-success"  th:href="@{'/shop/'}" style="font-size: 20px;">T-Shirts</a>
                 </center>
             </div>
 
-            <div class="col-lg-2" style="margin-top: 1%">
+            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
                 <a class="btn btn-success"  th:href="@{'/shop/shorts'}" style="font-size: 20px;">Shorts</a>
                 </center>
             </div>
 
-            <div class="col-lg-2" style="margin-top: 1%">
+            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
                 <a class="btn btn-success" th:href="@{'/shop/socks'}" style="font-size: 20px;">Socks</a>
                 </center>
             </div>
 
-            <div class="col-lg-2" style="margin-top: 1%">
+            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
                 <a class="btn btn-success" th:href="@{'/shop/footballs'}" style="font-size: 20px;">Footballs</a>
                 </center>
             </div>
 
-            <div class="col-lg-2" style="margin-top: 1%">
+            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
                 <a class="btn btn-success" th:href="@{'/shop/overlays'}" style="font-size: 20px;">Overlays</a>
                 </center>
             </div>
 
-            <div class="col-lg-2" style="margin-top: 1%">
+            <div class="col-lg-2 col-xs-4 col-md-4 col-sm-4" style="margin-top: 1%">
                 <center>
                 <a class="btn btn-success" th:href="@{'/shop/titles'}" style="font-size: 20px;">Titles</a>
                 </center>
