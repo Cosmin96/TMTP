@@ -25,6 +25,7 @@
     <link href="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet"/>
 
     <link rel="stylesheet" href="../static/css/cards.css" th:href="@{/css/cards.css}"/>
+    <link rel="stylesheet" href="../static/css/profile.css" th:href="@{/css/profile.css}"/>
 
     <script async="true" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
@@ -90,11 +91,7 @@
                 </div>
             </div>
 
-            <div class="row stadiumCard">
-                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
-                        th:if="${username.equals(user.getUsername())}">My</span><span
-                        th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
-                    Trophy</h1>
+            <div id="trophy-area" class="row stadiumCard">
                 <center>
                     <img th:src="@{'/img/kits/trophies/' + ${user.getTrophy()} + '.png'}" width="80%"/>
                 </center>
@@ -252,14 +249,7 @@
                     </div>
                 </center>
             </div>
-
-
-            <div class="profileCard"
-                 style="padding-left: 2%; padding-top: 0 !important; padding-bottom: 1% !important">
-                <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
-                        th:if="${username.equals(user.getUsername())}">My</span><span
-                        th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
-                    Player Kit</h1>
+            <div id="kit-area" class="profileCard">
                 <div class="row">
                     <div class="col-sm-8" style="float:right">
                         <img th:src="@{'/img/kits/profile/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="80%"
@@ -288,9 +278,7 @@
 
             </div>
         </div>
-
-
-    </div>
+</div>
 </div>
 
 <br/><br/>
