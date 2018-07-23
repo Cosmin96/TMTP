@@ -1,6 +1,18 @@
 package com.tmtp.web.TMTP.service;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.pusher.rest.Pusher;
+import com.pusher.rest.data.Result;
 import com.tmtp.web.TMTP.dto.CloudinaryObject;
 import com.tmtp.web.TMTP.dto.enums.FileType;
 import com.tmtp.web.TMTP.dto.enums.MessageType;
@@ -8,19 +20,10 @@ import com.tmtp.web.TMTP.entity.ChatMessage;
 import com.tmtp.web.TMTP.entity.User;
 import com.tmtp.web.TMTP.repository.ChatMessageRepository;
 import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
-import com.tmtp.web.TMTP.web.UserDataFacade;
-import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class ChatServiceImpl implements ChatService {
+    private static final Logger LOG = LoggerFactory.getLogger(ChatServiceImpl.class);
 
     @Value("${PUSHER_APP_ID}")
     private String pusherAppId;
@@ -63,6 +66,8 @@ public class ChatServiceImpl implements ChatService {
     }
 
     private ChatMessage pushMessageToPusher(User user, String text, String room, MessageType messageType) {
+        //TODO Why new instance of pusher is created every time? should it be a long-living object?
+        LOG.debug("About to push [{}] message to [{}] channel", messageType.getText(), room);
         Pusher pusher = new Pusher(pusherAppId, pusherAppKey, pusherSecretKey);
         pusher.setCluster(pusherCluster);
         pusher.setEncrypted(true);
@@ -72,8 +77,17 @@ public class ChatServiceImpl implements ChatService {
         map.put("username", user.getUsername());
         map.put("type", messageType.getText());
 
-        pusher.trigger(room, "new-message", map);
+        if(LOG.isDebugEnabled()) {
+            LOG.debug("Triggering \"new-message\" event to the channel [{}] with contents:\n {}", room, map);
+        }
+        
+        Result pushResult = pusher.trigger(room, "new-message", map);
 
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Push result: [status={}; message={}; httpStatus={}]", pushResult.getStatus().name(), pushResult.getMessage(), pushResult.getHttpStatus());
+        }
+
+        LOG.debug("Archiving chat message...");
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setDateTime(DateTime.now());
         chatMessage.setName(room);
@@ -82,7 +96,8 @@ public class ChatServiceImpl implements ChatService {
         chatMessage.setMessageType(messageType);
 
         // Save message in database
-        chatMessageRepository.save(chatMessage);
-        return chatMessage;
+        ChatMessage saved = chatMessageRepository.save(chatMessage);
+        LOG.debug("Archived [id={}]", saved.getId());
+        return saved;
     }
 }
