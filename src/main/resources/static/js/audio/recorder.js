@@ -124,6 +124,8 @@ DEALINGS IN THE SOFTWARE.
         //console.log(lobbyName);
         fd.append('fname', filename);
         fd.append('file', blob);
+        var id = Date.now() % 3600000;
+        console.log(`Sending audio message [id: ${id}; ${blob.size >> 10} kB] to back-end...`);
         $.ajax({
             type: 'POST',
             url: '/audio-message/' + ('chat-' + lobbyName) +'?messageType=AUDIO',
@@ -131,7 +133,7 @@ DEALINGS IN THE SOFTWARE.
             processData: false,
             contentType: false
         }).done(function(data) {
-            //console.log(data);
+          console.log(`Audio message [id: ${id}] delivered...`);
         });
     }
 

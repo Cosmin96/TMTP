@@ -66,6 +66,7 @@ var TMTPChat = (function(){
       });
       this.channel = this.pusher.subscribe('chat-' + this.id);
       this.channel.bind('new-message', function(data){
+        console.log(`New [${data.type}] message incoming...`);
         self.addMessage(data.message, data.username, data.type === "Audio");
         self.scrollToBottom();
       });
@@ -141,6 +142,7 @@ var TMTPChat = (function(){
     },
     sendMessage: function(){
       var textToSend = this.messageInput.value;
+      console.log(`Sending text message "${textToSend}" to back-end...`);
       if(textToSend.length > 0){
         if(textToSend.length > 1000){
           window.alert("The text can be maximum 1000 characters long!");
