@@ -3,4 +3,7 @@
     <include resource="logback-${spring.profiles.active}.xml"/>
    -->
    <include resource="logback-prod.xml"/>
+   
+   <logger name="com.tmtp.web.TMTP.web.ChatController" level="debug" />
+   <logger name="com.tmtp.web.TMTP.service.ChatServiceImpl" level="debug" />
 </configuration>
