@@ -52,8 +52,10 @@
 
 <div class="row desktopNone">
     <center>
-    <img th:src="@{/img/logobg.png}" width="80%" style="margin-top: 8%"/>
-        <h1 style="font-size: 1.5em !important; color: white; margin-top: 5%">Welcome to the world's first football social app with voice notes</h1>>
+    <img th:src="@{/img/logobg.png}" width="70%" style="margin-top: 8%"/>
+        <h1 style="font-size: 1.5em !important; color: white; margin-top: 5%; width: 80%">
+            Welcome to the world's first football social app with voice notes
+        </h1>
     </center>
 </div>
 
@@ -421,7 +423,7 @@
             });
 
             var randNo = Math.floor((Math.random() * 4) + 1);
-            var imgSource = '/img/products/' + randNo + '.png';
+            var imgSource = '/img/HomeScreenPopup.png';
             var url = $('<textarea/>').html("https://www.amazon.co.uk/s?marketplaceID=A1F83G8C2ARO7P&amp;me=A1VQQ1AFN4DY33&amp;merchant=A1VQQ1AFN4DY33&amp;redirect=true").text();
 
             $('.tingle-modal-box').addClass('make-modal-smaller');
@@ -429,14 +431,12 @@
             $('.tingle-modal-box__footer').addClass('text-center');
 
             // set content
-            modal.setContent('<center><img width="100%" height="auto" align="middle" src="' + imgSource + '"/></center>'
-                + '<center><h6 style="padding-top:4px !important">Hi! Are you looking for the newest Top Bantz products?</h6></center>'
-                + '<center><h6>Check them out on our <a class="text-orange" href="' + url + '">Amazon Page</a></h6></center>');
+            modal.setContent('<center><img width="100%" height="auto" align="middle" src="' + imgSource + '"/></center>');
 
             // add a button to Amazon page
-            modal.addFooterBtn('Shop Now On Amazon!', 'tingle-btn tingle-btn--primary btn-orange', function () {
-                window.location.href = url;
-            });
+            // modal.addFooterBtn('Shop Now On Amazon!', 'tingle-btn tingle-btn--primary btn-orange', function () {
+            //     window.location.href = url;
+            // });
 
             $('.tingle-modal').css('overflow', 'scroll');
 

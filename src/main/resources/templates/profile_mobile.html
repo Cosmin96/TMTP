@@ -107,7 +107,7 @@
                 </div>
             </div>
 
-            <div id="trophy-area" class="row stadiumCard">
+            <div id="trophy-area" class="row stadiumCardBlue">
                 <center>
                     <img th:src="@{'/img/kits/trophies/' + ${user.getTrophy()} + '.png'}" width="80%"/>
                 </center>
@@ -122,7 +122,7 @@
             </div>
         </div>
         <div class="col-md-8 col-xs-12">
-            <div class="stadiumCard">
+            <div class="stadiumCardBlue">
                 <h1 style="color: black; margin-bottom: 5%; padding-left: 3%"><span
                         th:if="${username.equals(user.getUsername())}">My</span><span
                         th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>

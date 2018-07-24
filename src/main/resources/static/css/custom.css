@@ -343,16 +343,18 @@ a:focus{
 }
 
 .stadiumCard{
-    /*background-color: #D8D8D8;*/
-    /*border: solid;*/
-    /*border-color: #2C3E50;*/
-    /*border-radius: 2px;*/
-    /*background-color: #fff;*/
-    /*margin-top: 3%;*/
-    /*align-content: center;*/
-    /*padding-top: 3%;*/
-    /*padding-bottom: 5%;*/
+    background-color: #D8D8D8;
+    border: solid;
+    border-color: #2C3E50;
+    border-radius: 2px;
+    background-color: #fff;
+    margin-top: 3%;
+    align-content: center;
+    padding-top: 3%;
+    padding-bottom: 5%;
+}
 
+.stadiumCardBlue{
     border: solid;
     border-color: #000;
     border-radius: 2px;
@@ -566,6 +568,10 @@ a:focus{
     
     .navbarmargin{
         margin-top:20%;
+    }
+
+    .navbarmargin2{
+        margin-top:17% !important;
     }
 
     .buttonRow{

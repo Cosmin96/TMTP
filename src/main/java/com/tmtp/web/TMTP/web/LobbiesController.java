@@ -1,15 +1,14 @@
 package com.tmtp.web.TMTP.web;
 
-import java.util.List;
-
+import com.tmtp.web.TMTP.entity.ChatMessage;
+import com.tmtp.web.TMTP.entity.User;
+import com.tmtp.web.TMTP.repository.ChatMessageRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tmtp.web.TMTP.entity.ChatMessage;
-import com.tmtp.web.TMTP.entity.User;
-import com.tmtp.web.TMTP.repository.ChatMessageRepository;
+import java.util.List;
 
 @Controller
 public class LobbiesController {
@@ -232,7 +231,7 @@ public class LobbiesController {
             case "aberdeen":
                 n = 55;
                 break;
-            case "corinthians":
+            case "generalBanter":
                 n = 56;
                 break;
             case "leverkusen":
@@ -247,6 +246,7 @@ public class LobbiesController {
         }
 
         model.addAttribute("league", n);
+        model.addAttribute("leagueName", league);
         model.addAttribute("user", user);
         model.addAttribute("fname", user.getFirstName());
         model.addAttribute("username", user.getUsername());
