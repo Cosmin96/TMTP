@@ -429,10 +429,19 @@
 
             $('.tingle-modal-box').addClass('make-modal-smaller');
             $('.tingle-modal-box__content').css('padding', '1px');
-            $('.tingle-modal-box__footer').addClass('text-center');
+            $('.tingle-modal-box__footer').css('display', 'none');
 
             // set content
-            modal.setContent('<center><img width="100%" height="auto" align="middle" src="' + imgSource + '"/></center>');
+            modal.setContent('<div class="container-popup-img"><img width="100%" height="auto" align="middle" style="visibility: hidden;" src="' + imgSource + '"/><div class="centered-img"><h4 align="center" style="transform: translate(2%, 0);">WE WELCOME YOU PUNDITS</h4><br/><ul>' +
+                '<li><h6>ENJOY THE FIRST EVER VOICE ACTIVATION SOCIAL CHAT ROOM WHERE YOU CAN TALK TO YOUR FRIENDS FROM AROUND THE GLOBE IN CLUB LOBBIES AND TOP LEAGUES FROM AROUND THE WORLD. WE HAVE ALL THE LATEST NEWS ON THE FOOTBALL WORLD AND THE TOP LEAGUE TABLES TO KEEP YOU UPDATED 24HRS A DAY.</h6></li>' +
+                '<li><h6>(ONE OF THE GREATEST PARTS ON THE APP IS THAT YOU CAN DO A SELFIE VIDEO OF YOU CELEBRATING YOUR TEAM WIN WE HOPE TO SEE THE BEST CELEBRATION VIDEOS IN THE WORLD FOR YOU AND YOUR FRIENDS TO ENJOY.)</h6></li>' +
+                '<li><h6>WE ARE ONE OF THE FIRST EVER FOOTBALL SOCIAL MEDIA WEB APP TO DO IN APP PURCHASING WHILE ENJOYING THE FOOTBALL BANTER.</h6></li>' +
+                '<li><h6>YOU CAN BUILD UP YOUR PERSONAL PAGE WITH YOUR OWN FOOTBALL KITS AND BUILD UP YOUR OWN STADIUM FROM THE GROUND UP TO A TOP STADIUM.  FIRST STADIUM IS GRASSROOTS TO THE LAST STADIUM WITH SEATING, WALLS AND  CAR PARK THE FULL 3D LOOK.</h6></li>' +
+                '<li><h6>WE ADDED A PAGE ON THE APP WHERE YOU CAN ADVERTISE YOUR OWN BUSINESS TO GET CLIENTS FOR YOUR BUSINESS OR TO GET PEOPLE TO WORK FOR YOUR COMPANY. TOP BANTZ LIKES TO KEEP PEOPLE IN WORK.</h6></li>' +
+                '<li><h6>WE WANT TO SAY THANK YOU FROM ME RICHARD VASSALL  THE FOUNDER OF TOP BANTZ. AND A SPECIAL THANK YOU FROM THE BOARD ROOM MEMBERS.</h6></li>' +
+                '<br/>' +
+                '<h4 style="transform: translate(-2.5%, 0);" align="center">WE HOPE YOUR JOURNEY ON THE TOP BANTZ IS AN AMAZING ONE.</h4>' +
+                '<h4 style="transform: translate(-2.5%, 0);" align="center">THANK YOU.</h4></ul></div></div>');
 
             // add a button to Amazon page
             // modal.addFooterBtn('Shop Now On Amazon!', 'tingle-btn tingle-btn--primary btn-orange', function () {
