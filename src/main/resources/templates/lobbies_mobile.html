@@ -81,7 +81,9 @@
         <!--</center>-->
     <!--</div>-->
     <center><h2 th:if="${lobbyType.equals('league')}" style="color:white !important;">League Lobbies</h2>
-    <h3 th:if="${lobbyType.equals('league')}" style="color:white !important;">Banter with people across the world in your favorite football league</h3></center>
+    <h3 th:if="${lobbyType.equals('league')}" style="color:white !important;">
+        Banter with your teammates from across the globe in your chosen club or league. Or jump in a rival team room to hear what's going on.
+    </h3></center>
     <div th:if="${lobbyType.equals('league')}" class="row">
         <div class="col-md-4 mobile-sm-4">
             <center>
@@ -90,19 +92,19 @@
                 </div>
 
                 <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
-                    <a th:href="@{/mobile/lobby/brasil}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/Brazil.png}" /></a>
+                    <a th:href="@{/mobile/lobby/brasil}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/Brazil.jpg}" /></a>
                 </div>
 
                 <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
                     <a th:href="@{/mobile/lobby/serieA}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/ItalianSerieA.png}" /></a>
                 </div>
 
-                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
-                    <a th:href="@{/mobile/lobby/dutcheredivisie}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/DutchEredivise.png}"/></a>
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important; height: 280px">
+                    <a th:href="@{/mobile/lobby/dutcheredivisie}"><img style="margin-top:20%; margin-left:4%; width: 94%;" th:src="@{/img/lobbies/DutchEredivise.jpg}"/></a>
                 </div>
 
                 <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
-                    <a th:href="@{/mobile/lobby/swiss}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/SwissSuperleague.png}"/></a>
+                    <a th:href="@{/mobile/lobby/swiss}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/SwissSuperleague.jpg}"/></a>
                 </div>
 
                 <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
@@ -130,7 +132,7 @@
                 </div>
 
                 <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
-                    <a th:href="@{/mobile/lobby/usamls}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/USAMLS.gif}"/></a>
+                    <a th:href="@{/mobile/lobby/usamls}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/USAMLS.jpg}"/></a>
                 </div>
 
                 <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
@@ -190,7 +192,9 @@
     </div>
 
     <center><h2 th:if="${lobbyType.equals('club')}" style="color:white !important">Club Lobbies</h2>
-    <h3 th:if="${lobbyType.equals('club')}" style="color:white !important;">Banter with other people from your team. We have chosen the top performing football clubs from across the world</h3></center>
+    <h3 th:if="${lobbyType.equals('club')}" style="color:white !important;">
+        Banter with your teammates from across the globe in your chosen club or league. Or jump in a rival team room to hear what's going on.
+    </h3></center>
     <div th:if="${lobbyType.equals('club')}" class="row">
         <div class="col-md-4 mobile-sm-4">
             <center>

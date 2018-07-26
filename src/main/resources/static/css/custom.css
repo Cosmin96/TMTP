@@ -180,7 +180,8 @@ p { font-family: 'Slabo 27px', serif !important; }
 }
 
 .statsmenu{
-    background-color: #444444; 
+    /*background-color: #444444; */
+    background-color: #13232f;
     border: solid;
     border-color: #2C3E50;
     border-radius: 5px;
