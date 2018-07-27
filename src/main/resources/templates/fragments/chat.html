@@ -72,6 +72,7 @@
         value="Send" />
     </div>
 
+<!-- 
     <div style="display: none">
       <div id="viz">
         <canvas id="analyser" width="1024" height="350"></canvas>
@@ -80,12 +81,12 @@
       </div>
       <a id="save" class="btn btn-success" href="#">Download Audio</a>
     </div>
-
+ -->
   </div>
  
   <th:block th:fragment="scripts(id, total)">
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-    <script src="../static/js/audio/audiodisplay.js" th:src="@{/js/audio/audiodisplay.js}"></script>
+    <!-- <script src="../static/js/audio/audiodisplay.js" th:src="@{/js/audio/audiodisplay.js}"></script> -->
     <script src="../static/js/audio/recorder.js" th:src="@{/js/audio/recorder.js}"></script>
     <script src="../static/js/audio/main.js" th:src="@{/js/audio/main.js}"></script>
     <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
