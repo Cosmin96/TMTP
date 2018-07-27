@@ -55,22 +55,24 @@ function doneEncoding( blob ) {
     recIndex++;
 }
 
-function toggleRecording( e, lobby ) {
-    lobbyName = lobby;
-    if (e.classList.contains("recording")) {
-        // stop recording
-        audioRecorder.stop();
-        e.classList.remove("recording");
-        audioRecorder.getBuffers( gotBuffers );
-    } else {
-        // start recording
-        if (!audioRecorder)
-            return;
-        e.classList.add("recording");
-        audioRecorder.clear();
-        audioRecorder.record();
+var toggleRecording = (function(){
+    var recording = false;
+    return function(e, lobby){
+        lobbyName = lobby;
+        console.log(`${recording ? "Stopping" : "Starting"} recording audio`);
+        if(recording){
+            audioRecorder.stop();
+            audioRecorder.getBuffers(gotBuffers);
+        }else{
+            if(!audioRecorder)
+                return;
+            audioRecorder.clear();
+            audioRecorder.record();
+        }
+        recording = !recording;
+        e.classList.toggle("recording", recording);
     }
-}
+})();
 
 function convertToMono( input ) {
     var splitter = audioContext.createChannelSplitter(2);
