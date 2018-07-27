@@ -80,10 +80,12 @@
         <!--<a class="btn btn-success" href="https://discord.gg/pHnEN2s">Join chat</a>-->
         <!--</center>-->
     <!--</div>-->
+    <div class="row stadiumCardBlue" style="width: 100%; margin-left: 1%">
     <center><h2 th:if="${lobbyType.equals('league')}" style="color:white !important;">League Lobbies</h2>
     <h3 th:if="${lobbyType.equals('league')}" style="color:white !important;">
         Banter with your teammates from across the globe in your chosen club or league. Or jump in a rival team room to hear what's going on.
     </h3></center>
+    </div>
     <div th:if="${lobbyType.equals('league')}" class="row">
         <div class="col-md-4 mobile-sm-4">
             <center>
@@ -99,8 +101,8 @@
                     <a th:href="@{/lobby/serieA}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/ItalianSerieA.png}" /></a>
                 </div>
 
-                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important; height: 280px">
-                    <a th:href="@{/lobby/dutcheredivisie}"><img style="margin-top: 20%; margin-left:4%; width: 94%;" th:src="@{/img/lobbies/DutchEredevise.jpg}"/></a>
+                <div class="row stadiumCard" style="margin-right:2%; width: 80% !important;">
+                    <a th:href="@{/lobby/dutcheredivisie}"><img style="margin-left:4%; width: 94%;" th:src="@{/img/lobbies/DutchEredivise.jpg}"/></a>
                 </div>
 
                 <div class="row stadiumCard" style="margin-right:2%; width: 80% !important">
@@ -191,10 +193,12 @@
         </div>
     </div>
 
+    <div class="row stadiumCardBlue" style="width: 100%; margin-left: 1%">
     <center><h2 th:if="${lobbyType.equals('club')}" style="color:white !important">Club Lobbies</h2>
     <h3 th:if="${lobbyType.equals('club')}" style="color:white !important;">
         Banter with your teammates from across the globe in your chosen club or league. Or jump in a rival team room to hear what's going on.
     </h3></center>
+    </div>
     <div th:if="${lobbyType.equals('club')}" class="row">
         <div class="col-md-4 mobile-sm-4">
             <center>
