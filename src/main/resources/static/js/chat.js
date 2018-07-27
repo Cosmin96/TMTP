@@ -1,7 +1,8 @@
 var TMTPChat = (function(){
-  function TMTPChat(id, total){
+  function TMTPChat(id, total, currentUser){
     this.id = id;
     this.total = total;
+    this.currentUser = currentUser;
     this.recording = false;
     this.autoStopRecording = null;
   }
@@ -112,16 +113,23 @@ var TMTPChat = (function(){
       node.querySelector('.chat-message-author-a').href = '/profile/' + username;
       if(isAudio){
         node.querySelector('.chat-message-content.chat-text').remove();
-        if(TMTPChat.requiresClickToPlayAudio()){
-          node.querySelector('.chat-message-content.chat-wrap').setAttribute('audio-src', message);
-          node.querySelector('audio').remove();
-        }else{
+        if(username == this.username && TMTPChat.mustHideSelfMessage()){
           node.querySelector('.chat-message-content.chat-wrap').remove();
-          node.querySelector('audio source').src = message;
+          node.querySelector('audio').remove();
+        }else {
+          node.querySelector('.chat-message-content.chat-self').remove();
+          if(TMTPChat.requiresClickToPlayAudio()){
+            node.querySelector('.chat-message-content.chat-wrap').setAttribute('audio-src', message);
+            node.querySelector('audio').remove();
+          }else{
+            node.querySelector('.chat-message-content.chat-wrap').remove();
+            node.querySelector('audio source').src = message;
+          }
         }
       }else{
         node.querySelector('.chat-message-content.chat-text').textContent = message;
         node.querySelector('.chat-message-content.chat-wrap').remove();
+        node.querySelector('.chat-message-content.chat-self').remove();
         node.querySelector('audio').remove();
       }
       //use non-virtual node to reference later since document fragment will likely be destroyed
@@ -184,9 +192,16 @@ var TMTPChat = (function(){
   TMTPChat.AUTO_STOP_RECORDING = 10000; //10 sec before automatically stop recording
   TMTPChat.START_MAX_MESSAGES = 30;
   TMTPChat.PUSHER_ID = '6cf8829fd3f2bc2ca22f';
+  
+  function isIOS(){
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;  
+  }
+
   TMTPChat.requiresClickToPlayAudio = function(){
-    // currently just always (here could be a test for iOS device)
-    return true;
+    return isIOS();
+  }
+  TMTPChat.mustHideSelfMessage = function(){
+    return isIOS();
   }
   return TMTPChat;
 })()

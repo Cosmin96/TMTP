@@ -25,6 +25,7 @@
             </font>
             <font class="chat-message-content chat-text">Some message here</font>
             <font class="chat-message-content chat-wrap">Audio message - click to reveal</font>
+            <font class="chat-message-content chat-self">You sent an audio message</font>
             <audio controls="controls">
               <source src="" type="audio/wav" />
             </audio>
@@ -94,6 +95,7 @@
       $(document).ready(function(){
         var id = [[${id}]];
         var total = [[${total}]];
+        var currentUser = [[${username}]];
         new TMTPChat(id, total).init();
       })
     </script>
