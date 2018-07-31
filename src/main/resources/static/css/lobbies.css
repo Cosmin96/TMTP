@@ -1,0 +1,8 @@
+.league-thumb {
+  margin: 0 auto;
+  padding: 15px 0;
+}
+
+.league-thumb > a > img {
+  width: 100%;
+}
