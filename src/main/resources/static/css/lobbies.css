@@ -3,7 +3,13 @@
   padding: 15px 0;
 }
 
-.league-thumb > a > img {
+.league-thumb > a {
+  display: inline-block;
+  text-align: center;
   background-color: white;
+  padding: 5px;
+}
+
+.league-thumb > a > img {
   width: 100%;
 }
