@@ -260,11 +260,22 @@ p {
 }
 
 .postcard {
+     /*background-color: #D8D8D8;*/
+     border: solid;
+     border-color: #000;
+     border-radius: 2px;
+     background-color: #13232f;
+     opacity: 0.9;
+     color: white !important;
+     margin-top: 1%;
+ }
+
+.postcard-red {
     /*background-color: #D8D8D8;*/
     border: solid;
     border-color: #000;
     border-radius: 2px;
-    background-color: #13232f;
+    background-color: #cc3b3e;
     opacity: 0.9;
     color: white !important;
     margin-top: 1%;
