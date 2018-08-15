@@ -44,7 +44,7 @@
 <body class="index" id="page-top" th:background="@{/img/background/grass.png}">
 
 <!-- Navigation -->
-<nav style="z-index: 100 !important;" class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+<nav th:if="isMobile != true" style="z-index: 100 !important;" class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
   <a class="navbar-brand" href="index.html">Top Bantz</a>
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
     Menu
@@ -58,21 +58,6 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="modal" style="cursor: pointer" data-target="#myModal2"><i class="fa fa-question" style="color: white" aria-hidden="true"></i> FAQ</a>
       </li>
-      <!--<li class="nav-item">-->
-      <!--<a class="nav-link" href="store.html">Store</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--<a class="nav-link" href="league.html">Live Scores</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--<a class="nav-link" href="https://discord.gg/pHnEN2s">Chat</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--<a class="nav-link" href="profile.html">My profile</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--<a class="nav-link" href="login.html">Login/Signup</a>-->
-      <!--</li>-->
     </ul>
   </div>
 </nav>
@@ -143,12 +128,14 @@
           <input th:field="*{password}" type="password" th:required="true" autocomplete="off"/>
         </div>
 
-        <h4 style="color:white">Select the team you support:</h4>
-        <div class="field-wrap">
-          <select th:required="true" class="inputLikeSelect" th:field="*{team}"  id="dropOperator">
-            <option style="color: rgb(22, 40, 52) !important;" th:each="team : ${teams}" th:value="${team}" th:text="${team.teamName}"></option>
-          </select>
-        </div>
+        <th:block th:if="isMobile != true">
+          <h4 style="color:white">Select the team you support:</h4>
+          <div class="field-wrap">
+            <select th:required="true" class="inputLikeSelect" th:field="*{team}"  id="dropOperator">
+              <option style="color: rgb(22, 40, 52) !important;" th:each="team : ${teams}" th:value="${team}" th:text="${team.teamName}"></option>
+            </select>
+          </div>
+        </th:block>
 
         <h4 style="color:white">Upload profile photo (max 5mb):</h4>
         <div class="field-wrap">
