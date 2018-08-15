@@ -1,0 +1,35 @@
+.modal-dialog.wide {
+  min-width: 70%;
+}
+
+.terms {
+  padding: 0.1em;
+}
+
+.terms, .terms ul, .terms li, .terms dt, .terms dd, .terms p {
+  font-family: 'Slabo 27px', serif !important;
+  font-size: 20px;
+  text-align: justify;
+}
+
+.terms ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.terms li {
+  padding-left: 1em;
+  text-indent: -0.5em;
+}
+
+.terms p, .terms ul {
+  margin-bottom: 0.5em;
+}
+
+.terms p+ul {
+  margin-top: -0.5em;
+}
+
+.terms h2, .terms h3 {
+  margin-top: 0.5em;
+}
