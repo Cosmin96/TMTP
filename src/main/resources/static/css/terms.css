@@ -17,6 +17,11 @@
   padding: 0;
 }
 
+.terms ul.bulleted li::before {
+  content: "•";
+  padding-right: 0.2em;
+}
+
 .terms li {
   padding-left: 1em;
   text-indent: -0.5em;
