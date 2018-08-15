@@ -1,17 +1,22 @@
 package com.tmtp.web.TMTP.web;
 
-import com.tmtp.web.TMTP.dto.CloudinaryObject;
-import com.tmtp.web.TMTP.dto.enums.FileType;
-import com.tmtp.web.TMTP.entity.PrivateLobby;
-import com.tmtp.web.TMTP.entity.Team;
-import com.tmtp.web.TMTP.entity.User;
-import com.tmtp.web.TMTP.entity.VideoPosts;
-import com.tmtp.web.TMTP.repository.ShopItemRepository;
-import com.tmtp.web.TMTP.security.SecurityService;
-import com.tmtp.web.TMTP.security.UserService;
-import com.tmtp.web.TMTP.security.UserValidator;
-import com.tmtp.web.TMTP.service.StorageService;
-import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
+import static org.springframework.http.HttpHeaders.USER_AGENT;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,17 +35,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.*;
-
-import static org.springframework.http.HttpHeaders.USER_AGENT;
+import com.tmtp.web.TMTP.dto.CloudinaryObject;
+import com.tmtp.web.TMTP.dto.enums.FileType;
+import com.tmtp.web.TMTP.entity.PrivateLobby;
+import com.tmtp.web.TMTP.entity.Team;
+import com.tmtp.web.TMTP.entity.User;
+import com.tmtp.web.TMTP.entity.VideoPosts;
+import com.tmtp.web.TMTP.security.SecurityService;
+import com.tmtp.web.TMTP.security.UserService;
+import com.tmtp.web.TMTP.security.UserValidator;
+import com.tmtp.web.TMTP.service.cloud.CloudStorageService;
 
 @Controller
 public class LoginController {
