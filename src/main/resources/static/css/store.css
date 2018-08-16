@@ -1,0 +1,11 @@
+.buy-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 5px;
+}
+
+.buy-buttons>* {
+  display: inline-block;
+  flex: 0 1 auto;
+}
