@@ -104,47 +104,7 @@
   </div>
 
     <div class="container" th:if="${not user.getPrivateLobby()}">
-        <div class="row" style="margin-top: 5%">
-            <center>
-            <!--<h4 style="color:white">Banter live using voice and video when you purchase a VIP Lobby:</h4>-->
-            </center>
-        </div>
-        <div class="row">
-            <div class="col-xs-12" style="margin-top: 5%; margin-left: auto; margin-right: auto">
-              <center>
-                <div class="cards">
-                    <img th:src="@{'/img/VIP.png'}" alt="Avatar" width="325px" height="325px" />
-                    <div class="cards-container">
-                      <h3>Buy VIP Lobby</h3>
-                      <div class="buy-buttons">
-                        <div>
-                          <a th:if="${user.getPoints().getGreen()} lt 50" class="btn btn-success" style="background-color:#333 !important;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="50Pts">Buy</span></a>
-                          <a th:if="${user.getPoints().getGreen()} ge 50" th:href="@{'/lobby/create/points'}" class="btn btn-success" style="cursor: pointer;"><i class="fa fa-square" style="color: #00ff00; text-shadow: 0px 0px 10px #fff;" aria-hidden="true"></i> <span style="color:white" th:text="50Pts">Buy</span></a>
-                        </div>
-                        <div>
-                          <form th:action="@{'/lobby/create/card'}" method="POST">
-                            <input type='hidden' value="99" name='amount' />
-                            <script
-                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    th:attr='data-key=${stripePublicKey},
-                                        data-currency=${currency}'
-                                    data-amount="99"
-                                    data-label="£0.99"
-                                    data-description="Banter live using voice and video when you purchase a VIP Lobby"
-                                    data-name="Top Bantz"
-                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                    data-locale="auto"
-                                    data-zip-code="true"
-                                    data-currency="gbp">
-                            </script>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-              </center>
-            </div>
-        </div>
+      <div th:replace="fragments/vip-card :: card('/lobby/create')"></div>
     </div>
     
 <!-- Backup insertion point -->
