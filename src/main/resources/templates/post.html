@@ -88,7 +88,7 @@
             <div class="videocard" th:classappend="${post.isFlagged() and user.getAdmin()} ? videocardflag : nothing">
                 <div class="row" style="margin-left: 5%; margin-top:3%">
                     <div class="col-sm-5">
-                        <p align="left" style="color: black"><img th:src="${post.getUser().getProfileImageUrl()}" width="50px" height="50px" />  <a th:href="@{'/profile/' + ${post.getCreator()}}"><span th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></a></p>
+                        <p align="left"><img th:src="${post.getUser().getProfileImageUrl()}" width="50px" height="50px" />  <a th:href="@{'/profile/' + ${post.getCreator()}}"><span th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></span></a></p>
                     </div>
                     <div class="col-sm-7">
                         <a th:if="${not user.getAdmin() and not post.isFlagged()}" style="background-color: #cc3b3e !important; float:right; margin-right: 2%" class="btn btn-danger" th:href="@{'/post/' + ${post.getId()} + '/flag'}">
@@ -104,7 +104,7 @@
                 </div>
 
                 <div class="row" style="margin-left: 5%;">
-                    <p align="left" style="color: black;" th:text="${post.getDescription()}"></p>
+                    <p align="left" th:text="${post.getDescription()}"></p>
                 </div>
 
                 <div class="row" style="margin-left: 5%;">
