@@ -10,6 +10,10 @@ var TMTPChat = (function(){
   TMTPChat.prototype = {
     init: function(){
       this.buttonRec = document.getElementById('recordButton');
+      if(isIOS()){
+        this.buttonRec && this.buttonRec.remove();
+        this.buttonRec = null;
+      }
       this.messageList = document.getElementById('chat-' + this.id);
       this.loadMoreButton = document.getElementById('load-more');
       this.messageTemplate = document.getElementById('chat-message-template');
@@ -35,12 +39,14 @@ var TMTPChat = (function(){
     },
     installViewListeners: function(){
       var self = this;
-      $(this.buttonRec).click(function(){
-        if(!self.recording)
-          self.startRecording();
-        else
-          self.stopRecording();
-      });
+      if(this.buttonRec){
+        $(this.buttonRec).click(function(){
+            if(!self.recording)
+              self.startRecording();
+            else
+              self.stopRecording();
+          });
+      }
 
       $(this.loadMoreButton).click(function(){
         self.loadMore();
