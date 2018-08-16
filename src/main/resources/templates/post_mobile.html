@@ -150,9 +150,9 @@
                             <img th:src="${comment.getUser().getProfileImageUrl()}" width="50px" height="50px" />
                         </div>
                         <div class="col-md-11">
-                            <p align="left" style="margin-left: 3%; color: black"><a th:href="@{'/profile/' + ${comment.getUser().getUsername()}}"><span th:text="${comment.getUser().getFirstName()} + ' ' + ${comment.getUser().getLastName()}"></span></a><span th:text="' ' + ${comment.getComment()}"></span></p>
-                            <p align="left" style="margin-left: 3%; margin-top: -10px; color: black; font-size:15px;"><span th:text="${comment.getDate()}"></span></p><br />
-                            <p align="left" style="margin-left: 3%; color: black; font-size:15px;" th:if="${user.getAdmin()}"><a th:href="@{'/post/' + ${post.getId()} + '/' + ${comment.getId()} + '/delete/'}"><i class="fa fa-times" aria-hidden="true"></i> Delete comment</a></p>
+                            <p align="left" style="margin-left: 3%;"><a th:href="@{'/profile/' + ${comment.getUser().getUsername()}}"><span th:text="${comment.getUser().getFirstName()} + ' ' + ${comment.getUser().getLastName()}"></span></a><span th:text="' ' + ${comment.getComment()}"></span></p>
+                            <p align="left" style="margin-left: 3%; margin-top: -10px; font-size:15px;"><span th:text="${comment.getDate()}"></span></p><br />
+                            <p align="left" style="margin-left: 3%; font-size:15px;" th:if="${user.getAdmin()}"><a th:href="@{'/post/' + ${post.getId()} + '/' + ${comment.getId()} + '/delete/'}"><i class="fa fa-times" aria-hidden="true"></i> Delete comment</a></p>
                         </div>
 
                     </div>
