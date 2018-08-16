@@ -113,7 +113,7 @@ var TMTPChat = (function(){
       node.querySelector('.chat-message-author-a').href = '/profile/' + username;
       if(isAudio){
         node.querySelector('.chat-message-content.chat-text').remove();
-        if(username == this.username && TMTPChat.mustHideSelfMessage()){
+        if(username == this.currentUser && TMTPChat.mustHideSelfMessage()){
           node.querySelector('.chat-message-content.chat-wrap').remove();
           node.querySelector('audio').remove();
         }else {
