@@ -6,6 +6,7 @@
 </head>
 <body>
   <div th:fragment="chat(id, messages, isPrivate)" class="chat-bar margin-top">
+    <link href="../../static/css/custom.css" th:href="@{/css/chat.css}" rel="stylesheet" />
     <div style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)" class="paddinger-20-nobottom">
       <h4 class="bold" style="color: #000 !important;"><th:block th:if="${isPrivate}">Private </th:block>Chat</h4>
     </div>
@@ -62,15 +63,13 @@
       </div>
     </div>
 
-    <div style="border-top: 1px solid rgba(0, 0, 0, 0.1)" class="paddinger-20">
-      <input id="message-text" type="text" class="input-message chat-field chat-field-large"
-        placeholder="Write a message..." />
+    <div class="chat-toolbar">
+      <input id="message-text" type="text" class="input-message chat-field" placeholder="Write a message..." />
       <button class="btn btn-success" id="recordButton">
         <i id="notRecording" class="fa fa-microphone" style="color: white"></i>
         <i id="Recording" class="fa fa-circle" style="display: none; color: red"></i>
       </button>
-      <input id="send-message-id" style="margin-left: 10px;" type="button" class="send-message btn btn-success"
-        value="Send" />
+      <button id="send-message-id" type="button" class="send-message btn btn-success">Send</button>
     </div>
 
 <!-- 
