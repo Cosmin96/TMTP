@@ -19,18 +19,20 @@
             <li th:if="${user.getAdmin()}" class="nav-item">
                 <a class="nav-link" th:href="@{/admin}">Admin</a>
             </li>
-            <li class="nav-item" th:if="${not user.getBanned()}">
+            <!-- Commenting Store (23-Aug-2018) -->
+            <!--<li class="nav-item" th:if="${not user.getBanned()}">
                 <a class="nav-link" th:href="@{/shop}"><i class="fa fa-shopping-cart" style="color: white" aria-hidden="true"></i> Store</a>
-            </li>
+            </li>-->
             <li class="nav-item" th:if="${not user.getBanned()}">
                 <a class="nav-link" th:href="@{/lobbies/league}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Top Leagues</a>
             </li>
             <li class="nav-item" th:if="${not user.getBanned()}">
                 <a class="nav-link" th:href="@{/lobbies/club}"><i class="fa fa-futbol-o" style="color: white" aria-hidden="true"></i> Club Lobbies</a>
             </li>
-            <li class="nav-item">
+            <!-- Commenting Donations (23-Aug-2018) -->
+            <!--<li class="nav-item">
                 <a class="nav-link" href="https://www.gofundme.com/topbantz"><i class="fa fa-usd" style="color: white" aria-hidden="true"></i> Donate</a>
-            </li>
+            </li>-->
             <li class="nav-item">
                 <a class="nav-link" href="https://www.youtube.com/user/topmentruepundits"><i class="fa fa-bullhorn" style="color: white" aria-hidden="true"></i> Bantz</a>
             </li>
