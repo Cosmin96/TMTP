@@ -10,10 +10,11 @@ var TMTPChat = (function(){
   TMTPChat.prototype = {
     init: function(){
       this.buttonRec = document.getElementById('recordButton');
-      if(isIOS()){
+      /* Removed until this is fixed for iOs devices: 23 August 2018 */
+      /*if(isIOS()){
         this.buttonRec && this.buttonRec.remove();
         this.buttonRec = null;
-      }
+      }*/
       this.messageList = document.getElementById('chat-' + this.id);
       this.loadMoreButton = document.getElementById('load-more');
       this.messageTemplate = document.getElementById('chat-message-template');
