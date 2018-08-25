@@ -1,5 +1,6 @@
 var TMTPChat = (function(){
-  function TMTPChat(id, total, currentUser){
+  function TMTPChat(id, total, currentUser, settings){
+    this.initSettings(settings);
     this.id = id;
     this.total = total;
     this.currentUser = currentUser;
@@ -8,9 +9,21 @@ var TMTPChat = (function(){
   }
 
   TMTPChat.prototype = {
+    initSettings: function(settings){
+      settings = Object.assign({}, TMTPChat.defaultSettings, settings || {});
+      for ( var property in settings){
+        // replacing any literal value with function returning that value
+        if(typeof (settings[property]) !== 'function'){
+          settings[property] = (function(value){
+            return function(){ return value; }
+          })(settings[property]);
+        }
+      }
+      this.settings = settings;
+    },
     init: function(){
       this.buttonRec = document.getElementById('recordButton');
-      if(TMTPChat.shouldHideAudioRecording()){
+      if(this.settings.shouldHideAudioRecording()){
         this.buttonRec && this.buttonRec.remove();
         this.buttonRec = null;
       }
@@ -119,12 +132,12 @@ var TMTPChat = (function(){
       node.querySelector('.chat-message-author-a').href = '/profile/' + username;
       if(isAudio){
         node.querySelector('.chat-message-content.chat-text').remove();
-        if(username == this.currentUser && TMTPChat.mustHideSelfMessage()){
+        if(username == this.currentUser && this.settings.mustHideSelfMessage()){
           node.querySelector('.chat-message-content.chat-wrap').remove();
           node.querySelector('audio').remove();
         }else {
           node.querySelector('.chat-message-content.chat-self').remove();
-          if(TMTPChat.requiresClickToPlayAudio()){
+          if(this.settings.requiresClickToPlayAudio()){
             node.querySelector('.chat-message-content.chat-wrap').setAttribute('audio-src', message);
             node.querySelector('audio').remove();
           }else{
@@ -198,26 +211,11 @@ var TMTPChat = (function(){
   TMTPChat.AUTO_STOP_RECORDING = 10000; //10 sec before automatically stop recording
   TMTPChat.START_MAX_MESSAGES = 30;
   TMTPChat.PUSHER_ID = '6cf8829fd3f2bc2ca22f';
-  
-  function isAndroid(userAgent) {
-    userAgent = (userAgent || navigator.userAgent || '').toLowerCase();
-    return userAgent.indexOf("android") > -1; // it goes 99% correct but fails to detect *some* android devices
-  }
-  function isIOS(userAgent){
-    userAgent = (userAgent || navigator.userAgent || '').toLowerCase();
-    return /ipad|iphone|ipod/.test(userAgent) && !window.MSStream;  
+  TMTPChat.defaultSettings = {
+    requiresClickToPlayAudio: false,
+    shouldHideAudioRecording: false,
+    mustHideSelfMessage: false
   }
 
-  TMTPChat.requiresClickToPlayAudio = function(){
-    var userAgent = navigator.userAgent;
-    return isIOS(userAgent) && !isAndroid(userAgent);
-  }
-  TMTPChat.shouldHideAudioRecording = function(){
-    var userAgent = navigator.userAgent;
-    return isIOS(userAgent) && !isAndroid(userAgent);
-  }
-  TMTPChat.mustHideSelfMessage = function(){
-    return false; // 25 Aug: never hiding self message
-  }
   return TMTPChat;
 })()
