@@ -10,11 +10,10 @@ var TMTPChat = (function(){
   TMTPChat.prototype = {
     init: function(){
       this.buttonRec = document.getElementById('recordButton');
-      /* Removed until this is fixed for iOs devices: 23 August 2018 */
-      /*if(isIOS()){
+      if(TMTPChat.shouldHideAudioRecording()){
         this.buttonRec && this.buttonRec.remove();
         this.buttonRec = null;
-      }*/
+      }
       this.messageList = document.getElementById('chat-' + this.id);
       this.loadMoreButton = document.getElementById('load-more');
       this.messageTemplate = document.getElementById('chat-message-template');
@@ -200,15 +199,25 @@ var TMTPChat = (function(){
   TMTPChat.START_MAX_MESSAGES = 30;
   TMTPChat.PUSHER_ID = '6cf8829fd3f2bc2ca22f';
   
-  function isIOS(){
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;  
+  function isAndroid(userAgent) {
+    userAgent = (userAgent || navigator.userAgent || '').toLowerCase();
+    return userAgent.indexOf("android") > -1; // it goes 99% correct but fails to detect *some* android devices
+  }
+  function isIOS(userAgent){
+    userAgent = (userAgent || navigator.userAgent || '').toLowerCase();
+    return /ipad|iphone|ipod/.test(userAgent) && !window.MSStream;  
   }
 
   TMTPChat.requiresClickToPlayAudio = function(){
-    return isIOS();
+    var userAgent = navigator.userAgent;
+    return isIOS(userAgent) && !isAndroid(userAgent);
+  }
+  TMTPChat.shouldHideAudioRecording = function(){
+    var userAgent = navigator.userAgent;
+    return isIOS(userAgent) && !isAndroid(userAgent);
   }
   TMTPChat.mustHideSelfMessage = function(){
-    return isIOS();
+    return false; // 25 Aug: never hiding self message
   }
   return TMTPChat;
 })()
