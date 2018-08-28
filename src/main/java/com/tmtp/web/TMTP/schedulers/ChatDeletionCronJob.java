@@ -13,7 +13,7 @@ public class ChatDeletionCronJob {
         this.chatMessageRepository = chatMessageRepository;
     }
 
-    @Scheduled(fixedRate = 1728000000)
+    @Scheduled(fixedRate = 86400000)
     public void reportCurrentTime() {
         chatMessageRepository.deleteAll();
     }
