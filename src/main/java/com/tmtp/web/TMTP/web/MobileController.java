@@ -419,7 +419,9 @@ public class MobileController {
         model.addAttribute("greenPoints", pageuser.getPoints().getGreen());
         model.addAttribute("yellowPoints", pageuser.getPoints().getYellow());
         model.addAttribute("redPoints", pageuser.getPoints().getRed());
-        return "profile_mobile";
+        model.addAttribute("isMobile", true);
+
+        return "profile";
     }
 
     @RequestMapping("/mobile/profile/{username}/stadiumUpgrade")

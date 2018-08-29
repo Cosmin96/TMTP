@@ -1,12 +1,13 @@
 package com.tmtp.web.TMTP.web;
 
-import com.tmtp.web.TMTP.entity.User;
-import com.tmtp.web.TMTP.security.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.tmtp.web.TMTP.entity.User;
+import com.tmtp.web.TMTP.security.UserService;
 
 @Controller
 public class ProfileController {
