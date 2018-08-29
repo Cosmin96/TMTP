@@ -152,8 +152,9 @@
               </div>
               <div class="col-sm-4" style="float: left">
                 <br />
-                <br />
-                <br /> <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}"
+                <br/>
+                <br/>
+                <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}"
                   width="150px" height="150px" />
               </div>
             </div>
@@ -346,6 +347,16 @@
 <!--Watermark library-->
 <script src="../static/js/jquery.watermark.min.js" th:src="@{/js/jquery.watermark.min.js}"></script>
 
+<script>
+    function copyToClipboard(element) {
+        var $temp = $("<input />");
+        $("body").append($temp);
+        $temp.val($(element).val()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+</script>
+
 <script th:inline="javascript">
     var url = '/img/overlays/' + [[${user.getOverlay()}]] + '.png';
     $(function () {
@@ -432,16 +443,6 @@
             $('.top-ads-container').css('marginTop', '10%');
         }
     });
-</script>
-
-<script>
-    function copyToClipboard(element) {
-        var $temp = $("<input />");
-        $("body").append($temp);
-        $temp.val($(element).val()).select();
-        document.execCommand("copy");
-        $temp.remove();
-    }
 </script>
 
 <script>
