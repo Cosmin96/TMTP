@@ -89,14 +89,15 @@
     <!-- <script src="../static/js/audio/audiodisplay.js" th:src="@{/js/audio/audiodisplay.js}"></script> -->
     <script src="../static/js/audio/recorder.js" th:src="@{/js/audio/recorder.js}"></script>
     <script src="../static/js/audio/main.js" th:src="@{/js/audio/main.js}"></script>
+    <script src="../static/js/chat-settings.js" th:src="@{/js/chat-settings.js}"></script>
     <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
     <script th:inline="javascript">
       $(document).ready(function(){
         var id = [[${id}]];
         var total = [[${total}]];
         var currentUser = [[${username}]];
-        new TMTPChat(id, total, currentUser).init();
-      })
+        new TMTPChat(id, total, currentUser, TMTPChatSettings).init();
+      });
     </script>
   </th:block>
 </body>
