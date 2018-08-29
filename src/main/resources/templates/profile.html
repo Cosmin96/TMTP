@@ -37,7 +37,7 @@
 
 </head>
 
-<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat">
+<body class="index" id="page-top" th:background="@{/img/background/grass.png}" style="background-repeat: repeat" th:classappend="${isMobile == true} ? 'mobile' : 'desktop'">
 
 <!-- Navigation -->
 <th:block th:if="${isMobile != true}">
