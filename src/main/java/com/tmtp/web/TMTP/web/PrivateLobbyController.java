@@ -51,6 +51,8 @@ public class PrivateLobbyController {
 
         int lastNMessages = 30;
         List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + privateLobby.getId());
+        Collections.sort(chatMessages);
+
         int total = chatMessages.size();
 
         if(total > 30) {

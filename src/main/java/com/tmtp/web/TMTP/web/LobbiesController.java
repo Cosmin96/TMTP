@@ -1,5 +1,6 @@
 package com.tmtp.web.TMTP.web;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,8 @@ public class LobbiesController {
         
         int lastNMessages = 30;
         List<ChatMessage> chatMessages = chatMessageRepository.findByName("chat-" + lobbyIndex);
+        Collections.sort(chatMessages);
+
         int total = chatMessages.size();
 
         if(total > 30) {

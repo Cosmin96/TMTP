@@ -1,8 +1,9 @@
 package com.tmtp.web.TMTP.entity;
 
-import com.tmtp.web.TMTP.dto.enums.MessageType;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
+
+import com.tmtp.web.TMTP.dto.enums.MessageType;
 
 public class ChatMessage implements Comparable<ChatMessage>{
 
@@ -76,6 +77,6 @@ public class ChatMessage implements Comparable<ChatMessage>{
 
     @Override
     public int compareTo(ChatMessage chatMessage) {
-        return chatMessage.getDateTime().compareTo(this.getDateTime());
+        return this.getDateTime().compareTo(chatMessage.getDateTime()); // older first
     }
 }
