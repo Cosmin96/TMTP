@@ -132,37 +132,29 @@
         </div>
         <div class="col-md-8 col-xs-12">
 
-          <div id="kit-area" class="profileCard">
-            <div class="row">
-              <div class="col-sm-8" style="float: right">
-                <img th:src="@{'/img/kits/profile/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}" width="80%"
-                  height="auto" />
-              </div>
-            </div>
-  
-            <div class="row">
-              <div class="col-sm-8" style="float: right">
-                <img th:src="@{'/img/kits/profile/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}" width="80%"
-                  height="auto" />
-              </div>
-            </div>
-  
-            <div class="row">
-              <div class="col-sm-8" style="float: right">
-                <img th:src="@{'/img/kits/profile/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}" width="80%"
-                  height="auto" />
-              </div>
-              <div class="col-sm-4" style="float: left">
-                <br />
-                <br/>
-                <br/>
-                <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}"
-                  width="150px" height="150px" />
-              </div>
-            </div>
+        <div id="kit-area" class="profileCard">
+          <div class="wear-box jacket-box">
+            <img th:src="@{'/img/kits/profile/jackets/' + ${user.getPlayerKit().getJacket()} +'.png'}"
+              th:alt="${'Player jacket: ' + user.getPlayerKit().getJacket()}" />
           </div>
 
-            <div class="stadiumCardBlue">
+          <div class="wear-box shorts-box">
+            <img th:src="@{'/img/kits/profile/shorts/' + ${user.getPlayerKit().getShorts()} +'.png'}"
+              th:alt="${'Player shorts: ' + user.getPlayerKit().getShorts()}" />
+          </div>
+
+          <div class="wear-box socks-box">
+            <img th:src="@{'/img/kits/profile/socks/' + ${user.getPlayerKit().getSocks()} +'.png'}"
+              th:alt="${'Player socks: ' + user.getPlayerKit().getSocks()}" />
+          </div>
+
+          <div class="ball-box">
+            <img th:src="@{'/img/kits/footballs/' + ${user.getPlayerKit().getFootball()} +'.png'}"
+              th:alt="${'Player football: ' + user.getPlayerKit().getFootball()}" />
+          </div>
+        </div>
+
+        <div class="stadiumCardBlue">
                 <h1 style="color: white; margin-bottom: 5%; padding-left: 3%"><span
                         th:if="${username.equals(user.getUsername())}">My</span><span
                         th:if="${not username.equals(user.getUsername())}" th:text="${user.getUsername() + '''s '}"></span>
